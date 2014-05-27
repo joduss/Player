@@ -14,14 +14,19 @@
 		C800DE4518914E3C00A5C4A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE4418914E3C00A5C4A9 /* main.m */; };
 		C800DE4918914E3C00A5C4A9 /* RPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE4818914E3C00A5C4A9 /* RPAppDelegate.m */; };
 		C800DE4C18914E3C00A5C4A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C800DE4A18914E3C00A5C4A9 /* Main.storyboard */; };
-		C800DE4F18914E3C00A5C4A9 /* RPFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE4E18914E3C00A5C4A9 /* RPFirstViewController.m */; };
-		C800DE5218914E3C00A5C4A9 /* RPSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE5118914E3C00A5C4A9 /* RPSecondViewController.m */; };
 		C800DE5418914E3C00A5C4A9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C800DE5318914E3C00A5C4A9 /* Images.xcassets */; };
 		C800DE5B18914E3C00A5C4A9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C800DE5A18914E3C00A5C4A9 /* XCTest.framework */; };
 		C800DE5C18914E3C00A5C4A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C800DE3818914E3C00A5C4A9 /* Foundation.framework */; };
 		C800DE5D18914E3C00A5C4A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C800DE3C18914E3C00A5C4A9 /* UIKit.framework */; };
 		C800DE6518914E3C00A5C4A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C800DE6318914E3C00A5C4A9 /* InfoPlist.strings */; };
 		C800DE6718914E3C00A5C4A9 /* RandomPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */; };
+		C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10518A8EBBE001A088F /* RPMediaListTVC.m */; };
+		C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10818A8F88E001A088F /* RPAlbumListTVC.m */; };
+		C85D23E318A42F0400D9B5AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */; };
+		C86C95CF18B223BB00409EC5 /* RPArtistListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */; };
+		C8A6D9EB18A96FB100912849 /* PMInfoFormattedForTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */; };
+		C8A6D9EE18A971E100912849 /* RPDictionaryIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */; };
+		C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DE09B91933D47500796E5F /* RPPlayerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,16 +51,26 @@
 		C800DE4718914E3C00A5C4A9 /* RPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPAppDelegate.h; sourceTree = "<group>"; };
 		C800DE4818914E3C00A5C4A9 /* RPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RPAppDelegate.m; sourceTree = "<group>"; };
 		C800DE4B18914E3C00A5C4A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C800DE4D18914E3C00A5C4A9 /* RPFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPFirstViewController.h; sourceTree = "<group>"; };
-		C800DE4E18914E3C00A5C4A9 /* RPFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RPFirstViewController.m; sourceTree = "<group>"; };
-		C800DE5018914E3C00A5C4A9 /* RPSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPSecondViewController.h; sourceTree = "<group>"; };
-		C800DE5118914E3C00A5C4A9 /* RPSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RPSecondViewController.m; sourceTree = "<group>"; };
 		C800DE5318914E3C00A5C4A9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C800DE5918914E3C00A5C4A9 /* RandomPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C800DE5A18914E3C00A5C4A9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C800DE6218914E3C00A5C4A9 /* RandomPlayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RandomPlayerTests-Info.plist"; sourceTree = "<group>"; };
 		C800DE6418914E3C00A5C4A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RandomPlayerTests.m; sourceTree = "<group>"; };
+		C814D10418A8EBBE001A088F /* RPMediaListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPMediaListTVC.h; sourceTree = "<group>"; };
+		C814D10518A8EBBE001A088F /* RPMediaListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPMediaListTVC.m; sourceTree = "<group>"; };
+		C814D10718A8F88E001A088F /* RPAlbumListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPAlbumListTVC.h; sourceTree = "<group>"; };
+		C814D10818A8F88E001A088F /* RPAlbumListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPAlbumListTVC.m; sourceTree = "<group>"; };
+		C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		C86C95CD18B223BB00409EC5 /* RPArtistListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPArtistListTVC.h; sourceTree = "<group>"; };
+		C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPArtistListTVC.m; sourceTree = "<group>"; };
+		C8A6D9E818A96E0400912849 /* DebugDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugDefines.h; sourceTree = "<group>"; };
+		C8A6D9E918A96FB100912849 /* PMInfoFormattedForTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMInfoFormattedForTV.h; sourceTree = "<group>"; };
+		C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMInfoFormattedForTV.m; sourceTree = "<group>"; };
+		C8A6D9EC18A971E100912849 /* RPDictionaryIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPDictionaryIndexPath.h; sourceTree = "<group>"; };
+		C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPDictionaryIndexPath.m; sourceTree = "<group>"; };
+		C8DE09B81933D47500796E5F /* RPPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPlayerViewController.h; sourceTree = "<group>"; };
+		C8DE09B91933D47500796E5F /* RPPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPlayerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C85D23E318A42F0400D9B5AB /* MediaPlayer.framework in Frameworks */,
 				C800DE3B18914E3C00A5C4A9 /* CoreGraphics.framework in Frameworks */,
 				C800DE3D18914E3C00A5C4A9 /* UIKit.framework in Frameworks */,
 				C800DE3918914E3C00A5C4A9 /* Foundation.framework in Frameworks */,
@@ -104,6 +120,7 @@
 		C800DE3718914E3C00A5C4A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */,
 				C800DE3818914E3C00A5C4A9 /* Foundation.framework */,
 				C800DE3A18914E3C00A5C4A9 /* CoreGraphics.framework */,
 				C800DE3C18914E3C00A5C4A9 /* UIKit.framework */,
@@ -118,11 +135,19 @@
 				C800DE4718914E3C00A5C4A9 /* RPAppDelegate.h */,
 				C800DE4818914E3C00A5C4A9 /* RPAppDelegate.m */,
 				C800DE4A18914E3C00A5C4A9 /* Main.storyboard */,
-				C800DE4D18914E3C00A5C4A9 /* RPFirstViewController.h */,
-				C800DE4E18914E3C00A5C4A9 /* RPFirstViewController.m */,
-				C800DE5018914E3C00A5C4A9 /* RPSecondViewController.h */,
-				C800DE5118914E3C00A5C4A9 /* RPSecondViewController.m */,
+				C8DE09B81933D47500796E5F /* RPPlayerViewController.h */,
+				C8DE09B91933D47500796E5F /* RPPlayerViewController.m */,
+				C814D10718A8F88E001A088F /* RPAlbumListTVC.h */,
+				C814D10818A8F88E001A088F /* RPAlbumListTVC.m */,
+				C86C95CD18B223BB00409EC5 /* RPArtistListTVC.h */,
+				C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */,
+				C814D10418A8EBBE001A088F /* RPMediaListTVC.h */,
+				C814D10518A8EBBE001A088F /* RPMediaListTVC.m */,
 				C800DE5318914E3C00A5C4A9 /* Images.xcassets */,
+				C8A6D9E918A96FB100912849 /* PMInfoFormattedForTV.h */,
+				C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */,
+				C8A6D9EC18A971E100912849 /* RPDictionaryIndexPath.h */,
+				C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */,
 				C800DE3F18914E3C00A5C4A9 /* Supporting Files */,
 			);
 			path = RandomPlayer;
@@ -135,6 +160,7 @@
 				C800DE4118914E3C00A5C4A9 /* InfoPlist.strings */,
 				C800DE4418914E3C00A5C4A9 /* main.m */,
 				C800DE4618914E3C00A5C4A9 /* RandomPlayer-Prefix.pch */,
+				C8A6D9E818A96E0400912849 /* DebugDefines.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -255,10 +281,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C800DE5218914E3C00A5C4A9 /* RPSecondViewController.m in Sources */,
+				C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */,
+				C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */,
 				C800DE4918914E3C00A5C4A9 /* RPAppDelegate.m in Sources */,
-				C800DE4F18914E3C00A5C4A9 /* RPFirstViewController.m in Sources */,
+				C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */,
+				C8A6D9EB18A96FB100912849 /* PMInfoFormattedForTV.m in Sources */,
 				C800DE4518914E3C00A5C4A9 /* main.m in Sources */,
+				C8A6D9EE18A971E100912849 /* RPDictionaryIndexPath.m in Sources */,
+				C86C95CF18B223BB00409EC5 /* RPArtistListTVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +497,7 @@
 				C800DE6C18914E3C00A5C4A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C800DE6D18914E3C00A5C4A9 /* Build configuration list for PBXNativeTarget "RandomPlayerTests" */ = {
 			isa = XCConfigurationList;
@@ -475,6 +506,7 @@
 				C800DE6F18914E3C00A5C4A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

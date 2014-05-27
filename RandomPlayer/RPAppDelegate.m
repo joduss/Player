@@ -7,12 +7,24 @@
 //
 
 #import "RPAppDelegate.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @implementation RPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    // instantiate a music player
+    MPMusicPlayerController *myPlayer =
+    [MPMusicPlayerController applicationMusicPlayer];
+    
+    // assign a playback queue containing all media items on the device
+    [myPlayer setQueueWithQuery: [MPMediaQuery songsQuery]];
+    
+    // start playing from the beginning of the queue
+    [myPlayer play];
+    
     return YES;
 }
 							

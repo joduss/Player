@@ -26,6 +26,8 @@
 		C85D23E318A42F0400D9B5AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */; };
 		C86C95CF18B223BB00409EC5 /* RPArtistListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */; };
 		C88BEFFD19377BC4006C7CE5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BEFFC19377BC4006C7CE5 /* SWRevealViewController.m */; };
+		C88BF0001937842E006C7CE5 /* RPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BEFFF1937842E006C7CE5 /* RPTabBarController.m */; };
+		C88BF00319378501006C7CE5 /* RPQueueTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BF00219378501006C7CE5 /* RPQueueTVC.m */; };
 		C8A6D9EB18A96FB100912849 /* PMInfoFormattedForTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */; };
 		C8A6D9EE18A971E100912849 /* RPDictionaryIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */; };
 		C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DE09B91933D47500796E5F /* RPPlayerViewController.m */; };
@@ -69,6 +71,10 @@
 		C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPArtistListTVC.m; sourceTree = "<group>"; };
 		C88BEFFB19377BC4006C7CE5 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		C88BEFFC19377BC4006C7CE5 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		C88BEFFE1937842E006C7CE5 /* RPTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPTabBarController.h; sourceTree = "<group>"; };
+		C88BEFFF1937842E006C7CE5 /* RPTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPTabBarController.m; sourceTree = "<group>"; };
+		C88BF00119378501006C7CE5 /* RPQueueTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPQueueTVC.h; sourceTree = "<group>"; };
+		C88BF00219378501006C7CE5 /* RPQueueTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPQueueTVC.m; sourceTree = "<group>"; };
 		C8A6D9E818A96E0400912849 /* DebugDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugDefines.h; sourceTree = "<group>"; };
 		C8A6D9E918A96FB100912849 /* PMInfoFormattedForTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMInfoFormattedForTV.h; sourceTree = "<group>"; };
 		C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMInfoFormattedForTV.m; sourceTree = "<group>"; };
@@ -141,6 +147,10 @@
 				C800DE4718914E3C00A5C4A9 /* RPAppDelegate.h */,
 				C800DE4818914E3C00A5C4A9 /* RPAppDelegate.m */,
 				C800DE4A18914E3C00A5C4A9 /* Main.storyboard */,
+				C88BEFFE1937842E006C7CE5 /* RPTabBarController.h */,
+				C88BEFFF1937842E006C7CE5 /* RPTabBarController.m */,
+				C88BF00119378501006C7CE5 /* RPQueueTVC.h */,
+				C88BF00219378501006C7CE5 /* RPQueueTVC.m */,
 				C8DE09B81933D47500796E5F /* RPPlayerViewController.h */,
 				C8DE09B91933D47500796E5F /* RPPlayerViewController.m */,
 				C814D10718A8F88E001A088F /* RPAlbumListTVC.h */,
@@ -307,6 +317,8 @@
 			files = (
 				C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */,
 				C84851581935130C005FC17C /* RPFirstViewController.m in Sources */,
+				C88BF0001937842E006C7CE5 /* RPTabBarController.m in Sources */,
+				C88BF00319378501006C7CE5 /* RPQueueTVC.m in Sources */,
 				C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */,
 				C800DE4918914E3C00A5C4A9 /* RPAppDelegate.m in Sources */,
 				C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */,

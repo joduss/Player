@@ -9,22 +9,23 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "RPDictionaryIndexPath.h"
+#import "RPMediaListTVC.h"
 
-typedef enum {
-    RPModeAlbumSelection,
-    RPModeAlbumBrowse,
-    RPModePlaylistBrowse,
-    RPModePlaylistSelection,
-    RPModeArtistSelection,
-    RPModeArtistBrowse,
-    RPModeSongSelection,
-    RPModeSongBrowse
-} RPListMode;
+//typedef enum {
+//    RPModeAlbumSelection,
+//    RPModeAlbumBrowse,
+//    RPModePlaylistBrowse,
+//    RPModePlaylistSelection,
+//    RPModeArtistSelection,
+//    RPModeArtistBrowse,
+//    RPModeSongSelection,
+//    RPModeSongBrowse
+//} RPListMode;
 
 @interface RPMediaListTVC : UITableViewController
-@property (nonatomic, strong) NSString *RPViewType;
+//@property (nonatomic, strong) NSString *RPViewType;
 //@property (nonatomic) BOOL selecting;
-@property (nonatomic) RPListMode listMode;
+//@property (nonatomic) RPListMode listMode;
 
 @property (nonatomic, strong) RPDictionaryIndexPath *infoToShow;
 

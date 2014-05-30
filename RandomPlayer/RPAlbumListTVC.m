@@ -7,9 +7,12 @@
 //
 
 #import "RPAlbumListTVC.h"
+#import "RPTools.h"
 
 @interface RPAlbumListTVC ()
 -(void)loadAlbumData;
+@property (nonatomic, strong) MPMediaQuery *query;
+@property (nonatomic, strong) NSArray *colletionSections;
 @end
 
 @implementation RPAlbumListTVC
@@ -25,8 +28,10 @@
 
 - (void)viewDidLoad
 {
+    DLog("View did load AlbumList");
     [super viewDidLoad];
     [self loadAlbumData];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -35,30 +40,119 @@
     
 }
 
+
 -(void)loadAlbumData
 {
-    MPMediaQuery *query = [MPMediaQuery albumsQuery];
-    [query setGroupingType:MPMediaGroupingAlbum];
+    _query = [MPMediaQuery albumsQuery];
+    [_query setGroupingType:MPMediaGroupingAlbum];
     
-    NSArray *col = [query collections];
+    
+    if(_artist != nil){
+        [_query setFilterPredicates:[NSSet setWithObjects:
+                                    [NSPredicate predicateWithFormat:@"%K==%@",MPMediaItemPropertyArtist,_artist], nil]];
+    }
+    
+    //NSArray *col = [_query collections];
+    
+        _colletionSections= [_query collectionSections];
+    
+
     
     //NSLog(@"NOMBRE = %lu", (unsigned long)[col count]);
+    NSTimeInterval seconds = [[NSDate date] timeIntervalSince1970];
     
-    for(MPMediaItemCollection *album in col)
-    {
-        MPMediaItem *representativeItem = [album representativeItem];
-        
-        [self.infoToShow addObject:[representativeItem valueForProperty:MPMediaItemPropertyAlbumTitle]
-                           withKey:@"title"
-                         inSection:[[representativeItem valueForProperty:MPMediaItemPropertyAlbumTitle] substringWithRange:NSMakeRange(0, 1)] ];
-        //NSLog(@"ALBUM: %@", [representativeItem valueForProperty:MPMediaItemPropertyAlbumTitle]);
-    }
+    
+//    for(MPMediaItemCollection *album in col)
+//    {
+//        MPMediaItem *representativeItem = [album representativeItem];
+//        NSString *albumTitle = [representativeItem valueForProperty:MPMediaItemPropertyAlbumTitle];
+//        albumTitle = [RPTools clearStringForSort:albumTitle];
+//        
+//        
+//        NSString *section = @"";
+//        if([RPTools beginWithLetter:albumTitle] == false){
+//            section = @"*";
+//        }
+//        else
+//        {
+//            section = [albumTitle substringWithRange:NSMakeRange(0, 1)];
+//        }
+//        
+//        
+//        [self.infoToShow addObject:album
+//                         inSection: section];
+//        //NSLog(@"ALBUM: %@", [representativeItem valueForProperty:MPMediaItemPropertyAlbumTitle]);
+//    }
+    
+    NSTimeInterval seconds2 = [[NSDate date] timeIntervalSince1970];
+    
+    DLog(@"Time: %f", seconds2 - seconds);
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [_colletionSections count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:section];
+    return mqs.range.length;
+    }
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:section];
+    return mqs.title;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    
+    UIImageView *imgv = (UIImageView *)[self.view viewWithTag:100];
+    UILabel *titleLabel  = (UILabel *)[self.view viewWithTag:101];
+    UILabel *subtitleLabel  = (UILabel *)[self.view viewWithTag:102];
+    
+    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:indexPath.section];
+    long truc = mqs.range.location + indexPath.row;
+    
+    MPMediaItemCollection *album = [[_query collections] objectAtIndex:truc];
+    
+
+    
+    
+    
+    
+    titleLabel.text = [[album representativeItem] valueForProperty:MPMediaItemPropertyAlbumTitle];
+    
+    unsigned long count = [album count];
+    if(count < 2)
+        subtitleLabel.text = [NSString stringWithFormat:@"%d song", count];
+    else
+        subtitleLabel.text = [NSString stringWithFormat:@"%lu songs", count];
+    
+    MPMediaItemArtwork *artwork = [[album representativeItem] valueForProperty:MPMediaItemPropertyArtwork];
+    UIImage *im = [artwork imageWithSize:imgv.bounds.size];
+    [imgv setImage:im];
+    
+    
+    
+    
+    //[artistItem valueForProperty:MPMediaItemProperty]
+    
+    // Configure the cell...
+    
+    return cell;
 }
 
 

@@ -8,17 +8,27 @@
 
 #import "RPDictionaryIndexPath.h"
 
+//typedef enum RPDIC_KEY {
+//    RPDIC_TITLE,
+//    RPDIC_MEDIAITEM,
+//    RPDIC_SUBTITLE,
+//};
+
 
 @interface RPDictionaryIndexPath ()
 
 @property (nonatomic, strong) NSMutableDictionary *dic;
 
 @property (nonatomic, strong) NSArray *keys;
+
 @end
 
 
 
 @implementation RPDictionaryIndexPath
+
+//CONSTANT
+NSString *const DEFAUT_KEY = @"DEFAULT_KEY";
 
 -(id)init
 {
@@ -50,6 +60,12 @@
 }
 
 
+-(void) addObject: (id)object inSection: (NSString *)section
+{
+    [self addObject:object withKey:DEFAUT_KEY inSection:section];
+}
+
+
 -(id)objectAt:(NSIndexPath *)path forKey:(NSString *)key
 {
     
@@ -72,7 +88,7 @@
             NSMutableArray *array = [container objectForKey:key];
             
             if([array count] < path.row)
-                [NSException raise:@"out of bound" format:@"Trying to access out of bound index: %d / %d", path.row, [array count]];
+                [NSException raise:@"out of bound" format:@"Trying to access out of bound index: %ld / %lu", (long)path.row, (unsigned long)[array count]];
             else
                 return [array objectAtIndex:path.row];
         }
@@ -81,6 +97,14 @@
     [NSException raise:@"Should not see this error" format:@"You should not see this error. If you see it, then there is an error in the code of RPDictionaryIndexPath"];
     return nil;
 }
+
+
+-(id)objectAt:(NSIndexPath *)path
+{
+    return [self objectAt:path forKey:DEFAUT_KEY];
+}
+
+
 
 -(NSArray *)keys
 {

@@ -20,7 +20,7 @@
     [super viewDidLoad];
     
     //add gesture to swipe to show the queue
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
 
 }

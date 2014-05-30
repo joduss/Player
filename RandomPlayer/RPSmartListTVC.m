@@ -1,24 +1,18 @@
 //
-//  RPMediaListTVC.m
+//  RPSmartListTVC.m
 //  RandomPlayer
 //
-//  Created by Jonathan Duss on 10.02.14.
+//  Created by Jonathan Duss on 30.05.14.
 //  Copyright (c) 2014 Jonathan Duss. All rights reserved.
 //
 
+#import "RPSmartListTVC.h"
 
-//CELLS:
-// TAG 10 = LABEL
-// TAG 11  = IMAGE IVEW
-
-#import "RPMediaListTVC.h"
-
-@interface RPMediaListTVC ()
-
+@interface RPSmartListTVC ()
 
 @end
 
-@implementation RPMediaListTVC
+@implementation RPSmartListTVC
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -32,20 +26,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _infoToShow = [[RPDictionaryIndexPath alloc] init];
-    //_selecting = NO;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    //NSLog(@"coucou: %@", _RPViewType);
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,34 +44,28 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    ELog(@"section count: %lu", (unsigned long)[_infoToShow sectionCount]);
-    return [_infoToShow sectionCount];
+#warning Potentially incomplete method implementation.
+    // Return the number of sections.
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    ELog(@"row count: %lu", (unsigned long)[_infoToShow rowCountInSection:section]);
-    return [_infoToShow rowCountInSection:section];
+#warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    return 0;
 }
 
-
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-//    
-//    UILabel *label  = (UILabel *)[self.view viewWithTag:10];
-//    
-//    label.text = [_infoToShow objectAt:indexPath forKey:@"title"];
-//    
-//    // Configure the cell...
-//    
-//    return cell;
-//}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+/*
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self.infoToShow sectionTitleforSection:section];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    // Configure the cell...
+    
+    return cell;
 }
+*/
 
 /*
 // Override to support conditional editing of the table view.
@@ -135,6 +115,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 
 @end

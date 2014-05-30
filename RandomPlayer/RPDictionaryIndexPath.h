@@ -12,7 +12,13 @@
 
 -(void) addObject: (id)object withKey:(NSString *)key inSection: (NSString *)section;
 
+/*!Add object*/
+-(void) addObject: (id)object inSection: (NSString *)section;
+
 -(id)objectAt:(NSIndexPath *)path forKey:(NSString *)key;
+
+/*!Return object. (When not using key)*/
+-(id)objectAt:(NSIndexPath *)path;
 
 -(BOOL)containsKey:(NSString *)key;
 

@@ -7,6 +7,8 @@
 //
 
 #import "RPArtistListTVC.h"
+#import "RPTools.h"
+
 
 @interface RPArtistListTVC ()
 -(void)loadArtistData;
@@ -38,28 +40,71 @@
 
 -(void)loadArtistData
 {
-    MPMediaQuery *query = [MPMediaQuery albumsQuery];
-    [query setGroupingType:MPMediaGroupingArtist];
+    MPMediaQuery *query = [MPMediaQuery artistsQuery];
+    //[query setGroupingType:MPMediaGroupingArtist];
     
     NSArray *col = [query collections];
     
     //NSLog(@"NOMBRE = %lu", (unsigned long)[col count]);
     
-    for(MPMediaItemCollection *album in col)
+    for(MPMediaItemCollection *artist in col)
     {
-        MPMediaItem *representativeItem = [album representativeItem];
+        MPMediaItem *representativeItem = [artist representativeItem];
+        NSString *artistName = [representativeItem valueForProperty:MPMediaItemPropertyArtist];
+        artistName = [RPTools clearStringForSort:artistName];
         
-        [self.infoToShow addObject:[representativeItem valueForProperty:MPMediaItemPropertyAlbumTitle]
-                           withKey:@"title"
-                         inSection:[[representativeItem valueForProperty:MPMediaItemPropertyAlbumTitle] substringWithRange:NSMakeRange(0, 1)] ];
+        NSString *section = @"";
+        if([RPTools beginWithLetter:artistName] == false){
+            section = @"*";
+        }
+        else
+        {
+            section = [artistName substringWithRange:NSMakeRange(0, 1)];
+        }
+        
+        
+        [self.infoToShow addObject:artist
+                         inSection: section];
         //NSLog(@"ALBUM: %@", [representativeItem valueForProperty:MPMediaItemPropertyAlbumTitle]);
     }
 }
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+
+    //UIImageView *imgv = (UIImageView *)[self.view viewWithTag:10];
+    UILabel *titleLabel  = (UILabel *)[self.view viewWithTag:10];
+    //UILabel *subtitleLabel  = (UILabel *)[self.view viewWithTag:102];
+    
+    MPMediaItemCollection *artist = [self.infoToShow objectAt:indexPath];
+
+
+    titleLabel.text = [[artist representativeItem] valueForProperty:MPMediaItemPropertyArtist];
+    //[artistItem valueForProperty:MPMediaItemProperty]
+
+    // Configure the cell...
+
+    return cell;
+}
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+
+#pragma mark - SEGUE
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
 }
 
 

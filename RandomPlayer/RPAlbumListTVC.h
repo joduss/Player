@@ -10,5 +10,5 @@
 #import "RPMediaListTVC.h"
 
 @interface RPAlbumListTVC : RPMediaListTVC
-
+@property (nonatomic, strong) NSString *artist;
 @end

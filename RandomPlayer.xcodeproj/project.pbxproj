@@ -22,15 +22,16 @@
 		C800DE6718914E3C00A5C4A9 /* RandomPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */; };
 		C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10518A8EBBE001A088F /* RPMediaListTVC.m */; };
 		C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10818A8F88E001A088F /* RPAlbumListTVC.m */; };
-		C84851581935130C005FC17C /* RPFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C84851571935130C005FC17C /* RPFirstViewController.m */; };
 		C85D23E318A42F0400D9B5AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */; };
 		C86C95CF18B223BB00409EC5 /* RPArtistListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */; };
 		C88BEFFD19377BC4006C7CE5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BEFFC19377BC4006C7CE5 /* SWRevealViewController.m */; };
 		C88BF0001937842E006C7CE5 /* RPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BEFFF1937842E006C7CE5 /* RPTabBarController.m */; };
 		C88BF00319378501006C7CE5 /* RPQueueTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BF00219378501006C7CE5 /* RPQueueTVC.m */; };
+		C88BF006193789E3006C7CE5 /* RPTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BF005193789E3006C7CE5 /* RPTools.m */; };
 		C8A6D9EB18A96FB100912849 /* PMInfoFormattedForTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */; };
 		C8A6D9EE18A971E100912849 /* RPDictionaryIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */; };
 		C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DE09B91933D47500796E5F /* RPPlayerViewController.m */; };
+		C8FDDEA21938F50E003D9BB9 /* RPSmartListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FDDEA11938F50E003D9BB9 /* RPSmartListTVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +66,6 @@
 		C814D10518A8EBBE001A088F /* RPMediaListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPMediaListTVC.m; sourceTree = "<group>"; };
 		C814D10718A8F88E001A088F /* RPAlbumListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPAlbumListTVC.h; sourceTree = "<group>"; };
 		C814D10818A8F88E001A088F /* RPAlbumListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPAlbumListTVC.m; sourceTree = "<group>"; };
-		C84851571935130C005FC17C /* RPFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPFirstViewController.m; sourceTree = "<group>"; };
 		C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		C86C95CD18B223BB00409EC5 /* RPArtistListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPArtistListTVC.h; sourceTree = "<group>"; };
 		C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPArtistListTVC.m; sourceTree = "<group>"; };
@@ -75,6 +75,8 @@
 		C88BEFFF1937842E006C7CE5 /* RPTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPTabBarController.m; sourceTree = "<group>"; };
 		C88BF00119378501006C7CE5 /* RPQueueTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPQueueTVC.h; sourceTree = "<group>"; };
 		C88BF00219378501006C7CE5 /* RPQueueTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPQueueTVC.m; sourceTree = "<group>"; };
+		C88BF004193789E3006C7CE5 /* RPTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPTools.h; sourceTree = "<group>"; };
+		C88BF005193789E3006C7CE5 /* RPTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPTools.m; sourceTree = "<group>"; };
 		C8A6D9E818A96E0400912849 /* DebugDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugDefines.h; sourceTree = "<group>"; };
 		C8A6D9E918A96FB100912849 /* PMInfoFormattedForTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMInfoFormattedForTV.h; sourceTree = "<group>"; };
 		C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMInfoFormattedForTV.m; sourceTree = "<group>"; };
@@ -82,6 +84,8 @@
 		C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPDictionaryIndexPath.m; sourceTree = "<group>"; };
 		C8DE09B81933D47500796E5F /* RPPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPlayerViewController.h; sourceTree = "<group>"; };
 		C8DE09B91933D47500796E5F /* RPPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPlayerViewController.m; sourceTree = "<group>"; };
+		C8FDDEA01938F50E003D9BB9 /* RPSmartListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSmartListTVC.h; sourceTree = "<group>"; };
+		C8FDDEA11938F50E003D9BB9 /* RPSmartListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSmartListTVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,8 @@
 				C800DE4718914E3C00A5C4A9 /* RPAppDelegate.h */,
 				C800DE4818914E3C00A5C4A9 /* RPAppDelegate.m */,
 				C800DE4A18914E3C00A5C4A9 /* Main.storyboard */,
+				C88BF004193789E3006C7CE5 /* RPTools.h */,
+				C88BF005193789E3006C7CE5 /* RPTools.m */,
 				C88BEFFE1937842E006C7CE5 /* RPTabBarController.h */,
 				C88BEFFF1937842E006C7CE5 /* RPTabBarController.m */,
 				C88BF00119378501006C7CE5 /* RPQueueTVC.h */,
@@ -159,12 +165,13 @@
 				C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */,
 				C814D10418A8EBBE001A088F /* RPMediaListTVC.h */,
 				C814D10518A8EBBE001A088F /* RPMediaListTVC.m */,
+				C8FDDEA01938F50E003D9BB9 /* RPSmartListTVC.h */,
+				C8FDDEA11938F50E003D9BB9 /* RPSmartListTVC.m */,
 				C800DE5318914E3C00A5C4A9 /* Images.xcassets */,
 				C8A6D9E918A96FB100912849 /* PMInfoFormattedForTV.h */,
 				C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */,
 				C8A6D9EC18A971E100912849 /* RPDictionaryIndexPath.h */,
 				C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */,
-				C84851571935130C005FC17C /* RPFirstViewController.m */,
 				C800DE3F18914E3C00A5C4A9 /* Supporting Files */,
 			);
 			path = RandomPlayer;
@@ -316,13 +323,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */,
-				C84851581935130C005FC17C /* RPFirstViewController.m in Sources */,
 				C88BF0001937842E006C7CE5 /* RPTabBarController.m in Sources */,
 				C88BF00319378501006C7CE5 /* RPQueueTVC.m in Sources */,
+				C88BF006193789E3006C7CE5 /* RPTools.m in Sources */,
 				C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */,
 				C800DE4918914E3C00A5C4A9 /* RPAppDelegate.m in Sources */,
 				C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */,
 				C8A6D9EB18A96FB100912849 /* PMInfoFormattedForTV.m in Sources */,
+				C8FDDEA21938F50E003D9BB9 /* RPSmartListTVC.m in Sources */,
 				C800DE4518914E3C00A5C4A9 /* main.m in Sources */,
 				C88BEFFD19377BC4006C7CE5 /* SWRevealViewController.m in Sources */,
 				C8A6D9EE18A971E100912849 /* RPDictionaryIndexPath.m in Sources */,

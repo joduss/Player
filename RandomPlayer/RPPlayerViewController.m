@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *sliderTime;
 @property (weak, nonatomic) IBOutlet UISlider *sliderVolume;
 @property (weak, nonatomic) IBOutlet UILabel *labelCurrentTime;
-@property (weak, nonatomic) IBOutlet UILabel *labelDuration;
+@property (weak, nonatomic) IBOutlet UILabel *labelTimeLeft;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonPlayPause;
 @property (weak, nonatomic) MPMusicPlayerController *musicPlayer;
@@ -32,11 +32,22 @@
     
     
     //UIImage *empty = [UIImage new];
-    [_sliderTime setThumbImage:[UIImage alloc] forState:UIControlStateNormal];
+    [_sliderTime setThumbImage:[UIImage imageNamed:@"slider_empty"] forState:UIControlStateNormal];
+    
+    [_sliderTime setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateHighlighted];
+    
+    [_sliderTime addTarget:self action:@selector(sliderTimeMoved:) forControlEvents:UIControlEventValueChanged];
+    [_sliderTime addTarget:self action:@selector(sliderTimeStopMoving) forControlEvents:UIControlEventTouchUpInside];
+    [_sliderTime addTarget:self action:@selector(sliderTimeStopMoving) forControlEvents:UIControlEventTouchUpOutside];
+
+    
+
     
     
     // instantiate a music player
     self.musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    self.navigationController.navigationBar.translucent = false;
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
 
 }
 
@@ -47,6 +58,7 @@
     //update the button state and information and subscribe to NotifCenter
     [self beginPlaybackNotifications];
     [self updateInformation];
+    [self updateTimeSlider:nil];
     [_timer invalidate]; //to be sure that there is no more than 1 unique timer working
     _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTimeSlider:) userInfo:nil repeats:YES];
 }
@@ -66,6 +78,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)showQueue:(id)sender {
+    [self.revealViewController rightRevealToggleAnimated:true];
+}
 
 
 #pragma mark - controls
@@ -103,6 +118,22 @@
     [_musicPlayer skipToNextItem];
 }
 
+-(void)sliderTimeMoved:(UISlider*)slider
+{
+    [self.musicPlayer setCurrentPlaybackTime:slider.value];
+    [_labelCurrentTime setText:[RPTools minutesSecondsConversion:slider.value]];
+    [_labelTimeLeft setText:[RPTools minutesSecondsConversion:(slider.maximumValue - slider.value)]];
+    [_timer invalidate];
+    _timer = nil;
+    DLog(@"moved")
+}
+
+-(void)sliderTimeStopMoving
+{
+    [self updateTimeSlider:nil];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTimeSlider:) userInfo:nil repeats:YES];
+    DLog(@"stop");
+}
 
 #pragma mark - information shown
 /*!
@@ -110,11 +141,15 @@
  */
 -(void)updateTimeSlider:(NSTimer *)timer
 {
-    int currentTime = [_musicPlayer currentPlaybackTime];
-    NSNumber *duration = [_musicPlayer.nowPlayingItem valueForKey:MPMediaItemPropertyPlaybackDuration];
-    [_sliderTime setMaximumValue:duration.intValue];
-    [_sliderTime setMinimumValue:0];
+    double currentTime = [_musicPlayer currentPlaybackTime];
     [_sliderTime setValue:currentTime animated:YES];
+
+    [_labelCurrentTime setText:[RPTools minutesSecondsConversion:currentTime]];
+    
+    NSNumber *duration = [_musicPlayer.nowPlayingItem valueForKey:MPMediaItemPropertyPlaybackDuration];
+    [_labelTimeLeft setText:[RPTools minutesSecondsConversion:(duration.doubleValue - currentTime)]];
+
+    
     //TODO verify that it is still playing
 }
 
@@ -138,10 +173,20 @@
     //In any cases, we update the information
     MPMediaItem *song = _musicPlayer.nowPlayingItem;
     
+    MPMediaItemArtwork *artworkItem = [song valueForKey:MPMediaItemPropertyArtwork];
+    UIImage *artworkImage = [artworkItem imageWithSize:_imageViewAlbum.bounds.size];
+    [_imageViewAlbum setImage:artworkImage];
+    
     NSString *artist = [song valueForKey:MPMediaItemPropertyArtist];
     NSString *album = [song valueForKey:MPMediaItemPropertyAlbumTitle];
     [_labelArtistAlbum setText: [NSString stringWithFormat:@"%@ - %@", artist, album]];
     [_labelTitle setText:[song valueForKey:MPMediaItemPropertyTitle]];
+    
+    //update slider length and labelDuration
+    NSNumber *duration = [_musicPlayer.nowPlayingItem valueForKey:MPMediaItemPropertyPlaybackDuration];
+    [_sliderTime setMaximumValue:duration.intValue];
+    [_sliderTime setMinimumValue:0];
+    
 }
 
 

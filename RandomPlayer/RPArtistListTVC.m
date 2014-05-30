@@ -12,6 +12,8 @@
 
 @interface RPArtistListTVC ()
 -(void)loadArtistData;
+@property (nonatomic, strong) MPMediaQuery *query;
+@property (nonatomic, strong) NSArray *colletionSections;
 @end
 
 @implementation RPArtistListTVC
@@ -40,33 +42,34 @@
 
 -(void)loadArtistData
 {
-    MPMediaQuery *query = [MPMediaQuery artistsQuery];
-    //[query setGroupingType:MPMediaGroupingArtist];
+    _query = [MPMediaQuery artistsQuery];
     
-    NSArray *col = [query collections];
+    _colletionSections= [_query collectionSections];
     
-    //NSLog(@"NOMBRE = %lu", (unsigned long)[col count]);
-    
-    for(MPMediaItemCollection *artist in col)
-    {
-        MPMediaItem *representativeItem = [artist representativeItem];
-        NSString *artistName = [representativeItem valueForProperty:MPMediaItemPropertyArtist];
-        artistName = [RPTools clearStringForSort:artistName];
-        
-        NSString *section = @"";
-        if([RPTools beginWithLetter:artistName] == false){
-            section = @"*";
-        }
-        else
-        {
-            section = [artistName substringWithRange:NSMakeRange(0, 1)];
-        }
-        
-        
-        [self.infoToShow addObject:artist
-                         inSection: section];
-        //NSLog(@"ALBUM: %@", [representativeItem valueForProperty:MPMediaItemPropertyAlbumTitle]);
-    }
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [_colletionSections count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:section];
+    return mqs.range.length;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:section];
+    return mqs.title;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,7 +80,10 @@
     UILabel *titleLabel  = (UILabel *)[self.view viewWithTag:10];
     //UILabel *subtitleLabel  = (UILabel *)[self.view viewWithTag:102];
     
-    MPMediaItemCollection *artist = [self.infoToShow objectAt:indexPath];
+    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:indexPath.section];
+    long albumIndex = mqs.range.location + indexPath.row;
+        
+    MPMediaItemCollection *artist = [[_query collections] objectAtIndex:albumIndex];
 
 
     titleLabel.text = [[artist representativeItem] valueForProperty:MPMediaItemPropertyArtist];
@@ -88,12 +94,6 @@
     return cell;
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

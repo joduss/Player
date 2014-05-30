@@ -41,6 +41,13 @@
 }
 
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadAlbumData];
+
+}
+
 -(void)loadAlbumData
 {
     _query = [MPMediaQuery albumsQuery];
@@ -52,41 +59,7 @@
                                     [NSPredicate predicateWithFormat:@"%K==%@",MPMediaItemPropertyArtist,_artist], nil]];
     }
     
-    //NSArray *col = [_query collections];
-    
-        _colletionSections= [_query collectionSections];
-    
-
-    
-    //NSLog(@"NOMBRE = %lu", (unsigned long)[col count]);
-    NSTimeInterval seconds = [[NSDate date] timeIntervalSince1970];
-    
-    
-//    for(MPMediaItemCollection *album in col)
-//    {
-//        MPMediaItem *representativeItem = [album representativeItem];
-//        NSString *albumTitle = [representativeItem valueForProperty:MPMediaItemPropertyAlbumTitle];
-//        albumTitle = [RPTools clearStringForSort:albumTitle];
-//        
-//        
-//        NSString *section = @"";
-//        if([RPTools beginWithLetter:albumTitle] == false){
-//            section = @"*";
-//        }
-//        else
-//        {
-//            section = [albumTitle substringWithRange:NSMakeRange(0, 1)];
-//        }
-//        
-//        
-//        [self.infoToShow addObject:album
-//                         inSection: section];
-//        //NSLog(@"ALBUM: %@", [representativeItem valueForProperty:MPMediaItemPropertyAlbumTitle]);
-//    }
-    
-    NSTimeInterval seconds2 = [[NSDate date] timeIntervalSince1970];
-    
-    DLog(@"Time: %f", seconds2 - seconds);
+    _colletionSections= [_query collectionSections];
     
 }
 
@@ -124,14 +97,11 @@
     UILabel *subtitleLabel  = (UILabel *)[self.view viewWithTag:102];
     
     MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:indexPath.section];
-    long truc = mqs.range.location + indexPath.row;
+    long albumIndex = mqs.range.location + indexPath.row;
     
-    MPMediaItemCollection *album = [[_query collections] objectAtIndex:truc];
+    MPMediaItemCollection *album = [[_query collections] objectAtIndex:albumIndex];
     
 
-    
-    
-    
     
     titleLabel.text = [[album representativeItem] valueForProperty:MPMediaItemPropertyAlbumTitle];
     

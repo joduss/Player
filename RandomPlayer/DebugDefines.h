@@ -34,4 +34,11 @@
 #endif
 
 
+//Action log
+#ifdef LOG
+#   define DLog(...) NSLog(__VA_ARGS__);
+#else
+#   define ALog(...)
+#endif
+
 #endif

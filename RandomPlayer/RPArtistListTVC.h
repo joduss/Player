@@ -7,6 +7,7 @@
 //
 
 #import "RPMediaListTVC.h"
+#import "RPSwipableTVCell.h"
 
 @interface RPArtistListTVC : RPMediaListTVC
 

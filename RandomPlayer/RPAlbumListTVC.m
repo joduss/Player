@@ -45,7 +45,7 @@
 {
     [super viewWillAppear:animated];
     [self loadAlbumData];
-
+    
 }
 
 -(void)loadAlbumData
@@ -56,10 +56,13 @@
     
     if(_artist != nil){
         [_query setFilterPredicates:[NSSet setWithObjects:
-                                    [NSPredicate predicateWithFormat:@"%K==%@",MPMediaItemPropertyArtist,_artist], nil]];
+                                     [MPMediaPropertyPredicate predicateWithValue:[[_artist representativeItem] valueForProperty:MPMediaItemPropertyArtistPersistentID]
+                                                                      forProperty:MPMediaItemPropertyArtistPersistentID], nil]];
+        
     }
-    
     _colletionSections= [_query collectionSections];
+    
+    
     
 }
 
@@ -79,7 +82,7 @@
 {
     MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:section];
     return mqs.range.length;
-    }
+}
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
@@ -101,7 +104,7 @@
     
     MPMediaItemCollection *album = [[_query collections] objectAtIndex:albumIndex];
     
-
+    
     
     titleLabel.text = [[album representativeItem] valueForProperty:MPMediaItemPropertyAlbumTitle];
     

@@ -8,6 +8,7 @@
 
 #import "RPArtistListTVC.h"
 #import "RPTools.h"
+#import "RPAlbumListTVC.h"
 
 
 @interface RPArtistListTVC ()
@@ -31,6 +32,7 @@
 {
     [super viewDidLoad];
     [self loadArtistData];
+    self.tableView.canCancelContentTouches = NO;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -74,16 +76,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    RPSwipableTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 
     //UIImageView *imgv = (UIImageView *)[self.view viewWithTag:10];
     UILabel *titleLabel  = (UILabel *)[self.view viewWithTag:10];
     //UILabel *subtitleLabel  = (UILabel *)[self.view viewWithTag:102];
-    
-    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:indexPath.section];
-    long albumIndex = mqs.range.location + indexPath.row;
-        
-    MPMediaItemCollection *artist = [[_query collections] objectAtIndex:albumIndex];
+
+    MPMediaItemCollection *artist = [self artistAtIndexpath:indexPath];
 
 
     titleLabel.text = [[artist representativeItem] valueForProperty:MPMediaItemPropertyArtist];
@@ -97,15 +96,54 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [self performSegueWithIdentifier:@"artistToAlbum" sender:indexPath];
 }
+
+
+
 
 
 #pragma mark - SEGUE
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+    if([segue.identifier isEqualToString:@"artistToAlbum"]){
+        RPAlbumListTVC *dest = (RPAlbumListTVC *)segue.destinationViewController;
+        NSIndexPath *path = sender;
+        MPMediaItemCollection *artist = [self artistAtIndexpath:path];
+        [dest setArtist:artist];
+    }
 }
 
+
+-(MPMediaItemCollection *)artistAtIndexpath:(NSIndexPath *)indexPath
+{
+    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:indexPath.section];
+    long artistIndex = mqs.range.location + indexPath.row;
+    
+    MPMediaItemCollection *artist = [[_query collections] objectAtIndex:artistIndex];
+    return artist;
+}
+
+
+
+
+
+
+
+
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    [self.nextResponder touchesBegan:touches withEvent:event];
+}
+
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //UITouch *touch = [touches anyObject];
+    
+    //touch.gestureRecognizers;
+}
 
 @end

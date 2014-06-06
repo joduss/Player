@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "RPTools.h"
-#import "SWRevealViewController.h"
 
 @interface RPPlayerViewController : UIViewController
 

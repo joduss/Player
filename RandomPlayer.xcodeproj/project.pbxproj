@@ -25,6 +25,7 @@
 		C85D23E318A42F0400D9B5AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */; };
 		C86C95CF18B223BB00409EC5 /* RPArtistListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */; };
 		C872042F193FC64C00AD7A52 /* RPSwipableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C872042E193FC64C00AD7A52 /* RPSwipableButton.m */; };
+		C873CB491940F75700189D6B /* RPQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C873CB481940F75700189D6B /* RPQueueManager.swift */; };
 		C88BEFFD19377BC4006C7CE5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BEFFC19377BC4006C7CE5 /* SWRevealViewController.m */; };
 		C88BF0001937842E006C7CE5 /* RPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BEFFF1937842E006C7CE5 /* RPTabBarController.m */; };
 		C88BF00319378501006C7CE5 /* RPQueueTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BF00219378501006C7CE5 /* RPQueueTVC.m */; };
@@ -76,6 +77,8 @@
 		C872042A193FC49400AD7A52 /* RandomPlayer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RandomPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		C872042D193FC64C00AD7A52 /* RPSwipableButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSwipableButton.h; sourceTree = "<group>"; };
 		C872042E193FC64C00AD7A52 /* RPSwipableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSwipableButton.m; sourceTree = "<group>"; };
+		C873CB471940F75600189D6B /* RandomPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RandomPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
+		C873CB481940F75700189D6B /* RPQueueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueueManager.swift; sourceTree = "<group>"; };
 		C88BEFFB19377BC4006C7CE5 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		C88BEFFC19377BC4006C7CE5 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		C88BEFFE1937842E006C7CE5 /* RPTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPTabBarController.h; sourceTree = "<group>"; };
@@ -92,6 +95,8 @@
 		C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMInfoFormattedForTV.m; sourceTree = "<group>"; };
 		C8A6D9EC18A971E100912849 /* RPDictionaryIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPDictionaryIndexPath.h; sourceTree = "<group>"; };
 		C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPDictionaryIndexPath.m; sourceTree = "<group>"; };
+		C8CE80CA1942210300BB407D /* playgroundtest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = playgroundtest.playground; sourceTree = "<group>"; };
+		C8CE80CB194251E200BB407D /* ConstantDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstantDefines.h; sourceTree = "<group>"; };
 		C8DE09B81933D47500796E5F /* RPPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPlayerViewController.h; sourceTree = "<group>"; };
 		C8DE09B91933D47500796E5F /* RPPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPlayerViewController.m; sourceTree = "<group>"; };
 		C8E44DE5193BA92900DEC608 /* RPCellViewBehind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCellViewBehind.h; sourceTree = "<group>"; };
@@ -133,6 +138,7 @@
 				C800DE6018914E3C00A5C4A9 /* RandomPlayerTests */,
 				C800DE3718914E3C00A5C4A9 /* Frameworks */,
 				C800DE3618914E3C00A5C4A9 /* Products */,
+				C873CB471940F75600189D6B /* RandomPlayer-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -174,6 +180,8 @@
 				C88BF004193789E3006C7CE5 /* RPTools.h */,
 				C88BF005193789E3006C7CE5 /* RPTools.m */,
 				C88BF00119378501006C7CE5 /* RPQueueTVC.h */,
+				C873CB481940F75700189D6B /* RPQueueManager.swift */,
+				C8CE80CA1942210300BB407D /* playgroundtest.playground */,
 				C88BF00219378501006C7CE5 /* RPQueueTVC.m */,
 				C895187A193A154200AF74F0 /* Controller in tabs */,
 				C800DE5318914E3C00A5C4A9 /* Images.xcassets */,
@@ -194,6 +202,7 @@
 				C800DE4418914E3C00A5C4A9 /* main.m */,
 				C800DE4618914E3C00A5C4A9 /* RandomPlayer-Prefix.pch */,
 				C8A6D9E818A96E0400912849 /* DebugDefines.h */,
+				C8CE80CB194251E200BB407D /* ConstantDefines.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -297,7 +306,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RP;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Jonathan Duss";
 				TargetAttributes = {
 					C800DE5818914E3C00A5C4A9 = {
@@ -365,6 +374,7 @@
 				C800DE4518914E3C00A5C4A9 /* main.m in Sources */,
 				C8951879193A153600AF74F0 /* RPSwipableTVCell.m in Sources */,
 				C88BEFFD19377BC4006C7CE5 /* SWRevealViewController.m in Sources */,
+				C873CB491940F75700189D6B /* RPQueueManager.swift in Sources */,
 				C8A6D9EE18A971E100912849 /* RPDictionaryIndexPath.m in Sources */,
 				C86C95CF18B223BB00409EC5 /* RPArtistListTVC.m in Sources */,
 			);
@@ -420,7 +430,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -459,7 +468,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -494,12 +502,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RandomPlayer/RandomPlayer-Prefix.pch";
 				INFOPLIST_FILE = "RandomPlayer/RandomPlayer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer/RandomPlayer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
@@ -511,12 +521,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RandomPlayer/RandomPlayer-Prefix.pch";
 				INFOPLIST_FILE = "RandomPlayer/RandomPlayer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer/RandomPlayer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -524,7 +536,6 @@
 		C800DE6E18914E3C00A5C4A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RandomPlayer.app/RandomPlayer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -547,7 +558,6 @@
 		C800DE6F18914E3C00A5C4A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RandomPlayer.app/RandomPlayer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

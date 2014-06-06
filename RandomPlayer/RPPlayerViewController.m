@@ -79,7 +79,7 @@
 }
 
 - (IBAction)showQueue:(id)sender {
-    [self.revealViewController rightRevealToggleAnimated:true];
+    //[self.revealViewController rightRevealToggleAnimated:true];
 }
 
 

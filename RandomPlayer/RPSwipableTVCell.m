@@ -9,15 +9,21 @@
 #import "RPSwipableTVCell.h"
 #import "RPCellViewBehind.h"
 
+
+
 @interface RPSwipableTVCell()
 @property (nonatomic, strong) RPCellViewBehind *behindView;
 @property (nonatomic, strong) UISwipeGestureRecognizer *reco;
 @property NSTimeInterval lastMovement;
 @property float touchSeparationOffset;
 @property float frontViewOffSet;
+
+
 @end
 
+
 @implementation RPSwipableTVCell
+
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -37,6 +43,9 @@
         _behindView = [[[NSBundle mainBundle] loadNibNamed:@"cellViewBehind" owner:self options:nil] lastObject];
         [_behindView setHidden:YES];
         
+        //add action
+        [_behindView.buttonCenterLeft addTarget:self action:@selector(buttonCenterLeftPressed) forControlEvents:UIControlEventTouchUpInside];
+        
         [self.contentView addSubview:_behindView];
         CGRect frame = self.contentView.frame;
         _behindView.frame = CGRectMake(frame.size.width, frame.origin.y, frame.size.width, frame.size.height);
@@ -45,7 +54,7 @@
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(paning:)];
         pan.delegate = self;
         
-        [self addGestureRecognizer:pan];
+        [self.contentView addGestureRecognizer:pan];
     }
     
     [_behindView.buttonLeft setTitle:@"CONNARD" forState:UIControlStateNormal];
@@ -82,8 +91,22 @@
             return false;
         }
     }
+    else
+    {
+        if([_behindView pointInside:[gestureRecognizer locationInView:[self.contentView.window.subviews objectAtIndex:0]] withEvent:UIEventTypeTouches] ){
+            DLog(@"hello");
+            return false;
+        }
+    }
     return true;
 }
+
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return NO;
+}
+
 
 
 //############################################################################
@@ -157,8 +180,6 @@
     double direction = [pan velocityInView:self.contentView].x;
     
     
-    NSTimeInterval const maxAnimationDuration = 0.5;
-    
     //direction > 0 mean last movement was to right
     if(direction > 0){
         
@@ -166,7 +187,9 @@
         
         NSTimeInterval neededTime = (contentView.frame.size.width - xPosition) / velocity * 1.1; //1.1 because of curve slowing
         
-        if(neededTime < maxAnimationDuration){
+        
+        
+        if(neededTime < MAX_CELL_ANIMATION_DURATION){
             
             [UIView animateWithDuration:neededTime delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^(void){
                 CGRect newFVFrame = CGRectMake( _frontViewOffSet,
@@ -184,7 +207,7 @@
         }
         else
         {
-            [UIView animateWithDuration:maxAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^(void){
+            [UIView animateWithDuration:MAX_CELL_ANIMATION_DURATION delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^(void){
                 CGRect newFVFrame = CGRectMake( _frontViewOffSet,
                                                contentView.frame.origin.y,
                                                contentView.frame.size.width,
@@ -206,7 +229,7 @@
         
         NSTimeInterval neededTime = xPosition / velocity * 1.1; //1.1 because of curve slowing
         
-        if(neededTime < maxAnimationDuration){
+        if(neededTime < MAX_CELL_ANIMATION_DURATION){
             
             [UIView animateWithDuration:neededTime delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^(void){
                 CGRect newFVFrame = CGRectMake(- contentView.frame.size.width,
@@ -224,7 +247,7 @@
         }
         else
         {
-            [UIView animateWithDuration:maxAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^(void){
+            [UIView animateWithDuration:MAX_CELL_ANIMATION_DURATION delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^(void){
                 CGRect newFVFrame = CGRectMake( - contentView.frame.size.width,
                                                contentView.frame.origin.y,
                                                contentView.frame.size.width,
@@ -243,28 +266,57 @@
 
 
 
+-(void)hideBehindCell
+{
+    UIView *contentView = self.contentView;
+    UIView *frontView = [self.contentView.subviews objectAtIndex:0];
+    
+    [UIView animateWithDuration:MAX_CELL_ANIMATION_DURATION delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^(void){
+        CGRect newFVFrame = CGRectMake( _frontViewOffSet,
+                                       contentView.frame.origin.y,
+                                       contentView.frame.size.width,
+                                       contentView.frame.size.height);
+        
+        CGRect newBVFrame = CGRectMake(contentView.frame.size.width,
+                                       contentView.frame.origin.y,
+                                       contentView.frame.size.width,
+                                       contentView.frame.size.height);
+        _behindView.frame = newBVFrame;
+        frontView.frame = newFVFrame;
+    }completion:nil];
+
+}
+
+
 #pragma mark - Add Target for behind view
 
 //These methods are used to set action on the buttons "behind" the cell
 
--(void)buttonLeftAddTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)event
+-(void)buttonLeftPressed
 {
-    [_behindView.buttonLeft addTarget:target action:action forControlEvents:event];
 }
 
--(void)buttonRightAddTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)event
+-(void)buttonCenterLeftPressed
 {
-    [_behindView.buttonRight addTarget:target action:action forControlEvents:event];
+    [self.delegate buttonLeftPressed:self];
 }
 
--(void)buttonCenterRightAddTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)event
+-(void)buttonCenterRightPressed
 {
-    [_behindView.buttonCenterRight addTarget:target action:action forControlEvents:event];
+    
 }
 
--(void)buttonCenterLeftAddTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)event
+-(void)buttonRightPressed
 {
-    [_behindView.buttonCenterLeft addTarget:target action:action forControlEvents:event];
+    
+}
+
+
+-(void)leftButtonPressed {
+    
 }
 
 @end
+
+
+

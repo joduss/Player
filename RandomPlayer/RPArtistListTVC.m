@@ -11,6 +11,9 @@
 #import "RPAlbumListTVC.h"
 
 
+
+
+
 @interface RPArtistListTVC ()
 -(void)loadArtistData;
 @property (nonatomic, strong) MPMediaQuery *query;
@@ -86,6 +89,8 @@
 
 
     titleLabel.text = [[artist representativeItem] valueForProperty:MPMediaItemPropertyArtist];
+    
+    [cell setDelegate:self];
     //[artistItem valueForProperty:MPMediaItemProperty]
 
     // Configure the cell...
@@ -127,23 +132,22 @@
 
 
 
-
-
-
-
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)buttonLeftPressed:(RPSwipableTVCell *)cell
 {
-    [super touchesBegan:touches withEvent:event];
-    [self.nextResponder touchesBegan:touches withEvent:event];
-}
-
-
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    //UITouch *touch = [touches anyObject];
+    NSIndexPath *path = [self.tableView indexPathForCell:cell];
     
-    //touch.gestureRecognizers;
+    MPMediaItemCollection *artist = [self artistAtIndexpath:path];
+    
+    DLog(@"number item: %d", [artist.items count]);
+    
+    [RPQueueManager playSongs:artist.items];
+    [cell hideBehindCell];
+
 }
+
+
+
+
+
 
 @end

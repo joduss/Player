@@ -8,16 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
+@class RPSwipableTVCell;
+
+
+@protocol RPSwipableTVCellDelegate <NSObject>
+
+-(void)buttonLeftPressed:(RPSwipableTVCell *)cell;
+-(void)buttonCenterLeftPressed:(RPSwipableTVCell *)cell;
+-(void)buttonCenterRightPressed:(RPSwipableTVCell *)cell;
+-(void)buttonRightPressed:(RPSwipableTVCell *)cell;
+@end
+
+
+
 @interface RPSwipableTVCell : UITableViewCell <UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
--(void)buttonLeftAddTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)event;
-
--(void)buttonRightAddTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)event;
-
--(void)buttonCenterRightAddTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)event;
-
--(void)buttonCenterLeftAddTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)event;
+@property (nonatomic, weak) id<RPSwipableTVCellDelegate> delegate;
+-(void)hideBehindCell;
 
 /*!Clear the content of the cell (reset)*/
 @end
+
+
+

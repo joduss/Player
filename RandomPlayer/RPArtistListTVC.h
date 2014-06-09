@@ -8,10 +8,9 @@
 
 #import "RPMediaListTVC.h"
 #import "RPSwipableTVCell.h"
-#import "RandomPlayer-Swift.h"
 
 
-@class RPQueueManager;
+@class RPQueueManagerOC;
 
 
 @interface RPArtistListTVC : RPMediaListTVC <RPSwipableTVCellDelegate>

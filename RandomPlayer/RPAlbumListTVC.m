@@ -8,11 +8,13 @@
 
 #import "RPAlbumListTVC.h"
 #import "RPTools.h"
+#import "RandomPlayer-Swift.h"
+#import "RPSongListTVC.h"
+
 
 @interface RPAlbumListTVC ()
 -(void)loadAlbumData;
 @property (nonatomic, strong) MPMediaQuery *query;
-@property (nonatomic, strong) NSArray *colletionSections;
 @end
 
 @implementation RPAlbumListTVC
@@ -26,11 +28,16 @@
     return self;
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (void)viewDidLoad
 {
-    DLog("View did load AlbumList");
     [super viewDidLoad];
-    [self loadAlbumData];
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -45,6 +52,7 @@
 {
     [super viewWillAppear:animated];
     [self loadAlbumData];
+    [self.tableView reloadData];
     
 }
 
@@ -53,64 +61,69 @@
     _query = [MPMediaQuery albumsQuery];
     [_query setGroupingType:MPMediaGroupingAlbum];
     
-    
+    //If an artist was given, then it shows only album for this artist
     if(_artist != nil){
+        self.title = [_artist valueForProperty:MPMediaItemPropertyArtist];
         [_query setFilterPredicates:[NSSet setWithObjects:
                                      [MPMediaPropertyPredicate predicateWithValue:[[_artist representativeItem] valueForProperty:MPMediaItemPropertyArtistPersistentID]
                                                                       forProperty:MPMediaItemPropertyArtistPersistentID], nil]];
         
     }
-    _colletionSections= [_query collectionSections];
-    
-    
-    
 }
 
-- (void)didReceiveMemoryWarning
+/*!return the album at the given indexPath*/
+-(MPMediaItemCollection *)albumAtIndexpath:(NSIndexPath *)indexPath
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    MPMediaQuerySection *mqs = [_query.collectionSections objectAtIndex:indexPath.section];
+    long albumIndex = mqs.range.location + indexPath.row;
+    
+    return [[_query collections] objectAtIndex:albumIndex];
 }
 
+
+
+
+
+//************************************************************************
+//************************************************************************
+#pragma mark - TableView Handling 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [_colletionSections count];
+    return [_query.collectionSections count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:section];
+    MPMediaQuerySection *mqs = [_query.collectionSections objectAtIndex:section];
     return mqs.range.length;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:section];
+    MPMediaQuerySection *mqs = [_query.collectionSections objectAtIndex:section];
     return mqs.title;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    RPSwipableTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.delegate = self;
     
     UIImageView *imgv = (UIImageView *)[self.view viewWithTag:100];
     UILabel *titleLabel  = (UILabel *)[self.view viewWithTag:101];
     UILabel *subtitleLabel  = (UILabel *)[self.view viewWithTag:102];
     
-    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:indexPath.section];
-    long albumIndex = mqs.range.location + indexPath.row;
-    
-    MPMediaItemCollection *album = [[_query collections] objectAtIndex:albumIndex];
-    
+
+    MPMediaItemCollection *album = [self albumAtIndexpath:indexPath];
     
     
     titleLabel.text = [[album representativeItem] valueForProperty:MPMediaItemPropertyAlbumTitle];
     
     unsigned long count = [album count];
     if(count < 2)
-        subtitleLabel.text = [NSString stringWithFormat:@"%d song", count];
+        subtitleLabel.text = [NSString stringWithFormat:@"%lu song", count];
     else
         subtitleLabel.text = [NSString stringWithFormat:@"%lu songs", count];
     
@@ -120,14 +133,68 @@
     
     
     
-    
-    //[artistItem valueForProperty:MPMediaItemProperty]
-    
     // Configure the cell...
     
     return cell;
 }
 
+//************************************************************************
+//************************************************************************
+
+#pragma mark - SEGUE
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"albumToSong"]){
+        RPSongListTVC *dest = (RPSongListTVC *)segue.destinationViewController;
+        NSIndexPath *path = sender;
+        MPMediaItemCollection *artist = [self albumAtIndexpath:path];
+        [dest setAlbum:artist];
+    }
+}
+
+
+//************************************************************************
+//************************************************************************
+#pragma mark - RPSwipableTVCellDelegate handling
+
+-(void)buttonLeftPressed:(RPSwipableTVCell *)cell{}
+
+
+/*!Correspond to add to queue*/
+-(void)buttonCenterLeftPressed:(RPSwipableTVCell *)cell
+{
+    NSIndexPath *path = [self.tableView indexPathForCell:cell];
+    
+    MPMediaItemCollection *artist = [self albumAtIndexpath:path];
+    
+    [RPQueueManagerOC addSongs:artist.items];
+    [cell hideBehindCell];
+    
+}
+
+/*! Play next and play directly the first*/
+-(void)buttonCenterRightPressed:(RPSwipableTVCell *)cell
+{
+    NSIndexPath *path = [self.tableView indexPathForCell:cell];
+    
+    MPMediaItemCollection *artist = [self albumAtIndexpath:path];
+    
+    [RPQueueManagerOC addNextAndPlay:artist.items];
+    [cell hideBehindCell];
+}
+
+/*! Play next */
+-(void)buttonRightPressed:(RPSwipableTVCell *)cell
+{
+    NSIndexPath *path = [self.tableView indexPathForCell:cell];
+    
+    MPMediaItemCollection *artist = [self albumAtIndexpath:path];
+    
+    [RPQueueManagerOC addNextAndPlay:artist.items];
+    [cell hideBehindCell];
+    
+}
 
 
 @end

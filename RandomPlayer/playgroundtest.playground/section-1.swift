@@ -7,6 +7,11 @@ var str = "Hello, playground"
 var test: String?
 
 
+func ok() -> String? {
+    return nil
+}
+
+
 
 println("salut")
 

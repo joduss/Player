@@ -135,6 +135,7 @@
     DLog(@"stop");
 }
 
+
 #pragma mark - information shown
 /*!
  * update the time slider each second

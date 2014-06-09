@@ -13,40 +13,122 @@ import coreGraphics
 import MediaPlayer
 
 
-class RPQueueManager : NSObject{
+class RPQueueManagerOC : NSObject{
     
-    func salut() {
-        
+    class func initQueue() -> Bool {
+        return RPQueueManager.initQueue()
     }
     
-    class func playSongs(songs: Array<MPMediaItem>) -> Bool {
-        return RPQueueManagerSW.playSongs(songs)
+    class func isQueueInitiated() -> Bool {
+        return RPQueueManager.isQueueInitiated();
     }
+    
+    /*!Add the songs at the end of the queue*/
+    class func addSongs(songs: NSArray) -> Bool {
+        return RPQueueManager.addSongs(songs)
+    }
+    
+    /*!Add the songs on top of the queue*/
+    class func addNext(songs: NSArray) -> Bool {
+        return RPQueueManager.addNext(songs)
+    }
+    
+    
+    /*!Add the songs on top of the queue and start playing the first one*/
+    class func addNextAndPlay(songs: NSArray) -> Bool {
+        return RPQueueManager.addNextAndPlay(songs)
+    }
+    
+    class func getQueue() -> NSArray? {
+        return RPQueueManager.queue
+    }
+    
+    
+    //Test to get current queue from ipod
+    /*class func test() {
+    let musicPlayer = MPMusicPlayerController.iPodMusicPlayer()
+    
+    var dic : NSMutableSet = NSMutableSet()
+    //musicPlayer.pause()
+    
+    for(var i = 0; i < 100; i++){
+    var it = musicPlayer.nowPlayingItem
+    dic.addObject(it)
+    musicPlayer.skipToNextItem()
+    println(i)
+    }
+    
+    for(var i = 0; i < 100; i++){
+    var it = musicPlayer.nowPlayingItem
+    dic.addObject(it)
+    musicPlayer.skipToPreviousItem()
+    println(it.valueForProperty(MPMediaItemPropertyTitle))
+    }
+    
+    
+    }*/
     
 }
 
-struct RPQueueManagerSW {
-
-    static var queue : MPMediaItemCollection? = nil
+struct RPQueueManager {
     
+    static var queue : NSMutableArray = NSMutableArray()
     
-    static func addPlaySongs(songs: Array<MPMediaItem>) -> Bool {
-        if(queue) {
-            let musicPlayer = MPMusicPlayerController.iPodMusicPlayer();
-
-            return true
-        } else {
-            return false
-        }
+    static func initQueue() -> Bool {
+        //        if(queue){
+        //            return false
+        //        } else {
+        //            queue = NSMutableArray()
+        //            return true
+        //        }
+        return true
     }
     
-    static func playSongs(songs: Array<MPMediaItem>) -> Bool {
-        println("hello");
-        queue = MPMediaItemCollection(items: songs)
-        let musicPlayer = MPMusicPlayerController.iPodMusicPlayer()
-        musicPlayer.setQueueWithItemCollection(queue)
+    static func isQueueInitiated() -> Bool {
+        return queue == nil
+    }
+    
+    
+    
+    /*!Add the songs at the end of the queue*/
+    static func addSongs(songs: NSArray) -> Bool {
+        let musicPlayerApple = MPMusicPlayerController.iPodMusicPlayer()
+        let musicPlayer = MPMusicPlayerController.applicationMusicPlayer()
+        
+        initQueue()
+        //queue.addObject(musicPlayerApple.nowPlayingItem)
+        queue.addObjectsFromArray(songs)
+        
+        for(var i = 0; i < queue.count; i++){
+            let item:MPMediaItem = queue.objectAtIndex(i) as MPMediaItem
+            println(item.valueForProperty(MPMediaItemPropertyTitle))
+        }
+        
+        musicPlayer.setQueueWithItemCollection(MPMediaItemCollection(items:queue))
         musicPlayer.play()
-                
+        return true
+    }
+    
+    
+    /*!Add the songs on top of the queue*/
+    static func addNext(songs: NSArray) -> Bool {
+        println("hello");
+        var queueTemp: NSMutableArray = NSMutableArray();
+        queueTemp.addObjectsFromArray(songs)
+        queueTemp.addObjectsFromArray(queue)
+        queue = queueTemp
+        let musicPlayer = MPMusicPlayerController.iPodMusicPlayer()
+        musicPlayer.setQueueWithItemCollection(MPMediaItemCollection(items: queue))
+        
+        return true
+    }
+    
+    
+    /*!Add the songs on top of the queue and start playing the first one*/
+    static func addNextAndPlay(songs: NSArray) -> Bool {
+        let musicPlayer = MPMusicPlayerController.iPodMusicPlayer()
+        musicPlayer.play()
+        
         return true
     }
 }

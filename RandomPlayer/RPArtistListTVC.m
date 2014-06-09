@@ -9,6 +9,7 @@
 #import "RPArtistListTVC.h"
 #import "RPTools.h"
 #import "RPAlbumListTVC.h"
+#import "RandomPlayer-Swift.h"
 
 
 
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) MPMediaQuery *query;
 @property (nonatomic, strong) NSArray *colletionSections;
 @end
+
 
 @implementation RPArtistListTVC
 
@@ -31,11 +33,19 @@
     return self;
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self loadArtistData];
     self.tableView.canCancelContentTouches = NO;
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -45,20 +55,32 @@
     
 }
 
+/*!Load the artists*/
 -(void)loadArtistData
 {
     _query = [MPMediaQuery artistsQuery];
     
     _colletionSections= [_query collectionSections];
     
+    
 }
 
-- (void)didReceiveMemoryWarning
+/*!Return the artist at the given indexPath*/
+-(MPMediaItemCollection *)artistAtIndexpath:(NSIndexPath *)indexPath
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:indexPath.section];
+    long artistIndex = mqs.range.location + indexPath.row;
+    
+    MPMediaItemCollection *artist = [[_query collections] objectAtIndex:artistIndex];
+    return artist;
 }
 
+
+
+//************************************************************************
+//************************************************************************
+
+#pragma mark - Tableview handling
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -77,13 +99,12 @@
     return mqs.title;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RPSwipableTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 
-    //UIImageView *imgv = (UIImageView *)[self.view viewWithTag:10];
     UILabel *titleLabel  = (UILabel *)[self.view viewWithTag:10];
-    //UILabel *subtitleLabel  = (UILabel *)[self.view viewWithTag:102];
 
     MPMediaItemCollection *artist = [self artistAtIndexpath:indexPath];
 
@@ -105,10 +126,11 @@
 }
 
 
-
-
-
+//************************************************************************
+//************************************************************************
+ 
 #pragma mark - SEGUE
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:@"artistToAlbum"]){
@@ -120,32 +142,51 @@
 }
 
 
--(MPMediaItemCollection *)artistAtIndexpath:(NSIndexPath *)indexPath
-{
-    MPMediaQuerySection *mqs = [_colletionSections objectAtIndex:indexPath.section];
-    long artistIndex = mqs.range.location + indexPath.row;
-    
-    MPMediaItemCollection *artist = [[_query collections] objectAtIndex:artistIndex];
-    return artist;
-}
 
 
 
+//************************************************************************
+//************************************************************************
 
--(void)buttonLeftPressed:(RPSwipableTVCell *)cell
+#pragma mark - RPSwipableTVCellDelegate handling
+
+-(void)buttonLeftPressed:(RPSwipableTVCell *)cell{}
+
+
+/*!Correspond to add to queue*/
+-(void)buttonCenterLeftPressed:(RPSwipableTVCell *)cell
 {
     NSIndexPath *path = [self.tableView indexPathForCell:cell];
     
     MPMediaItemCollection *artist = [self artistAtIndexpath:path];
     
-    DLog(@"number item: %d", [artist.items count]);
-    
-    [RPQueueManager playSongs:artist.items];
+    [RPQueueManagerOC addSongs:artist.items];
     [cell hideBehindCell];
 
 }
 
+/*! Play next and play directly the first*/
+-(void)buttonCenterRightPressed:(RPSwipableTVCell *)cell
+{
+    NSIndexPath *path = [self.tableView indexPathForCell:cell];
+    
+    MPMediaItemCollection *artist = [self artistAtIndexpath:path];
+    
+    [RPQueueManagerOC addNextAndPlay:artist.items];
+    [cell hideBehindCell];
+}
 
+/*! Play next */
+-(void)buttonRightPressed:(RPSwipableTVCell *)cell
+{
+    NSIndexPath *path = [self.tableView indexPathForCell:cell];
+    
+    MPMediaItemCollection *artist = [self artistAtIndexpath:path];
+    
+    [RPQueueManagerOC addNextAndPlay:artist.items];
+    [cell hideBehindCell];
+    
+}
 
 
 

@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RandomPlayer-Swift.h"
 #import "RPMediaListTVC.h"
+#import "RPSwipableTVCell.h"
 
-@interface RPAlbumListTVC : RPMediaListTVC
+
+
+
+@interface RPAlbumListTVC : RPMediaListTVC <RPSwipableTVCellDelegate>
 @property (nonatomic, strong) MPMediaItemCollection *artist;
 @end

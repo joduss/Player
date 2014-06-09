@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RPMediaListTVC.h"
+#import "RPSwipableTVCell.h"
 
-@interface RPSmartListTVC : UITableViewController
+@interface RPSmartListTVC : RPMediaListTVC <RPSwipableTVCellDelegate>
+
 
 @end

@@ -45,7 +45,11 @@
         
         //add action
         [_behindView.buttonCenterLeft addTarget:self action:@selector(buttonCenterLeftPressed) forControlEvents:UIControlEventTouchUpInside];
-        
+        [_behindView.buttonCenterRight addTarget:self action:@selector(buttonCenterRightPressed) forControlEvents:UIControlEventTouchUpInside];
+        [_behindView.buttonLeft addTarget:self action:@selector(buttonLeft) forControlEvents:UIControlEventTouchUpInside];
+        [_behindView.buttonRight addTarget:self action:@selector(buttonRight) forControlEvents:UIControlEventTouchUpInside];
+
+        //resize and add behindView to the cell
         [self.contentView addSubview:_behindView];
         CGRect frame = self.contentView.frame;
         _behindView.frame = CGRectMake(frame.size.width, frame.origin.y, frame.size.width, frame.size.height);
@@ -56,9 +60,7 @@
         
         [self.contentView addGestureRecognizer:pan];
     }
-    
-    [_behindView.buttonLeft setTitle:@"CONNARD" forState:UIControlStateNormal];
-}
+    }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
@@ -70,10 +72,22 @@
 
 -(void)prepareForReuse
 {
-    [_behindView removeFromSuperview];
-    _behindView = nil;
-    [self layoutIfNeeded];
-    [[self.contentView.subviews objectAtIndex:0] setFrame:self.contentView.frame];
+    //Reset the cell by setting defaults position for view
+    [_behindView setHidden:YES];
+    UIView *contentView = self.contentView;
+    UIView *frontView = [self.contentView.subviews objectAtIndex:0];
+    CGRect newFVFrame = CGRectMake( _frontViewOffSet,
+                                   contentView.frame.origin.y,
+                                   contentView.frame.size.width,
+                                   contentView.frame.size.height);
+    
+    CGRect newBVFrame = CGRectMake(contentView.frame.size.width,
+                                   contentView.frame.origin.y,
+                                   contentView.frame.size.width,
+                                   contentView.frame.size.height);
+    _behindView.frame = newBVFrame;
+    frontView.frame = newFVFrame;
+
 }
 
 
@@ -288,32 +302,28 @@
 }
 
 
-#pragma mark - Add Target for behind view
+#pragma mark - Call the delegate
 
 //These methods are used to set action on the buttons "behind" the cell
 
 -(void)buttonLeftPressed
 {
+    [self.delegate buttonLeftPressed:self];
 }
 
 -(void)buttonCenterLeftPressed
 {
-    [self.delegate buttonLeftPressed:self];
+    [self.delegate buttonCenterLeftPressed:self];
 }
 
 -(void)buttonCenterRightPressed
 {
-    
+    [self.delegate buttonCenterRightPressed:self];
 }
 
 -(void)buttonRightPressed
 {
-    
-}
-
-
--(void)leftButtonPressed {
-    
+    [self.delegate buttonRightPressed:self];
 }
 
 @end

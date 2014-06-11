@@ -33,10 +33,18 @@
 #   define ELog(...)
 #endif
 
+//warning log
+#define W_LOG
+
+#ifdef W_LOG
+#   define WLog(...) NSLog(__VA_ARGS__);
+#else
+#   define WLog(...)
+#endif
 
 //Action log
 #ifdef LOG
-#   define DLog(...) NSLog(__VA_ARGS__);
+#   define ALog(...) NSLog(__VA_ARGS__);
 #else
 #   define ALog(...)
 #endif

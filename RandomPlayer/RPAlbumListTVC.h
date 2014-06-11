@@ -14,6 +14,6 @@
 
 
 
-@interface RPAlbumListTVC : RPMediaListTVC <RPSwipableTVCellDelegate>
+@interface RPAlbumListTVC : UITableViewController <RPSwipableTVCellDelegate>
 @property (nonatomic, strong) MPMediaItemCollection *artist;
 @end

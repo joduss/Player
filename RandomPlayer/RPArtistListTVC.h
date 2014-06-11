@@ -13,6 +13,6 @@
 @class RPQueueManagerOC;
 
 
-@interface RPArtistListTVC : RPMediaListTVC <RPSwipableTVCellDelegate>
+@interface RPArtistListTVC : UITableViewController <RPSwipableTVCellDelegate>
 
 @end

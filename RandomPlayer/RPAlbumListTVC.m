@@ -110,6 +110,7 @@
 {
     RPSwipableTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.delegate = self;
+    cell.rightViewOffSet = 80;
     
     UIImageView *imgv = (UIImageView *)[self.view viewWithTag:100];
     UILabel *titleLabel  = (UILabel *)[self.view viewWithTag:101];
@@ -136,6 +137,11 @@
     // Configure the cell...
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"albumToSong" sender:indexPath];
 }
 
 //************************************************************************

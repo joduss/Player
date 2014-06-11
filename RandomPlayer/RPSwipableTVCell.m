@@ -10,14 +10,12 @@
 #import "RPCellViewBehind.h"
 
 
-
 @interface RPSwipableTVCell()
-@property (nonatomic, strong) RPCellViewBehind *behindView;
+@property (nonatomic, strong) RPCellViewBehind *rightView;
+@property (nonatomic, weak) UIView *leftView;
 @property (nonatomic, strong) UISwipeGestureRecognizer *reco;
 @property NSTimeInterval lastMovement;
 @property float touchSeparationOffset;
-@property float frontViewOffSet;
-
 
 @end
 
@@ -25,42 +23,42 @@
 @implementation RPSwipableTVCell
 
 
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _frontViewOffSet = 80;
     }
     return self;
 }
 
 
+
 -(void)layoutSubviews
 {
-    if(_behindView == nil)
+    if(_rightView == nil)
     {
-        _behindView = [[[NSBundle mainBundle] loadNibNamed:@"cellViewBehind" owner:self options:nil] lastObject];
-        [_behindView setHidden:YES];
+        _rightView = [[[NSBundle mainBundle] loadNibNamed:@"cellViewBehind" owner:self options:nil] lastObject];
+        [_rightView setHidden:YES];
+        _leftView = [self.contentView.subviews objectAtIndex:0];
         
         //add action
-        [_behindView.buttonCenterLeft addTarget:self action:@selector(buttonCenterLeftPressed) forControlEvents:UIControlEventTouchUpInside];
-        [_behindView.buttonCenterRight addTarget:self action:@selector(buttonCenterRightPressed) forControlEvents:UIControlEventTouchUpInside];
-        [_behindView.buttonLeft addTarget:self action:@selector(buttonLeft) forControlEvents:UIControlEventTouchUpInside];
-        [_behindView.buttonRight addTarget:self action:@selector(buttonRight) forControlEvents:UIControlEventTouchUpInside];
-
-        //resize and add behindView to the cell
-        [self.contentView addSubview:_behindView];
-        CGRect frame = self.contentView.frame;
-        _behindView.frame = CGRectMake(frame.size.width, frame.origin.y, frame.size.width, frame.size.height);
+        [_rightView.buttonCenterLeft addTarget:self action:@selector(buttonCenterLeftPressed) forControlEvents:UIControlEventTouchUpInside];
+        [_rightView.buttonCenterRight addTarget:self action:@selector(buttonCenterRightPressed) forControlEvents:UIControlEventTouchUpInside];
+        [_rightView.buttonLeft addTarget:self action:@selector(buttonLeft) forControlEvents:UIControlEventTouchUpInside];
+        [_rightView.buttonRight addTarget:self action:@selector(buttonRight) forControlEvents:UIControlEventTouchUpInside];
         
-   
+        //resize and add behindView to the cell
+        [self.contentView insertSubview:_rightView belowSubview:_leftView];
+        CGRect frame = self.contentView.frame;
+        _rightView.frame = CGRectMake(frame.size.width - _rightViewOffSet, frame.origin.y, frame.size.width, frame.size.height);
+        
+        
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(paning:)];
         pan.delegate = self;
         
         [self.contentView addGestureRecognizer:pan];
     }
-    }
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
@@ -73,21 +71,20 @@
 -(void)prepareForReuse
 {
     //Reset the cell by setting defaults position for view
-    [_behindView setHidden:YES];
+    [_rightView setHidden:YES];
     UIView *contentView = self.contentView;
-    UIView *frontView = [self.contentView.subviews objectAtIndex:0];
-    CGRect newFVFrame = CGRectMake( _frontViewOffSet,
+    CGRect newFVFrame = CGRectMake( 0,
                                    contentView.frame.origin.y,
                                    contentView.frame.size.width,
                                    contentView.frame.size.height);
     
-    CGRect newBVFrame = CGRectMake(contentView.frame.size.width,
+    CGRect newBVFrame = CGRectMake(contentView.frame.size.width - _rightViewOffSet,
                                    contentView.frame.origin.y,
                                    contentView.frame.size.width,
                                    contentView.frame.size.height);
-    _behindView.frame = newBVFrame;
-    frontView.frame = newFVFrame;
-
+    _rightView.frame = newBVFrame;
+    _leftView.frame = newFVFrame;
+    
 }
 
 
@@ -100,14 +97,14 @@
         UIPanGestureRecognizer *pan = (UIPanGestureRecognizer *)gestureRecognizer;
         CGPoint rec = [pan velocityInView:self.contentView];
         //DLog(@"Velocity: %f, %f", rec.x, rec.y);
-
+        
         if(abs(rec.y) / abs(rec.x) > 1/3){
             return false;
         }
     }
     else
     {
-        if([_behindView pointInside:[gestureRecognizer locationInView:[self.contentView.window.subviews objectAtIndex:0]] withEvent:UIEventTypeTouches] ){
+        if([_rightView pointInside:[gestureRecognizer locationInView:[self.contentView.window.subviews objectAtIndex:0]] withEvent:UIEventTypeTouches] ){
             DLog(@"hello");
             return false;
         }
@@ -127,11 +124,26 @@
 /*! Handle pan gesture */
 -(void)paning:(UIPanGestureRecognizer *)pan
 {
-    
     if(pan.state == UIGestureRecognizerStateBegan)
     {
-        _touchSeparationOffset = [pan locationInView:[self.contentView.subviews objectAtIndex:0]].x - self.contentView.frame.size.width;
-        [_behindView setHidden:NO];
+        //Correct to do like if the finger was on the separation
+        //If finger is 50pixel left from separation, and swipe, then the position of
+        // the separation will be position of finger + 50px. OffsetWill be +50.
+        
+        //Need to add leftViewOffSet  as the separation is in fact where the view begin
+        // and thus it can be slighly behind the leftView. We add it, so we can deal like
+        //if it was not the case.
+        //If first button (80px) not visible. leftViewOffset will be 80px. So
+        //The position of the separation appearing on screen will be: position of
+        //rightView + 80.
+        float positionSeparation = _rightView.frame.origin.x + _rightViewOffSet;
+        float positionTouch = [pan locationInView:self.contentView].x;
+        
+        _touchSeparationOffset = positionSeparation - positionTouch;
+        
+        DLog(@"\nx: %f     toucheseparation offSet %f",positionTouch, _touchSeparationOffset);
+        
+        [_rightView setHidden:NO];
     }
     else if (pan.state == UIGestureRecognizerStateChanged)
     {
@@ -140,7 +152,6 @@
     else if(pan.state == UIGestureRecognizerStateEnded){
         [self panEnded:pan];
     }
-    
 }
 
 
@@ -148,131 +159,134 @@
 /*!User pan the cell. Updating the position to animate*/
 -(void)panMoved:(UIGestureRecognizer *)pan
 {
+    DLog(@"heigh button: %f", _rightView.buttonCenterLeft.frame.size.height);
+    DLog(@"contentView height: %f", self.contentView.frame.size.height);
+    DLog(@"self heigh %f",self.frame.size.height);
+    
     //Where the user touch
     float x = [pan locationInView:self.contentView].x;
+    //give position of finger relative to separation. Negative = finger on left (wrt sep.)
     
-    //Correct and do like if the finger was on the separation
-    //soustraction: offset is negative if touch on left of the separation
-    //and we want to compensate to the other direction
-    float touchPositionCorrected = x - _touchSeparationOffset;
+    //Correct to do like if the finger was on the separation
+    //If finger is 50pixel left from separation, and swipe, then the position of
+    // the separation will be position of finger + 50px
+    float touchPositionCorrected = x + _touchSeparationOffset ;
     
     //In case the user swipe on the wrong direction, the swipe decrease
-    if(touchPositionCorrected < _frontViewOffSet ){
-        touchPositionCorrected = _frontViewOffSet;
-    }
-    else if (touchPositionCorrected > self.contentView.frame.size.width){
-        touchPositionCorrected = self.contentView.frame.size.width;
-    }
+//    if(touchPositionCorrected < _frontViewOffSet ){
+//        touchPositionCorrected = _frontViewOffSet;
+//    }
+//    else if (touchPositionCorrected > self.contentView.frame.size.width){
+//        touchPositionCorrected = self.contentView.frame.size.width;
+//    }
     
     UIView *contentView = self.contentView;
     
-    CGRect newFVFrame = CGRectMake( - contentView.frame.size.width + touchPositionCorrected,
+    CGRect newFVFrame = CGRectMake( - contentView.frame.size.width + touchPositionCorrected, // ERREUR LA !!!!!!
                                    contentView.frame.origin.y,
                                    contentView.frame.size.width,
                                    contentView.frame.size.height);
     
-    CGRect newBVFrame = CGRectMake(touchPositionCorrected,
+    CGRect newBVFrame = CGRectMake(touchPositionCorrected - _rightViewOffSet,
                                    contentView.frame.origin.y,
                                    contentView.frame.size.width,
                                    contentView.frame.size.height);
     
-    _behindView.frame = newBVFrame;
-    UIView *frontView = [contentView.subviews objectAtIndex:0];
-    frontView.frame = newFVFrame;
+    _rightView.frame = newBVFrame;
+    _leftView.frame = newFVFrame;
 }
 
 //############################################################################
 /*!Pan Ended: animate the pan*/
 -(void)panEnded:(UIPanGestureRecognizer *)pan
 {
-    CGRect frame = _behindView.frame;
+    CGRect frame = _rightView.frame;
     float xPosition = frame.origin.x;
     
-    UIView *frontView = [self.contentView.subviews objectAtIndex:0];
     UIView *contentView = self.contentView;
     
     double direction = [pan velocityInView:self.contentView].x;
     
     
-    //direction > 0 mean last movement was to right
+    
     if(direction > 0){
-        
+        //direction > 0 mean last movement was to right
         double velocity = [pan velocityInView:contentView].x;
         
         NSTimeInterval neededTime = (contentView.frame.size.width - xPosition) / velocity * 1.1; //1.1 because of curve slowing
         
-        
+        DLog(@"%f",_rightViewOffSet);
         
         if(neededTime < MAX_CELL_ANIMATION_DURATION){
             
             [UIView animateWithDuration:neededTime delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^(void){
-                CGRect newFVFrame = CGRectMake( _frontViewOffSet,
+                CGRect newFVFrame = CGRectMake( 0,
                                                contentView.frame.origin.y,
                                                contentView.frame.size.width,
                                                contentView.frame.size.height);
                 
-                CGRect newBVFrame = CGRectMake(contentView.frame.size.width,
+                CGRect newBVFrame = CGRectMake(contentView.frame.size.width - _rightViewOffSet,
                                                contentView.frame.origin.y,
                                                contentView.frame.size.width,
                                                contentView.frame.size.height);
-                _behindView.frame = newBVFrame;
-                frontView.frame = newFVFrame;
+                _rightView.frame = newBVFrame;
+                _leftView.frame = newFVFrame;
             }completion:nil];
         }
         else
         {
             [UIView animateWithDuration:MAX_CELL_ANIMATION_DURATION delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^(void){
-                CGRect newFVFrame = CGRectMake( _frontViewOffSet,
+                CGRect newFVFrame = CGRectMake( 0,
                                                contentView.frame.origin.y,
                                                contentView.frame.size.width,
                                                contentView.frame.size.height);
                 
-                CGRect newBVFrame = CGRectMake(contentView.frame.size.width,
+                CGRect newBVFrame = CGRectMake(contentView.frame.size.width - _rightViewOffSet,
                                                contentView.frame.origin.y,
                                                contentView.frame.size.width,
                                                contentView.frame.size.height);
-                _behindView.frame = newBVFrame;
-                frontView.frame = newFVFrame;
+                _rightView.frame = newBVFrame;
+                _leftView.frame = newFVFrame;
             }completion:nil];
         }
     }
     else {
-        
+        //Swipe to the left
         double velocity = abs([pan velocityInView:contentView].x);
-
+        
         
         NSTimeInterval neededTime = xPosition / velocity * 1.1; //1.1 because of curve slowing
         
         if(neededTime < MAX_CELL_ANIMATION_DURATION){
             
             [UIView animateWithDuration:neededTime delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^(void){
-                CGRect newFVFrame = CGRectMake(- contentView.frame.size.width,
+                CGRect newFVFrame = CGRectMake(- contentView.frame.size.width + _rightViewOffSet,
                                                contentView.frame.origin.y,
                                                contentView.frame.size.width,
                                                contentView.frame.size.height);
                 
-                CGRect newBVFrame = CGRectMake(_frontViewOffSet,
+                CGRect newBVFrame = CGRectMake(0,
                                                contentView.frame.origin.y,
                                                contentView.frame.size.width,
                                                contentView.frame.size.height);
-                _behindView.frame = newBVFrame;
-                frontView.frame = newFVFrame;
+                _rightView.frame = newBVFrame;
+                _leftView.frame = newFVFrame;
             }completion:nil];
         }
         else
         {
             [UIView animateWithDuration:MAX_CELL_ANIMATION_DURATION delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^(void){
-                CGRect newFVFrame = CGRectMake( - contentView.frame.size.width,
+                CGRect newFVFrame = CGRectMake( - contentView.frame.size.width + _rightViewOffSet,
                                                contentView.frame.origin.y,
                                                contentView.frame.size.width,
                                                contentView.frame.size.height);
                 
-                CGRect newBVFrame = CGRectMake(_frontViewOffSet,
+                CGRect newBVFrame = CGRectMake(0,
                                                contentView.frame.origin.y,
                                                contentView.frame.size.width,
                                                contentView.frame.size.height);
-                _behindView.frame = newBVFrame;
-                frontView.frame = newFVFrame;
+                _rightView.frame = newBVFrame;
+                _leftView.frame = newFVFrame;
             }completion:nil];
         }
     }
@@ -283,22 +297,21 @@
 -(void)hideBehindCell
 {
     UIView *contentView = self.contentView;
-    UIView *frontView = [self.contentView.subviews objectAtIndex:0];
     
     [UIView animateWithDuration:MAX_CELL_ANIMATION_DURATION delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^(void){
-        CGRect newFVFrame = CGRectMake( _frontViewOffSet,
+        CGRect newFVFrame = CGRectMake( 0,
                                        contentView.frame.origin.y,
                                        contentView.frame.size.width,
                                        contentView.frame.size.height);
         
-        CGRect newBVFrame = CGRectMake(contentView.frame.size.width,
+        CGRect newBVFrame = CGRectMake(contentView.frame.size.width - _rightViewOffSet,
                                        contentView.frame.origin.y,
                                        contentView.frame.size.width,
                                        contentView.frame.size.height);
-        _behindView.frame = newBVFrame;
-        frontView.frame = newFVFrame;
+        _rightView.frame = newBVFrame;
+        _leftView.frame = newFVFrame;
     }completion:nil];
-
+    
 }
 
 
@@ -308,22 +321,47 @@
 
 -(void)buttonLeftPressed
 {
-    [self.delegate buttonLeftPressed:self];
+    if([_delegate respondsToSelector:@selector(buttonLeftPressed:)]){
+        [self.delegate buttonLeftPressed:self];
+    }
+    else
+    {
+        WLog(@"WARNING: %@ does not respond to buttonLeftPressed", _delegate)
+    }
 }
 
 -(void)buttonCenterLeftPressed
 {
-    [self.delegate buttonCenterLeftPressed:self];
+    
+    if([_delegate respondsToSelector:@selector(buttonLeftPressed:)]){
+        [self.delegate buttonCenterLeftPressed:self];
+    }
+    else
+    {
+        WLog(@"WARNING: %@ does not respond to buttonCenterLeftPressed", _delegate)
+    }
 }
 
 -(void)buttonCenterRightPressed
 {
-    [self.delegate buttonCenterRightPressed:self];
+    if([_delegate respondsToSelector:@selector(buttonLeftPressed:)]){
+        [self.delegate buttonCenterRightPressed:self];
+    }
+    else
+    {
+        WLog(@"WARNING: %@ does not respond to buttonCenterRightPressed", _delegate)
+    }
 }
 
 -(void)buttonRightPressed
 {
-    [self.delegate buttonRightPressed:self];
+    if([_delegate respondsToSelector:@selector(buttonLeftPressed:)]){
+        [self.delegate buttonRightPressed:self];
+    }
+    else
+    {
+        WLog(@"WARNING: %@ does not respond to buttonRightPressed", _delegate)
+    }
 }
 
 @end

@@ -21,11 +21,16 @@
 
 
 
-@interface RPSwipableTVCell : UITableViewCell <UIGestureRecognizerDelegate>
+@interface
+RPSwipableTVCell : UITableViewCell <UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (nonatomic, weak) id<RPSwipableTVCellDelegate> delegate;
 -(void)hideBehindCell;
+
+/*!Where stop the frontView when swiped to the left*/
+@property float rightViewOffSet;
+
 
 /*!Clear the content of the cell (reset)*/
 @end

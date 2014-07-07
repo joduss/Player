@@ -7,6 +7,9 @@
 //
 
 #import "RPQueueTVC.h"
+#import "RandomPlayer-Swift.h"
+#import <MediaPlayer/MediaPlayer.h>
+
 
 @interface RPQueueTVC ()
 
@@ -33,6 +36,14 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+- (IBAction)back:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -44,28 +55,36 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+return [RPQueueManagerOC getQueue].count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     // Configure the cell...
+    MPMediaItem *item = [[RPQueueManagerOC getQueue] objectAtIndex:indexPath.row];
+    
+    DLog(@"%@",item);
+    
+    NSString *artist = [item valueForProperty:MPMediaItemPropertyArtist];
+    NSString *title = [item valueForProperty:MPMediaItemPropertyTitle];
+    
+    cell.textLabel.text = [[title stringByAppendingString:@" - "] stringByAppendingString:artist];
+    
+    
+
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

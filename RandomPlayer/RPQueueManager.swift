@@ -36,9 +36,11 @@ class RPQueueManagerOC : NSObject{
     
     /*!Add the songs on top of the queue and start playing the first one*/
     class func addNextAndPlay(songs: NSArray) -> Bool {
+        NSLog("%@", songs)
         return RPQueueManager.addNextAndPlay(songs)
     }
     
+    /*!return the queue in an array of MPMEdiaItem*/
     class func getQueue() -> NSArray? {
         return RPQueueManager.queue
     }
@@ -92,8 +94,8 @@ struct RPQueueManager {
     
     /*!Add the songs at the end of the queue*/
     static func addSongs(songs: NSArray) -> Bool {
-        let musicPlayerApple = MPMusicPlayerController.iPodMusicPlayer()
-        let musicPlayer = MPMusicPlayerController.applicationMusicPlayer()
+        //let musicPlayerApple = MPMusicPlayerController.iPodMusicPlayer()
+        let musicPlayer = MPMusicPlayerController.iPodMusicPlayer()//MPMusicPlayerController.applicationMusicPlayer()
         
         initQueue()
         //queue.addObject(musicPlayerApple.nowPlayingItem)
@@ -105,7 +107,6 @@ struct RPQueueManager {
         }
         
         musicPlayer.setQueueWithItemCollection(MPMediaItemCollection(items:queue))
-        musicPlayer.play()
         return true
     }
     
@@ -117,7 +118,7 @@ struct RPQueueManager {
         queueTemp.addObjectsFromArray(songs)
         queueTemp.addObjectsFromArray(queue)
         queue = queueTemp
-        let musicPlayer = MPMusicPlayerController.iPodMusicPlayer()
+        let musicPlayer = MPMusicPlayerController.applicationMusicPlayer()
         musicPlayer.setQueueWithItemCollection(MPMediaItemCollection(items: queue))
         
         return true
@@ -126,7 +127,15 @@ struct RPQueueManager {
     
     /*!Add the songs on top of the queue and start playing the first one*/
     static func addNextAndPlay(songs: NSArray) -> Bool {
-        let musicPlayer = MPMusicPlayerController.iPodMusicPlayer()
+        let musicPlayer = MPMusicPlayerController.applicationMusicPlayer()
+        if(songs.count > 0) {
+            var queueTemp: NSMutableArray = NSMutableArray();
+            queueTemp.addObjectsFromArray(songs)
+            queueTemp.addObjectsFromArray(queue)
+            queue = queueTemp
+            musicPlayer.setQueueWithItemCollection(MPMediaItemCollection(items: queue))
+        }
+
         musicPlayer.play()
         
         return true

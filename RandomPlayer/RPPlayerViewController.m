@@ -45,7 +45,7 @@
     
     
     // instantiate a music player
-    self.musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    self.musicPlayer = [MPMusicPlayerController applicationMusicPlayer];
     self.navigationController.navigationBar.translucent = false;
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
 

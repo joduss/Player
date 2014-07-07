@@ -44,19 +44,19 @@
         //add action
         [_rightView.buttonCenterLeft addTarget:self action:@selector(buttonCenterLeftPressed) forControlEvents:UIControlEventTouchUpInside];
         [_rightView.buttonCenterRight addTarget:self action:@selector(buttonCenterRightPressed) forControlEvents:UIControlEventTouchUpInside];
-        [_rightView.buttonLeft addTarget:self action:@selector(buttonLeft) forControlEvents:UIControlEventTouchUpInside];
-        [_rightView.buttonRight addTarget:self action:@selector(buttonRight) forControlEvents:UIControlEventTouchUpInside];
+        [_rightView.buttonLeft addTarget:self action:@selector(buttonLeftPressed) forControlEvents:UIControlEventTouchUpInside];
+        [_rightView.buttonRight addTarget:self action:@selector(buttonRightPressed) forControlEvents:UIControlEventTouchUpInside];
         
         //resize and add behindView to the cell
         [self.contentView insertSubview:_rightView belowSubview:_leftView];
         CGRect frame = self.contentView.frame;
-        _rightView.frame = CGRectMake(frame.size.width - _rightViewOffSet, frame.origin.y, frame.size.width, frame.size.height);
+        _rightView.frame = CGRectMake(frame.size.width - _rightViewOffSet, frame.origin.y, frame.size.width, self.frame.size.height);
         
         
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(paning:)];
         pan.delegate = self;
         
-        [self.contentView addGestureRecognizer:pan];
+        [self addGestureRecognizer:pan];
     }
 }
 
@@ -72,19 +72,22 @@
 {
     //Reset the cell by setting defaults position for view
     [_rightView setHidden:YES];
+    
     UIView *contentView = self.contentView;
-    CGRect newFVFrame = CGRectMake( 0,
+    
+    contentView.frame = self.contentView.frame;
+    
+    CGRect newFVFrame = CGRectMake(contentView.frame.origin.x,
                                    contentView.frame.origin.y,
                                    contentView.frame.size.width,
                                    contentView.frame.size.height);
     
-    CGRect newBVFrame = CGRectMake(contentView.frame.size.width - _rightViewOffSet,
-                                   contentView.frame.origin.y,
-                                   contentView.frame.size.width,
-                                   contentView.frame.size.height);
+    CGRect newBVFrame = CGRectMake(self.frame.size.width - _rightViewOffSet,
+                                   self.frame.origin.y,
+                                   self.frame.size.width,
+                                   self.frame.size.height);
     _rightView.frame = newBVFrame;
     _leftView.frame = newFVFrame;
-    
 }
 
 
@@ -182,7 +185,7 @@
     
     UIView *contentView = self.contentView;
     
-    CGRect newFVFrame = CGRectMake( - contentView.frame.size.width + touchPositionCorrected, // ERREUR LA !!!!!!
+    CGRect newFVFrame = CGRectMake( - contentView.frame.size.width + touchPositionCorrected,
                                    contentView.frame.origin.y,
                                    contentView.frame.size.width,
                                    contentView.frame.size.height);
@@ -333,7 +336,7 @@
 -(void)buttonCenterLeftPressed
 {
     
-    if([_delegate respondsToSelector:@selector(buttonLeftPressed:)]){
+    if([_delegate respondsToSelector:@selector(buttonCenterLeftPressed:)]){
         [self.delegate buttonCenterLeftPressed:self];
     }
     else
@@ -344,7 +347,7 @@
 
 -(void)buttonCenterRightPressed
 {
-    if([_delegate respondsToSelector:@selector(buttonLeftPressed:)]){
+    if([_delegate respondsToSelector:@selector(buttonCenterRightPressed:)]){
         [self.delegate buttonCenterRightPressed:self];
     }
     else
@@ -355,7 +358,7 @@
 
 -(void)buttonRightPressed
 {
-    if([_delegate respondsToSelector:@selector(buttonLeftPressed:)]){
+    if([_delegate respondsToSelector:@selector(buttonRightPressed:)]){
         [self.delegate buttonRightPressed:self];
     }
     else

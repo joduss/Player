@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="8YX-ce-x5E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.7" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="8YX-ce-x5E">
     <dependencies>
         <deployment defaultVersion="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller - tab-->
+        <!--tab-->
         <scene sceneID="Vex-rW-GRa">
             <objects>
                 <tabBarController storyboardIdentifier="tabbar" title="tab" id="8YX-ce-x5E" customClass="RPTabBarController" sceneMemberID="viewController">
@@ -28,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="-396" y="1232"/>
         </scene>
-        <!--Reveal View Controller - root-->
+        <!--root-->
         <scene sceneID="XEG-j7-SX1">
             <objects>
                 <viewController title="root" id="WQy-wq-8I0" customClass="SWRevealViewController" sceneMemberID="viewController">
@@ -46,7 +46,7 @@
             </objects>
             <point key="canvasLocation" x="-1375" y="1504"/>
         </scene>
-        <!--QueueTVC - Queue-->
+        <!--Queue-->
         <scene sceneID="lgF-0M-wF6">
             <objects>
                 <tableViewController title="Queue" id="XBE-Pp-GMY" customClass="RPQueueTVC" sceneMemberID="viewController">
@@ -77,7 +77,7 @@
             </objects>
             <point key="canvasLocation" x="168" y="2771"/>
         </scene>
-        <!--Navigation Controller - RS Lists-->
+        <!--RS Lists-->
         <scene sceneID="YkM-Gs-u8z">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AJL-5Y-wQK" sceneMemberID="viewController">
@@ -119,13 +119,20 @@
                             <outlet property="delegate" destination="I5x-zl-bal" id="bgw-IL-avL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="gA1-fP-guO"/>
+                    <navigationItem key="navigationItem" id="gA1-fP-guO">
+                        <barButtonItem key="rightBarButtonItem" title="Queue" id="sq7-fH-8SB">
+                            <connections>
+                                <action selector="showQueue:" destination="yn1-f1-UUj" id="ov7-2U-BfP"/>
+                                <segue destination="hwa-6h-O7w" kind="modal" id="kts-n2-3PY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wyS-N2-hfm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1276" y="-331"/>
         </scene>
-        <!--Navigation Controller - Artists-->
+        <!--Artists-->
         <scene sceneID="xkf-Tw-mtE">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zIE-2o-ISG" sceneMemberID="viewController">
@@ -144,7 +151,7 @@
             </objects>
             <point key="canvasLocation" x="741" y="386"/>
         </scene>
-        <!--Artist ListTVC - Artists-->
+        <!--Artists-->
         <scene sceneID="1VK-sr-mJZ">
             <objects>
                 <tableViewController title="Artists" id="Ydz-rG-Fj6" customClass="RPArtistListTVC" sceneMemberID="viewController">
@@ -193,7 +200,14 @@
                             <outlet property="delegate" destination="Ydz-rG-Fj6" id="zI5-0c-uiw"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="xS1-yE-JEV"/>
+                    <navigationItem key="navigationItem" id="xS1-yE-JEV">
+                        <barButtonItem key="rightBarButtonItem" title="Queue" id="51z-5U-ffQ">
+                            <connections>
+                                <action selector="showQueue:" destination="yn1-f1-UUj" id="4sa-0O-tkv"/>
+                                <segue destination="hwa-6h-O7w" kind="modal" id="aEj-kD-rtS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="GQr-bB-Qui" kind="push" identifier="artistToAlbum" id="uZj-Ro-2es"/>
                     </connections>
@@ -202,7 +216,7 @@
             </objects>
             <point key="canvasLocation" x="1269" y="385"/>
         </scene>
-        <!--Navigation Controller - Albums-->
+        <!--Albums-->
         <scene sceneID="gaT-hv-ZfD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="avo-02-FM8" sceneMemberID="viewController">
@@ -221,7 +235,7 @@
             </objects>
             <point key="canvasLocation" x="757" y="1077"/>
         </scene>
-        <!--Album ListTVC - Albums-->
+        <!--Albums-->
         <scene sceneID="S6E-Zw-FQF">
             <objects>
                 <tableViewController title="Albums" id="GQr-bB-Qui" customClass="RPAlbumListTVC" sceneMemberID="viewController">
@@ -336,13 +350,20 @@
                             <outlet property="delegate" destination="g7r-YZ-CV2" id="aPs-jk-COB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="xAY-33-Psf"/>
+                    <navigationItem key="navigationItem" id="xAY-33-Psf">
+                        <barButtonItem key="rightBarButtonItem" title="Queue" id="oTa-FO-H6I">
+                            <connections>
+                                <action selector="showQueue:" destination="yn1-f1-UUj" id="XDg-Ta-v1u"/>
+                                <segue destination="hwa-6h-O7w" kind="modal" id="gQT-h6-Jza"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vhz-YW-buA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1899" y="1074"/>
+            <point key="canvasLocation" x="1853" y="1077"/>
         </scene>
-        <!--Table View Controller - Playlists-->
+        <!--Playlists-->
         <scene sceneID="pYs-cq-ccD">
             <objects>
                 <tableViewController title="Playlists" id="PLS-mp-A2m" sceneMemberID="viewController">
@@ -378,6 +399,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Queue" id="MBU-Qs-uNu">
                             <connections>
                                 <action selector="showQueue:" destination="yn1-f1-UUj" id="ZEq-0t-9nt"/>
+                                <segue destination="hwa-6h-O7w" kind="modal" id="R6B-De-KBd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -386,7 +408,7 @@
             </objects>
             <point key="canvasLocation" x="1283" y="1839"/>
         </scene>
-        <!--Player View Controller - Playing-->
+        <!--Playing-->
         <scene sceneID="wcF-pg-odS">
             <objects>
                 <viewController title="Playing" id="yn1-f1-UUj" customClass="RPPlayerViewController" sceneMemberID="viewController">
@@ -479,7 +501,6 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <size key="freeformSize" width="320" height="568"/>
                     <connections>
                         <outlet property="buttonPlayPause" destination="dTJ-ig-Kh2" id="50H-Mc-p3C"/>
                         <outlet property="imageViewAlbum" destination="n9M-9F-s9P" id="tFS-gG-UHq"/>
@@ -525,11 +546,29 @@
                             <outlet property="delegate" destination="9fz-Gh-lQp" id="ijb-tt-uni"/>
                         </connections>
                     </tableView>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem title="Randomize" id="uEH-3f-0Wh">
+                            <connections>
+                                <action selector="randomize:" destination="9fz-Gh-lQp" id="ywq-fC-UGW"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="i8K-cH-GXY"/>
+                        <barButtonItem title="Randomize +" id="aSb-tI-12o">
+                            <connections>
+                                <action selector="randomizeAdvanced:" destination="9fz-Gh-lQp" id="EMG-LX-z5B"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="OUS-kt-IOQ"/>
+                        <barButtonItem title="Empty" id="cPb-Wd-g2n">
+                            <connections>
+                                <action selector="emptyAueue:" destination="9fz-Gh-lQp" id="Egc-Av-Way"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="d2D-IF-uh1">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="PSZ-8e-LI7">
                             <connections>
-                                <action selector="back:" destination="9fz-Gh-lQp" id="lv9-xn-iw0"/>
+                                <action selector="back:" destination="9fz-Gh-lQp" id="6qE-Z5-Pmm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -538,9 +577,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CqR-Q5-4g6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2286" y="2058"/>
+            <point key="canvasLocation" x="3598" y="1070"/>
         </scene>
-        <!--Navigation Controller - Playlist-->
+        <!--Playlist-->
         <scene sceneID="YZz-hy-Efz">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jNV-4l-ZIz" sceneMemberID="viewController">
@@ -559,7 +598,7 @@
             </objects>
             <point key="canvasLocation" x="757" y="1839"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Item-->
         <scene sceneID="p2r-tQ-vS1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="93B-IF-s0s" sceneMemberID="viewController">
@@ -639,7 +678,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4r4-0I-ncO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1760" y="2058"/>
+            <point key="canvasLocation" x="3122" y="1070"/>
         </scene>
     </scenes>
     <resources>
@@ -649,10 +688,13 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination" type="retina4">
+            <size key="portraitSize" width="320" height="568"/>
+            <size key="landscapeSize" width="568" height="320"/>
+        </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="aEj-kD-rtS"/>
         <segue reference="uZj-Ro-2es"/>
-        <segue reference="R6i-kN-FZo"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -20,6 +20,7 @@
 		C800DE5D18914E3C00A5C4A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C800DE3C18914E3C00A5C4A9 /* UIKit.framework */; };
 		C800DE6518914E3C00A5C4A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C800DE6318914E3C00A5C4A9 /* InfoPlist.strings */; };
 		C800DE6718914E3C00A5C4A9 /* RandomPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */; };
+		C80C8ACC19719E3D00AA1906 /* RPTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80C8ACB19719E3D00AA1906 /* RPTools.swift */; };
 		C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10518A8EBBE001A088F /* RPMediaListTVC.m */; };
 		C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10818A8F88E001A088F /* RPAlbumListTVC.m */; };
 		C8554CEE19460EBB0014C82A /* RPSongListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8554CED19460EBB0014C82A /* RPSongListTVC.m */; };
@@ -38,6 +39,7 @@
 		C8B2094F1944F6E6005C909F /* RPSongListTVC-forFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B2094E1944F6E6005C909F /* RPSongListTVC-forFuture.swift */; };
 		C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DE09B91933D47500796E5F /* RPPlayerViewController.m */; };
 		C8E44DE7193BA92900DEC608 /* RPCellViewBehind.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E44DE6193BA92900DEC608 /* RPCellViewBehind.m */; };
+		C8F486E51972CF8F00DD82FF /* RPQueueTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F486E41972CF8F00DD82FF /* RPQueueTVC.swift */; };
 		C8FDDEA21938F50E003D9BB9 /* RPSmartListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FDDEA11938F50E003D9BB9 /* RPSmartListTVC.m */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +71,7 @@
 		C800DE6218914E3C00A5C4A9 /* RandomPlayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RandomPlayerTests-Info.plist"; sourceTree = "<group>"; };
 		C800DE6418914E3C00A5C4A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RandomPlayerTests.m; sourceTree = "<group>"; };
+		C80C8ACB19719E3D00AA1906 /* RPTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPTools.swift; sourceTree = "<group>"; };
 		C814D10418A8EBBE001A088F /* RPMediaListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPMediaListTVC.h; sourceTree = "<group>"; };
 		C814D10518A8EBBE001A088F /* RPMediaListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPMediaListTVC.m; sourceTree = "<group>"; };
 		C814D10718A8F88E001A088F /* RPAlbumListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPAlbumListTVC.h; sourceTree = "<group>"; };
@@ -106,6 +109,7 @@
 		C8DE09B91933D47500796E5F /* RPPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPlayerViewController.m; sourceTree = "<group>"; };
 		C8E44DE5193BA92900DEC608 /* RPCellViewBehind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCellViewBehind.h; sourceTree = "<group>"; };
 		C8E44DE6193BA92900DEC608 /* RPCellViewBehind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCellViewBehind.m; sourceTree = "<group>"; };
+		C8F486E41972CF8F00DD82FF /* RPQueueTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueueTVC.swift; sourceTree = "<group>"; };
 		C8FDDEA01938F50E003D9BB9 /* RPSmartListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSmartListTVC.h; sourceTree = "<group>"; };
 		C8FDDEA11938F50E003D9BB9 /* RPSmartListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSmartListTVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,12 +187,14 @@
 				C872042E193FC64C00AD7A52 /* RPSwipableButton.m */,
 				C88BF004193789E3006C7CE5 /* RPTools.h */,
 				C88BF005193789E3006C7CE5 /* RPTools.m */,
+				C80C8ACB19719E3D00AA1906 /* RPTools.swift */,
 				C873CB481940F75700189D6B /* RPQueueManager.swift */,
 				C8CE80CA1942210300BB407D /* playgroundtest.playground */,
 				C8554CEC19460EBB0014C82A /* RPSongListTVC.h */,
 				C8554CED19460EBB0014C82A /* RPSongListTVC.m */,
 				C88BF00119378501006C7CE5 /* RPQueueTVC.h */,
 				C88BF00219378501006C7CE5 /* RPQueueTVC.m */,
+				C8F486E41972CF8F00DD82FF /* RPQueueTVC.swift */,
 				C895187A193A154200AF74F0 /* Controller in tabs */,
 				C800DE5318914E3C00A5C4A9 /* Images.xcassets */,
 				C8A6D9E918A96FB100912849 /* PMInfoFormattedForTV.h */,
@@ -383,7 +389,9 @@
 				C800DE4518914E3C00A5C4A9 /* main.m in Sources */,
 				C8951879193A153600AF74F0 /* RPSwipableTVCell.m in Sources */,
 				C88BEFFD19377BC4006C7CE5 /* SWRevealViewController.m in Sources */,
+				C80C8ACC19719E3D00AA1906 /* RPTools.swift in Sources */,
 				C873CB491940F75700189D6B /* RPQueueManager.swift in Sources */,
+				C8F486E51972CF8F00DD82FF /* RPQueueTVC.swift in Sources */,
 				C8A6D9EE18A971E100912849 /* RPDictionaryIndexPath.m in Sources */,
 				C86C95CF18B223BB00409EC5 /* RPArtistListTVC.m in Sources */,
 				C8554CEE19460EBB0014C82A /* RPSongListTVC.m in Sources */,

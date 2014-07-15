@@ -195,11 +195,10 @@
 {
     NSIndexPath *path = [self.tableView indexPathForCell:cell];
     
-    MPMediaItemCollection *artist = [self albumAtIndexpath:path];
+    MPMediaItemCollection *album = [self albumAtIndexpath:path];
     
-    [RPQueueManagerOC addNextAndPlay:artist.items];
-    [cell hideBehindCell];
-    
+    [RPQueueManagerOC addNext:album.items];
+    [cell hideBehindCell];    
 }
 
 

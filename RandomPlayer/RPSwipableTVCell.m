@@ -108,7 +108,6 @@
     else
     {
         if([_rightView pointInside:[gestureRecognizer locationInView:[self.contentView.window.subviews objectAtIndex:0]] withEvent:UIEventTypeTouches] ){
-            DLog(@"hello");
             return false;
         }
     }
@@ -144,7 +143,7 @@
         
         _touchSeparationOffset = positionSeparation - positionTouch;
         
-        DLog(@"\nx: %f     toucheseparation offSet %f",positionTouch, _touchSeparationOffset);
+        //DLog(@"\nx: %f     toucheseparation offSet %f",positionTouch, _touchSeparationOffset);
         
         [_rightView setHidden:NO];
     }
@@ -162,9 +161,9 @@
 /*!User pan the cell. Updating the position to animate*/
 -(void)panMoved:(UIGestureRecognizer *)pan
 {
-    DLog(@"heigh button: %f", _rightView.buttonCenterLeft.frame.size.height);
-    DLog(@"contentView height: %f", self.contentView.frame.size.height);
-    DLog(@"self heigh %f",self.frame.size.height);
+    //DLog(@"heigh button: %f", _rightView.buttonCenterLeft.frame.size.height);
+    //DLog(@"contentView height: %f", self.contentView.frame.size.height);
+    //DLog(@"self heigh %f",self.frame.size.height);
     
     //Where the user touch
     float x = [pan locationInView:self.contentView].x;
@@ -218,7 +217,7 @@
         
         NSTimeInterval neededTime = (contentView.frame.size.width - xPosition) / velocity * 1.1; //1.1 because of curve slowing
         
-        DLog(@"%f",_rightViewOffSet);
+        //DLog(@"%f",_rightViewOffSet);
         
         if(neededTime < MAX_CELL_ANIMATION_DURATION){
             

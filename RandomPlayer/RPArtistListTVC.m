@@ -184,7 +184,7 @@
     
     MPMediaItemCollection *artist = [self artistAtIndexpath:path];
     
-    [RPQueueManagerOC addNextAndPlay:artist.items];
+    [RPQueueManagerOC addNext:artist.items];
     [cell hideBehindCell];
     
 }

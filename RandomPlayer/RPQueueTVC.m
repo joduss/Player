@@ -29,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.toolbarHidden = NO;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -51,6 +52,28 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
+
+
+- (IBAction)randomize:(id)sender {
+}
+
+
+
+
+- (IBAction)randomizeAdvanced:(id)sender {
+}
+
+
+
+- (IBAction)EmptyQueue:(id)sender {
+}
+
+
+
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -71,9 +94,7 @@ return [RPQueueManagerOC getQueue].count;
     
     // Configure the cell...
     MPMediaItem *item = [[RPQueueManagerOC getQueue] objectAtIndex:indexPath.row];
-    
-    DLog(@"%@",item);
-    
+        
     NSString *artist = [item valueForProperty:MPMediaItemPropertyArtist];
     NSString *title = [item valueForProperty:MPMediaItemPropertyTitle];
     

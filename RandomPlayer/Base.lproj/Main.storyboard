@@ -361,7 +361,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vhz-YW-buA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1853" y="1077"/>
+            <point key="canvasLocation" x="1843" y="1077"/>
         </scene>
         <!--Playlists-->
         <scene sceneID="pYs-cq-ccD">
@@ -694,7 +694,7 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="aEj-kD-rtS"/>
         <segue reference="uZj-Ro-2es"/>
+        <segue reference="gQT-h6-Jza"/>
     </inferredMetricsTieBreakers>
 </document>

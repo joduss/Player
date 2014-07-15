@@ -113,6 +113,7 @@
     NSTimeInterval durationInSeconds = [[song valueForProperty:MPMediaItemPropertyPlaybackDuration] intValue];
     subtitleLabel.text = [RPTools minutesSecondsConversion:durationInSeconds];
     
+    
     return cell;
 }
 

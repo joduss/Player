@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class RPQueueTVC: UITableViewController {
 
@@ -34,14 +35,18 @@ class RPQueueTVC: UITableViewController {
 
     
     @IBAction func randomize(sender: AnyObject) {
+        // #warning Potentially incomplete method implementation.
     }
     
     
     @IBAction func randomizeAdvanced(sender: AnyObject) {
+        // #warning Potentially incomplete method implementation.
+
     }
     
     
     @IBAction func emptyAueue(sender: AnyObject) {
+        // #warning Potentially incomplete method implementation.
     }
     
     
@@ -52,26 +57,30 @@ class RPQueueTVC: UITableViewController {
     // #pragma mark - Table view function
 
     override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
-        // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
     }
 
     override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return RPQueueManager.queue.count
     }
 
-    /*
+    
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell? {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
 
-        // Configure the cell...
+        // Configure the cell
+        let mediaItem = RPQueueManager.queue.objectAtIndex(indexPath.row) as MPMediaItem
+        
+        let artistName = mediaItem.valueForProperty(MPMediaItemPropertyArtist) as String
+        let songTitle = mediaItem.valueForProperty(MPMediaItemPropertyTitle) as String
+        
+        cell.textLabel.text = songTitle + " - " + artistName
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

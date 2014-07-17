@@ -57,3 +57,11 @@ let l1 = "salut"
 let l2 = "salut"
 
 l1 == l2
+
+
+var stringO : String?
+
+stringO = "salut"
+
+stringO?.substringToIndex(3)
+

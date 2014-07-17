@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-class RPAlbumTVC: UITableViewController {
+class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate {
     
     var query : MPMediaQuery
     var artist : MPMediaItemCollection?
@@ -59,12 +59,11 @@ class RPAlbumTVC: UITableViewController {
     /**Load album only for the specified artist*/
     func filterAlbumForArtist(artist : MPMediaItemCollection) {
         self.artist = artist
-        self.title = artist.valueForProperty(MPMediaItemPropertyArtist) as String
+        self.title = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
         let filterPredicate = MPMediaPropertyPredicate(
             value: artist.representativeItem.valueForProperty(MPMediaItemPropertyArtistPersistentID),
             forProperty: MPMediaItemPropertyArtistPersistentID)
-        
-        self.query.filterPredicates = NSSet(object: filterPredicate)
+        query.filterPredicates = NSSet(object: filterPredicate)
         self.tableView.reloadData()
     }
     
@@ -82,7 +81,7 @@ class RPAlbumTVC: UITableViewController {
     func buttonCenterLeftPressed(cell: RPSwipableTVCell!) {
         let path = self.tableView.indexPathForCell(cell)
         
-        RPQueueManager .addSongs(self.albumAtIndexPath(path).items)
+        RPQueueManager .addSongs(albumAtIndexPath(path).items)
         cell .hideBehindCell()
     }
     
@@ -139,7 +138,7 @@ class RPAlbumTVC: UITableViewController {
             subtitleLabel.text = "\(nbSongInAbum) songs"
         }
         
-        let artwork = album.representativeItem.valueForProperty(MPMediaItemPropertyArtwork)
+        let artwork = album.representativeItem.valueForProperty(MPMediaItemPropertyArtwork) as MPMediaItemArtwork
         let artworkImage = artwork.imageWithSize(imageView.bounds.size)
         imageView.image = artworkImage
 
@@ -160,8 +159,8 @@ class RPAlbumTVC: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
         if(segue.identifier == "albumToSong") {
             let dest = segue.destinationViewController as RPSongTVC
-            let artist = self.albumAtIndexPath(sender as NSIndexPath)
-            dest.setAlbum(artist)
+            let album = self.albumAtIndexPath(sender as NSIndexPath)
+            dest.filterSongForAlbum(album)
         }
     }
     

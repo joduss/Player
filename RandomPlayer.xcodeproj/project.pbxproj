@@ -20,6 +20,7 @@
 		C800DE5D18914E3C00A5C4A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C800DE3C18914E3C00A5C4A9 /* UIKit.framework */; };
 		C800DE6518914E3C00A5C4A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C800DE6318914E3C00A5C4A9 /* InfoPlist.strings */; };
 		C800DE6718914E3C00A5C4A9 /* RandomPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */; };
+		C806B54219780AEA0099B2FF /* RPSmartListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C806B54119780AEA0099B2FF /* RPSmartListTVC.swift */; };
 		C80C8ACC19719E3D00AA1906 /* RPTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80C8ACB19719E3D00AA1906 /* RPTools.swift */; };
 		C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10518A8EBBE001A088F /* RPMediaListTVC.m */; };
 		C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10818A8F88E001A088F /* RPAlbumListTVC.m */; };
@@ -29,7 +30,6 @@
 		C872042F193FC64C00AD7A52 /* RPSwipableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C872042E193FC64C00AD7A52 /* RPSwipableButton.m */; };
 		C873CB491940F75700189D6B /* RPQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C873CB481940F75700189D6B /* RPQueueManager.swift */; };
 		C88BEFFD19377BC4006C7CE5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BEFFC19377BC4006C7CE5 /* SWRevealViewController.m */; };
-		C88BF0001937842E006C7CE5 /* RPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BEFFF1937842E006C7CE5 /* RPTabBarController.m */; };
 		C88BF00319378501006C7CE5 /* RPQueueTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BF00219378501006C7CE5 /* RPQueueTVC.m */; };
 		C88BF006193789E3006C7CE5 /* RPTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BF005193789E3006C7CE5 /* RPTools.m */; };
 		C8951879193A153600AF74F0 /* RPSwipableTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8951878193A153600AF74F0 /* RPSwipableTVCell.m */; };
@@ -38,9 +38,11 @@
 		C8A6D9EE18A971E100912849 /* RPDictionaryIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */; };
 		C8B2094F1944F6E6005C909F /* RPSongListTVC-forFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B2094E1944F6E6005C909F /* RPSongListTVC-forFuture.swift */; };
 		C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DE09B91933D47500796E5F /* RPPlayerViewController.m */; };
+		C8E153CF197672BE00570487 /* RPAlbumTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E153CE197672BE00570487 /* RPAlbumTVC.swift */; };
 		C8E44DE7193BA92900DEC608 /* RPCellViewBehind.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E44DE6193BA92900DEC608 /* RPCellViewBehind.m */; };
 		C8F486E51972CF8F00DD82FF /* RPQueueTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F486E41972CF8F00DD82FF /* RPQueueTVC.swift */; };
-		C8FDDEA21938F50E003D9BB9 /* RPSmartListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FDDEA11938F50E003D9BB9 /* RPSmartListTVC.m */; };
+		C8FA6EBF197578E80061DD47 /* RPArtistTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FA6EBE197578E80061DD47 /* RPArtistTVC.swift */; };
+		C8FF3D161977D2F800A0A368 /* RPSongTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FF3D151977D2F800A0A368 /* RPSongTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,7 @@
 		C800DE6218914E3C00A5C4A9 /* RandomPlayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RandomPlayerTests-Info.plist"; sourceTree = "<group>"; };
 		C800DE6418914E3C00A5C4A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RandomPlayerTests.m; sourceTree = "<group>"; };
+		C806B54119780AEA0099B2FF /* RPSmartListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSmartListTVC.swift; sourceTree = "<group>"; };
 		C80C8ACB19719E3D00AA1906 /* RPTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPTools.swift; sourceTree = "<group>"; };
 		C814D10418A8EBBE001A088F /* RPMediaListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPMediaListTVC.h; sourceTree = "<group>"; };
 		C814D10518A8EBBE001A088F /* RPMediaListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPMediaListTVC.m; sourceTree = "<group>"; };
@@ -87,8 +90,6 @@
 		C873CB481940F75700189D6B /* RPQueueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueueManager.swift; sourceTree = "<group>"; };
 		C88BEFFB19377BC4006C7CE5 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		C88BEFFC19377BC4006C7CE5 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		C88BEFFE1937842E006C7CE5 /* RPTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPTabBarController.h; sourceTree = "<group>"; };
-		C88BEFFF1937842E006C7CE5 /* RPTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPTabBarController.m; sourceTree = "<group>"; };
 		C88BF00119378501006C7CE5 /* RPQueueTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPQueueTVC.h; sourceTree = "<group>"; };
 		C88BF00219378501006C7CE5 /* RPQueueTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPQueueTVC.m; sourceTree = "<group>"; };
 		C88BF004193789E3006C7CE5 /* RPTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPTools.h; sourceTree = "<group>"; };
@@ -107,11 +108,12 @@
 		C8CE80CB194251E200BB407D /* ConstantDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstantDefines.h; sourceTree = "<group>"; };
 		C8DE09B81933D47500796E5F /* RPPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPlayerViewController.h; sourceTree = "<group>"; };
 		C8DE09B91933D47500796E5F /* RPPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPlayerViewController.m; sourceTree = "<group>"; };
+		C8E153CE197672BE00570487 /* RPAlbumTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPAlbumTVC.swift; sourceTree = "<group>"; };
 		C8E44DE5193BA92900DEC608 /* RPCellViewBehind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCellViewBehind.h; sourceTree = "<group>"; };
 		C8E44DE6193BA92900DEC608 /* RPCellViewBehind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCellViewBehind.m; sourceTree = "<group>"; };
 		C8F486E41972CF8F00DD82FF /* RPQueueTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueueTVC.swift; sourceTree = "<group>"; };
-		C8FDDEA01938F50E003D9BB9 /* RPSmartListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSmartListTVC.h; sourceTree = "<group>"; };
-		C8FDDEA11938F50E003D9BB9 /* RPSmartListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSmartListTVC.m; sourceTree = "<group>"; };
+		C8FA6EBE197578E80061DD47 /* RPArtistTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPArtistTVC.swift; sourceTree = "<group>"; };
+		C8FF3D151977D2F800A0A368 /* RPSongTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSongTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,9 +190,8 @@
 				C80C8ACB19719E3D00AA1906 /* RPTools.swift */,
 				C873CB481940F75700189D6B /* RPQueueManager.swift */,
 				C8CE80CA1942210300BB407D /* playgroundtest.playground */,
-				C8554CEC19460EBB0014C82A /* RPSongListTVC.h */,
-				C8554CED19460EBB0014C82A /* RPSongListTVC.m */,
 				C8F486E41972CF8F00DD82FF /* RPQueueTVC.swift */,
+				C8FF3D151977D2F800A0A368 /* RPSongTVC.swift */,
 				C83F8EED19753D1F0061532D /* old */,
 				C895187A193A154200AF74F0 /* Controller in tabs */,
 				C800DE5318914E3C00A5C4A9 /* Images.xcassets */,
@@ -234,6 +235,14 @@
 		C83F8EED19753D1F0061532D /* old */ = {
 			isa = PBXGroup;
 			children = (
+				C814D10418A8EBBE001A088F /* RPMediaListTVC.h */,
+				C814D10518A8EBBE001A088F /* RPMediaListTVC.m */,
+				C8554CEC19460EBB0014C82A /* RPSongListTVC.h */,
+				C8554CED19460EBB0014C82A /* RPSongListTVC.m */,
+				C814D10718A8F88E001A088F /* RPAlbumListTVC.h */,
+				C814D10818A8F88E001A088F /* RPAlbumListTVC.m */,
+				C86C95CD18B223BB00409EC5 /* RPArtistListTVC.h */,
+				C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */,
 				C88BF004193789E3006C7CE5 /* RPTools.h */,
 				C88BF005193789E3006C7CE5 /* RPTools.m */,
 				C8A6D9E918A96FB100912849 /* PMInfoFormattedForTV.h */,
@@ -267,18 +276,11 @@
 			isa = PBXGroup;
 			children = (
 				C8B2094E1944F6E6005C909F /* RPSongListTVC-forFuture.swift */,
-				C88BEFFE1937842E006C7CE5 /* RPTabBarController.h */,
-				C88BEFFF1937842E006C7CE5 /* RPTabBarController.m */,
 				C8DE09B81933D47500796E5F /* RPPlayerViewController.h */,
 				C8DE09B91933D47500796E5F /* RPPlayerViewController.m */,
-				C814D10718A8F88E001A088F /* RPAlbumListTVC.h */,
-				C814D10818A8F88E001A088F /* RPAlbumListTVC.m */,
-				C86C95CD18B223BB00409EC5 /* RPArtistListTVC.h */,
-				C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */,
-				C814D10418A8EBBE001A088F /* RPMediaListTVC.h */,
-				C814D10518A8EBBE001A088F /* RPMediaListTVC.m */,
-				C8FDDEA01938F50E003D9BB9 /* RPSmartListTVC.h */,
-				C8FDDEA11938F50E003D9BB9 /* RPSmartListTVC.m */,
+				C8FA6EBE197578E80061DD47 /* RPArtistTVC.swift */,
+				C8E153CE197672BE00570487 /* RPAlbumTVC.swift */,
+				C806B54119780AEA0099B2FF /* RPSmartListTVC.swift */,
 			);
 			name = "Controller in tabs";
 			sourceTree = "<group>";
@@ -384,7 +386,7 @@
 			files = (
 				C8B2094F1944F6E6005C909F /* RPSongListTVC-forFuture.swift in Sources */,
 				C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */,
-				C88BF0001937842E006C7CE5 /* RPTabBarController.m in Sources */,
+				C8FA6EBF197578E80061DD47 /* RPArtistTVC.swift in Sources */,
 				C8E44DE7193BA92900DEC608 /* RPCellViewBehind.m in Sources */,
 				C88BF00319378501006C7CE5 /* RPQueueTVC.m in Sources */,
 				C88BF006193789E3006C7CE5 /* RPTools.m in Sources */,
@@ -393,10 +395,12 @@
 				C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */,
 				C8A6D9EB18A96FB100912849 /* PMInfoFormattedForTV.m in Sources */,
 				C872042F193FC64C00AD7A52 /* RPSwipableButton.m in Sources */,
-				C8FDDEA21938F50E003D9BB9 /* RPSmartListTVC.m in Sources */,
+				C8E153CF197672BE00570487 /* RPAlbumTVC.swift in Sources */,
 				C800DE4518914E3C00A5C4A9 /* main.m in Sources */,
 				C8951879193A153600AF74F0 /* RPSwipableTVCell.m in Sources */,
+				C8FF3D161977D2F800A0A368 /* RPSongTVC.swift in Sources */,
 				C88BEFFD19377BC4006C7CE5 /* SWRevealViewController.m in Sources */,
+				C806B54219780AEA0099B2FF /* RPSmartListTVC.swift in Sources */,
 				C80C8ACC19719E3D00AA1906 /* RPTools.swift in Sources */,
 				C873CB491940F75700189D6B /* RPQueueManager.swift in Sources */,
 				C8F486E51972CF8F00DD82FF /* RPQueueTVC.swift in Sources */,

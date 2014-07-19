@@ -21,6 +21,7 @@
 		C800DE6518914E3C00A5C4A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C800DE6318914E3C00A5C4A9 /* InfoPlist.strings */; };
 		C800DE6718914E3C00A5C4A9 /* RandomPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */; };
 		C806B54219780AEA0099B2FF /* RPSmartListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C806B54119780AEA0099B2FF /* RPSmartListTVC.swift */; };
+		C806B54419780FF00099B2FF /* RPPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C806B54319780FF00099B2FF /* RPPlayerVC.swift */; };
 		C80C8ACC19719E3D00AA1906 /* RPTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80C8ACB19719E3D00AA1906 /* RPTools.swift */; };
 		C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10518A8EBBE001A088F /* RPMediaListTVC.m */; };
 		C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10818A8F88E001A088F /* RPAlbumListTVC.m */; };
@@ -37,6 +38,7 @@
 		C8A6D9EB18A96FB100912849 /* PMInfoFormattedForTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */; };
 		C8A6D9EE18A971E100912849 /* RPDictionaryIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */; };
 		C8B2094F1944F6E6005C909F /* RPSongListTVC-forFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B2094E1944F6E6005C909F /* RPSongListTVC-forFuture.swift */; };
+		C8CFA07A197947E100124640 /* SwiftDebugGlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CFA079197947E100124640 /* SwiftDebugGlobalFunctions.swift */; };
 		C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DE09B91933D47500796E5F /* RPPlayerViewController.m */; };
 		C8E153CF197672BE00570487 /* RPAlbumTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E153CE197672BE00570487 /* RPAlbumTVC.swift */; };
 		C8E44DE7193BA92900DEC608 /* RPCellViewBehind.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E44DE6193BA92900DEC608 /* RPCellViewBehind.m */; };
@@ -74,6 +76,7 @@
 		C800DE6418914E3C00A5C4A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RandomPlayerTests.m; sourceTree = "<group>"; };
 		C806B54119780AEA0099B2FF /* RPSmartListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSmartListTVC.swift; sourceTree = "<group>"; };
+		C806B54319780FF00099B2FF /* RPPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPPlayerVC.swift; sourceTree = "<group>"; };
 		C80C8ACB19719E3D00AA1906 /* RPTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPTools.swift; sourceTree = "<group>"; };
 		C814D10418A8EBBE001A088F /* RPMediaListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPMediaListTVC.h; sourceTree = "<group>"; };
 		C814D10518A8EBBE001A088F /* RPMediaListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPMediaListTVC.m; sourceTree = "<group>"; };
@@ -106,6 +109,7 @@
 		C8B2094E1944F6E6005C909F /* RPSongListTVC-forFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RPSongListTVC-forFuture.swift"; sourceTree = "<group>"; };
 		C8CE80CA1942210300BB407D /* playgroundtest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = playgroundtest.playground; sourceTree = "<group>"; };
 		C8CE80CB194251E200BB407D /* ConstantDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstantDefines.h; sourceTree = "<group>"; };
+		C8CFA079197947E100124640 /* SwiftDebugGlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDebugGlobalFunctions.swift; sourceTree = "<group>"; };
 		C8DE09B81933D47500796E5F /* RPPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPlayerViewController.h; sourceTree = "<group>"; };
 		C8DE09B91933D47500796E5F /* RPPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPlayerViewController.m; sourceTree = "<group>"; };
 		C8E153CE197672BE00570487 /* RPAlbumTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPAlbumTVC.swift; sourceTree = "<group>"; };
@@ -207,6 +211,7 @@
 				C800DE4018914E3C00A5C4A9 /* RandomPlayer-Info.plist */,
 				C800DE4118914E3C00A5C4A9 /* InfoPlist.strings */,
 				C800DE4418914E3C00A5C4A9 /* main.m */,
+				C8CFA079197947E100124640 /* SwiftDebugGlobalFunctions.swift */,
 				C800DE4618914E3C00A5C4A9 /* RandomPlayer-Prefix.pch */,
 				C8A6D9E818A96E0400912849 /* DebugDefines.h */,
 				C8CE80CB194251E200BB407D /* ConstantDefines.h */,
@@ -278,6 +283,7 @@
 				C8B2094E1944F6E6005C909F /* RPSongListTVC-forFuture.swift */,
 				C8DE09B81933D47500796E5F /* RPPlayerViewController.h */,
 				C8DE09B91933D47500796E5F /* RPPlayerViewController.m */,
+				C806B54319780FF00099B2FF /* RPPlayerVC.swift */,
 				C8FA6EBE197578E80061DD47 /* RPArtistTVC.swift */,
 				C8E153CE197672BE00570487 /* RPAlbumTVC.swift */,
 				C806B54119780AEA0099B2FF /* RPSmartListTVC.swift */,
@@ -384,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C806B54419780FF00099B2FF /* RPPlayerVC.swift in Sources */,
 				C8B2094F1944F6E6005C909F /* RPSongListTVC-forFuture.swift in Sources */,
 				C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */,
 				C8FA6EBF197578E80061DD47 /* RPArtistTVC.swift in Sources */,
@@ -391,6 +398,7 @@
 				C88BF00319378501006C7CE5 /* RPQueueTVC.m in Sources */,
 				C88BF006193789E3006C7CE5 /* RPTools.m in Sources */,
 				C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */,
+				C8CFA07A197947E100124640 /* SwiftDebugGlobalFunctions.swift in Sources */,
 				C800DE4918914E3C00A5C4A9 /* RPAppDelegate.m in Sources */,
 				C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */,
 				C8A6D9EB18A96FB100912849 /* PMInfoFormattedForTV.m in Sources */,
@@ -537,6 +545,7 @@
 				GCC_PREFIX_HEADER = "RandomPlayer/RandomPlayer-Prefix.pch";
 				INFOPLIST_FILE = "RandomPlayer/RandomPlayer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DEXTREME_LOG -DDEBUG";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer-Bridging-Header.h";
@@ -556,6 +565,7 @@
 				GCC_PREFIX_HEADER = "RandomPlayer/RandomPlayer-Prefix.pch";
 				INFOPLIST_FILE = "RandomPlayer/RandomPlayer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DEXTREME_LOG -DDEBUG";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer-Bridging-Header.h";

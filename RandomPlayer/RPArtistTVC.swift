@@ -190,9 +190,16 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
         if(segue.identifier == "artistToAlbum"){
+            dprint("prep")
             let dest = segue.destinationViewController as RPAlbumTVC
+            dprint("prep2")
+
             let artist = self.artistAtIndexPath(sender as NSIndexPath)
+            dprint("prep3")
+
             dest.filterAlbumForArtist(artist)
+            dprint("prep4")
+
         }
     }
     

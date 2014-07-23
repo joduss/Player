@@ -52,7 +52,7 @@ func beginWithLetter(string : String) -> Bool {
     var processedString = string
     
     if(countElements(string) > 0){
-        processedString = processedString.substringToIndex(1)
+        processedString = processedString.bridgeToObjectiveC().substringToIndex(1)
         let template = "$1"
         let pattern = "[a-zA-Z]" //remove any alphabetic
         let regex = NSRegularExpression.regularExpressionWithPattern(pattern,

@@ -1,15 +1,15 @@
+////
+////  RPPlayerViewController.h
+////  RandomPlayer
+////
+////  Created by Jonathan Duss on 26.05.14.
+////  Copyright (c) 2014 Jonathan Duss. All rights reserved.
+////
 //
-//  RPPlayerViewController.h
-//  RandomPlayer
+//#import <UIKit/UIKit.h>
+//#import <MediaPlayer/MediaPlayer.h>
+//#import "RPTools.h"
 //
-//  Created by Jonathan Duss on 26.05.14.
-//  Copyright (c) 2014 Jonathan Duss. All rights reserved.
+//@interface RPPlayerViewController : UIViewController
 //
-
-#import <UIKit/UIKit.h>
-#import <MediaPlayer/MediaPlayer.h>
-#import "RPTools.h"
-
-@interface RPPlayerViewController : UIViewController
-
-@end
+//@end

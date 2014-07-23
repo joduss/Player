@@ -96,7 +96,7 @@ struct RPQueueManager {
     /**Add the songs at the end of the queue*/
     static func addSongs(songs: NSArray) -> Bool {
         //let musicPlayerApple = MPMusicPlayerController.iPodMusicPlayer()
-        let musicPlayer = MPMusicPlayerController.iPodMusicPlayer()//MPMusicPlayerController.applicationMusicPlayer()
+        let musicPlayer = MPMusicPlayerController.systemMusicPlayer()
         
         initQueue()
         //queue.addObject(musicPlayerApple.nowPlayingItem)
@@ -113,7 +113,7 @@ struct RPQueueManager {
         queueTemp.addObjectsFromArray(songs)
         queueTemp.addObjectsFromArray(queue)
         queue = queueTemp
-        let musicPlayer = MPMusicPlayerController.applicationMusicPlayer()
+        let musicPlayer = MPMusicPlayerController.systemMusicPlayer()
         musicPlayer.setQueueWithItemCollection(MPMediaItemCollection(items: queue))
         
         return true
@@ -122,7 +122,7 @@ struct RPQueueManager {
     
     /** Add the songs on top of the queue and start playing the first one*/
     static func addNextAndPlay(songs: NSArray) -> Bool {
-        let musicPlayer = MPMusicPlayerController.applicationMusicPlayer()
+        let musicPlayer = MPMusicPlayerController.systemMusicPlayer()
         if(songs.count > 0) {
             var queueTemp: NSMutableArray = NSMutableArray();
             queueTemp.addObjectsFromArray(songs)

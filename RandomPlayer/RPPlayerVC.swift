@@ -12,15 +12,15 @@ import UIKit
 import MediaPlayer
 
 class RPPlayerVC: UIViewController {
-
-    @IBOutlet var labelLeftPlaybackTime: UILabel
-    @IBOutlet var sliderTime: UISlider
-    @IBOutlet var labelTitle: UILabel
-    @IBOutlet var labelArtistAlbum: UILabel
-    @IBOutlet var viewRating: UIView
-    @IBOutlet var imageViewArtwork: UIImageView
-    @IBOutlet var buttonPlay: UIButton
-    @IBOutlet var labelCurrentPlaybackTime: UILabel
+    
+    @IBOutlet var labelLeftPlaybackTime: UILabel!
+    @IBOutlet var sliderTime: UISlider!
+    @IBOutlet var labelTitle: UILabel!
+    @IBOutlet var labelArtistAlbum: UILabel!
+    @IBOutlet var viewRating: UIView!
+    @IBOutlet var imageViewArtwork: UIImageView!
+    @IBOutlet var buttonPlay: UIButton!
+    @IBOutlet var labelCurrentPlaybackTime: UILabel!
     
     var timer : NSTimer?
     let musicPlayer : MPMusicPlayerController
@@ -32,7 +32,7 @@ class RPPlayerVC: UIViewController {
     // #pragma mark - Initialization
     
     init(coder aDecoder: NSCoder!) {
-        musicPlayer = MPMusicPlayerController.applicationMusicPlayer()
+        musicPlayer = MPMusicPlayerController.systemMusicPlayer()
         super.init(coder: aDecoder)
     }
     
@@ -54,9 +54,9 @@ class RPPlayerVC: UIViewController {
         sliderTime.setThumbImage(UIImage(named: "thumb",inBundle: nil, compatibleWithTraitCollection: UITraitCollection()), forState: UIControlState.Highlighted)
         
         
-
+        
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -77,15 +77,15 @@ class RPPlayerVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     //########################################################################
     //########################################################################
     // #pragma mark - buttons function
-
+    
     @IBAction func playStopButtonClicked(sender: AnyObject) {
         if(musicPlayer.playbackState == MPMusicPlaybackState.Playing) {
             //is playing, so we stop the player
-            musicPlayer.stop()
+            musicPlayer.pause()
         }
         else {
             musicPlayer.play()
@@ -117,7 +117,7 @@ class RPPlayerVC: UIViewController {
         musicPlayer.currentPlaybackTime = NSTimeInterval(slider.value)
         labelCurrentPlaybackTime.text = formatTimeToMinutesSeconds(sliderValueInt)
         labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(sliderValueIntLeft)
-
+        
     }
     
     func sliderPlaybackStoppedTimeMoving(slider : UISlider) {
@@ -126,7 +126,9 @@ class RPPlayerVC: UIViewController {
     }
     
     func updatePlaybackSlider(timer : NSTimer?) {
-        
+        sliderTime.value = Float(musicPlayer.currentPlaybackTime)
+        labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.currentPlaybackTime))
+        labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.nowPlayingItem.playbackDuration - musicPlayer.currentPlaybackTime))
     }
     
     func createTimer(){
@@ -140,28 +142,55 @@ class RPPlayerVC: UIViewController {
     //########################################################################
     // #pragma mark - update information
     func updateInformation() {
+        if(musicPlayer.playbackState == MPMusicPlaybackState.Playing) {
+            buttonPlay.setTitle("PAUSE", forState: UIControlState.Normal)
+        }
+        else {
+            buttonPlay.setTitle("PLAY", forState: UIControlState.Normal)
+        }
         
+        let playingSong = musicPlayer.nowPlayingItem as MPMediaItem?
+        
+        if let song = playingSong {
+            //set artwork
+            let artworkItem = song.valueForProperty(MPMediaItemPropertyArtwork) as MPMediaItemArtwork
+            imageViewArtwork.image = artworkItem.imageWithSize(imageViewArtwork.bounds.size)
+            
+            labelTitle.text = song.valueForProperty(MPMediaItemPropertyTitle) as String
+            labelArtistAlbum.text = (song.valueForProperty(MPMediaItemPropertyArtist) as String)
+                + " - "
+                + (song.valueForProperty(MPMediaItemPropertyAlbumTitle) as String)
+        }
+        else
+        {
+            // TODO
+        }
     }
     
     //########################################################################
     //########################################################################
     // #pragma mark - notification subscription methods
     func subscribePlaybackNotifications() {
+        musicPlayer.beginGeneratingPlaybackNotifications()
         
+        //be notified when the playing song changed
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: nil)
     }
     
     func unsubscribePlaybackNotifications() {
-        
+        musicPlayer.endGeneratingPlaybackNotifications()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     /*
     // #pragma mark - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

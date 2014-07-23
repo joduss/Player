@@ -25,6 +25,7 @@
 		C80C8ACC19719E3D00AA1906 /* RPTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80C8ACB19719E3D00AA1906 /* RPTools.swift */; };
 		C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10518A8EBBE001A088F /* RPMediaListTVC.m */; };
 		C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10818A8F88E001A088F /* RPAlbumListTVC.m */; };
+		C84219A6197FB0A4005DC78A /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84219A5197FB0A4005DC78A /* RateView.swift */; };
 		C8554CEE19460EBB0014C82A /* RPSongListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8554CED19460EBB0014C82A /* RPSongListTVC.m */; };
 		C85D23E318A42F0400D9B5AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */; };
 		C86C95CF18B223BB00409EC5 /* RPArtistListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */; };
@@ -82,6 +83,7 @@
 		C814D10518A8EBBE001A088F /* RPMediaListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPMediaListTVC.m; sourceTree = "<group>"; };
 		C814D10718A8F88E001A088F /* RPAlbumListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPAlbumListTVC.h; sourceTree = "<group>"; };
 		C814D10818A8F88E001A088F /* RPAlbumListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPAlbumListTVC.m; sourceTree = "<group>"; };
+		C84219A5197FB0A4005DC78A /* RateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateView.swift; path = RandomPlayer/RateView.swift; sourceTree = "<group>"; };
 		C8554CEC19460EBB0014C82A /* RPSongListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSongListTVC.h; sourceTree = "<group>"; };
 		C8554CED19460EBB0014C82A /* RPSongListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSongListTVC.m; sourceTree = "<group>"; };
 		C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -263,6 +265,7 @@
 		C88BEFF919377BA7006C7CE5 /* External_libraries */ = {
 			isa = PBXGroup;
 			children = (
+				C84219A5197FB0A4005DC78A /* RateView.swift */,
 				C88BEFFA19377BC4006C7CE5 /* SWRevealViewController */,
 			);
 			name = External_libraries;
@@ -408,6 +411,7 @@
 				C8951879193A153600AF74F0 /* RPSwipableTVCell.m in Sources */,
 				C8FF3D161977D2F800A0A368 /* RPSongTVC.swift in Sources */,
 				C88BEFFD19377BC4006C7CE5 /* SWRevealViewController.m in Sources */,
+				C84219A6197FB0A4005DC78A /* RateView.swift in Sources */,
 				C806B54219780AEA0099B2FF /* RPSmartListTVC.swift in Sources */,
 				C80C8ACC19719E3D00AA1906 /* RPTools.swift in Sources */,
 				C873CB491940F75700189D6B /* RPQueueManager.swift in Sources */,

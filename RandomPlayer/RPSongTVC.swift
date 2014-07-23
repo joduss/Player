@@ -49,6 +49,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate {
         self.tableView.reloadData()
     }
     
+    /**Return the song at the given indexpath. It correspond to the displayed information at the IndexPath.*/
     func songAtIndexPath(indexPath : NSIndexPath) -> MPMediaItem{
         let mediaQuerySection = query.itemSections[indexPath.section] as MPMediaQuerySection
         let index = mediaQuerySection.range.location + indexPath.row
@@ -119,10 +120,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate {
         subtitleLabel.text = formatTimeToMinutesSeconds(durationInSeconds)
         
         
-        
-
-        // Configure the cell...
-
+    
         return cell
     }
     

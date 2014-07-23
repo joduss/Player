@@ -45,6 +45,7 @@ class RPPlayerVC: UIViewController {
         
         //setup the slider action
         sliderTime.addTarget(self, action:"sliderPlaybackTimeMoved:", forControlEvents: UIControlEvents.ValueChanged)
+        sliderTime.addTarget(self, action:"sliderPlaybackTimeMoved:", forControlEvents: UIControlEvents.TouchDown)
         sliderTime.addTarget(self, action: "sliderPlaybackStoppedTimeMoving:", forControlEvents: UIControlEvents.TouchUpInside)
         sliderTime.addTarget(self, action: "sliderPlaybackStoppedTimeMoving:", forControlEvents: UIControlEvents.TouchUpOutside)
         
@@ -52,8 +53,6 @@ class RPPlayerVC: UIViewController {
         //custom UI
         sliderTime.setThumbImage(UIImage(named: "slider_empty",inBundle: nil, compatibleWithTraitCollection: UITraitCollection()), forState: UIControlState.Normal)
         sliderTime.setThumbImage(UIImage(named: "thumb",inBundle: nil, compatibleWithTraitCollection: UITraitCollection()), forState: UIControlState.Highlighted)
-        
-        
         
     }
     
@@ -68,8 +67,14 @@ class RPPlayerVC: UIViewController {
             sliderTime.enabled = true
         }
         updateInformation()
+        subscribePlaybackNotifications()
         updatePlaybackSlider(nil)
         createTimer()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        unsubscribePlaybackNotifications()
+        timer?.invalidate()
     }
     
     override func didReceiveMemoryWarning() {
@@ -111,6 +116,7 @@ class RPPlayerVC: UIViewController {
     //########################################################################
     // #pragma mark - slider management
     func sliderPlaybackTimeMoved(slider : UISlider) {
+        timer?.invalidate()
         let sliderValueInt = Int(slider.value)
         let sliderValueIntLeft = Int(slider.maximumValue - slider.value)
         elprint("slider time moved at \(sliderValueInt) = \(formatTimeToMinutesSeconds(sliderValueInt)), and left \(formatTimeToMinutesSeconds(sliderValueIntLeft))")
@@ -127,13 +133,20 @@ class RPPlayerVC: UIViewController {
     
     func updatePlaybackSlider(timer : NSTimer?) {
         sliderTime.value = Float(musicPlayer.currentPlaybackTime)
-        labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.currentPlaybackTime))
+        labelCurrentPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.currentPlaybackTime))
         labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.nowPlayingItem.playbackDuration - musicPlayer.currentPlaybackTime))
+        
+        // LOL
+//        UIView.animateKeyframesWithDuration(1, delay: 0, options: UIViewKeyframeAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
+//            self.imageViewArtwork.transform = CGAffineTransformRotate(self.imageViewArtwork.transform, CGFloat(M_PI / 30))
+//            }, completion: nil)
+        
     }
     
     func createTimer(){
         timer?.invalidate() //to be sure there is only 1 slider
-        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "subscribePlaybackNotifications", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updatePlaybackSlider:", userInfo: nil, repeats: true)
+        updateInformation()
     }
     
     
@@ -156,10 +169,14 @@ class RPPlayerVC: UIViewController {
             let artworkItem = song.valueForProperty(MPMediaItemPropertyArtwork) as MPMediaItemArtwork
             imageViewArtwork.image = artworkItem.imageWithSize(imageViewArtwork.bounds.size)
             
+            //information about the song
             labelTitle.text = song.valueForProperty(MPMediaItemPropertyTitle) as String
             labelArtistAlbum.text = (song.valueForProperty(MPMediaItemPropertyArtist) as String)
                 + " - "
                 + (song.valueForProperty(MPMediaItemPropertyAlbumTitle) as String)
+            
+            //slider max value
+            sliderTime.maximumValue = Float(song.valueForProperty(MPMediaItemPropertyPlaybackDuration) as NSNumber)
         }
         else
         {

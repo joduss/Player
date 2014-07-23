@@ -8,6 +8,10 @@
 
 #import "RPSwipableTVCell.h"
 #import "RPCellViewBehind.h"
+#import "DebugDefines.h"
+
+
+#define MAX_CELL_ANIMATION_DURATION 0.5
 
 
 @interface RPSwipableTVCell()
@@ -328,7 +332,7 @@
     }
     else
     {
-        WLog(@"WARNING: %@ does not respond to buttonLeftPressed", _delegate)
+        WLog(@"WARNING: %@ does not respond to buttonLeftPressed", _delegate);
     }
 }
 
@@ -340,7 +344,7 @@
     }
     else
     {
-        WLog(@"WARNING: %@ does not respond to buttonCenterLeftPressed", _delegate)
+        WLog(@"WARNING: %@ does not respond to buttonCenterLeftPressed", _delegate);
     }
 }
 
@@ -351,7 +355,7 @@
     }
     else
     {
-        WLog(@"WARNING: %@ does not respond to buttonCenterRightPressed", _delegate)
+        WLog(@"WARNING: %@ does not respond to buttonCenterRightPressed", _delegate);
     }
 }
 
@@ -362,7 +366,7 @@
     }
     else
     {
-        WLog(@"WARNING: %@ does not respond to buttonRightPressed", _delegate)
+        WLog(@"WARNING: %@ does not respond to buttonRightPressed", _delegate);
     }
 }
 

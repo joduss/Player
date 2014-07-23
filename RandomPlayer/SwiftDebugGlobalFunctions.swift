@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Jonathan Duss. All rights reserved.
 //
 
-import Foundation
+//import Foundation
 
 
 //Just for debug stuff

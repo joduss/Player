@@ -141,6 +141,8 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate {
         let artwork = album.representativeItem.valueForProperty(MPMediaItemPropertyArtwork) as MPMediaItemArtwork
         let artworkImage = artwork.imageWithSize(imageView.bounds.size)
         imageView.image = artworkImage
+        
+        
 
         return cell
     }

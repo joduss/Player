@@ -7,303 +7,196 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C800DE3918914E3C00A5C4A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C800DE3818914E3C00A5C4A9 /* Foundation.framework */; };
-		C800DE3B18914E3C00A5C4A9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C800DE3A18914E3C00A5C4A9 /* CoreGraphics.framework */; };
-		C800DE3D18914E3C00A5C4A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C800DE3C18914E3C00A5C4A9 /* UIKit.framework */; };
-		C800DE4318914E3C00A5C4A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C800DE4118914E3C00A5C4A9 /* InfoPlist.strings */; };
-		C800DE4518914E3C00A5C4A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE4418914E3C00A5C4A9 /* main.m */; };
-		C800DE4918914E3C00A5C4A9 /* RPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE4818914E3C00A5C4A9 /* RPAppDelegate.m */; };
-		C800DE4C18914E3C00A5C4A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C800DE4A18914E3C00A5C4A9 /* Main.storyboard */; };
-		C800DE5418914E3C00A5C4A9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C800DE5318914E3C00A5C4A9 /* Images.xcassets */; };
-		C800DE5B18914E3C00A5C4A9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C800DE5A18914E3C00A5C4A9 /* XCTest.framework */; };
-		C800DE5C18914E3C00A5C4A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C800DE3818914E3C00A5C4A9 /* Foundation.framework */; };
-		C800DE5D18914E3C00A5C4A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C800DE3C18914E3C00A5C4A9 /* UIKit.framework */; };
-		C800DE6518914E3C00A5C4A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C800DE6318914E3C00A5C4A9 /* InfoPlist.strings */; };
-		C800DE6718914E3C00A5C4A9 /* RandomPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */; };
-		C806B54219780AEA0099B2FF /* RPSmartListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C806B54119780AEA0099B2FF /* RPSmartListTVC.swift */; };
-		C806B54419780FF00099B2FF /* RPPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C806B54319780FF00099B2FF /* RPPlayerVC.swift */; };
-		C80C8ACC19719E3D00AA1906 /* RPTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80C8ACB19719E3D00AA1906 /* RPTools.swift */; };
-		C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10518A8EBBE001A088F /* RPMediaListTVC.m */; };
-		C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C814D10818A8F88E001A088F /* RPAlbumListTVC.m */; };
-		C84219A6197FB0A4005DC78A /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84219A5197FB0A4005DC78A /* RateView.swift */; };
-		C8554CEE19460EBB0014C82A /* RPSongListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C8554CED19460EBB0014C82A /* RPSongListTVC.m */; };
-		C85D23E318A42F0400D9B5AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */; };
-		C86C95CF18B223BB00409EC5 /* RPArtistListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */; };
-		C872042F193FC64C00AD7A52 /* RPSwipableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C872042E193FC64C00AD7A52 /* RPSwipableButton.m */; };
-		C873CB491940F75700189D6B /* RPQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C873CB481940F75700189D6B /* RPQueueManager.swift */; };
-		C88BEFFD19377BC4006C7CE5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BEFFC19377BC4006C7CE5 /* SWRevealViewController.m */; };
-		C88BF00319378501006C7CE5 /* RPQueueTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BF00219378501006C7CE5 /* RPQueueTVC.m */; };
-		C88BF006193789E3006C7CE5 /* RPTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C88BF005193789E3006C7CE5 /* RPTools.m */; };
-		C8951879193A153600AF74F0 /* RPSwipableTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8951878193A153600AF74F0 /* RPSwipableTVCell.m */; };
-		C895187C193B3F0800AF74F0 /* cellViewBehind.xib in Resources */ = {isa = PBXBuildFile; fileRef = C895187B193B3F0800AF74F0 /* cellViewBehind.xib */; };
-		C8A6D9EB18A96FB100912849 /* PMInfoFormattedForTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */; };
-		C8A6D9EE18A971E100912849 /* RPDictionaryIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */; };
-		C8B2094F1944F6E6005C909F /* RPSongListTVC-forFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B2094E1944F6E6005C909F /* RPSongListTVC-forFuture.swift */; };
-		C8CFA07A197947E100124640 /* SwiftDebugGlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CFA079197947E100124640 /* SwiftDebugGlobalFunctions.swift */; };
-		C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DE09B91933D47500796E5F /* RPPlayerViewController.m */; };
-		C8E153CF197672BE00570487 /* RPAlbumTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E153CE197672BE00570487 /* RPAlbumTVC.swift */; };
-		C8E44DE7193BA92900DEC608 /* RPCellViewBehind.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E44DE6193BA92900DEC608 /* RPCellViewBehind.m */; };
-		C8F486E51972CF8F00DD82FF /* RPQueueTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F486E41972CF8F00DD82FF /* RPQueueTVC.swift */; };
-		C8FA6EBF197578E80061DD47 /* RPArtistTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FA6EBE197578E80061DD47 /* RPArtistTVC.swift */; };
-		C8FF3D161977D2F800A0A368 /* RPSongTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FF3D151977D2F800A0A368 /* RPSongTVC.swift */; };
+		C8B34E6F197FDCD9007BA1E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */; };
+		C8B34E72197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */; };
+		C8B34E85197FDCD9007BA1E1 /* RandomPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E84197FDCD9007BA1E1 /* RandomPlayerTests.swift */; };
+		C8B34EA2197FDD87007BA1E1 /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E8F197FDD87007BA1E1 /* RateView.swift */; };
+		C8B34EA3197FDD87007BA1E1 /* RPAlbumTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E90197FDD87007BA1E1 /* RPAlbumTVC.swift */; };
+		C8B34EA4197FDD87007BA1E1 /* RPArtistTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E91197FDD87007BA1E1 /* RPArtistTVC.swift */; };
+		C8B34EA5197FDD87007BA1E1 /* RPCellViewBehind.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E93197FDD87007BA1E1 /* RPCellViewBehind.m */; };
+		C8B34EA6197FDD87007BA1E1 /* RPPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E94197FDD87007BA1E1 /* RPPlayerVC.swift */; };
+		C8B34EA7197FDD87007BA1E1 /* RPPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E96197FDD87007BA1E1 /* RPPlayerViewController.m */; };
+		C8B34EA8197FDD87007BA1E1 /* RPQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E97197FDD87007BA1E1 /* RPQueueManager.swift */; };
+		C8B34EA9197FDD87007BA1E1 /* RPQueueTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E98197FDD87007BA1E1 /* RPQueueTVC.swift */; };
+		C8B34EAA197FDD87007BA1E1 /* RPSmartListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E99197FDD87007BA1E1 /* RPSmartListTVC.swift */; };
+		C8B34EAB197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E9A197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift */; };
+		C8B34EAC197FDD87007BA1E1 /* RPSongTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E9B197FDD87007BA1E1 /* RPSongTVC.swift */; };
+		C8B34EAD197FDD87007BA1E1 /* RPSwipableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E9D197FDD87007BA1E1 /* RPSwipableButton.m */; };
+		C8B34EAE197FDD87007BA1E1 /* RPSwipableTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E9F197FDD87007BA1E1 /* RPSwipableTVCell.m */; };
+		C8B34EAF197FDD87007BA1E1 /* RPTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34EA0197FDD87007BA1E1 /* RPTools.swift */; };
+		C8B34EB0197FDD87007BA1E1 /* SwiftDebugGlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34EA1197FDD87007BA1E1 /* SwiftDebugGlobalFunctions.swift */; };
+		C8B34EB5197FDD99007BA1E1 /* cellViewBehind.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8B34EB1197FDD99007BA1E1 /* cellViewBehind.xib */; };
+		C8B34EB6197FDD99007BA1E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8B34EB3197FDD99007BA1E1 /* Main.storyboard */; };
+		C8B34EB8197FDDA1007BA1E1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8B34EB7197FDDA1007BA1E1 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C800DE5E18914E3C00A5C4A9 /* PBXContainerItemProxy */ = {
+		C8B34E7F197FDCD9007BA1E1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C800DE2D18914E3C00A5C4A9 /* Project object */;
+			containerPortal = C8B34E61197FDCD9007BA1E1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C800DE3418914E3C00A5C4A9;
+			remoteGlobalIDString = C8B34E68197FDCD9007BA1E1;
 			remoteInfo = RandomPlayer;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C800DE3518914E3C00A5C4A9 /* RandomPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C800DE3818914E3C00A5C4A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C800DE3A18914E3C00A5C4A9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C800DE3C18914E3C00A5C4A9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		C800DE4018914E3C00A5C4A9 /* RandomPlayer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RandomPlayer-Info.plist"; sourceTree = "<group>"; };
-		C800DE4218914E3C00A5C4A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C800DE4418914E3C00A5C4A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C800DE4618914E3C00A5C4A9 /* RandomPlayer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RandomPlayer-Prefix.pch"; sourceTree = "<group>"; };
-		C800DE4718914E3C00A5C4A9 /* RPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPAppDelegate.h; sourceTree = "<group>"; };
-		C800DE4818914E3C00A5C4A9 /* RPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RPAppDelegate.m; sourceTree = "<group>"; };
-		C800DE4B18914E3C00A5C4A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C800DE5318914E3C00A5C4A9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C800DE5918914E3C00A5C4A9 /* RandomPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C800DE5A18914E3C00A5C4A9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		C800DE6218914E3C00A5C4A9 /* RandomPlayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RandomPlayerTests-Info.plist"; sourceTree = "<group>"; };
-		C800DE6418914E3C00A5C4A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RandomPlayerTests.m; sourceTree = "<group>"; };
-		C806B54119780AEA0099B2FF /* RPSmartListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSmartListTVC.swift; sourceTree = "<group>"; };
-		C806B54319780FF00099B2FF /* RPPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPPlayerVC.swift; sourceTree = "<group>"; };
-		C80C8ACB19719E3D00AA1906 /* RPTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPTools.swift; sourceTree = "<group>"; };
-		C814D10418A8EBBE001A088F /* RPMediaListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPMediaListTVC.h; sourceTree = "<group>"; };
-		C814D10518A8EBBE001A088F /* RPMediaListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPMediaListTVC.m; sourceTree = "<group>"; };
-		C814D10718A8F88E001A088F /* RPAlbumListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPAlbumListTVC.h; sourceTree = "<group>"; };
-		C814D10818A8F88E001A088F /* RPAlbumListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPAlbumListTVC.m; sourceTree = "<group>"; };
-		C84219A5197FB0A4005DC78A /* RateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateView.swift; path = RandomPlayer/RateView.swift; sourceTree = "<group>"; };
-		C8554CEC19460EBB0014C82A /* RPSongListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSongListTVC.h; sourceTree = "<group>"; };
-		C8554CED19460EBB0014C82A /* RPSongListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSongListTVC.m; sourceTree = "<group>"; };
-		C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		C86C95CD18B223BB00409EC5 /* RPArtistListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPArtistListTVC.h; sourceTree = "<group>"; };
-		C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPArtistListTVC.m; sourceTree = "<group>"; };
-		C872042D193FC64C00AD7A52 /* RPSwipableButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSwipableButton.h; sourceTree = "<group>"; };
-		C872042E193FC64C00AD7A52 /* RPSwipableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSwipableButton.m; sourceTree = "<group>"; };
-		C873CB471940F75600189D6B /* RandomPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RandomPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
-		C873CB481940F75700189D6B /* RPQueueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueueManager.swift; sourceTree = "<group>"; };
-		C88BEFFB19377BC4006C7CE5 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
-		C88BEFFC19377BC4006C7CE5 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		C88BF00119378501006C7CE5 /* RPQueueTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPQueueTVC.h; sourceTree = "<group>"; };
-		C88BF00219378501006C7CE5 /* RPQueueTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPQueueTVC.m; sourceTree = "<group>"; };
-		C88BF004193789E3006C7CE5 /* RPTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPTools.h; sourceTree = "<group>"; };
-		C88BF005193789E3006C7CE5 /* RPTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPTools.m; sourceTree = "<group>"; };
-		C890395319462EE60041DFBB /* RandomPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RandomPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
-		C8951877193A153600AF74F0 /* RPSwipableTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSwipableTVCell.h; sourceTree = "<group>"; };
-		C8951878193A153600AF74F0 /* RPSwipableTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSwipableTVCell.m; sourceTree = "<group>"; };
-		C895187B193B3F0800AF74F0 /* cellViewBehind.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellViewBehind.xib; sourceTree = "<group>"; };
-		C8A6D9E818A96E0400912849 /* DebugDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugDefines.h; sourceTree = "<group>"; };
-		C8A6D9E918A96FB100912849 /* PMInfoFormattedForTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMInfoFormattedForTV.h; sourceTree = "<group>"; };
-		C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMInfoFormattedForTV.m; sourceTree = "<group>"; };
-		C8A6D9EC18A971E100912849 /* RPDictionaryIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPDictionaryIndexPath.h; sourceTree = "<group>"; };
-		C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPDictionaryIndexPath.m; sourceTree = "<group>"; };
-		C8B2094E1944F6E6005C909F /* RPSongListTVC-forFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RPSongListTVC-forFuture.swift"; sourceTree = "<group>"; };
-		C8CE80CA1942210300BB407D /* playgroundtest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = playgroundtest.playground; sourceTree = "<group>"; };
-		C8CE80CB194251E200BB407D /* ConstantDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstantDefines.h; sourceTree = "<group>"; };
-		C8CFA079197947E100124640 /* SwiftDebugGlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDebugGlobalFunctions.swift; sourceTree = "<group>"; };
-		C8DE09B81933D47500796E5F /* RPPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPlayerViewController.h; sourceTree = "<group>"; };
-		C8DE09B91933D47500796E5F /* RPPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPlayerViewController.m; sourceTree = "<group>"; };
-		C8E153CE197672BE00570487 /* RPAlbumTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPAlbumTVC.swift; sourceTree = "<group>"; };
-		C8E44DE5193BA92900DEC608 /* RPCellViewBehind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCellViewBehind.h; sourceTree = "<group>"; };
-		C8E44DE6193BA92900DEC608 /* RPCellViewBehind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCellViewBehind.m; sourceTree = "<group>"; };
-		C8F486E41972CF8F00DD82FF /* RPQueueTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueueTVC.swift; sourceTree = "<group>"; };
-		C8FA6EBE197578E80061DD47 /* RPArtistTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPArtistTVC.swift; sourceTree = "<group>"; };
-		C8FF3D151977D2F800A0A368 /* RPSongTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSongTVC.swift; sourceTree = "<group>"; };
+		C8B34E69197FDCD9007BA1E1 /* RandomPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8B34E6D197FDCD9007BA1E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C8B34E71197FDCD9007BA1E1 /* RandomPlayer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RandomPlayer.xcdatamodel; sourceTree = "<group>"; };
+		C8B34E7E197FDCD9007BA1E1 /* RandomPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8B34E83197FDCD9007BA1E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8B34E84197FDCD9007BA1E1 /* RandomPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPlayerTests.swift; sourceTree = "<group>"; };
+		C8B34E8E197FDD86007BA1E1 /* RandomPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RandomPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
+		C8B34E8F197FDD87007BA1E1 /* RateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateView.swift; sourceTree = "<group>"; };
+		C8B34E90197FDD87007BA1E1 /* RPAlbumTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPAlbumTVC.swift; sourceTree = "<group>"; };
+		C8B34E91197FDD87007BA1E1 /* RPArtistTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPArtistTVC.swift; sourceTree = "<group>"; };
+		C8B34E92197FDD87007BA1E1 /* RPCellViewBehind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCellViewBehind.h; sourceTree = "<group>"; };
+		C8B34E93197FDD87007BA1E1 /* RPCellViewBehind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCellViewBehind.m; sourceTree = "<group>"; };
+		C8B34E94197FDD87007BA1E1 /* RPPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPPlayerVC.swift; sourceTree = "<group>"; };
+		C8B34E95197FDD87007BA1E1 /* RPPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPlayerViewController.h; sourceTree = "<group>"; };
+		C8B34E96197FDD87007BA1E1 /* RPPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPlayerViewController.m; sourceTree = "<group>"; };
+		C8B34E97197FDD87007BA1E1 /* RPQueueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueueManager.swift; sourceTree = "<group>"; };
+		C8B34E98197FDD87007BA1E1 /* RPQueueTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueueTVC.swift; sourceTree = "<group>"; };
+		C8B34E99197FDD87007BA1E1 /* RPSmartListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSmartListTVC.swift; sourceTree = "<group>"; };
+		C8B34E9A197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RPSongListTVC-forFuture.swift"; sourceTree = "<group>"; };
+		C8B34E9B197FDD87007BA1E1 /* RPSongTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSongTVC.swift; sourceTree = "<group>"; };
+		C8B34E9C197FDD87007BA1E1 /* RPSwipableButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSwipableButton.h; sourceTree = "<group>"; };
+		C8B34E9D197FDD87007BA1E1 /* RPSwipableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSwipableButton.m; sourceTree = "<group>"; };
+		C8B34E9E197FDD87007BA1E1 /* RPSwipableTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSwipableTVCell.h; sourceTree = "<group>"; };
+		C8B34E9F197FDD87007BA1E1 /* RPSwipableTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSwipableTVCell.m; sourceTree = "<group>"; };
+		C8B34EA0197FDD87007BA1E1 /* RPTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPTools.swift; sourceTree = "<group>"; };
+		C8B34EA1197FDD87007BA1E1 /* SwiftDebugGlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDebugGlobalFunctions.swift; sourceTree = "<group>"; };
+		C8B34EB1197FDD99007BA1E1 /* cellViewBehind.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellViewBehind.xib; sourceTree = "<group>"; };
+		C8B34EB2197FDD99007BA1E1 /* DebugDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugDefines.h; sourceTree = "<group>"; };
+		C8B34EB3197FDD99007BA1E1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		C8B34EB4197FDD99007BA1E1 /* playgroundtest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = playgroundtest.playground; sourceTree = "<group>"; };
+		C8B34EB7197FDDA1007BA1E1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C800DE3218914E3C00A5C4A9 /* Frameworks */ = {
+		C8B34E66197FDCD9007BA1E1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C85D23E318A42F0400D9B5AB /* MediaPlayer.framework in Frameworks */,
-				C800DE3B18914E3C00A5C4A9 /* CoreGraphics.framework in Frameworks */,
-				C800DE3D18914E3C00A5C4A9 /* UIKit.framework in Frameworks */,
-				C800DE3918914E3C00A5C4A9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C800DE5618914E3C00A5C4A9 /* Frameworks */ = {
+		C8B34E7B197FDCD9007BA1E1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C800DE5B18914E3C00A5C4A9 /* XCTest.framework in Frameworks */,
-				C800DE5D18914E3C00A5C4A9 /* UIKit.framework in Frameworks */,
-				C800DE5C18914E3C00A5C4A9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C800DE2C18914E3C00A5C4A9 = {
+		C8B34E60197FDCD9007BA1E1 = {
 			isa = PBXGroup;
 			children = (
-				C88BEFF919377BA7006C7CE5 /* External_libraries */,
-				C800DE3E18914E3C00A5C4A9 /* RandomPlayer */,
-				C800DE6018914E3C00A5C4A9 /* RandomPlayerTests */,
-				C800DE3718914E3C00A5C4A9 /* Frameworks */,
-				C800DE3618914E3C00A5C4A9 /* Products */,
-				C873CB471940F75600189D6B /* RandomPlayer-Bridging-Header.h */,
+				C8B34E6B197FDCD9007BA1E1 /* RandomPlayer */,
+				C8B34E81197FDCD9007BA1E1 /* RandomPlayerTests */,
+				C8B34E6A197FDCD9007BA1E1 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		C800DE3618914E3C00A5C4A9 /* Products */ = {
+		C8B34E6A197FDCD9007BA1E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C800DE3518914E3C00A5C4A9 /* RandomPlayer.app */,
-				C800DE5918914E3C00A5C4A9 /* RandomPlayerTests.xctest */,
+				C8B34E69197FDCD9007BA1E1 /* RandomPlayer.app */,
+				C8B34E7E197FDCD9007BA1E1 /* RandomPlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C800DE3718914E3C00A5C4A9 /* Frameworks */ = {
+		C8B34E6B197FDCD9007BA1E1 /* RandomPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				C85D23E218A42F0400D9B5AB /* MediaPlayer.framework */,
-				C800DE3818914E3C00A5C4A9 /* Foundation.framework */,
-				C800DE3A18914E3C00A5C4A9 /* CoreGraphics.framework */,
-				C800DE3C18914E3C00A5C4A9 /* UIKit.framework */,
-				C800DE5A18914E3C00A5C4A9 /* XCTest.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C800DE3E18914E3C00A5C4A9 /* RandomPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				C800DE4718914E3C00A5C4A9 /* RPAppDelegate.h */,
-				C800DE4818914E3C00A5C4A9 /* RPAppDelegate.m */,
-				C800DE4A18914E3C00A5C4A9 /* Main.storyboard */,
-				C895187B193B3F0800AF74F0 /* cellViewBehind.xib */,
-				C8E44DE5193BA92900DEC608 /* RPCellViewBehind.h */,
-				C8E44DE6193BA92900DEC608 /* RPCellViewBehind.m */,
-				C8951877193A153600AF74F0 /* RPSwipableTVCell.h */,
-				C8951878193A153600AF74F0 /* RPSwipableTVCell.m */,
-				C872042D193FC64C00AD7A52 /* RPSwipableButton.h */,
-				C872042E193FC64C00AD7A52 /* RPSwipableButton.m */,
-				C80C8ACB19719E3D00AA1906 /* RPTools.swift */,
-				C873CB481940F75700189D6B /* RPQueueManager.swift */,
-				C8CE80CA1942210300BB407D /* playgroundtest.playground */,
-				C8F486E41972CF8F00DD82FF /* RPQueueTVC.swift */,
-				C8FF3D151977D2F800A0A368 /* RPSongTVC.swift */,
-				C83F8EED19753D1F0061532D /* old */,
-				C895187A193A154200AF74F0 /* Controller in tabs */,
-				C800DE5318914E3C00A5C4A9 /* Images.xcassets */,
-				C800DE3F18914E3C00A5C4A9 /* Supporting Files */,
+				C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */,
+				C8B34E8F197FDD87007BA1E1 /* RateView.swift */,
+				C8B34EBA197FDDED007BA1E1 /* Controllers in tabs */,
+				C8B34EB9197FDDD7007BA1E1 /* Swipable TV Cell */,
+				C8B34E97197FDD87007BA1E1 /* RPQueueManager.swift */,
+				C8B34E98197FDD87007BA1E1 /* RPQueueTVC.swift */,
+				C8B34E9A197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift */,
+				C8B34EA0197FDD87007BA1E1 /* RPTools.swift */,
+				C8B34EA1197FDD87007BA1E1 /* SwiftDebugGlobalFunctions.swift */,
+				C8B34EB3197FDD99007BA1E1 /* Main.storyboard */,
+				C8B34EB4197FDD99007BA1E1 /* playgroundtest.playground */,
+				C8B34EB7197FDDA1007BA1E1 /* Images.xcassets */,
+				C8B34E6C197FDCD9007BA1E1 /* Supporting Files */,
 			);
 			path = RandomPlayer;
 			sourceTree = "<group>";
 		};
-		C800DE3F18914E3C00A5C4A9 /* Supporting Files */ = {
+		C8B34E6C197FDCD9007BA1E1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C890395319462EE60041DFBB /* RandomPlayer-Bridging-Header.h */,
-				C800DE4018914E3C00A5C4A9 /* RandomPlayer-Info.plist */,
-				C800DE4118914E3C00A5C4A9 /* InfoPlist.strings */,
-				C800DE4418914E3C00A5C4A9 /* main.m */,
-				C8CFA079197947E100124640 /* SwiftDebugGlobalFunctions.swift */,
-				C800DE4618914E3C00A5C4A9 /* RandomPlayer-Prefix.pch */,
-				C8A6D9E818A96E0400912849 /* DebugDefines.h */,
-				C8CE80CB194251E200BB407D /* ConstantDefines.h */,
+				C8B34E8E197FDD86007BA1E1 /* RandomPlayer-Bridging-Header.h */,
+				C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */,
+				C8B34E6D197FDCD9007BA1E1 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C800DE6018914E3C00A5C4A9 /* RandomPlayerTests */ = {
+		C8B34E81197FDCD9007BA1E1 /* RandomPlayerTests */ = {
 			isa = PBXGroup;
 			children = (
-				C800DE6618914E3C00A5C4A9 /* RandomPlayerTests.m */,
-				C800DE6118914E3C00A5C4A9 /* Supporting Files */,
+				C8B34E84197FDCD9007BA1E1 /* RandomPlayerTests.swift */,
+				C8B34E82197FDCD9007BA1E1 /* Supporting Files */,
 			);
 			path = RandomPlayerTests;
 			sourceTree = "<group>";
 		};
-		C800DE6118914E3C00A5C4A9 /* Supporting Files */ = {
+		C8B34E82197FDCD9007BA1E1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C800DE6218914E3C00A5C4A9 /* RandomPlayerTests-Info.plist */,
-				C800DE6318914E3C00A5C4A9 /* InfoPlist.strings */,
+				C8B34E83197FDCD9007BA1E1 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C83F8EED19753D1F0061532D /* old */ = {
+		C8B34EB9197FDDD7007BA1E1 /* Swipable TV Cell */ = {
 			isa = PBXGroup;
 			children = (
-				C814D10418A8EBBE001A088F /* RPMediaListTVC.h */,
-				C814D10518A8EBBE001A088F /* RPMediaListTVC.m */,
-				C8554CEC19460EBB0014C82A /* RPSongListTVC.h */,
-				C8554CED19460EBB0014C82A /* RPSongListTVC.m */,
-				C814D10718A8F88E001A088F /* RPAlbumListTVC.h */,
-				C814D10818A8F88E001A088F /* RPAlbumListTVC.m */,
-				C86C95CD18B223BB00409EC5 /* RPArtistListTVC.h */,
-				C86C95CE18B223BB00409EC5 /* RPArtistListTVC.m */,
-				C88BF004193789E3006C7CE5 /* RPTools.h */,
-				C88BF005193789E3006C7CE5 /* RPTools.m */,
-				C8A6D9E918A96FB100912849 /* PMInfoFormattedForTV.h */,
-				C8A6D9EA18A96FB100912849 /* PMInfoFormattedForTV.m */,
-				C8A6D9EC18A971E100912849 /* RPDictionaryIndexPath.h */,
-				C8A6D9ED18A971E100912849 /* RPDictionaryIndexPath.m */,
-				C88BF00119378501006C7CE5 /* RPQueueTVC.h */,
-				C88BF00219378501006C7CE5 /* RPQueueTVC.m */,
+				C8B34E92197FDD87007BA1E1 /* RPCellViewBehind.h */,
+				C8B34E93197FDD87007BA1E1 /* RPCellViewBehind.m */,
+				C8B34E95197FDD87007BA1E1 /* RPPlayerViewController.h */,
+				C8B34E96197FDD87007BA1E1 /* RPPlayerViewController.m */,
+				C8B34E9C197FDD87007BA1E1 /* RPSwipableButton.h */,
+				C8B34E9D197FDD87007BA1E1 /* RPSwipableButton.m */,
+				C8B34E9E197FDD87007BA1E1 /* RPSwipableTVCell.h */,
+				C8B34E9F197FDD87007BA1E1 /* RPSwipableTVCell.m */,
+				C8B34EB1197FDD99007BA1E1 /* cellViewBehind.xib */,
+				C8B34EB2197FDD99007BA1E1 /* DebugDefines.h */,
 			);
-			name = old;
+			name = "Swipable TV Cell";
 			sourceTree = "<group>";
 		};
-		C88BEFF919377BA7006C7CE5 /* External_libraries */ = {
+		C8B34EBA197FDDED007BA1E1 /* Controllers in tabs */ = {
 			isa = PBXGroup;
 			children = (
-				C84219A5197FB0A4005DC78A /* RateView.swift */,
-				C88BEFFA19377BC4006C7CE5 /* SWRevealViewController */,
+				C8B34E9B197FDD87007BA1E1 /* RPSongTVC.swift */,
+				C8B34E90197FDD87007BA1E1 /* RPAlbumTVC.swift */,
+				C8B34E91197FDD87007BA1E1 /* RPArtistTVC.swift */,
+				C8B34E94197FDD87007BA1E1 /* RPPlayerVC.swift */,
+				C8B34E99197FDD87007BA1E1 /* RPSmartListTVC.swift */,
 			);
-			name = External_libraries;
-			sourceTree = "<group>";
-		};
-		C88BEFFA19377BC4006C7CE5 /* SWRevealViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C88BEFFB19377BC4006C7CE5 /* SWRevealViewController.h */,
-				C88BEFFC19377BC4006C7CE5 /* SWRevealViewController.m */,
-			);
-			path = SWRevealViewController;
-			sourceTree = "<group>";
-		};
-		C895187A193A154200AF74F0 /* Controller in tabs */ = {
-			isa = PBXGroup;
-			children = (
-				C8B2094E1944F6E6005C909F /* RPSongListTVC-forFuture.swift */,
-				C8DE09B81933D47500796E5F /* RPPlayerViewController.h */,
-				C8DE09B91933D47500796E5F /* RPPlayerViewController.m */,
-				C806B54319780FF00099B2FF /* RPPlayerVC.swift */,
-				C8FA6EBE197578E80061DD47 /* RPArtistTVC.swift */,
-				C8E153CE197672BE00570487 /* RPAlbumTVC.swift */,
-				C806B54119780AEA0099B2FF /* RPSmartListTVC.swift */,
-			);
-			name = "Controller in tabs";
+			name = "Controllers in tabs";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C800DE3418914E3C00A5C4A9 /* RandomPlayer */ = {
+		C8B34E68197FDCD9007BA1E1 /* RandomPlayer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C800DE6A18914E3C00A5C4A9 /* Build configuration list for PBXNativeTarget "RandomPlayer" */;
+			buildConfigurationList = C8B34E88197FDCD9007BA1E1 /* Build configuration list for PBXNativeTarget "RandomPlayer" */;
 			buildPhases = (
-				C800DE3118914E3C00A5C4A9 /* Sources */,
-				C800DE3218914E3C00A5C4A9 /* Frameworks */,
-				C800DE3318914E3C00A5C4A9 /* Resources */,
+				C8B34E65197FDCD9007BA1E1 /* Sources */,
+				C8B34E66197FDCD9007BA1E1 /* Frameworks */,
+				C8B34E67197FDCD9007BA1E1 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -311,43 +204,46 @@
 			);
 			name = RandomPlayer;
 			productName = RandomPlayer;
-			productReference = C800DE3518914E3C00A5C4A9 /* RandomPlayer.app */;
+			productReference = C8B34E69197FDCD9007BA1E1 /* RandomPlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C800DE5818914E3C00A5C4A9 /* RandomPlayerTests */ = {
+		C8B34E7D197FDCD9007BA1E1 /* RandomPlayerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C800DE6D18914E3C00A5C4A9 /* Build configuration list for PBXNativeTarget "RandomPlayerTests" */;
+			buildConfigurationList = C8B34E8B197FDCD9007BA1E1 /* Build configuration list for PBXNativeTarget "RandomPlayerTests" */;
 			buildPhases = (
-				C800DE5518914E3C00A5C4A9 /* Sources */,
-				C800DE5618914E3C00A5C4A9 /* Frameworks */,
-				C800DE5718914E3C00A5C4A9 /* Resources */,
+				C8B34E7A197FDCD9007BA1E1 /* Sources */,
+				C8B34E7B197FDCD9007BA1E1 /* Frameworks */,
+				C8B34E7C197FDCD9007BA1E1 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C800DE5F18914E3C00A5C4A9 /* PBXTargetDependency */,
+				C8B34E80197FDCD9007BA1E1 /* PBXTargetDependency */,
 			);
 			name = RandomPlayerTests;
 			productName = RandomPlayerTests;
-			productReference = C800DE5918914E3C00A5C4A9 /* RandomPlayerTests.xctest */;
+			productReference = C8B34E7E197FDCD9007BA1E1 /* RandomPlayerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		C800DE2D18914E3C00A5C4A9 /* Project object */ = {
+		C8B34E61197FDCD9007BA1E1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = RP;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Jonathan Duss";
 				TargetAttributes = {
-					C800DE5818914E3C00A5C4A9 = {
-						TestTargetID = C800DE3418914E3C00A5C4A9;
+					C8B34E68197FDCD9007BA1E1 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					C8B34E7D197FDCD9007BA1E1 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = C8B34E68197FDCD9007BA1E1;
 					};
 				};
 			};
-			buildConfigurationList = C800DE3018914E3C00A5C4A9 /* Build configuration list for PBXProject "RandomPlayer" */;
+			buildConfigurationList = C8B34E64197FDCD9007BA1E1 /* Build configuration list for PBXProject "RandomPlayer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -355,120 +251,82 @@
 				en,
 				Base,
 			);
-			mainGroup = C800DE2C18914E3C00A5C4A9;
-			productRefGroup = C800DE3618914E3C00A5C4A9 /* Products */;
+			mainGroup = C8B34E60197FDCD9007BA1E1;
+			productRefGroup = C8B34E6A197FDCD9007BA1E1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C800DE3418914E3C00A5C4A9 /* RandomPlayer */,
-				C800DE5818914E3C00A5C4A9 /* RandomPlayerTests */,
+				C8B34E68197FDCD9007BA1E1 /* RandomPlayer */,
+				C8B34E7D197FDCD9007BA1E1 /* RandomPlayerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C800DE3318914E3C00A5C4A9 /* Resources */ = {
+		C8B34E67197FDCD9007BA1E1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C895187C193B3F0800AF74F0 /* cellViewBehind.xib in Resources */,
-				C800DE5418914E3C00A5C4A9 /* Images.xcassets in Resources */,
-				C800DE4318914E3C00A5C4A9 /* InfoPlist.strings in Resources */,
-				C800DE4C18914E3C00A5C4A9 /* Main.storyboard in Resources */,
+				C8B34EB8197FDDA1007BA1E1 /* Images.xcassets in Resources */,
+				C8B34EB5197FDD99007BA1E1 /* cellViewBehind.xib in Resources */,
+				C8B34EB6197FDD99007BA1E1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C800DE5718914E3C00A5C4A9 /* Resources */ = {
+		C8B34E7C197FDCD9007BA1E1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C800DE6518914E3C00A5C4A9 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C800DE3118914E3C00A5C4A9 /* Sources */ = {
+		C8B34E65197FDCD9007BA1E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C806B54419780FF00099B2FF /* RPPlayerVC.swift in Sources */,
-				C8B2094F1944F6E6005C909F /* RPSongListTVC-forFuture.swift in Sources */,
-				C814D10618A8EBBE001A088F /* RPMediaListTVC.m in Sources */,
-				C8FA6EBF197578E80061DD47 /* RPArtistTVC.swift in Sources */,
-				C8E44DE7193BA92900DEC608 /* RPCellViewBehind.m in Sources */,
-				C88BF00319378501006C7CE5 /* RPQueueTVC.m in Sources */,
-				C88BF006193789E3006C7CE5 /* RPTools.m in Sources */,
-				C8DE09BA1933D47500796E5F /* RPPlayerViewController.m in Sources */,
-				C8CFA07A197947E100124640 /* SwiftDebugGlobalFunctions.swift in Sources */,
-				C800DE4918914E3C00A5C4A9 /* RPAppDelegate.m in Sources */,
-				C814D10918A8F88E001A088F /* RPAlbumListTVC.m in Sources */,
-				C8A6D9EB18A96FB100912849 /* PMInfoFormattedForTV.m in Sources */,
-				C872042F193FC64C00AD7A52 /* RPSwipableButton.m in Sources */,
-				C8E153CF197672BE00570487 /* RPAlbumTVC.swift in Sources */,
-				C800DE4518914E3C00A5C4A9 /* main.m in Sources */,
-				C8951879193A153600AF74F0 /* RPSwipableTVCell.m in Sources */,
-				C8FF3D161977D2F800A0A368 /* RPSongTVC.swift in Sources */,
-				C88BEFFD19377BC4006C7CE5 /* SWRevealViewController.m in Sources */,
-				C84219A6197FB0A4005DC78A /* RateView.swift in Sources */,
-				C806B54219780AEA0099B2FF /* RPSmartListTVC.swift in Sources */,
-				C80C8ACC19719E3D00AA1906 /* RPTools.swift in Sources */,
-				C873CB491940F75700189D6B /* RPQueueManager.swift in Sources */,
-				C8F486E51972CF8F00DD82FF /* RPQueueTVC.swift in Sources */,
-				C8A6D9EE18A971E100912849 /* RPDictionaryIndexPath.m in Sources */,
-				C86C95CF18B223BB00409EC5 /* RPArtistListTVC.m in Sources */,
-				C8554CEE19460EBB0014C82A /* RPSongListTVC.m in Sources */,
+				C8B34E6F197FDCD9007BA1E1 /* AppDelegate.swift in Sources */,
+				C8B34EA7197FDD87007BA1E1 /* RPPlayerViewController.m in Sources */,
+				C8B34E72197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld in Sources */,
+				C8B34EAA197FDD87007BA1E1 /* RPSmartListTVC.swift in Sources */,
+				C8B34EAE197FDD87007BA1E1 /* RPSwipableTVCell.m in Sources */,
+				C8B34EA8197FDD87007BA1E1 /* RPQueueManager.swift in Sources */,
+				C8B34EAB197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift in Sources */,
+				C8B34EA5197FDD87007BA1E1 /* RPCellViewBehind.m in Sources */,
+				C8B34EAC197FDD87007BA1E1 /* RPSongTVC.swift in Sources */,
+				C8B34EAD197FDD87007BA1E1 /* RPSwipableButton.m in Sources */,
+				C8B34EA9197FDD87007BA1E1 /* RPQueueTVC.swift in Sources */,
+				C8B34EAF197FDD87007BA1E1 /* RPTools.swift in Sources */,
+				C8B34EA2197FDD87007BA1E1 /* RateView.swift in Sources */,
+				C8B34EA4197FDD87007BA1E1 /* RPArtistTVC.swift in Sources */,
+				C8B34EA6197FDD87007BA1E1 /* RPPlayerVC.swift in Sources */,
+				C8B34EB0197FDD87007BA1E1 /* SwiftDebugGlobalFunctions.swift in Sources */,
+				C8B34EA3197FDD87007BA1E1 /* RPAlbumTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C800DE5518914E3C00A5C4A9 /* Sources */ = {
+		C8B34E7A197FDCD9007BA1E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C800DE6718914E3C00A5C4A9 /* RandomPlayerTests.m in Sources */,
+				C8B34E85197FDCD9007BA1E1 /* RandomPlayerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C800DE5F18914E3C00A5C4A9 /* PBXTargetDependency */ = {
+		C8B34E80197FDCD9007BA1E1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C800DE3418914E3C00A5C4A9 /* RandomPlayer */;
-			targetProxy = C800DE5E18914E3C00A5C4A9 /* PBXContainerItemProxy */;
+			target = C8B34E68197FDCD9007BA1E1 /* RandomPlayer */;
+			targetProxy = C8B34E7F197FDCD9007BA1E1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		C800DE4118914E3C00A5C4A9 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C800DE4218914E3C00A5C4A9 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		C800DE4A18914E3C00A5C4A9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C800DE4B18914E3C00A5C4A9 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C800DE6318914E3C00A5C4A9 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C800DE6418914E3C00A5C4A9 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		C800DE6818914E3C00A5C4A9 /* Debug */ = {
+		C8B34E86197FDCD9007BA1E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -483,9 +341,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -500,13 +360,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		C800DE6918914E3C00A5C4A9 /* Release */ = {
+		C8B34E87197FDCD9007BA1E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -521,10 +383,12 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -532,122 +396,116 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		C800DE6B18914E3C00A5C4A9 /* Debug */ = {
+		C8B34E89197FDCD9007BA1E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RandomPlayer/RandomPlayer-Prefix.pch";
-				INFOPLIST_FILE = "RandomPlayer/RandomPlayer-Info.plist";
+				INFOPLIST_FILE = RandomPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-DEXTREME_LOG -DDEBUG";
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer/RandomPlayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
-		C800DE6C18914E3C00A5C4A9 /* Release */ = {
+		C8B34E8A197FDCD9007BA1E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RandomPlayer/RandomPlayer-Prefix.pch";
-				INFOPLIST_FILE = "RandomPlayer/RandomPlayer-Info.plist";
+				INFOPLIST_FILE = RandomPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-DEXTREME_LOG -DDEBUG";
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer-Bridging-Header.h";
-				WRAPPER_EXTENSION = app;
+				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer/RandomPlayer-Bridging-Header.h";
 			};
 			name = Release;
 		};
-		C800DE6E18914E3C00A5C4A9 /* Debug */ = {
+		C8B34E8C197FDCD9007BA1E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RandomPlayer.app/RandomPlayer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RandomPlayer/RandomPlayer-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "RandomPlayerTests/RandomPlayerTests-Info.plist";
+				INFOPLIST_FILE = RandomPlayerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
-		C800DE6F18914E3C00A5C4A9 /* Release */ = {
+		C8B34E8D197FDCD9007BA1E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RandomPlayer.app/RandomPlayer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RandomPlayer/RandomPlayer-Prefix.pch";
-				INFOPLIST_FILE = "RandomPlayerTests/RandomPlayerTests-Info.plist";
+				INFOPLIST_FILE = RandomPlayerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C800DE3018914E3C00A5C4A9 /* Build configuration list for PBXProject "RandomPlayer" */ = {
+		C8B34E64197FDCD9007BA1E1 /* Build configuration list for PBXProject "RandomPlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C800DE6818914E3C00A5C4A9 /* Debug */,
-				C800DE6918914E3C00A5C4A9 /* Release */,
+				C8B34E86197FDCD9007BA1E1 /* Debug */,
+				C8B34E87197FDCD9007BA1E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C800DE6A18914E3C00A5C4A9 /* Build configuration list for PBXNativeTarget "RandomPlayer" */ = {
+		C8B34E88197FDCD9007BA1E1 /* Build configuration list for PBXNativeTarget "RandomPlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C800DE6B18914E3C00A5C4A9 /* Debug */,
-				C800DE6C18914E3C00A5C4A9 /* Release */,
+				C8B34E89197FDCD9007BA1E1 /* Debug */,
+				C8B34E8A197FDCD9007BA1E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
-		C800DE6D18914E3C00A5C4A9 /* Build configuration list for PBXNativeTarget "RandomPlayerTests" */ = {
+		C8B34E8B197FDCD9007BA1E1 /* Build configuration list for PBXNativeTarget "RandomPlayerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C800DE6E18914E3C00A5C4A9 /* Debug */,
-				C800DE6F18914E3C00A5C4A9 /* Release */,
+				C8B34E8C197FDCD9007BA1E1 /* Debug */,
+				C8B34E8D197FDCD9007BA1E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C8B34E71197FDCD9007BA1E1 /* RandomPlayer.xcdatamodel */,
+			);
+			currentVersion = C8B34E71197FDCD9007BA1E1 /* RandomPlayer.xcdatamodel */;
+			path = RandomPlayer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
-	rootObject = C800DE2D18914E3C00A5C4A9 /* Project object */;
+	rootObject = C8B34E61197FDCD9007BA1E1 /* Project object */;
 }

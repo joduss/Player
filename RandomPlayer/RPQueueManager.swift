@@ -9,13 +9,14 @@
 
 
 import Foundation
-import coreGraphics
 import MediaPlayer
 
 
 class RPQueueManagerOC : NSObject{
     
     class func initQueue() -> Bool {
+        let a = CGRectMake(5, 5, 5, 5)
+        
         return RPQueueManager.initQueue()
     }
     

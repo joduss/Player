@@ -36,7 +36,7 @@ func beginWithLetter(string : String) -> Bool {
     var processedString = string
     
     if(countElements(string) > 0){
-        processedString = processedString.substringToIndex(1)
+        processedString = processedString.bridgeToObjectiveC().substringToIndex(1)
         let template = "$1"
         let pattern = "[a-zA-Z]" //remove any alphabetic
         let regex = NSRegularExpression.regularExpressionWithPattern(pattern, options: NSRegularExpressionOptions.CaseInsensitive, error: nil)
@@ -59,9 +59,36 @@ let l2 = "salut"
 l1 == l2
 
 
-var stringO : String?
 
-stringO = "salut"
+class Test {
+    var b = 5
+    var a : Int {
+        get {
+            return 4*b
+        }
+    set {
+        b = newValue / 10
+    }
+    }
+}
 
-stringO?.substringToIndex(3)
+let testClass  = Test()
+
+testClass.b = 10
+testClass.a = 10
+testClass.b
+testClass.a
+
+
+var blabla:Float = 1.0
+++blabla
+
+var haha = CGRectMake(10, 10, 20, 20)
+
+haha.width
+
+
+
+
+
 

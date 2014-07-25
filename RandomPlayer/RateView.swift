@@ -6,62 +6,75 @@
 //  Copyright (c) 2014 Jonathan Duss. All rights reserved.
 //
 
-
-
-//protocol RateViewDelegate {
-//    func rateView(rateView : RateView, ratingDidChange rating : Float)
-//}
 import UIKit
+
+
+protocol RateViewDelegate {
+    func rateView(rateView : RateView, ratingDidChange rating : Float)
+}
 
 class RateView: UIView {
     
-    let emptyStarImage : UIImage
-    let halfStarImage : UIImage?
-    let fullStarImage : UIImage
-    var rating : Float = 0.0
-    var maxRating : Int = 5
+    var emptyStarImage : UIImage?
+    var halfStarImage : UIImage?
+    var fullStarImage : UIImage?
+    var rating : Float = 0 {
+    didSet {
+        refresh()
+    }
+    }
+    var maxRating : Int = 0
     var editable = false
     var imageViews : Array<UIImageView> = Array()
-    var leftMargin : CGFloat = 0.0
-    var midMargin : CGFloat = 5.0
-    var minSize : CGSize  = CGSizeMake(5, 5)
-    //var delegate : RateViewDelegate?
+    let leftMargin : CGFloat = 0.0
+    let midMargin : CGFloat = 5.0
+    let minImageSize : CGSize  = CGSizeMake(5, 5)
+    var delegate : RateViewDelegate?
     
     //************************************************************************
     //************************************************************************
     // #pragma mark - Init
     
-    init(coder aDecoder: NSCoder!, fullStarImage : UIImage, emptyStarImage : UIImage) {
-        self.emptyStarImage = emptyStarImage
-        self.fullStarImage = fullStarImage
-        
+    init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
     }
     
-    init(coder aDecoder: NSCoder!, fullStarImage : UIImage, halfStarImage : UIImage, emptyStarImage : UIImage) {
-        self.emptyStarImage = emptyStarImage
-        self.fullStarImage = fullStarImage
-        self.halfStarImage = halfStarImage
-        super.init(coder: aDecoder)
-    }
-    
-    init(frame: CGRect, fullStarImage : UIImage, emptyStarImage : UIImage) {
-        self.emptyStarImage = emptyStarImage
-        self.fullStarImage = fullStarImage
+    init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
-    init(frame: CGRect, fullStarImage : UIImage, halfStarImage : UIImage, emptyStarImage : UIImage) {
-        self.emptyStarImage = emptyStarImage
+
+    /**setup the rateview images and maximum rating*/
+    func setupRateView(fullStarImage : UIImage, halfStarImage : UIImage, emptyStarImage : UIImage, maxRating : Int) {
         self.fullStarImage = fullStarImage
         self.halfStarImage = halfStarImage
-        super.init(frame: frame)
+        self.emptyStarImage = emptyStarImage
+        self.maxRating = maxRating
+        initImageViews()
+        refresh()
     }
     
+    /**setup the rateview images and maximum rating*/
+    func setupRateView(fullStarImage : UIImage, emptyStarImage : UIImage, maxRating : Int) {
+        self.fullStarImage = fullStarImage
+        self.emptyStarImage = emptyStarImage
+        self.maxRating = maxRating
+        initImageViews()
+        refresh()
+    }
+    
+    /**Called to create the correct number of ImageView for each star (= maxRating)*/
+    func initImageViews() {
+        for(var i = 1; i <= maxRating; i++) {
+            let imageView = UIImageView()
+            imageView.contentMode = UIViewContentMode.ScaleAspectFit
+            addSubview(imageView)
+            imageViews.append(imageView)
+        }
+    }
     
     //************************************************************************
     //************************************************************************
-    // #pragma mark -
+    // #pragma mark - view update and layout
     
     /**Refresh the view*/
     func refresh() {
@@ -90,8 +103,54 @@ class RateView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.frame.width
+        
+        
+        let desiredImageWith = (self.frame.size.width - leftMargin*2 - midMargin*CGFloat(imageViews.count)) / CGFloat(imageViews.count)
+        
+        let imageWidth = max(minImageSize.width, desiredImageWith)
+        let imageHeight = max(minImageSize.height, self.frame.size.height)
+        
+        for(var i = 0; i < imageViews.count; ++i) {
+            let imageView = imageViews[i]
+            let imageFrame = CGRectMake(leftMargin + CGFloat(i)*(midMargin + imageWidth), 0, imageWidth, imageHeight)
+            imageView.frame = imageFrame
+        }
+        
     }
     
+    
+    //************************************************************************
+    //************************************************************************
+    // #pragma mark - touch events
+    
+    func handleTouchAtLocation(touchLocation : CGPoint) {
+        if(editable) {
+            var newRating: Float = 0
+            for(var i = imageViews.count - 1; i >= 0; i--) {
+                if(touchLocation.x > imageViews[i].frame.origin.x) {
+                    newRating = Float(i) + 1.0
+                    break
+                }
+            }
+            rating = newRating
+            refresh()
+        }
+    }
+    
+    override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
+        let touch = touches.anyObject() as UITouch
+        let touchLocation = touch.locationInView(self)
+        handleTouchAtLocation(touchLocation)
+    }
+    
+    override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
+        let touch = touches.anyObject() as UITouch
+        let touchLocation = touch.locationInView(self)
+        handleTouchAtLocation(touchLocation)
+    }
+
+    override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
+        delegate?.rateView(self, ratingDidChange: rating)
+    }
 
 }

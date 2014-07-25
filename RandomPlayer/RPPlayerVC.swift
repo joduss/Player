@@ -11,19 +11,24 @@
 import UIKit
 import MediaPlayer
 
+struct s {
+    var b = 10
+}
+
+
 class RPPlayerVC: UIViewController {
     
     @IBOutlet var labelLeftPlaybackTime: UILabel!
     @IBOutlet var sliderTime: UISlider!
     @IBOutlet var labelTitle: UILabel!
     @IBOutlet var labelArtistAlbum: UILabel!
-    @IBOutlet var viewRating: UIView!
+    @IBOutlet var viewRating: RateView!
     @IBOutlet var imageViewArtwork: UIImageView!
     @IBOutlet var buttonPlay: UIButton!
     @IBOutlet var labelCurrentPlaybackTime: UILabel!
     
     var timer : NSTimer?
-    let musicPlayer : MPMusicPlayerController
+    let musicPlayer : RPPlayer
     
     
     
@@ -32,7 +37,7 @@ class RPPlayerVC: UIViewController {
     // #pragma mark - Initialization
     
     init(coder aDecoder: NSCoder!) {
-        musicPlayer = MPMusicPlayerController.systemMusicPlayer()
+        musicPlayer = RPPlayer.player
         super.init(coder: aDecoder)
     }
     
@@ -54,6 +59,11 @@ class RPPlayerVC: UIViewController {
         sliderTime.setThumbImage(UIImage(named: "slider_empty",inBundle: nil, compatibleWithTraitCollection: UITraitCollection()), forState: UIControlState.Normal)
         sliderTime.setThumbImage(UIImage(named: "thumb",inBundle: nil, compatibleWithTraitCollection: UITraitCollection()), forState: UIControlState.Highlighted)
         
+        let fullStarImage = UIImage(named: "fullStar")
+        let emptyStarImage = UIImage(named: "emptyStar")
+        
+        viewRating.setupRateView(emptyStarImage, emptyStarImage : fullStarImage, maxRating : 5)
+        viewRating.editable = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -95,6 +105,7 @@ class RPPlayerVC: UIViewController {
         else {
             musicPlayer.play()
         }
+        //TODO HANDLE case of error => create new type: playing, paused, error
     }
     
     @IBAction func nextButtonClicked(sender: AnyObject) {
@@ -107,7 +118,7 @@ class RPPlayerVC: UIViewController {
             musicPlayer.skipToPreviousItem()
         }
         else {
-            musicPlayer.skipToBeginning()
+            musicPlayer.currentPlaybackTime = 0 //go to beginning of the song
         }
     }
     
@@ -134,7 +145,13 @@ class RPPlayerVC: UIViewController {
     func updatePlaybackSlider(timer : NSTimer?) {
         sliderTime.value = Float(musicPlayer.currentPlaybackTime)
         labelCurrentPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.currentPlaybackTime))
-        labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.nowPlayingItem.playbackDuration - musicPlayer.currentPlaybackTime))
+        let nowPlayingItem = musicPlayer.nowPlayingItem
+        var playbackDuration = NSTimeInterval(0)
+        if let playingItem = nowPlayingItem {
+            playbackDuration = playingItem.playbackDuration
+        }
+        
+        labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(Int(nowPlayingItem!.playbackDuration - musicPlayer.currentPlaybackTime))
         
         // LOL
 //        UIView.animateKeyframesWithDuration(1, delay: 0, options: UIViewKeyframeAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
@@ -177,6 +194,9 @@ class RPPlayerVC: UIViewController {
             
             //slider max value
             sliderTime.maximumValue = Float(song.valueForProperty(MPMediaItemPropertyPlaybackDuration) as NSNumber)
+            
+            //rating
+            viewRating.rating = Float(song.valueForProperty(MPMediaItemPropertyRating) as Int)
         }
         else
         {
@@ -188,16 +208,16 @@ class RPPlayerVC: UIViewController {
     //########################################################################
     // #pragma mark - notification subscription methods
     func subscribePlaybackNotifications() {
-        musicPlayer.beginGeneratingPlaybackNotifications()
-        
-        //be notified when the playing song changed
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: nil)
+//        musicPlayer.beginGeneratingPlaybackNotifications()
+//        
+//        //be notified when the playing song changed
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: nil)
     }
     
     func unsubscribePlaybackNotifications() {
-        musicPlayer.endGeneratingPlaybackNotifications()
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+//        musicPlayer.endGeneratingPlaybackNotifications()
+//        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     /*

@@ -26,7 +26,7 @@
 
 
 //LOG WHAT IS USEFULL
-#if EXTREME_LOG
+#if LOG
     func lprint(a : String){ print(a)}
 #else
     func lprint(a : String){}

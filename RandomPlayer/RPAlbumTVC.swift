@@ -81,21 +81,21 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate {
     func buttonCenterLeftPressed(cell: RPSwipableTVCell!) {
         let path = self.tableView.indexPathForCell(cell)
         
-        RPQueueManager .addSongs(albumAtIndexPath(path).items)
+        RPPlayer.player.addSongs(albumAtIndexPath(path).items as Array<MPMediaItem>)
         cell .hideBehindCell()
     }
     
     func buttonCenterRightPressed(cell: RPSwipableTVCell!) {
         let path = self.tableView.indexPathForCell(cell)
         
-        RPQueueManager .addNextAndPlay(self.albumAtIndexPath(path).items)
+        RPPlayer.player.addNextAndPlay(self.albumAtIndexPath(path).items as Array<MPMediaItem>)
         cell .hideBehindCell()
     }
     
     func buttonRightPressed(cell: RPSwipableTVCell!) {
         let path = self.tableView.indexPathForCell(cell)
         
-        RPQueueManager .addNext(self.albumAtIndexPath(path).items)
+        RPPlayer.player.addNext(self.albumAtIndexPath(path).items as Array<MPMediaItem>)
         cell .hideBehindCell()
     }
     

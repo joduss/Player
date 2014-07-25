@@ -46,6 +46,7 @@ class RPQueueTVC: UITableViewController {
     
     @IBAction func emptyAueue(sender: AnyObject) {
         // #warning Potentially incomplete method implementation.
+        RPPlayer.player.emptyQueue()
     }
     
     
@@ -62,7 +63,7 @@ class RPQueueTVC: UITableViewController {
 
     override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return RPQueueManager.queue.count
+        return RPPlayer.player.getQueue().count
     }
 
     
@@ -71,13 +72,14 @@ class RPQueueTVC: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
 
         // Configure the cell
-        let mediaItem = RPQueueManager.queue.objectAtIndex(indexPath.row) as MPMediaItem
+        let arraySongs = RPPlayer.player.getQueue()
+        let mediaItem = arraySongs[indexPath.row]
         
         let artistName = mediaItem.valueForProperty(MPMediaItemPropertyArtist) as String
         let songTitle = mediaItem.valueForProperty(MPMediaItemPropertyTitle) as String
         
         cell.textLabel.text = songTitle + " - " + artistName
-
+        
         return cell
     }
     

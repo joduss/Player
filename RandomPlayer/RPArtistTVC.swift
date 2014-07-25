@@ -35,7 +35,31 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        
+        // Turn on remote control event delivery
+        
+        // Set itself as the first responder
+        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        self.becomeFirstResponder()
     }
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func remoteControlReceivedWithEvent(event: UIEvent!) {
+        dprint("cool")
+        if (event.type == UIEventType.RemoteControl) {
+            
+            switch (event.subtype) {
+            case UIEventSubtype.RemoteControlNextTrack:
+                dprint("HAHAHA")
+            default:
+                dprint("HOHOHO")
+            }
+        }
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -70,21 +94,22 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
     func buttonCenterLeftPressed(cell: RPSwipableTVCell!) {
         let path = self.tableView.indexPathForCell(cell)
         
-        RPQueueManager .addSongs(self.artistAtIndexPath(path).items)
+        RPPlayer.player.addSongs(self.artistAtIndexPath(path).items as Array<MPMediaItem>)
         cell .hideBehindCell()
     }
     
     func buttonCenterRightPressed(cell: RPSwipableTVCell!) {
         let path = self.tableView.indexPathForCell(cell)
         
-        RPQueueManager .addNextAndPlay(self.artistAtIndexPath(path).items)
+        
+        RPPlayer.player.addNextAndPlay(self.artistAtIndexPath(path).items as Array<MPMediaItem>)
         cell .hideBehindCell()
     }
     
     func buttonRightPressed(cell: RPSwipableTVCell!) {
         let path = self.tableView.indexPathForCell(cell)
         
-        RPQueueManager .addNext(self.artistAtIndexPath(path).items)
+        RPPlayer.player.addNext(self.artistAtIndexPath(path).items as Array<MPMediaItem>)
         cell .hideBehindCell()
     }
     

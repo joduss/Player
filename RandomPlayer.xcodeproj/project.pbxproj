@@ -16,7 +16,7 @@
 		C8B34EA5197FDD87007BA1E1 /* RPCellViewBehind.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E93197FDD87007BA1E1 /* RPCellViewBehind.m */; };
 		C8B34EA6197FDD87007BA1E1 /* RPPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E94197FDD87007BA1E1 /* RPPlayerVC.swift */; };
 		C8B34EA7197FDD87007BA1E1 /* RPPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E96197FDD87007BA1E1 /* RPPlayerViewController.m */; };
-		C8B34EA8197FDD87007BA1E1 /* RPQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E97197FDD87007BA1E1 /* RPQueueManager.swift */; };
+		C8B34EA8197FDD87007BA1E1 /* RPPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E97197FDD87007BA1E1 /* RPPlayer.swift */; };
 		C8B34EA9197FDD87007BA1E1 /* RPQueueTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E98197FDD87007BA1E1 /* RPQueueTVC.swift */; };
 		C8B34EAA197FDD87007BA1E1 /* RPSmartListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E99197FDD87007BA1E1 /* RPSmartListTVC.swift */; };
 		C8B34EAB197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E9A197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift */; };
@@ -28,6 +28,8 @@
 		C8B34EB5197FDD99007BA1E1 /* cellViewBehind.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8B34EB1197FDD99007BA1E1 /* cellViewBehind.xib */; };
 		C8B34EB6197FDD99007BA1E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8B34EB3197FDD99007BA1E1 /* Main.storyboard */; };
 		C8B34EB8197FDDA1007BA1E1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8B34EB7197FDDA1007BA1E1 /* Images.xcassets */; };
+		C8B6BCF21982637600699E2C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B6BCF11982637600699E2C /* AVFoundation.framework */; };
+		C8B6BCF41982638200699E2C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B6BCF31982638200699E2C /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +59,7 @@
 		C8B34E94197FDD87007BA1E1 /* RPPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPPlayerVC.swift; sourceTree = "<group>"; };
 		C8B34E95197FDD87007BA1E1 /* RPPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPlayerViewController.h; sourceTree = "<group>"; };
 		C8B34E96197FDD87007BA1E1 /* RPPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPlayerViewController.m; sourceTree = "<group>"; };
-		C8B34E97197FDD87007BA1E1 /* RPQueueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueueManager.swift; sourceTree = "<group>"; };
+		C8B34E97197FDD87007BA1E1 /* RPPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPPlayer.swift; sourceTree = "<group>"; };
 		C8B34E98197FDD87007BA1E1 /* RPQueueTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueueTVC.swift; sourceTree = "<group>"; };
 		C8B34E99197FDD87007BA1E1 /* RPSmartListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSmartListTVC.swift; sourceTree = "<group>"; };
 		C8B34E9A197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RPSongListTVC-forFuture.swift"; sourceTree = "<group>"; };
@@ -73,6 +75,8 @@
 		C8B34EB3197FDD99007BA1E1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C8B34EB4197FDD99007BA1E1 /* playgroundtest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = playgroundtest.playground; sourceTree = "<group>"; };
 		C8B34EB7197FDDA1007BA1E1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C8B6BCF11982637600699E2C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C8B6BCF31982638200699E2C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8B6BCF41982638200699E2C /* MediaPlayer.framework in Frameworks */,
+				C8B6BCF21982637600699E2C /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +102,8 @@
 		C8B34E60197FDCD9007BA1E1 = {
 			isa = PBXGroup;
 			children = (
+				C8B6BCF31982638200699E2C /* MediaPlayer.framework */,
+				C8B6BCF11982637600699E2C /* AVFoundation.framework */,
 				C8B34E6B197FDCD9007BA1E1 /* RandomPlayer */,
 				C8B34E81197FDCD9007BA1E1 /* RandomPlayerTests */,
 				C8B34E6A197FDCD9007BA1E1 /* Products */,
@@ -118,7 +126,7 @@
 				C8B34E8F197FDD87007BA1E1 /* RateView.swift */,
 				C8B34EBA197FDDED007BA1E1 /* Controllers in tabs */,
 				C8B34EB9197FDDD7007BA1E1 /* Swipable TV Cell */,
-				C8B34E97197FDD87007BA1E1 /* RPQueueManager.swift */,
+				C8B34E97197FDD87007BA1E1 /* RPPlayer.swift */,
 				C8B34E98197FDD87007BA1E1 /* RPQueueTVC.swift */,
 				C8B34E9A197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift */,
 				C8B34EA0197FDD87007BA1E1 /* RPTools.swift */,
@@ -236,6 +244,11 @@
 				TargetAttributes = {
 					C8B34E68197FDCD9007BA1E1 = {
 						CreatedOnToolsVersion = 6.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					C8B34E7D197FDCD9007BA1E1 = {
 						CreatedOnToolsVersion = 6.0;
@@ -292,7 +305,7 @@
 				C8B34E72197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld in Sources */,
 				C8B34EAA197FDD87007BA1E1 /* RPSmartListTVC.swift in Sources */,
 				C8B34EAE197FDD87007BA1E1 /* RPSwipableTVCell.m in Sources */,
-				C8B34EA8197FDD87007BA1E1 /* RPQueueManager.swift in Sources */,
+				C8B34EA8197FDD87007BA1E1 /* RPPlayer.swift in Sources */,
 				C8B34EAB197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift in Sources */,
 				C8B34EA5197FDD87007BA1E1 /* RPCellViewBehind.m in Sources */,
 				C8B34EAC197FDD87007BA1E1 /* RPSongTVC.swift in Sources */,
@@ -411,6 +424,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = RandomPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DEXTREME_LOG -DDEBUG -DLOG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer/RandomPlayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -425,6 +439,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = RandomPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DEXTREME_LOG -DDEBUG -DLOG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer/RandomPlayer-Bridging-Header.h";
 			};
@@ -483,6 +498,7 @@
 				C8B34E8A197FDCD9007BA1E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C8B34E8B197FDCD9007BA1E1 /* Build configuration list for PBXNativeTarget "RandomPlayerTests" */ = {
 			isa = XCConfigurationList;
@@ -491,6 +507,7 @@
 				C8B34E8D197FDCD9007BA1E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

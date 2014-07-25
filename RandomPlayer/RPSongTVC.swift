@@ -70,20 +70,20 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate {
     
     func buttonCenterLeftPressed(cell: RPSwipableTVCell!) {
         let path = self.tableView.indexPathForCell(cell)
-        RPQueueManager.addSongs([songAtIndexPath(path)])
+        RPPlayer.player.addSongs([songAtIndexPath(path)])
         cell .hideBehindCell()
     }
     
     func buttonCenterRightPressed(cell: RPSwipableTVCell!) {
         let path = self.tableView.indexPathForCell(cell)
         
-        RPQueueManager .addNextAndPlay([self.songAtIndexPath(path)])
+        RPPlayer.player.addNextAndPlay([self.songAtIndexPath(path)])
         cell .hideBehindCell()
     }
     
     func buttonRightPressed(cell: RPSwipableTVCell!) {
         let path = self.tableView.indexPathForCell(cell)
-        RPQueueManager .addNext([self.songAtIndexPath(path)])
+        RPPlayer.player.addNext([self.songAtIndexPath(path)])
         cell .hideBehindCell()
     }
     

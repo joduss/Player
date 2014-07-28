@@ -62,7 +62,7 @@ class RPPlayerVC: UIViewController {
         let fullStarImage = UIImage(named: "fullStar")
         let emptyStarImage = UIImage(named: "emptyStar")
         
-        viewRating.setupRateView(emptyStarImage, emptyStarImage : fullStarImage, maxRating : 5)
+        viewRating.setupRateView(fullStarImage, emptyStarImage : emptyStarImage, maxRating : 5)
         viewRating.editable = true
     }
     
@@ -225,8 +225,10 @@ class RPPlayerVC: UIViewController {
 //        musicPlayer.beginGeneratingPlaybackNotifications()
 //        
 //        //be notified when the playing song changed
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: MPMusicPlayerControllerPlaybackStateDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: RPPlayerNotification.PlaybackStateDidChange , object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: RPPlayerNotification.SongDidChange, object: nil)
+        
+        
     }
     
     func unsubscribePlaybackNotifications() {

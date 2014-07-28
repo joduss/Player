@@ -16,7 +16,7 @@ struct s {
 }
 
 
-class RPPlayerVC: UIViewController {
+class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
     
     @IBOutlet var labelLeftPlaybackTime: UILabel!
     @IBOutlet var sliderTime: UISlider!
@@ -64,6 +64,7 @@ class RPPlayerVC: UIViewController {
         
         viewRating.setupRateView(fullStarImage, emptyStarImage : emptyStarImage, maxRating : 5)
         viewRating.editable = true
+        viewRating.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -122,6 +123,11 @@ class RPPlayerVC: UIViewController {
         }
     }
     
+    @IBAction func repeatPressed(sender: UIBarButtonItem) {
+        let action = UIActionSheet(title: "Repeat", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Off", "All", "One")
+        
+        action.showFromBarButtonItem(sender, animated: true)
+    }
     
     //########################################################################
     //########################################################################
@@ -175,6 +181,7 @@ class RPPlayerVC: UIViewController {
     
     
     
+    
     //########################################################################
     //########################################################################
     // #pragma mark - update information
@@ -202,6 +209,9 @@ class RPPlayerVC: UIViewController {
             //slider max value
             sliderTime.maximumValue = Float(song.valueForProperty(MPMediaItemPropertyPlaybackDuration) as NSNumber)
             
+            dprint("duration is \(Float(song.valueForProperty(MPMediaItemPropertyPlaybackDuration) as NSNumber))")
+            
+            
             //rating
             viewRating.rating = Float(song.valueForProperty(MPMediaItemPropertyRating) as Int)
         }
@@ -227,8 +237,6 @@ class RPPlayerVC: UIViewController {
 //        //be notified when the playing song changed
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: RPPlayerNotification.PlaybackStateDidChange , object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: RPPlayerNotification.SongDidChange, object: nil)
-        
-        
     }
     
     func unsubscribePlaybackNotifications() {
@@ -245,5 +253,41 @@ class RPPlayerVC: UIViewController {
     // Pass the selected object to the new view controller.
     }
     */
+    
+    //########################################################################
+    //########################################################################
+    // #pragma mark - rateView delegate
+    
+    func rateView(rateView: RateView, ratingDidChange rating: Float) {
+        if let song = musicPlayer.nowPlayingItem {
+            elprint("new rating: \(rating)")
+            song.setValue(rating, forKey: "rating")
+        }
+    }
+    
+    
+    //########################################################################
+    //########################################################################
+    // #pragma mark - UIActionSheet Delegate
+    
+    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
+        
+        if(buttonIndex == 1){
+            lprint("Repeat OFF\n\n")
+            musicPlayer.repeatMode = MPMusicRepeatMode.None
+        }
+        else if(buttonIndex == 2){
+            lprint("Repeat All\n\n")
+            musicPlayer.repeatMode = MPMusicRepeatMode.All
+        }
+        else if(buttonIndex == 3) {
+            lprint("Repeat One\n\n")
+            musicPlayer.repeatMode = MPMusicRepeatMode.One
+        }
+        else {
+            lprint("Cancel changing repeat mode")
+        }
+    }
+
     
 }

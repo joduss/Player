@@ -13,7 +13,7 @@ import Foundation
 
 //Just for debug stuff
 #if DEBUG
-    func dprint(a : String){print(a)}
+    func dprint(a : String){print(a); print("\n")}
     func debugAlertView(message : String) {
         UIAlertView(title: "DEBUG: ERROR", message: message, delegate: nil, cancelButtonTitle: "ok").show()
     }
@@ -25,7 +25,7 @@ import Foundation
 
 //LOG A LOT
 #if EXTREME_LOG
-    func elprint(a : String){ print(a)}
+    func elprint(a : String){ print(a); print("\n")}
 #else
     func elprint(a : String){}
 #endif
@@ -33,7 +33,7 @@ import Foundation
 
 //LOG WHAT IS USEFULL
 #if LOG
-    func lprint(a : String){ print(a)}
+    func lprint(a : String){ print(a); print("\n")}
 #else
     func lprint(a : String){}
 #endif

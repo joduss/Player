@@ -111,6 +111,36 @@ var array = ["a"]
 array[1...0]
 
 
+enum enumTest : Int {
+    case a
+    case b
+    case c
+}
+
+class C {
+    var c : enumTest = enumTest.c
+}
+
+
+
+var cla = C()
+
+cla.c == enumTest.c
+
+cla.c = enumTest.a
+
+cla.c == enumTest.a
+
+
+import AVFoundation
+import CoreMedia
+
+
+var a = AVPlayer()
+
+a.currentTime()
+
+
 
 
 

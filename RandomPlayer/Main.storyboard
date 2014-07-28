@@ -534,6 +534,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Wn0-MT-ZXO">
+                        <barButtonItem key="leftBarButtonItem" title="Repeat" id="LaU-tG-Zd8">
+                            <connections>
+                                <action selector="repeatPressed:" destination="yn1-f1-UUj" id="Tfv-nd-kKW"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Queue" id="Omw-Wb-Jrd">
                             <connections>
                                 <segue destination="hwa-6h-O7w" kind="modal" identifier="segue to queue tvc" id="CIq-2h-2KT"/>

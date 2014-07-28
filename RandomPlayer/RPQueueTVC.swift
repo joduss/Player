@@ -46,7 +46,7 @@ class RPQueueTVC: UITableViewController {
     
     @IBAction func emptyAueue(sender: AnyObject) {
         // #warning Potentially incomplete method implementation.
-        RPPlayer.player.emptyQueue()
+        RPPlayer.player.emptyQueue(false)
     }
     
     

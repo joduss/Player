@@ -7,13 +7,19 @@
 //
 
 //import Foundation
+import UIKit
+import Foundation
 
 
 //Just for debug stuff
 #if DEBUG
     func dprint(a : String){print(a)}
+    func debugAlertView(message : String) {
+        UIAlertView(title: "DEBUG: ERROR", message: message, delegate: nil, cancelButtonTitle: "ok").show()
+    }
 #else
     func dprint(a : String){}
+    func debugAlertView(message : String) {}
 #endif
 
 

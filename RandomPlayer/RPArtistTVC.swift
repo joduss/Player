@@ -36,29 +36,9 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         
-        // Turn on remote control event delivery
-        
-        // Set itself as the first responder
-        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
-        self.becomeFirstResponder()
     }
     
-    override func canBecomeFirstResponder() -> Bool {
-        return true
-    }
-    
-    override func remoteControlReceivedWithEvent(event: UIEvent!) {
-        dprint("cool")
-        if (event.type == UIEventType.RemoteControl) {
-            
-            switch (event.subtype) {
-            case UIEventSubtype.RemoteControlNextTrack:
-                dprint("HAHAHA")
-            default:
-                dprint("HOHOHO")
-            }
-        }
-    }
+
 
 
     override func didReceiveMemoryWarning() {
@@ -101,8 +81,8 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
     func buttonCenterRightPressed(cell: RPSwipableTVCell!) {
         let path = self.tableView.indexPathForCell(cell)
         
-        
-        RPPlayer.player.addNextAndPlay(self.artistAtIndexPath(path).items as Array<MPMediaItem>)
+        let song = self.artistAtIndexPath(path).items as Array<MPMediaItem>
+        RPPlayer.player.addNextAndPlay(song)
         cell .hideBehindCell()
     }
     

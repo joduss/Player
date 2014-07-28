@@ -107,6 +107,9 @@ st.b = 50
 var c = st()
 
 
+var array = ["a"]
+array[1...0]
+
 
 
 

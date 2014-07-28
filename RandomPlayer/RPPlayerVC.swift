@@ -143,15 +143,22 @@ class RPPlayerVC: UIViewController {
     }
     
     func updatePlaybackSlider(timer : NSTimer?) {
-        sliderTime.value = Float(musicPlayer.currentPlaybackTime)
-        labelCurrentPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.currentPlaybackTime))
-        let nowPlayingItem = musicPlayer.nowPlayingItem
-        var playbackDuration = NSTimeInterval(0)
-        if let playingItem = nowPlayingItem {
-            playbackDuration = playingItem.playbackDuration
+        
+        if let nowPlayingItem = musicPlayer.nowPlayingItem {
+            
+            
+            sliderTime.value = Float(musicPlayer.currentPlaybackTime)
+            labelCurrentPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.currentPlaybackTime))
+            var playbackDuration = NSTimeInterval(0)
+            playbackDuration = nowPlayingItem.playbackDuration
+            labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(Int(nowPlayingItem.playbackDuration - musicPlayer.currentPlaybackTime))
+        }
+        else {
+            labelLeftPlaybackTime.text = "00:00"
+            sliderTime.value = 0.0
+            labelCurrentPlaybackTime.text = "00:00"
         }
         
-        labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(Int(nowPlayingItem!.playbackDuration - musicPlayer.currentPlaybackTime))
         
         // LOL
 //        UIView.animateKeyframesWithDuration(1, delay: 0, options: UIViewKeyframeAnimationOptions.BeginFromCurrentState, animations: {() -> Void in
@@ -201,6 +208,13 @@ class RPPlayerVC: UIViewController {
         else
         {
             // TODO
+            //hide while view with another to say "no song playing"
+            // or make so that the playing is not visible if no song is playing
+            imageViewArtwork.image = UIImage(named: "default_artwork")
+            labelTitle.text = "NOTHING"
+            labelArtistAlbum.text = "NOTHING"
+            sliderTime.maximumValue = 300
+            
         }
     }
     

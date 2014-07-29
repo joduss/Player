@@ -14,6 +14,8 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate {
     var query : MPMediaQuery
     var artist : MPMediaItemCollection?
     
+    var image : UIImage?
+    
     
     init(coder aDecoder: NSCoder!) {
         query = MPMediaQuery.albumsQuery()
@@ -25,11 +27,6 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate {
         super.viewDidLoad()
         self.title = "Albums"
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -121,14 +118,15 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate {
         cell.delegate = self
         cell.rightViewOffSet = 80
         
-        let imageView = self.view.viewWithTag(100) as UIImageView
+        let imageView = self.view.viewWithTag(105) as UIImageView
         let titleLabel = self.view.viewWithTag(101) as UILabel
         let subtitleLabel = self.view.viewWithTag(102) as UILabel
         
         
         let album = self.albumAtIndexPath(indexPath)
+        let representativeItem = album.representativeItem
         
-        titleLabel.text = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
+        titleLabel.text = representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
         let nbSongInAbum = album.count
         
         if(nbSongInAbum < 2) {
@@ -138,10 +136,31 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate {
             subtitleLabel.text = "\(nbSongInAbum) songs"
         }
         
-        let artwork = album.representativeItem.valueForProperty(MPMediaItemPropertyArtwork) as MPMediaItemArtwork
-        let artworkImage = artwork.imageWithSize(imageView.bounds.size)
-        imageView.image = artworkImage
-        
+
+        //truc temporaire pour être fluide du temps que imageWithSize(56,56) ne fonctionne pas....
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {() -> Void in
+            let artwork : MPMediaItemArtwork? = representativeItem.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
+            //NSLog("%@", artwork)
+            let artworkImage = artwork?.imageWithSize(CGSizeMake(150, 150))
+            
+            UIGraphicsBeginImageContext(CGSize(width: 56,height: 56))
+            var thumRect = CGRectZero
+            thumRect.origin = CGPoint(x: 0, y: 0)
+            
+            thumRect.size = CGSize(width: 56, height: 56)
+            
+            artworkImage?.drawInRect(thumRect)
+            
+            let im = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                imageView.image = im
+                })
+            
+            
+            })
+
         
 
         return cell

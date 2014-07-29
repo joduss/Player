@@ -137,14 +137,14 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
         let sliderValueInt = Int(slider.value)
         let sliderValueIntLeft = Int(slider.maximumValue - slider.value)
         elprint("slider time moved at \(sliderValueInt) = \(formatTimeToMinutesSeconds(sliderValueInt)), and left \(formatTimeToMinutesSeconds(sliderValueIntLeft))")
-        musicPlayer.currentPlaybackTime = NSTimeInterval(slider.value)
+        musicPlayer.seekToTime(NSTimeInterval(slider.value))
         labelCurrentPlaybackTime.text = formatTimeToMinutesSeconds(sliderValueInt)
         labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(sliderValueIntLeft)
         
     }
     
     func sliderPlaybackStoppedTimeMoving(slider : UISlider) {
-        elprint("slider time stop moving at \(slider.value)")
+        musicPlayer.currentPlaybackTime = NSTimeInterval(slider.value)
         createTimer()
     }
     

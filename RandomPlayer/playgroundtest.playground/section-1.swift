@@ -134,11 +134,26 @@ cla.c == enumTest.a
 
 import AVFoundation
 import CoreMedia
+import MediaPlayer
 
 
 var a = AVPlayer()
 
-a.currentTime()
+
+
+let q = MPMediaQuery.songsQuery()
+
+q.groupingType = MPMediaGrouping.Artist
+
+let item = q.items[0] as MPMediaItem
+
+let artwork = item.valueForProperty(MPMediaItemPropertyArtwork) as MPMediaItemArtwork
+
+let image = artwork.imageWithSize(CGSizeMake(300, 300))
+
+
+let i = 0
+
 
 
 

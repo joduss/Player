@@ -123,10 +123,34 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as RPSwipableTVCell
         
         let titleLabel = self.view.viewWithTag(10) as UILabel
+        let subtitleLabel = self.view.viewWithTag(11) as UILabel
+
         
         let artist = self.artistAtIndexPath(indexPath)
         
         titleLabel.text = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
+        
+        let nbSong = artist.items.count
+        let nbAlbum = artist.count
+
+        var nbSongTitle = ""
+        var nbAlbumTitle = ""
+
+        if(nbSong <= 1) {
+            nbSongTitle = "song"
+            nbAlbumTitle = "album"
+        }
+        else if(nbSong > 1 && nbAlbum <= 1) {
+            nbSongTitle = "songs"
+            nbAlbumTitle = "album"
+        }
+        else {
+            nbSongTitle = "songs"
+            nbAlbumTitle = "albums"
+        }
+        
+        subtitleLabel.text = "\(nbAlbum) \(nbAlbumTitle), \(nbSong) \(nbSongTitle)"
+        
         
         cell.delegate = self
         cell.rightViewOffSet = 80;

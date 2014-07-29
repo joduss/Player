@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C82029181987D4A500A594F1 /* pont-poya.png in Resources */ = {isa = PBXBuildFile; fileRef = C82029171987D4A500A594F1 /* pont-poya.png */; };
 		C8B34E6F197FDCD9007BA1E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */; };
 		C8B34E72197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */; };
 		C8B34E85197FDCD9007BA1E1 /* RandomPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E84197FDCD9007BA1E1 /* RandomPlayerTests.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C82029171987D4A500A594F1 /* pont-poya.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pont-poya.png"; sourceTree = "<group>"; };
 		C8B34E69197FDCD9007BA1E1 /* RandomPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8B34E6D197FDCD9007BA1E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				C8B34EB3197FDD99007BA1E1 /* Main.storyboard */,
 				C8B34EB4197FDD99007BA1E1 /* playgroundtest.playground */,
 				C8B34EB7197FDDA1007BA1E1 /* Images.xcassets */,
+				C82029171987D4A500A594F1 /* pont-poya.png */,
 				C8B34E6C197FDCD9007BA1E1 /* Supporting Files */,
 			);
 			path = RandomPlayer;
@@ -283,6 +286,7 @@
 				C8B34EB8197FDDA1007BA1E1 /* Images.xcassets in Resources */,
 				C8B34EB5197FDD99007BA1E1 /* cellViewBehind.xib in Resources */,
 				C8B34EB6197FDD99007BA1E1 /* Main.storyboard in Resources */,
+				C82029181987D4A500A594F1 /* pont-poya.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

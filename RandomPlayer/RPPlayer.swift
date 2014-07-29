@@ -16,24 +16,26 @@ import CoreMedia
 struct RPPlayerNotification {
     static let SongDidChange = "RPPlayerNotificationSongDidChange"
     static let PlaybackStateDidChange = "RPPlayerNotificationPlaybackStateDidChange"
+    static let QueueDidChange = "RPPlayerNotificationQueueDidChange"
     static let Error = "RPPlayerNotificationError"
     
 }
 
 class RPPlayer : NSObject {
     
-
+    
     
     var queue : Array<MPMediaItem> = Array()
     //let musicPlayer = MPMusicPlayerController.systemMusicPlayer()
     var currentItemIndex = 0
     var repeatMode : MPMusicRepeatMode
-
+    
     /**Is the current song ended and now is preparing to play the next one?*/
     private var isAutomaticallyTransitioningToNextSong = false
     
     var avMusicPlayer : AVPlayer = AVPlayer()
     
+    private var isSeekingTo = false
     
     
     
@@ -80,12 +82,37 @@ class RPPlayer : NSObject {
     }
     }
     
+    /**Seek to the given time. not precise, but is very fast. Prefer to call this one, when seeking.*/
+    func seekToTime(time: NSTimeInterval) {
+        
+        //TODO IMPROVE SEEKING
+        
+        if(isSeekingTo == false){
+            isSeekingTo = true
+            avMusicPlayer.seekToTime(CMTimeMakeWithSeconds(time, 1), toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: {(finished : Bool) -> Void in
+                let delayInSeconds = 0.5;
+                let d = Int64(delayInSeconds * Double(NSEC_PER_SEC))
+                let popTime = dispatch_time(DISPATCH_TIME_NOW, d);
+                dispatch_after(popTime, dispatch_get_main_queue(), {() -> Void in
+                    //code to be executed on the main queue after delay
+                    self.isSeekingTo = false
+                    });
+                
+                })
+            
+        }
+        
+        
+    }
+    
+    /**Set the time exactly at this time. Prefer this one, when setting the time only once.*/
     var currentPlaybackTime : NSTimeInterval {
     get {
         return CMTimeGetSeconds(avMusicPlayer.currentTime())
     }
     set {
-        avMusicPlayer.seekToTime(CMTimeMakeWithSeconds(newValue, 1))
+        avMusicPlayer.seekToTime(CMTimeMakeWithSeconds(newValue, 1), toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
+        updateNowPlayingInfoCenter()
     }
     }
     
@@ -118,8 +145,8 @@ class RPPlayer : NSObject {
         
         //if fail to play song: skip to next one
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "automaticallyTransitionToNextSong", name: AVPlayerItemFailedToPlayToEndTimeNotification, object: nil)
-
-
+        
+        
     }
     
     
@@ -133,12 +160,12 @@ class RPPlayer : NSObject {
         let asset = AVURLAsset(URL: song.valueForProperty(MPMediaItemPropertyAssetURL) as NSURL, options: nil)
         // What
         let keyArray = ["tracks", "duration"]
-
+        
         asset.loadValuesAsynchronouslyForKeys(keyArray, completionHandler: {() -> Void in
             
             let item = AVPlayerItem(asset: asset)
             let duration = item.duration
-    
+            
             self.avMusicPlayer = AVPlayer(playerItem: item)
             
             
@@ -172,7 +199,6 @@ class RPPlayer : NSObject {
         }
     }
     
-    
     /**Update information displayed on lock screen and control center*/
     func updateNowPlayingInfoCenter() {
         
@@ -183,6 +209,12 @@ class RPPlayer : NSObject {
             d[MPMediaItemPropertyAlbumTitle] = nowPlayingItem?.valueForProperty(MPMediaItemPropertyAlbumTitle)
             d[MPMediaItemPropertyTitle] = nowPlayingItem?.valueForProperty(MPMediaItemPropertyTitle)
             d[MPMediaItemPropertyArtwork] = nowPlayingItem?.valueForProperty(MPMediaItemPropertyArtwork) as MPMediaItemArtwork?
+            d[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(avMusicPlayer.currentTime())
+            d[MPMediaItemPropertyPlaybackDuration] = nowPlayingItem?.valueForProperty(MPMediaItemPropertyPlaybackDuration)
+            
+            
+            d[MPNowPlayingInfoPropertyPlaybackRate] = avMusicPlayer.rate
+            
             
             
             MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = d
@@ -192,8 +224,8 @@ class RPPlayer : NSObject {
         }
     }
     
-    //########################################################################
-    //########################################################################
+    //###################################################################################
+    //###################################################################################
     // #pragma mark - playback management
     
     /**Start playing the next song*/
@@ -233,7 +265,7 @@ class RPPlayer : NSObject {
         else {
             resetPlayer()
         }
-
+        
     }
     
     
@@ -268,7 +300,7 @@ class RPPlayer : NSObject {
             resetPlayer()
         }
         
-
+        
     }
     
     
@@ -276,7 +308,7 @@ class RPPlayer : NSObject {
         avMusicPlayer.pause()
         NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.PlaybackStateDidChange, object: nil)
         updateNowPlayingInfoCenter()
-
+        
     }
     
     func play() {
@@ -290,9 +322,9 @@ class RPPlayer : NSObject {
         updateNowPlayingInfoCenter()
     }
     
-//    func stop() {
-//        //TODO
-//    }
+    //    func stop() {
+    //        //TODO
+    //    }
     
     /** shuffle the queue*/
     func randomizeQueue() {
@@ -313,14 +345,14 @@ class RPPlayer : NSObject {
     //########################################################################
     // #pragma mark - Queue management
     
-//    func isPlayingFromExternalApp() -> Bool{
-//        return contains(queue, avMusicPlayer.nowPlayingItem)
-//    }
+    //    func isPlayingFromExternalApp() -> Bool{
+    //        return contains(queue, avMusicPlayer.nowPlayingItem)
+    //    }
     
-//    /**Return the index of the nowPlayingItem. return nil if it is not in the queue (in case the queue was made in an external application)*/
-//    func indexPlayingItemInQueue() -> Int?{
-//        return find(queue, avMusicPlayer.nowPlayingItem)
-//    }
+    //    /**Return the index of the nowPlayingItem. return nil if it is not in the queue (in case the queue was made in an external application)*/
+    //    func indexPlayingItemInQueue() -> Int?{
+    //        return find(queue, avMusicPlayer.nowPlayingItem)
+    //    }
     
     func getQueue() -> Array<MPMediaItem> {
         return Array(queue)
@@ -383,8 +415,9 @@ class RPPlayer : NSObject {
         else {
             //should never be the case
             //lprint("ERROR in RPPlayer.EmptyQueue - CASE NOT HANDLED")
-            debugAlertView("ERROR in RPPlayer.EmptyQueue - CASE NOT HANDLED")
+            queue.removeAll(keepCapacity: false)
         }
+        updateNowPlayingInfoCenter()
     }
     
     

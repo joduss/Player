@@ -39,13 +39,16 @@ class RPQueueTVC: UITableViewController, UIActionSheetDelegate {
 
     
     @IBAction func randomize(sender: AnyObject) {
-        // #warning Potentially incomplete method implementation.
+        RPPlayer.player.randomizeQueue()
+        
+        //reload and animate
+        self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Middle)
     }
     
     
     @IBAction func randomizeAdvanced(sender: AnyObject) {
-        // #warning Potentially incomplete method implementation.
-
+        RPPlayer.player.randomizeQueueAdvanced()
+        self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Middle)
     }
     
     /**Is song is playing, ask if want to keep the song playing and remove the rest of the queue. If song is paused, everything is removed*/
@@ -60,7 +63,7 @@ class RPQueueTVC: UITableViewController, UIActionSheetDelegate {
         }
         else {
             RPPlayer.player.emptyQueue(true)
-            tableView.reloadData()
+            self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
         }
         
 
@@ -81,7 +84,7 @@ class RPQueueTVC: UITableViewController, UIActionSheetDelegate {
             else if(buttonIndex == 2){
                 RPPlayer.player.emptyQueue(true)
             }
-            tableView.reloadData()
+            self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
         }
     }
     

@@ -56,43 +56,6 @@ test2.a = 5
 
 
 
-struct s {
-    static var queue : Array<Int> = Array()
-}
-
-extension Test2 {
-    func f(arr : Array<Int>){
-        s.queue.join(arr)
-    }
-}
-
-var arr : Array<Int> = Array()
-arr.append(5)
-arr.append(10)
-arr
-arr += [12, 15]
-s.queue = arr
-
-s.queue[0...2]
-
-
-var list = [0, 1, 2,3 ,4 ,5 ,6 ,7 ,8 ,9]
-
-list = list.sorted({(_,_) in return arc4random() % 2 == 0})
-
-list
-
-var shoppingList = ["Eggs", "Milk"]
-shoppingList.append("Flour")
-shoppingList += "Baking Powder"
-shoppingList[0] = "Six eggs"
-shoppingList
-let index = (shoppingList.endIndex) - 1
-shoppingList[0...index]
-
-
-
-
 
 struct st {
     var a = 10
@@ -117,7 +80,7 @@ enum enumTest : Int {
     case c
 }
 
-class C {
+class C : NSObject{
     var c : enumTest = enumTest.c
 }
 
@@ -132,27 +95,178 @@ cla.c = enumTest.a
 cla.c == enumTest.a
 
 
-import AVFoundation
-import CoreMedia
-import MediaPlayer
 
-
-var a = AVPlayer()
+var artistFrequency = ["a" : 10, "b" : 15, "c" : 1, "d" : 11, "e" : 0, "f" : 30]
+var artistFreqKey = Array(artistFrequency.keys)
 
 
 
-let q = MPMediaQuery.songsQuery()
 
-q.groupingType = MPMediaGrouping.Artist
+//var queue : Array<String> = ["a", "a" , "a", "a", "b" , "b", "b", "c", "c", "d", "e", "f", "g", "a", "a", "a","a","a","a", "a" , "a", "a", "b" , "b", "b","a", "a" , "a", "a", "b" , "b", "b", "c", "c", "d"]
 
-let item = q.items[0] as MPMediaItem
+var queue : Array<String> = ["a", "a", "a", "b", "c", "d"]
 
-let artwork = item.valueForProperty(MPMediaItemPropertyArtwork) as MPMediaItemArtwork
+func randomizeQueue() {
+    //TODO
+    /**warning - no implemented*/
+    //queue = queue.sorted({(_,_) in return arc4random() % 2 == 0})
+    
+    var newQueue : Array<String> = Array()
+    
+    var queueSize = queue.count
+    
+    while(queueSize > 0) {
+        
+        var randNum = Int(rand()) % queueSize
+    
+        
+        
+        let item = queue[randNum]
+        queue.removeAtIndex(randNum)
+        
+        newQueue += item
+        queueSize = queue.count
+    }
+    
+    queue = newQueue
+    
+}
 
-let image = artwork.imageWithSize(CGSizeMake(300, 300))
+queue = ["k", "a", "b","c", "b", "b", "b", "a", "a", "a", "a", "k", "c", "a", "a", "b", "c"]
+
+func randoPlus() {
+    
+    for(var i = 0; i < queue.count - 2; i++) {
+        let a = queue[i]
+        let b = queue[i+1]
+        let c = queue[i+2]
+        
+        if( a == b && b == c){
+            queue[i+1] = setAndgetRandom(b)
+        }
+        else if(a == b){
+            queue[i+1] = c
+            queue[i+2] = b
+        }
+        else if(b == c) {
+            queue[i] = b
+            queue[i+1] = a
+        }
+    }
+    
+}
+
+func setAndgetRandom(a : String) -> String {
+    let r = Int(arc4random()) % queue.count
+    let toReturn = queue[r]
+    queue[r] = a
+    return toReturn
+}
+
+//randomizeQueue()
+////queue
+//randomizeQueue()
+//randoPlus()
+//queue
+//randoPlus()
+//randoPlus()
+//randoPlus()
+//randoPlus()
+//queue
 
 
-let i = 0
+var s1 = "test"
+var s2 = "test"
+
+s2.hashValue
+
+
+
+class CC : NSObject
+{
+    var c : Int = 0
+}
+
+var cla1 = CC()
+var cla2 = CC()
+cla1.c = 20
+cla2.c = 20
+
+cla1.hashValue
+cla2.hashValue
+
+
+extension Array {
+    func shuffleArray() -> [T] {
+        var arr = self
+        var newArray = [T]()
+        
+        var arrSize = arr.count
+        
+        while(arrSize > 0) {
+            
+            var randNum = Int(arc4random()) % arrSize
+            
+            let item: T = arr[randNum]
+            arr.removeAtIndex(randNum)
+            
+            newArray += item
+            arrSize = arr.count
+        }
+        
+        return newArray
+    }
+    
+}
+
+
+
+func randomizeAndSeparateSimilarElement(arr : Array<String>) -> Array<String>{
+    var newArray = arr
+    
+    var numRepeat = 1+arc4random() % 5
+    
+    while(numRepeat > 0) {
+        for(var i = 0; i < arr.count - 2; i++) {
+            let a = newArray[i]
+            let b = newArray[i+1]
+            let c = newArray[i+2]
+            
+            if( (a == b) && (b == c)){
+                let r = Int(arc4random()) % newArray.count
+                let temp = newArray[r]
+                println("\(r)")
+                newArray[r] = b
+                newArray[i+1] = temp
+            }
+            else if(a == b){
+                newArray[i+1] = c
+                newArray[i+2] = b
+            }
+            else if(b == c) {
+                newArray[i] = b
+                newArray[i+1] = a
+            }
+        }
+        numRepeat--
+    }
+    
+    return newArray
+    
+}
+
+print("test")
+var testQueue = ["a", "a", "a", "c", "a", "a", "c" ,"c", "b", "d"]
+testQueue = testQueue.shuffleArray()
+testQueue = randomizeAndSeparateSimilarElement(testQueue)
+
+
+
+
+
+
+
+
 
 
 

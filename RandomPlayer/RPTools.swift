@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MediaPlayer
 
 
 /*******************************
@@ -24,13 +25,13 @@ func formatTimeToMinutesSeconds(secondsToConvert : Int) -> String {
     var nf = NSNumberFormatter()
     nf.minimumIntegerDigits = 2
     
-    return String(minutes) + ":" + nf.stringFromNumber(seconds)    
+    return String(minutes) + ":" + nf.stringFromNumber(seconds)
 }
 
 
 /**lean String for sorting by removing whitespaces
 * @param string
-        The string to clean
+The string to clean
 @return The cleaned string*/
 func cleanStringForSort(string: String) -> String {
     let template = "$1"
@@ -38,7 +39,7 @@ func cleanStringForSort(string: String) -> String {
     let regex = NSRegularExpression.regularExpressionWithPattern(pattern,
         options: NSRegularExpressionOptions.CaseInsensitive,
         error: nil)
-
+    
     return regex.stringByReplacingMatchesInString(string,
         options: NSMatchingOptions.WithTransparentBounds,
         range: NSMakeRange(0, countElements(string)),
@@ -69,3 +70,65 @@ func beginWithLetter(string : String) -> Bool {
     }
     return false
 }
+
+
+func shuffleAndSeparateSimilarElement<T : Equatable>(array: [T]) -> [T] {
+    var newArray = array
+    
+    if(newArray.isEmpty == false){
+        var numRepeat = 1+arc4random() % 5
+        
+        while(numRepeat > 0) {
+            for(var i = 0; i < newArray.count - 2; i++) {
+                let a = newArray[i]
+                let b = newArray[i+1]
+                let c = newArray[i+2]
+                
+                if( (a == b) && (b == c)){
+                    let r = Int(arc4random_uniform(UInt32(newArray.count)))
+                    let temp = newArray[r]
+                    newArray[r] = b
+                    newArray[i+1] = temp
+                }
+                else if(a == b){
+                    newArray[i+1] = c
+                    newArray[i+2] = b
+                }
+                else if(b == c) {
+                    newArray[i] = b
+                    newArray[i+1] = a
+                }
+            }
+            numRepeat--
+        }
+    }
+    
+    return newArray
+
+}
+
+
+extension Array {
+    func shuffleArray() -> [T] {
+        var arr = self
+        var newArray = [T]()
+        
+        var arrSize = arr.count
+        
+        while(arrSize > 0) {
+            
+            var randNum = Int(arc4random_uniform(UInt32(arrSize)))
+            
+            let item: T = arr[randNum]
+            arr.removeAtIndex(randNum)
+            
+            newArray += item
+            arrSize = arr.count
+        }
+        
+        return newArray
+    }
+
+}
+
+

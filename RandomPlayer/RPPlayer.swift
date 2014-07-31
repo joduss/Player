@@ -328,16 +328,81 @@ class RPPlayer : NSObject {
     
     /** shuffle the queue*/
     func randomizeQueue() {
-        //TODO
-        /**warning - no implemented*/
-        queue = queue.sorted({(_,_) in return arc4random() % 2 == 0})
+        queue = queue.shuffleArray()
     }
     
-    /** "Randomize" much better*/
+    /** "Randomize" much better. Tries not to put songs of the same artist side by side*/
     func randomizeQueueAdvanced() {
-        //TODO
         //implement a way so that each song of one artist are far from each other (=> broadcast from DIS???)
-        /**warning - no implemented*/
+        
+        var newQueue : Array<MPMediaItem> = Array()
+        
+        var artistSongPosition : Dictionary<String, Array<Int>> = Dictionary()
+        var artistOfEachSong : Array<String> = Array()
+        
+        for(var i = 0; i < queue.endIndex; i++) {
+            let item = queue[i]
+            let artist = item.valueForProperty(MPMediaItemPropertyArtist) as String
+            
+            artistOfEachSong += artist
+            
+            if(contains(artistSongPosition.keys, artist)){
+                var position = artistSongPosition[artist]!
+                position += i
+                artistSongPosition[artist] = position
+
+            } else {
+                artistSongPosition[artist] = Array()
+                var position = artistSongPosition[artist]!
+                position += i
+                artistSongPosition[artist] = position
+            }
+            
+        }
+  
+        
+        dprint("before:")
+        printArray(artistOfEachSong)
+        var artistOfEachSongShuffled = shuffleAndSeparateSimilarElement(artistOfEachSong)
+        dprint("after:")
+        printArray(artistOfEachSongShuffled)
+
+        for artist in artistOfEachSongShuffled {
+            var positions = artistSongPosition[artist]!
+            positions = positions.shuffleArray()
+
+            newQueue += queue[positions[0]]
+            positions.removeAtIndex(0)
+            artistSongPosition[artist] = positions
+            if(positions.isEmpty){
+                artistSongPosition.removeValueForKey(artist)
+            }
+            
+        }
+        
+        queue = newQueue
+        
+        
+        
+//        var artistFrequencyGroup : Dictionary<Int, Array<String>> = Dictionary()
+//        
+//        for artist in artistFreqKey {
+//            let freq = artistFrequency[artist]
+//            if(contains(artistFrequencyGroup.keys,freq!)){
+//                var artistsInGroup = Array(artistFrequencyGroup[freq!]!)
+//                artistsInGroup += artist
+//            }
+//            else {
+//                let newArray: Array<String> = Array
+//            }
+//        }
+        
+        
+        
+        
+        
+        
+        
     }
     
     
@@ -425,9 +490,17 @@ class RPPlayer : NSObject {
     func printSongQueue(a : Array<MPMediaItem>) {
         #if DEBUG
             for item in a {
-            dprint("\(item.valueForProperty(MPMediaItemPropertyTitle))  ")
+                print("\(item.valueForProperty(MPMediaItemPropertyTitle))  ")
             }
-            dprint("\n\n")
+        #endif
+    }
+    
+    func printArray(a :Array<String>){
+        #if DEBUG
+            for item in a {
+                print("\"\(item) \"")
+            }
+            println()
         #endif
     }
     

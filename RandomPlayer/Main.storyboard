@@ -191,52 +191,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="XIj-GX-jdN">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="Ydz-rG-Fj6" id="ULC-hV-WMU"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="55" id="KU2-UR-b0h" customClass="RPSwipableTVCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="55" id="KU2-UR-b0h" customClass="RPSwipableTVCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KU2-UR-b0h" id="AiK-Rr-e0O">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UKk-uP-GbS">
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UKk-uP-GbS">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fce-EM-kMf">
-                                                    <rect key="frame" x="20" y="25" width="30" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="por-Dw-FNy"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2XT-I5-bxJ">
-                                                    <rect key="frame" x="20" y="6" width="44" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="3Cm-Xn-9PD"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
                                             <gestureRecognizers/>
-                                            <constraints>
-                                                <constraint firstItem="2XT-I5-bxJ" firstAttribute="leading" secondItem="UKk-uP-GbS" secondAttribute="leading" constant="20" symbolic="YES" id="09l-CI-YiQ"/>
-                                                <constraint firstAttribute="bottom" secondItem="fce-EM-kMf" secondAttribute="bottom" constant="8" id="9vB-jA-tVq"/>
-                                                <constraint firstItem="2XT-I5-bxJ" firstAttribute="top" secondItem="UKk-uP-GbS" secondAttribute="top" constant="6" id="FfA-kM-x5u"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2XT-I5-bxJ" secondAttribute="trailing" constant="20" symbolic="YES" id="S0O-js-oAr"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fce-EM-kMf" secondAttribute="trailing" constant="20" symbolic="YES" id="XTM-v6-Bco"/>
-                                                <constraint firstItem="fce-EM-kMf" firstAttribute="leading" secondItem="UKk-uP-GbS" secondAttribute="leading" constant="20" symbolic="YES" id="iEA-VI-3Ss"/>
-                                                <constraint firstItem="fce-EM-kMf" firstAttribute="top" secondItem="UKk-uP-GbS" secondAttribute="top" constant="25" id="jhV-7R-ME0"/>
-                                            </constraints>
                                         </view>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="titleLabel" destination="2XT-I5-bxJ" id="am5-nS-r2A"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -252,12 +228,24 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchDisplayController" destination="TGc-6R-JcA" id="pIQ-ex-ocX"/>
+                        <outlet property="searchTVC" destination="LMo-ze-vET" id="cwe-ts-GAH"/>
                         <segue destination="GQr-bB-Qui" kind="push" identifier="artistToAlbum" id="uZj-Ro-2es"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVW-Gs-43T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="TGc-6R-JcA">
+                    <connections>
+                        <outlet property="delegate" destination="LMo-ze-vET" id="fuS-7e-Hgo"/>
+                        <outlet property="searchBar" destination="XIj-GX-jdN" id="0ER-xX-VIV"/>
+                        <outlet property="searchContentsController" destination="Ydz-rG-Fj6" id="4yJ-7x-bYM"/>
+                        <outlet property="searchResultsDataSource" destination="LMo-ze-vET" id="h2G-XB-QMU"/>
+                        <outlet property="searchResultsDelegate" destination="LMo-ze-vET" id="opM-Yw-bif"/>
+                    </connections>
+                </searchDisplayController>
+                <customObject id="LMo-ze-vET" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="1269" y="385"/>
+            <point key="canvasLocation" x="1276" y="386"/>
         </scene>
         <!--Albums-->
         <scene sceneID="gaT-hv-ZfD">
@@ -788,6 +776,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="uZj-Ro-2es"/>
-        <segue reference="R6i-kN-FZo"/>
+        <segue reference="BPb-0d-mIq"/>
     </inferredMetricsTieBreakers>
 </document>

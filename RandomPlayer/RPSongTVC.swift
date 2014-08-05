@@ -15,7 +15,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate {
     var album : MPMediaItemCollection?
     
     
-    init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder!) {
         query = MPMediaQuery.songsQuery()
         super.init(coder: aDecoder)
     }

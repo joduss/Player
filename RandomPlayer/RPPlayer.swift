@@ -132,7 +132,7 @@ class RPPlayer : NSObject {
         return Static.instance!
     }
     
-    init() {
+    override init() {
         repeatMode = MPMusicRepeatMode.All
         super.init()
         
@@ -344,17 +344,17 @@ class RPPlayer : NSObject {
             let item = queue[i]
             let artist = item.valueForProperty(MPMediaItemPropertyArtist) as String
             
-            artistOfEachSong += artist
+            artistOfEachSong.append(artist)
             
             if(contains(artistSongPosition.keys, artist)){
                 var position = artistSongPosition[artist]!
-                position += i
+                position.append(i)
                 artistSongPosition[artist] = position
 
             } else {
                 artistSongPosition[artist] = Array()
                 var position = artistSongPosition[artist]!
-                position += i
+                position.append(i)
                 artistSongPosition[artist] = position
             }
             
@@ -371,7 +371,7 @@ class RPPlayer : NSObject {
             var positions = artistSongPosition[artist]!
             positions = positions.shuffleArray()
 
-            newQueue += queue[positions[0]]
+            newQueue.append(queue[positions[0]])
             positions.removeAtIndex(0)
             artistSongPosition[artist] = positions
             if(positions.isEmpty){
@@ -475,7 +475,7 @@ class RPPlayer : NSObject {
         }
         else if let current = nowPlayingItem {
             queue.removeAll(keepCapacity: false)
-            queue += current
+            queue.append(current)
         }
         else {
             //should never be the case

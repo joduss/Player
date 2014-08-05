@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		C82029181987D4A500A594F1 /* pont-poya.png in Resources */ = {isa = PBXBuildFile; fileRef = C82029171987D4A500A594F1 /* pont-poya.png */; };
+		C85A8CF0198D31BC0087B541 /* RPCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A8CEF198D31BC0087B541 /* RPCell.swift */; };
+		C85A8CF3198D31ED0087B541 /* RPCellArtist.xib in Resources */ = {isa = PBXBuildFile; fileRef = C85A8CF2198D31ED0087B541 /* RPCellArtist.xib */; };
+		C8873D11198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8873D10198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift */; };
+		C8873D13198FE35700FEA343 /* RPCellAlbum.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8873D12198FE35700FEA343 /* RPCellAlbum.xib */; };
 		C8B34E6F197FDCD9007BA1E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */; };
 		C8B34E72197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */; };
 		C8B34E85197FDCD9007BA1E1 /* RandomPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E84197FDCD9007BA1E1 /* RandomPlayerTests.swift */; };
@@ -45,6 +49,10 @@
 
 /* Begin PBXFileReference section */
 		C82029171987D4A500A594F1 /* pont-poya.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pont-poya.png"; sourceTree = "<group>"; };
+		C85A8CEF198D31BC0087B541 /* RPCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPCell.swift; sourceTree = "<group>"; };
+		C85A8CF2198D31ED0087B541 /* RPCellArtist.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPCellArtist.xib; sourceTree = "<group>"; };
+		C8873D10198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSearchTVCTableViewController.swift; sourceTree = "<group>"; };
+		C8873D12198FE35700FEA343 /* RPCellAlbum.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPCellAlbum.xib; sourceTree = "<group>"; };
 		C8B34E69197FDCD9007BA1E1 /* RandomPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8B34E6D197FDCD9007BA1E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +109,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C85A8CF1198D31CB0087B541 /* Custom Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C8B34EB9197FDDD7007BA1E1 /* Swipable TV Cell */,
+				C85A8CEF198D31BC0087B541 /* RPCell.swift */,
+				C8873D12198FE35700FEA343 /* RPCellAlbum.xib */,
+				C85A8CF2198D31ED0087B541 /* RPCellArtist.xib */,
+			);
+			name = "Custom Cell";
+			sourceTree = "<group>";
+		};
 		C8B34E60197FDCD9007BA1E1 = {
 			isa = PBXGroup;
 			children = (
@@ -127,7 +146,7 @@
 				C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */,
 				C8B34E8F197FDD87007BA1E1 /* RateView.swift */,
 				C8B34EBA197FDDED007BA1E1 /* Controllers in tabs */,
-				C8B34EB9197FDDD7007BA1E1 /* Swipable TV Cell */,
+				C85A8CF1198D31CB0087B541 /* Custom Cell */,
 				C8B34E97197FDD87007BA1E1 /* RPPlayer.swift */,
 				C8B34E98197FDD87007BA1E1 /* RPQueueTVC.swift */,
 				C8B34E9A197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift */,
@@ -189,6 +208,7 @@
 		C8B34EBA197FDDED007BA1E1 /* Controllers in tabs */ = {
 			isa = PBXGroup;
 			children = (
+				C8873D10198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift */,
 				C8B34E9B197FDD87007BA1E1 /* RPSongTVC.swift */,
 				C8B34E90197FDD87007BA1E1 /* RPAlbumTVC.swift */,
 				C8B34E91197FDD87007BA1E1 /* RPArtistTVC.swift */,
@@ -284,9 +304,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8B34EB8197FDDA1007BA1E1 /* Images.xcassets in Resources */,
+				C8873D13198FE35700FEA343 /* RPCellAlbum.xib in Resources */,
 				C8B34EB5197FDD99007BA1E1 /* cellViewBehind.xib in Resources */,
 				C8B34EB6197FDD99007BA1E1 /* Main.storyboard in Resources */,
 				C82029181987D4A500A594F1 /* pont-poya.png in Resources */,
+				C85A8CF3198D31ED0087B541 /* RPCellArtist.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,10 +330,12 @@
 				C8B34EA7197FDD87007BA1E1 /* RPPlayerViewController.m in Sources */,
 				C8B34E72197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld in Sources */,
 				C8B34EAA197FDD87007BA1E1 /* RPSmartListTVC.swift in Sources */,
+				C85A8CF0198D31BC0087B541 /* RPCell.swift in Sources */,
 				C8B34EAE197FDD87007BA1E1 /* RPSwipableTVCell.m in Sources */,
 				C8B34EA8197FDD87007BA1E1 /* RPPlayer.swift in Sources */,
 				C8B34EAB197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift in Sources */,
 				C8B34EA5197FDD87007BA1E1 /* RPCellViewBehind.m in Sources */,
+				C8873D11198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift in Sources */,
 				C8B34EAC197FDD87007BA1E1 /* RPSongTVC.swift in Sources */,
 				C8B34EAD197FDD87007BA1E1 /* RPSwipableButton.m in Sources */,
 				C8B34EA9197FDD87007BA1E1 /* RPQueueTVC.swift in Sources */,

@@ -53,7 +53,8 @@ func beginWithLetter(string : String) -> Bool {
     var processedString = string
     
     if(countElements(string) > 0){
-        processedString = processedString.bridgeToObjectiveC().substringToIndex(1)
+        let idx : String.Index = advance(processedString.startIndex, 1)
+        processedString = processedString.substringToIndex(idx)
         let template = "$1"
         let pattern = "[a-zA-Z]" //remove any alphabetic
         let regex = NSRegularExpression.regularExpressionWithPattern(pattern,
@@ -122,7 +123,7 @@ extension Array {
             let item: T = arr[randNum]
             arr.removeAtIndex(randNum)
             
-            newArray += item
+            newArray.append(item)
             arrSize = arr.count
         }
         

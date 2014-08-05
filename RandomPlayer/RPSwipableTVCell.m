@@ -6,6 +6,21 @@
 //  Copyright (c) 2014 Jonathan Duss. All rights reserved.
 //
 
+
+
+
+/********************************************************************
+ * HOW TO CREATE CELL FROM RPSWIPABLETVCELL?
+ *
+ * 1. Create your own class subclassing RPSwipableTVCell.
+ * 2. Add a View covering the whole cell
+ * 3. Add what you want in this view. This is this view that will be swipe. Do
+      not add anything else in the contentView, otherwise, it will fail
+ ********************************************************************/
+
+
+
+
 #import "RPSwipableTVCell.h"
 #import "RPCellViewBehind.h"
 #import "DebugDefines.h"
@@ -34,7 +49,6 @@
     }
     return self;
 }
-
 
 
 -(void)layoutSubviews

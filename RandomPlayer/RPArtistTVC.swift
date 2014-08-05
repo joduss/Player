@@ -9,14 +9,23 @@
 import UIKit
 import MediaPlayer
 
-class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
+class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisplayDelegate, UISearchBarDelegate {
     
     
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var query : MPMediaQuery
     var collectionSections : Array<AnyObject>
+    let cellHeight = 55
     
-    init(coder aDecoder: NSCoder!)  {
+    var querySearchArtist : MPMediaQuery?
+    var querySearchAlbum : MPMediaQuery?
+    var querySearchSong : MPMediaQuery?
+    
+    @IBOutlet var searchTVC: RPSearchTVCTableViewController!
+
+    
+    required init(coder aDecoder: NSCoder!)  {
         self.query = MPMediaQuery.artistsQuery()
         self.collectionSections = query.collectionSections
         super.init(coder: aDecoder)
@@ -28,7 +37,9 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
         
         // #warning - verify compatibility with other swipableButton
         self.tableView.canCancelContentTouches = false
+        //tableView.registerClass(RPSwipableTVCell.self, forCellReuseIdentifier: "cell")
 
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -57,6 +68,14 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
         let artistIndex = mediaQuerySection.range.location + indexPath.row
         
         return self.query.collections[artistIndex] as MPMediaItemCollection
+    }
+    
+    
+    func artistAtIndexPath(indexPath : NSIndexPath, inQuery query:MPMediaQuery) -> MPMediaItemCollection{
+        let mediaQuerySection: AnyObject = self.collectionSections[indexPath.section]
+        let artistIndex = mediaQuerySection.range.location + indexPath.row
+        
+        return self.querySearchArtist?.collections[artistIndex] as MPMediaItemCollection
     }
 
     
@@ -93,15 +112,26 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
         cell .hideBehindCell()
     }
     
+    
+    override func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        return 55
+    }
+    
 
     //########################################################################
     //########################################################################
     
     // #pragma mark - Table view data source
+    
 
     override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
         // Return the number of sections.
-        return self.collectionSections.count
+        if(self.searchDisplayController.active){
+            return self.collectionSections.count
+        }
+        else {
+            return self.collectionSections.count
+        }
     }
 
     
@@ -120,43 +150,67 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
 
     
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell? {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as RPSwipableTVCell
         
-        let titleLabel = self.view.viewWithTag(10) as UILabel
-        let subtitleLabel = self.view.viewWithTag(11) as UILabel
+        //self.tableView.registerClass(RPSwipableTVCell.self, forCellReuseIdentifier: "cellArtistTVC")
+        
+        //if(self.searchDisplayController.active == false) {
 
+            let identifier = "artist cell"
+            
+            tableView.registerNib(UINib(nibName: "RPCellArtist", bundle: nil), forCellReuseIdentifier: identifier)
+            
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+            
+            
+            
+            let titleLabel = cell.mainLabel
+            let subtitleLabel = cell.subLabel
         
-        let artist = self.artistAtIndexPath(indexPath)
+        var artist : MPMediaItemCollection = artistAtIndexPath(indexPath)
         
-        titleLabel.text = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
-        
-        let nbSong = artist.items.count
-        let nbAlbum = artist.count
-
-        var nbSongTitle = ""
-        var nbAlbumTitle = ""
-
-        if(nbSong <= 1) {
-            nbSongTitle = "song"
-            nbAlbumTitle = "album"
-        }
-        else if(nbSong > 1 && nbAlbum <= 1) {
-            nbSongTitle = "songs"
-            nbAlbumTitle = "album"
-        }
-        else {
-            nbSongTitle = "songs"
-            nbAlbumTitle = "albums"
+        if(self.searchDisplayController.active){
+            if let q = querySearchArtist{
+                artist = artistAtIndexPath(indexPath, inQuery: q)
+            }
         }
         
-        subtitleLabel.text = "\(nbAlbum) \(nbAlbumTitle), \(nbSong) \(nbSongTitle)"
         
-        
-        cell.delegate = self
-        cell.rightViewOffSet = 80;
+            titleLabel.text = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
+            
+            let nbSong = artist.items.count
+            let nbAlbum = artist.count
+            
+            var nbSongTitle = ""
+            var nbAlbumTitle = ""
+            
+            if(nbSong <= 1) {
+                nbSongTitle = "song"
+                nbAlbumTitle = "album"
+            }
+            else if(nbSong > 1 && nbAlbum <= 1) {
+                nbSongTitle = "songs"
+                nbAlbumTitle = "album"
+            }
+            else {
+                nbSongTitle = "songs"
+                nbAlbumTitle = "albums"
+            }
+            
+            subtitleLabel.text = "\(nbAlbum) \(nbAlbumTitle), \(nbSong) \(nbSongTitle)"
+            
+            
+            cell.delegate = self
+            cell.rightViewOffSet = 80;
+            
+            return cell
+
+//        }
+//        else {
+//            
+//        }
         
 
-        return cell
     }
     
     override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
@@ -164,8 +218,6 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate {
     }
     
     
-    
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {

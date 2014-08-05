@@ -36,7 +36,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
     //########################################################################
     // #pragma mark - Initialization
     
-    init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder!) {
         musicPlayer = RPPlayer.player
         super.init(coder: aDecoder)
     }

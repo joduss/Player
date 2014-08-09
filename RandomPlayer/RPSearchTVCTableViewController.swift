@@ -10,12 +10,22 @@ import UIKit
 import MediaPlayer
 
 
-class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDelegate, UISearchBarDelegate {
+
+protocol RPSearchTVCDelegate {
+    func songPicked(song : MPMediaItem)
+    func albumPicked(album: MPMediaItemCollection)
+    func artistPicked(artist: MPMediaItemCollection)
+}
+
+
+class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDelegate, UISearchBarDelegate, RPSwipableTVCellDelegate {
     
     
     var querySearchArtist : MPMediaQuery
     var querySearchAlbum : MPMediaQuery
     var querySearchSong : MPMediaQuery
+    var delegate : RPSearchTVCDelegate?
+    var searchTableView : UITableView?
     
     override init(){
         querySearchArtist = MPMediaQuery.artistsQuery()
@@ -23,7 +33,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         querySearchSong = MPMediaQuery.songsQuery()
         super.init()
     }
-
+    
     override init(style: UITableViewStyle) {
         querySearchArtist = MPMediaQuery.artistsQuery()
         querySearchAlbum = MPMediaQuery.albumsQuery()
@@ -44,19 +54,19 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         querySearchSong = MPMediaQuery.songsQuery()
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -76,9 +86,60 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
             return nil
         }
     }
-
-    // MARK: - Table view data source
-
+    
+    /**Return the item (MPMediaItem or MPMediaItemCollection) corresponding in the section, and the selected row.*/
+    func itemForPath(path : NSIndexPath) -> AnyObject! {
+        if(path.section == 0){
+            return querySearchArtist.collections[path.row]
+        }
+        else if(path.section == 1){
+            return querySearchAlbum.collections[path.row]
+        }
+        else if(path.section == 2){
+            return querySearchSong.items[path.row]
+        }
+        else {
+            return nil //critical error
+        }
+    }
+    
+    
+    
+    //########################################################################
+    //########################################################################
+    // MARK: - Data filtering
+    
+    func filterContentFor(searchText : String) {
+        
+        dprint("hello, I search Artist with: \(searchText)")
+        querySearchArtist = MPMediaQuery.artistsQuery()
+        let filterPredicate = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyArtist, comparisonType: MPMediaPredicateComparison.Contains)
+        
+        querySearchArtist.filterPredicates = NSSet(object: filterPredicate)
+        //self.tableView.reloadData()
+        
+        
+        querySearchAlbum = MPMediaQuery.albumsQuery()
+        let filterPredicateAlbum = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyAlbumTitle, comparisonType: MPMediaPredicateComparison.Contains)
+        
+        querySearchAlbum.filterPredicates = NSSet(object: filterPredicate)
+        
+        let filterPredicateSong = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyTitle, comparisonType: MPMediaPredicateComparison.Contains)
+        querySearchSong.filterPredicates = NSSet(object: filterPredicateSong)
+        
+    }
+    
+    
+    
+    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
+        filterContentFor(searchString)
+        return true
+    }
+    
+    
+    //########################################################################
+    //########################################################################
+    // MARK: - Table view
     override func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
         switch(section){
         case 0:
@@ -95,10 +156,10 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-
-        return 2
+        
+        return 3
     }
-
+    
     override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
@@ -120,114 +181,139 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         }
         return 55
     }
-
+    
     
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-
+        
+        var cell : RPCell!
+        
         if(indexPath.section == 0) {
             let identifier = "artist cell"
             tableView.registerNib(UINib(nibName: "RPCellArtist", bundle: nil), forCellReuseIdentifier: identifier)
-            let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+            cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
             
             let item = queryForSection(indexPath.section).collections[indexPath.row].representativeItem as MPMediaItem
             let songTitle = item.valueForProperty(MPMediaItemPropertyArtist) as String
             cell.mainLabel.text = songTitle
             
-            cell.rightViewOffSet = 80
-            return cell
         }
         else if(indexPath.section == 1){
             let identifier = "album cell"
             tableView.registerNib(UINib(nibName: "RPCellAlbum", bundle: nil), forCellReuseIdentifier: identifier)
-            let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+            cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
             let item = queryForSection(indexPath.section).collections[indexPath.row].representativeItem as MPMediaItem
             let albumTitle = item.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
             cell.mainLabel.text = albumTitle
-
+            
             let artwork : MPMediaItemArtwork? = item.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
             
             let artworkImage = artwork?.imageWithSize(CGSizeMake(60, 60))
             cell.cellImageView.image = artworkImage
+
             
-            cell.rightViewOffSet = 80
-            return cell
+        }
+        else if(indexPath.section == 2){
+            let identifier = "song cell"
+            tableView.registerNib(UINib(nibName: "RPCellSong", bundle: nil), forCellReuseIdentifier: identifier)
+            cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+            let item = queryForSection(indexPath.section).items[indexPath.row] as MPMediaItem
+            let title = item.valueForProperty(MPMediaItemPropertyTitle) as String
+            cell.mainLabel.text = title
+            
+
         }
         else {
             return nil
         }
         
+        cell.rightViewOffSet = 80
+        cell.delegate = self
+        return cell
         
-        
-
-    }
-    
-
-    func filterContentFor(searchText : String) {
-        
-        dprint("hello, I search Artist with: \(searchText)")
-        querySearchArtist = MPMediaQuery.artistsQuery()
-        let filterPredicate = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyArtist, comparisonType: MPMediaPredicateComparison.Contains)
-        
-        querySearchArtist.filterPredicates = NSSet(object: filterPredicate)
-        //self.tableView.reloadData()
-        
-        
-        querySearchAlbum = MPMediaQuery.albumsQuery()
-        let filterPredicateAlbum = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyAlbumTitle, comparisonType: MPMediaPredicateComparison.Contains)
-        
-        querySearchAlbum.filterPredicates = NSSet(object: filterPredicate)
         
     }
     
     
-    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
-        filterContentFor(searchString)
-        return true
+    
+    
+    
+    override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        if(indexPath.section == 0){
+            let artist = querySearchArtist.collections[indexPath.row] as MPMediaItemCollection
+            delegate?.artistPicked(artist)
+        }
+        else if(indexPath.section == 1){
+            let album = querySearchAlbum.collections[indexPath.row] as MPMediaItemCollection
+            delegate?.albumPicked(album)
+        }
+        else {
+            let song = querySearchSong.items[indexPath.row] as MPMediaItem
+            delegate?.songPicked(song)
+        }
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+    
+    
+    
+    //########################################################################
+    //########################################################################
+    // #pragma mark - RPSwipableTVCell delegate methods
+    
+    
+    func buttonLeftPressed(cell: RPSwipableTVCell!) {
+        //no left button
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    
+    func buttonCenterLeftPressed(cell: RPSwipableTVCell!) {
+        let path = (searchTableView?.indexPathForCell(cell))!
+        
+        var songs : Array<MPMediaItem> = Array()
+        
+        if(path.section == 0 || path.section == 1){
+            songs += itemForPath(path).items as Array<MPMediaItem>
+        }
+        else if(path.section == 2) {
+            songs.append(itemForPath(path) as MPMediaItem)
+        }
+        
+        RPPlayer.player.addSongs(songs)
+        cell.hideBehindCell()
     }
-    */
+    
+    func buttonCenterRightPressed(cell: RPSwipableTVCell!) {
+        
+        let path = (searchTableView?.indexPathForCell(cell))!
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView!, moveRowAtIndexPath fromIndexPath: NSIndexPath!, toIndexPath: NSIndexPath!) {
-
+        
+        
+        var songs : Array<MPMediaItem> = Array()
+            if(path.section == 0 || path.section == 1){
+                songs += itemForPath(path).items as Array<MPMediaItem>
+            }
+            else if(path.section == 2) {
+                songs.append(itemForPath(path) as MPMediaItem)
+            }
+            
+            RPPlayer.player.addNextAndPlay(songs)
+        cell .hideBehindCell()
     }
-    */
+    
+    func buttonRightPressed(cell: RPSwipableTVCell!) {
+        let path : NSIndexPath = (searchTableView?.indexPathForCell(cell))!
+        
+        var songs : Array<MPMediaItem> = Array()
+        
+        if(path.section == 0 || path.section == 1){
+            songs += itemForPath(path).items as Array<MPMediaItem>
+        }
+        else if(path.section == 2) {
+            songs.append(itemForPath(path) as MPMediaItem)
+        }
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView!, canMoveRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
+        RPPlayer.player.addNext(songs)
+        cell .hideBehindCell()
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
+    
 }

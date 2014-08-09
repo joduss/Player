@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -230,7 +230,8 @@
                     <connections>
                         <outlet property="searchDisplayController" destination="TGc-6R-JcA" id="pIQ-ex-ocX"/>
                         <outlet property="searchTVC" destination="LMo-ze-vET" id="cwe-ts-GAH"/>
-                        <segue destination="GQr-bB-Qui" kind="push" identifier="artistToAlbum" id="uZj-Ro-2es"/>
+                        <segue destination="GQr-bB-Qui" kind="push" identifier="segue artist to album" id="uZj-Ro-2es"/>
+                        <segue destination="g7r-YZ-CV2" kind="push" identifier="segue artist to song" id="lHI-N0-nPW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVW-Gs-43T" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -238,7 +239,7 @@
                     <connections>
                         <outlet property="delegate" destination="LMo-ze-vET" id="fuS-7e-Hgo"/>
                         <outlet property="searchBar" destination="XIj-GX-jdN" id="0ER-xX-VIV"/>
-                        <outlet property="searchContentsController" destination="Ydz-rG-Fj6" id="4yJ-7x-bYM"/>
+                        <outlet property="searchContentsController" destination="Ydz-rG-Fj6" id="slU-5W-chK"/>
                         <outlet property="searchResultsDataSource" destination="LMo-ze-vET" id="h2G-XB-QMU"/>
                         <outlet property="searchResultsDelegate" destination="LMo-ze-vET" id="opM-Yw-bif"/>
                     </connections>
@@ -345,11 +346,12 @@
                     </navigationItem>
                     <connections>
                         <segue destination="g7r-YZ-CV2" kind="push" identifier="albumToSong" id="Tog-qh-8zv"/>
+                        <segue destination="Ydz-rG-Fj6" kind="push" identifier="segue album to artist" id="R8w-rM-OJx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNc-uf-wvN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1269" y="1075"/>
+            <point key="canvasLocation" x="1273" y="1177"/>
         </scene>
         <!--SongTVC-->
         <scene sceneID="4DQ-79-yht">
@@ -360,7 +362,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="55" id="fJx-pq-JTm" customClass="RPSwipableTVCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="55" id="fJx-pq-JTm" customClass="RPSwipableTVCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fJx-pq-JTm" id="kbJ-2c-VxG">
@@ -389,6 +391,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="titleLabel" destination="H9e-Sl-ZXE" id="xoi-Dy-Pku"/>
+                                    <segue destination="Ydz-rG-Fj6" kind="push" identifier="segue song to artist" id="Npc-hQ-lUZ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -404,10 +407,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="GQr-bB-Qui" kind="push" identifier="segue song to album" id="VFK-eu-4VI"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vhz-YW-buA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1843" y="1077"/>
+            <point key="canvasLocation" x="2041" y="1253"/>
         </scene>
         <!--Playlists-->
         <scene sceneID="pYs-cq-ccD">
@@ -775,7 +781,9 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="aqA-AM-fUW"/>
         <segue reference="uZj-Ro-2es"/>
+        <segue reference="lHI-N0-nPW"/>
         <segue reference="BPb-0d-mIq"/>
     </inferredMetricsTieBreakers>
 </document>

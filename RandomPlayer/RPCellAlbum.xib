@@ -13,8 +13,8 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sHp-Ju-Wg6" id="xf6-5C-LzG">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0f-yK-kkE">
-                        <rect key="frame" x="0.0" y="1" width="320" height="59"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0f-yK-kkE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0N-8B-3fN">
                                 <rect key="frame" x="67" y="30" width="26" height="21"/>
@@ -66,7 +66,7 @@
                 <outlet property="mainLabel" destination="U3M-Fy-f1Q" id="7qq-nh-bgp"/>
                 <outlet property="subLabel" destination="y0N-8B-3fN" id="oeM-RX-nPI"/>
             </connections>
-            <point key="canvasLocation" x="625" y="259"/>
+            <point key="canvasLocation" x="653" y="260"/>
         </tableViewCell>
     </objects>
     <resources>

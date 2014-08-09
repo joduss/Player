@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisplayDelegate, UISearchBarDelegate {
+class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisplayDelegate, UISearchBarDelegate, RPSearchTVCDelegate {
     
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -31,12 +31,33 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
         super.init(coder: aDecoder)
     }
     
+    override init() {
+        self.query = MPMediaQuery.artistsQuery()
+        self.collectionSections = query.collectionSections
+        super.init()
+    }
+    
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+        self.query = MPMediaQuery.artistsQuery()
+        self.collectionSections = query.collectionSections
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    override init(style: UITableViewStyle) {
+        self.query = MPMediaQuery.artistsQuery()
+        self.collectionSections = query.collectionSections
+        super.init(style: style)
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // #warning - verify compatibility with other swipableButton
         self.tableView.canCancelContentTouches = false
+        searchTVC.delegate = self
+        searchTVC.searchTableView = self.searchDisplayController.searchResultsTableView
+        
         //tableView.registerClass(RPSwipableTVCell.self, forCellReuseIdentifier: "cell")
 
         
@@ -162,8 +183,6 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
             
             let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
             
-            
-            
             let titleLabel = cell.mainLabel
             let subtitleLabel = cell.subLabel
         
@@ -179,7 +198,7 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
             titleLabel.text = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
             
             let nbSong = artist.items.count
-            let nbAlbum = artist.count
+            let nbAlbum = artist.albumCount
             
             var nbSongTitle = ""
             var nbAlbumTitle = ""
@@ -214,55 +233,27 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     }
     
     override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        self.performSegueWithIdentifier("artistToAlbum", sender: indexPath)
+        let artist = self.artistAtIndexPath(indexPath)
+        self.performSegueWithIdentifier("segue artist to album", sender: artist)
     }
+
+
+    
+    //************************************************************************
+    //************************************************************************
+    //#pragma mark - RPSearchTVC delegate
     
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+    func songPicked(song : MPMediaItem){
+        //self.performSegueWithIdentifier("segue artist to song", sender: song)
+        //TODO
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    func albumPicked(album: MPMediaItemCollection){
+        self.performSegueWithIdentifier("segue artist to song", sender: album)
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView!, moveRowAtIndexPath fromIndexPath: NSIndexPath!, toIndexPath: NSIndexPath!) {
-
+    func artistPicked(artist: MPMediaItemCollection){
+        self.performSegueWithIdentifier("segue artist to album", sender: artist)
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView!, canMoveRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // #pragma mark - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     
     //************************************************************************
     //************************************************************************
@@ -270,17 +261,9 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     //#pragma mark - SEGUE
     
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        if(segue.identifier == "artistToAlbum"){
-            dprint("prep")
+        if(segue.identifier == "segue artist to album" || segue.identifier == "segue artiste to song"){
             let dest = segue.destinationViewController as RPAlbumTVC
-            dprint("prep2")
-
-            let artist = self.artistAtIndexPath(sender as NSIndexPath)
-            dprint("prep3")
-
-            dest.filterAlbumForArtist(artist)
-            dprint("prep4")
-
+            dest.filterAlbumForArtist(sender as MPMediaItemCollection)
         }
     }
     

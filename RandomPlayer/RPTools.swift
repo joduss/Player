@@ -132,4 +132,21 @@ extension Array {
 
 }
 
+extension MPMediaItemCollection {
+    
+    var albumCount : Int {
+        get {
+        var query = MPMediaQuery.albumsQuery()
+        let filterPredicate = MPMediaPropertyPredicate(
+            value: representativeItem.valueForProperty(MPMediaItemPropertyArtistPersistentID),
+            forProperty: MPMediaItemPropertyArtistPersistentID)
+        query.filterPredicates = NSSet(object: filterPredicate)
+        
+        return query.collections.count
+        }
+    }
+
+
+}
+
 

@@ -22,11 +22,28 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate {
         query.groupingType = MPMediaGrouping.Album
         super.init(coder: aDecoder)
     }
+    
+    override init() {
+        query = MPMediaQuery.albumsQuery()
+        query.groupingType = MPMediaGrouping.Album
+        super.init()
+    }
+    
+    override init(style: UITableViewStyle) {
+        query = MPMediaQuery.albumsQuery()
+        query.groupingType = MPMediaGrouping.Album
+        super.init(style: style)
+    }
+    
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+        query = MPMediaQuery.albumsQuery()
+        query.groupingType = MPMediaGrouping.Album
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Albums"
-
     }
 
     override func didReceiveMemoryWarning() {

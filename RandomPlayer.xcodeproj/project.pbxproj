@@ -12,6 +12,7 @@
 		C85A8CF3198D31ED0087B541 /* RPCellArtist.xib in Resources */ = {isa = PBXBuildFile; fileRef = C85A8CF2198D31ED0087B541 /* RPCellArtist.xib */; };
 		C8873D11198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8873D10198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift */; };
 		C8873D13198FE35700FEA343 /* RPCellAlbum.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8873D12198FE35700FEA343 /* RPCellAlbum.xib */; };
+		C89142291993994200D63EB7 /* RPCellSong.xib in Resources */ = {isa = PBXBuildFile; fileRef = C89142281993994200D63EB7 /* RPCellSong.xib */; };
 		C8B34E6F197FDCD9007BA1E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */; };
 		C8B34E72197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */; };
 		C8B34E85197FDCD9007BA1E1 /* RandomPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E84197FDCD9007BA1E1 /* RandomPlayerTests.swift */; };
@@ -53,6 +54,7 @@
 		C85A8CF2198D31ED0087B541 /* RPCellArtist.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPCellArtist.xib; sourceTree = "<group>"; };
 		C8873D10198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSearchTVCTableViewController.swift; sourceTree = "<group>"; };
 		C8873D12198FE35700FEA343 /* RPCellAlbum.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPCellAlbum.xib; sourceTree = "<group>"; };
+		C89142281993994200D63EB7 /* RPCellSong.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPCellSong.xib; sourceTree = "<group>"; };
 		C8B34E69197FDCD9007BA1E1 /* RandomPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8B34E6D197FDCD9007BA1E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				C85A8CEF198D31BC0087B541 /* RPCell.swift */,
 				C8873D12198FE35700FEA343 /* RPCellAlbum.xib */,
 				C85A8CF2198D31ED0087B541 /* RPCellArtist.xib */,
+				C89142281993994200D63EB7 /* RPCellSong.xib */,
 			);
 			name = "Custom Cell";
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				C8B34EB6197FDD99007BA1E1 /* Main.storyboard in Resources */,
 				C82029181987D4A500A594F1 /* pont-poya.png in Resources */,
 				C85A8CF3198D31ED0087B541 /* RPCellArtist.xib in Resources */,
+				C89142291993994200D63EB7 /* RPCellSong.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

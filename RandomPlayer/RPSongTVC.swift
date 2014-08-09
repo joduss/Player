@@ -15,10 +15,34 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate {
     var album : MPMediaItemCollection?
     
     
+    
+    //************************************************************************
+    //************************************************************************
+    // #pragma mark - init
     required init(coder aDecoder: NSCoder!) {
         query = MPMediaQuery.songsQuery()
         super.init(coder: aDecoder)
     }
+    
+    override init() {
+        query = MPMediaQuery.songsQuery()
+        super.init()
+    }
+    
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+        query = MPMediaQuery.songsQuery()
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    override init(style: UITableViewStyle) {
+        query = MPMediaQuery.songsQuery()
+        super.init(style: style)
+    }
+    
+    
+    //************************************************************************
+    //************************************************************************
+    // #pragma mark - view loading / unloading
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +111,10 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate {
         cell .hideBehindCell()
     }
     
+    override func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        return 55
+    }
+    
     
     //************************************************************************
     //************************************************************************
@@ -105,12 +133,17 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate {
 
     
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell? {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as RPSwipableTVCell
+        
+        let identifier = "song cell"
+        
+        tableView.registerNib(UINib(nibName: "RPCellSong", bundle: nil), forCellReuseIdentifier: identifier)
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
         cell.delegate = self
         cell.rightViewOffSet = 80
         
-        let titleLabel = cell.contentView.viewWithTag(400) as UILabel
-        let subtitleLabel = cell.contentView.viewWithTag(401) as UILabel
+        let titleLabel = cell.mainLabel
+        let subtitleLabel = cell.subLabel
         
         let song = self.songAtIndexPath(indexPath)
         

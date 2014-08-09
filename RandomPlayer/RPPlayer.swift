@@ -437,14 +437,15 @@ class RPPlayer : NSObject {
         
         let index = currentItemIndex
         
-        if(queue.isEmpty == false && currentItemIndex < queue.endIndex){
+        if(queue.isEmpty == false && currentItemIndex < (queue.endIndex-1)){
             queueTemp += queue[0...index]
             queueTemp += songs
             queueTemp += queue[(index + 1)...(queue.endIndex - 1)] //-1 as it gives the index that ends the array (and that is nil), not index of last element
             
         }
         else {
-            queueTemp += songs
+            //case where the last song is playing, or queue is empty
+            queueTemp = queue + songs
         }
         queue = queueTemp
     }

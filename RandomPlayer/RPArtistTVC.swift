@@ -197,26 +197,10 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
         
             titleLabel.text = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
             
-            let nbSong = artist.items.count
-            let nbAlbum = artist.albumCount
+            var nbSongTitle = RPTools.numberSongInCollection(artist)
+            var nbAlbumTitle = RPTools.numberAlbumOfArtistFormattedString(artist)
             
-            var nbSongTitle = ""
-            var nbAlbumTitle = ""
-            
-            if(nbSong <= 1) {
-                nbSongTitle = "song"
-                nbAlbumTitle = "album"
-            }
-            else if(nbSong > 1 && nbAlbum <= 1) {
-                nbSongTitle = "songs"
-                nbAlbumTitle = "album"
-            }
-            else {
-                nbSongTitle = "songs"
-                nbAlbumTitle = "albums"
-            }
-            
-            subtitleLabel.text = "\(nbAlbum) \(nbAlbumTitle), \(nbSong) \(nbSongTitle)"
+            subtitleLabel.text = "\(nbAlbumTitle), \(nbSongTitle)"
             
             
             cell.delegate = self

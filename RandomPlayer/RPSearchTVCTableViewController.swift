@@ -113,16 +113,16 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         
         dprint("hello, I search Artist with: \(searchText)")
         querySearchArtist = MPMediaQuery.artistsQuery()
-        let filterPredicate = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyArtist, comparisonType: MPMediaPredicateComparison.Contains)
+        let filterPredicateArtist = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyArtist, comparisonType: MPMediaPredicateComparison.Contains)
         
-        querySearchArtist.filterPredicates = NSSet(object: filterPredicate)
+        querySearchArtist.filterPredicates = NSSet(object: filterPredicateArtist)
         //self.tableView.reloadData()
         
         
         querySearchAlbum = MPMediaQuery.albumsQuery()
         let filterPredicateAlbum = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyAlbumTitle, comparisonType: MPMediaPredicateComparison.Contains)
+        querySearchAlbum.filterPredicates = NSSet(object: filterPredicateAlbum)
         
-        querySearchAlbum.filterPredicates = NSSet(object: filterPredicate)
         
         let filterPredicateSong = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyTitle, comparisonType: MPMediaPredicateComparison.Contains)
         querySearchSong.filterPredicates = NSSet(object: filterPredicateSong)
@@ -143,15 +143,17 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     override func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
         switch(section){
         case 0:
-            return "Artists"
+            return "Artists (\(querySearchArtist.collections.count))"
         case 1:
-            return "Album"
+            return "Album (\(querySearchAlbum.collections.count))"
         case 2:
-            return "Songs"
+            return "Songs (\(querySearchSong.items.count))"
         default:
             return "ERROR"
         }
     }
+    
+
     
     override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
         // #warning Potentially incomplete method implementation.
@@ -192,16 +194,21 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
             tableView.registerNib(UINib(nibName: "RPCellArtist", bundle: nil), forCellReuseIdentifier: identifier)
             cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
             
-            let item = queryForSection(indexPath.section).collections[indexPath.row].representativeItem as MPMediaItem
+            let artist = queryForSection(indexPath.section).collections[indexPath.row] as MPMediaItemCollection
+            let item = artist.representativeItem as MPMediaItem
             let songTitle = item.valueForProperty(MPMediaItemPropertyArtist) as String
             cell.mainLabel.text = songTitle
+            
+            cell.subLabel.text = RPTools.numberAlbumOfArtistFormattedString(artist) + ", " + RPTools.numberSongInCollection(artist)
             
         }
         else if(indexPath.section == 1){
             let identifier = "album cell"
             tableView.registerNib(UINib(nibName: "RPCellAlbum", bundle: nil), forCellReuseIdentifier: identifier)
             cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
-            let item = queryForSection(indexPath.section).collections[indexPath.row].representativeItem as MPMediaItem
+            
+            let album = queryForSection(indexPath.section).collections[indexPath.row] as MPMediaItemCollection
+            let item = album.representativeItem as MPMediaItem
             let albumTitle = item.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
             cell.mainLabel.text = albumTitle
             
@@ -209,7 +216,8 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
             
             let artworkImage = artwork?.imageWithSize(CGSizeMake(60, 60))
             cell.cellImageView.image = artworkImage
-
+            
+            cell.subLabel.text = RPTools.numberSongInCollection(album)
             
         }
         else if(indexPath.section == 2){
@@ -219,6 +227,9 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
             let item = queryForSection(indexPath.section).items[indexPath.row] as MPMediaItem
             let title = item.valueForProperty(MPMediaItemPropertyTitle) as String
             cell.mainLabel.text = title
+            
+            let duration = item.valueForProperty(MPMediaItemPropertyPlaybackDuration) as NSTimeInterval
+            cell.subLabel.text = formatTimeToMinutesSeconds(Int(duration))
             
 
         }

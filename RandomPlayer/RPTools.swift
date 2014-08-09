@@ -109,6 +109,33 @@ func shuffleAndSeparateSimilarElement<T : Equatable>(array: [T]) -> [T] {
 }
 
 
+class RPTools {
+    
+    /**Return the number of album for the given artist*/
+    class func numberAlbumOfArtistFormattedString(artist : MPMediaItemCollection) -> String {
+        if(artist.albumCount > 1){
+            return "\(artist.albumCount) albums"
+        }
+        else {
+            return "1 album"
+        }
+    }
+    
+    /**Return the number of song of the given artist or album*/
+    class func numberSongInCollection(artist : MPMediaItemCollection) -> String {
+        if(artist.items.count > 1){
+            return "\(artist.items.count) songs"
+        }
+        else {
+            return "1 song"
+        }
+    }
+    
+    
+}
+
+
+
 extension Array {
     func shuffleArray() -> [T] {
         var arr = self

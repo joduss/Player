@@ -53,7 +53,9 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        if let currentArtist = artist {
+            self.title = currentArtist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
+        }
     }
 
     

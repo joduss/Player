@@ -229,7 +229,6 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     
     
     func songPicked(song : MPMediaItem){
-        //self.performSegueWithIdentifier("segue artist to song", sender: song)
         //TODO
     }
     func albumPicked(album: MPMediaItemCollection){
@@ -245,9 +244,13 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     //#pragma mark - SEGUE
     
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        if(segue.identifier == "segue artist to album" || segue.identifier == "segue artiste to song"){
+        if(segue.identifier == "segue artist to album"){
             let dest = segue.destinationViewController as RPAlbumTVC
             dest.filterAlbumForArtist(sender as MPMediaItemCollection)
+        }
+        else if(segue.identifier == "segue artist to song"){
+            let dest = segue.destinationViewController as RPSongTVC
+            dest.filterSongForAlbum(sender as MPMediaItemCollection)
         }
     }
     

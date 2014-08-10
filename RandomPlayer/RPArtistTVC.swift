@@ -55,17 +55,12 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
         
         // #warning - verify compatibility with other swipableButton
         self.tableView.canCancelContentTouches = false
+        
+        // RPSearchTVC setup
         searchTVC.delegate = self
         searchTVC.searchTableView = self.searchDisplayController.searchResultsTableView
         
-        //tableView.registerClass(RPSwipableTVCell.self, forCellReuseIdentifier: "cell")
-
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         
     }
@@ -226,7 +221,6 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     //************************************************************************
     //************************************************************************
     //#pragma mark - RPSearchTVC delegate
-    
     
     func songPicked(song : MPMediaItem){
         //TODO

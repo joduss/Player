@@ -384,6 +384,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="Zuz-lw-y4n">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="g7r-YZ-CV2" id="Qft-9P-xvY"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="55" id="fJx-pq-JTm" customClass="RPSwipableTVCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="55"/>
@@ -414,7 +422,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="titleLabel" destination="H9e-Sl-ZXE" id="xoi-Dy-Pku"/>
-                                    <segue destination="Ydz-rG-Fj6" kind="push" identifier="segue song to artist" id="Npc-hQ-lUZ"/>
+                                    <segue destination="g7r-YZ-CV2" kind="push" identifier="segue song to song" id="Hrp-d0-85y"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -431,10 +439,22 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchDisplayController" destination="oh0-hO-Gen" id="KOR-0Z-hbP"/>
+                        <outlet property="searchTVC" destination="LaD-Yn-W4q" id="6e6-tj-3Gf"/>
                         <segue destination="GQr-bB-Qui" kind="push" identifier="segue song to album" id="VFK-eu-4VI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vhz-YW-buA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="oh0-hO-Gen">
+                    <connections>
+                        <outlet property="delegate" destination="LaD-Yn-W4q" id="nbX-Rn-e85"/>
+                        <outlet property="searchBar" destination="Zuz-lw-y4n" id="Wa0-pn-kkc"/>
+                        <outlet property="searchContentsController" destination="g7r-YZ-CV2" id="4pb-1w-c3I"/>
+                        <outlet property="searchResultsDataSource" destination="LaD-Yn-W4q" id="gjp-kP-DRv"/>
+                        <outlet property="searchResultsDelegate" destination="LaD-Yn-W4q" id="w0w-c5-xk3"/>
+                    </connections>
+                </searchDisplayController>
+                <customObject id="LaD-Yn-W4q" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="2041" y="1253"/>
         </scene>
@@ -882,9 +902,9 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="R8w-rM-OJx"/>
         <segue reference="VFK-eu-4VI"/>
         <segue reference="Tog-qh-8zv"/>
-        <segue reference="R6i-kN-FZo"/>
+        <segue reference="gQT-h6-Jza"/>
+        <segue reference="R8w-rM-OJx"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,11 +9,12 @@
 import UIKit
 import MediaPlayer
 
-class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate {
+class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate {
 
     var query : MPMediaQuery
     var album : MPMediaItemCollection?
     
+    @IBOutlet var searchTVC: RPSearchTVCTableViewController!
     
     
     //************************************************************************
@@ -47,11 +48,9 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        // RPSearchTVC setup
+        searchTVC.delegate = self
+        searchTVC.searchTableView = self.searchDisplayController.searchResultsTableView
     }
 
     override func didReceiveMemoryWarning() {
@@ -130,7 +129,6 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate {
         return self.query.itemSections[section].range.length
         
     }
-
     
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell? {
         
@@ -156,5 +154,43 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate {
     
         return cell
     }
+    
+    override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        //TODO
+    }
+    
+    
+    //************************************************************************
+    //************************************************************************
+    //#pragma mark - RPSearchTVC delegate
+    
+    func songPicked(song : MPMediaItem){
+        //TODO
+    }
+    func albumPicked(album: MPMediaItemCollection){
+        self.performSegueWithIdentifier("segue song to song", sender: album)
+    }
+    func artistPicked(artist: MPMediaItemCollection){
+        self.performSegueWithIdentifier("segue song to album", sender: artist)
+    }
+    
+    
+    //************************************************************************
+    //************************************************************************
+    //#pragma mark - Segue
+    
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+        if(segue.identifier == "segue song to album"){
+            let dest = segue.destinationViewController as RPAlbumTVC
+            let artist = sender as MPMediaItemCollection
+            dest.filterAlbumForArtist(artist)
+        }
+        else if(segue.identifier == "segue song to song"){
+            let dest = segue.destinationViewController as RPSongTVC
+            dest.filterSongForAlbum(sender as MPMediaItemCollection)
+        }
+    }
+    
+    
     
 }

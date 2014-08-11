@@ -212,10 +212,18 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
             let albumTitle = item.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
             cell.mainLabel.text = albumTitle
             
-            let artwork : MPMediaItemArtwork? = item.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
             
-            let artworkImage = artwork?.imageWithSize(CGSizeMake(60, 60))
-            cell.cellImageView.image = artworkImage
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {() -> Void in
+                
+                let artwork : MPMediaItemArtwork? = item.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
+                let artworkImage = artwork?.imageWithSize(cell.cellImageView.bounds.size)
+                
+                dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                    cell.cellImageView.image = artworkImage
+                })
+                
+            })
+
             
             cell.subLabel.text = RPTools.numberSongInCollection(album)
             

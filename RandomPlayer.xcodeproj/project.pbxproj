@@ -36,6 +36,8 @@
 		C8B34EB8197FDDA1007BA1E1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8B34EB7197FDDA1007BA1E1 /* Images.xcassets */; };
 		C8B6BCF21982637600699E2C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B6BCF11982637600699E2C /* AVFoundation.framework */; };
 		C8B6BCF41982638200699E2C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B6BCF31982638200699E2C /* MediaPlayer.framework */; };
+		C8EBC75C1998D4C600449E21 /* SongActionSheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EBC75B1998D4C600449E21 /* SongActionSheetDelegate.swift */; };
+		C8EBC7601998F14500449E21 /* RPPlaylistTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EBC75F1998F14500449E21 /* RPPlaylistTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		C8B34EB7197FDDA1007BA1E1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C8B6BCF11982637600699E2C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C8B6BCF31982638200699E2C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		C8EBC75B1998D4C600449E21 /* SongActionSheetDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongActionSheetDelegate.swift; sourceTree = "<group>"; };
+		C8EBC75F1998F14500449E21 /* RPPlaylistTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RPPlaylistTVC.swift; path = ../RPPlaylistTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +152,7 @@
 			children = (
 				C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */,
 				C8B34E8F197FDD87007BA1E1 /* RateView.swift */,
+				C8EBC75B1998D4C600449E21 /* SongActionSheetDelegate.swift */,
 				C8B34EBA197FDDED007BA1E1 /* Controllers in tabs */,
 				C85A8CF1198D31CB0087B541 /* Custom Cell */,
 				C8B34E97197FDD87007BA1E1 /* RPPlayer.swift */,
@@ -211,6 +216,7 @@
 		C8B34EBA197FDDED007BA1E1 /* Controllers in tabs */ = {
 			isa = PBXGroup;
 			children = (
+				C8EBC75F1998F14500449E21 /* RPPlaylistTVC.swift */,
 				C8873D10198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift */,
 				C8B34E9B197FDD87007BA1E1 /* RPSongTVC.swift */,
 				C8B34E90197FDD87007BA1E1 /* RPAlbumTVC.swift */,
@@ -337,8 +343,10 @@
 				C85A8CF0198D31BC0087B541 /* RPCell.swift in Sources */,
 				C8B34EAE197FDD87007BA1E1 /* RPSwipableTVCell.m in Sources */,
 				C8B34EA8197FDD87007BA1E1 /* RPPlayer.swift in Sources */,
+				C8EBC7601998F14500449E21 /* RPPlaylistTVC.swift in Sources */,
 				C8B34EAB197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift in Sources */,
 				C8B34EA5197FDD87007BA1E1 /* RPCellViewBehind.m in Sources */,
+				C8EBC75C1998D4C600449E21 /* SongActionSheetDelegate.swift in Sources */,
 				C8873D11198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift in Sources */,
 				C8B34EAC197FDD87007BA1E1 /* RPSongTVC.swift in Sources */,
 				C8B34EAD197FDD87007BA1E1 /* RPSwipableButton.m in Sources */,

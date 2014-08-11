@@ -16,6 +16,8 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
     
     @IBOutlet var searchTVC: RPSearchTVCTableViewController!
     
+    var songActionDelegate : SongActionSheetDelegate?
+    
     
     //************************************************************************
     //************************************************************************
@@ -55,6 +57,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        songActionDelegate = nil
         // Dispose of any resources that can be recreated.
     }
     
@@ -156,7 +159,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
     }
     
     override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        //TODO
+        songPicked(query.items[indexPath.row] as MPMediaItem)
     }
     
     
@@ -165,7 +168,12 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
     //#pragma mark - RPSearchTVC delegate
     
     func songPicked(song : MPMediaItem){
-        //TODO
+        if(songActionDelegate == nil){
+            songActionDelegate = SongActionSheetDelegate()
+        }
+        songActionDelegate?.song = song
+        let actionSheet = UIActionSheet(title: "Choose an action", delegate: songActionDelegate, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Play next", "Play now", "Add to Queue")
+        actionSheet.showInView(self.view)
     }
     func albumPicked(album: MPMediaItemCollection){
         self.performSegueWithIdentifier("segue song to song", sender: album)

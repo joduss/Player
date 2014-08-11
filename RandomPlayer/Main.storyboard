@@ -223,7 +223,7 @@
                     <navigationItem key="navigationItem" id="xS1-yE-JEV">
                         <barButtonItem key="rightBarButtonItem" title="Queue" id="51z-5U-ffQ">
                             <connections>
-                                <segue destination="hwa-6h-O7w" kind="modal" identifier="" id="BPb-0d-mIq"/>
+                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue to queue" id="BPb-0d-mIq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -434,10 +434,11 @@
                     <navigationItem key="navigationItem" id="xAY-33-Psf">
                         <barButtonItem key="rightBarButtonItem" title="Queue" id="oTa-FO-H6I">
                             <connections>
-                                <segue destination="hwa-6h-O7w" kind="modal" id="gQT-h6-Jza"/>
+                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue to queue" id="M9D-Mo-CBj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="oh0-hO-Gen" id="KOR-0Z-hbP"/>
                         <outlet property="searchTVC" destination="LaD-Yn-W4q" id="6e6-tj-3Gf"/>
@@ -461,11 +462,19 @@
         <!--Playlists-->
         <scene sceneID="pYs-cq-ccD">
             <objects>
-                <tableViewController title="Playlists" id="PLS-mp-A2m" sceneMemberID="viewController">
+                <tableViewController title="Playlists" id="PLS-mp-A2m" customClass="RPPlaylistTVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CqU-Nb-v5u">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="Hea-hx-tjc">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="PLS-mp-A2m" id="eYd-Mw-E07"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="45" id="Az1-B9-n2V">
                                 <rect key="frame" x="0.0" y="86" width="320" height="45"/>
@@ -496,8 +505,24 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="kLc-Xl-jNM" id="ap6-zR-dR5"/>
+                        <outlet property="searchTVC" destination="ijU-r0-YMI" id="45n-Q4-L0R"/>
+                        <segue destination="GQr-bB-Qui" kind="push" identifier="segue playlist to album" id="udt-NC-ebh"/>
+                        <segue destination="g7r-YZ-CV2" kind="push" identifier="segue playlist to song" id="082-V2-etA"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vu1-N9-pdU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="kLc-Xl-jNM">
+                    <connections>
+                        <outlet property="delegate" destination="ijU-r0-YMI" id="nxy-lN-xd4"/>
+                        <outlet property="searchBar" destination="Hea-hx-tjc" id="1gp-sP-26N"/>
+                        <outlet property="searchContentsController" destination="PLS-mp-A2m" id="THk-Gf-oEV"/>
+                        <outlet property="searchResultsDataSource" destination="ijU-r0-YMI" id="Zi9-ZD-BHn"/>
+                        <outlet property="searchResultsDelegate" destination="ijU-r0-YMI" id="TZ7-aO-4Or"/>
+                    </connections>
+                </searchDisplayController>
+                <customObject id="ijU-r0-YMI" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="1283" y="1839"/>
         </scene>
@@ -902,9 +927,9 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="VFK-eu-4VI"/>
-        <segue reference="Tog-qh-8zv"/>
-        <segue reference="gQT-h6-Jza"/>
+        <segue reference="udt-NC-ebh"/>
+        <segue reference="082-V2-etA"/>
+        <segue reference="R6B-De-KBd"/>
         <segue reference="R8w-rM-OJx"/>
     </inferredMetricsTieBreakers>
 </document>

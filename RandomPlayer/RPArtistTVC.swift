@@ -23,6 +23,8 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     var querySearchSong : MPMediaQuery?
     
     @IBOutlet var searchTVC: RPSearchTVCTableViewController!
+    
+    var songActionDelegate : SongActionSheetDelegate?
 
     
     required init(coder aDecoder: NSCoder!)  {
@@ -223,7 +225,12 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     //#pragma mark - RPSearchTVC delegate
     
     func songPicked(song : MPMediaItem){
-        //TODO
+        if(songActionDelegate == nil){
+            songActionDelegate = SongActionSheetDelegate()
+        }
+        songActionDelegate?.song = song
+        let actionSheet = UIActionSheet(title: "Choose an action", delegate: songActionDelegate, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Play next", "Play now", "Add to Queue")
+        actionSheet.showInView(self.view)
     }
     func albumPicked(album: MPMediaItemCollection){
         self.performSegueWithIdentifier("segue artist to song", sender: album)

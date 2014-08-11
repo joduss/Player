@@ -18,6 +18,11 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     
     @IBOutlet var searchTVC: RPSearchTVCTableViewController!
     
+    var songActionDelegate : SongActionSheetDelegate?
+
+    
+    
+    
     required init(coder aDecoder: NSCoder!) {
         query = MPMediaQuery.albumsQuery()
         query.groupingType = MPMediaGrouping.Album
@@ -41,7 +46,7 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
         query.groupingType = MPMediaGrouping.Album
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Albums"
@@ -50,7 +55,7 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
         searchTVC.delegate = self
         searchTVC.searchTableView = self.searchDisplayController.searchResultsTableView
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -62,12 +67,12 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
             self.title = currentArtist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
         }
     }
-
+    
     
     //************************************************************************
     //************************************************************************
     // #pragma mark - other functions
-
+    
     
     /**return the album at the given indexPath*/
     func albumAtIndexPath(indexPath : NSIndexPath) -> MPMediaItemCollection {
@@ -124,17 +129,17 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     //************************************************************************
     //************************************************************************
     // #pragma mark - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
         // Return the number of sections.
         return self.query.collectionSections.count
     }
-
+    
     override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.query.collectionSections[section].range.length
     }
-
+    
     
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell? {
         let identifier = "album cell"
@@ -164,36 +169,19 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
             subtitleLabel.text = "\(nbSongInAbum) songs"
         }
         
-
-        //truc temporaire pour être fluide du temps que imageWithSize(56,56) ne fonctionne pas....
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {() -> Void in
-//            let artwork : MPMediaItemArtwork? = representativeItem.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
-//            //NSLog("%@", artwork)
-//            let artworkImage = artwork?.imageWithSize(CGSizeMake(150, 150))
-//            
-//            UIGraphicsBeginImageContext(CGSize(width: 56,height: 56))
-//            var thumRect = CGRectZero
-//            thumRect.origin = CGPoint(x: 0, y: 0)
-//            
-//            thumRect.size = CGSize(width: 56, height: 56)
-//            
-//            artworkImage?.drawInRect(thumRect)
-//            
-//            let im = UIGraphicsGetImageFromCurrentImageContext()
-//            UIGraphicsEndImageContext()
-//            
-//            dispatch_async(dispatch_get_main_queue(), {() -> Void in
-//                imageView.image = im
-//                })
-//            
-//            
-//            })
-                    let artwork : MPMediaItemArtwork? = representativeItem.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
-
-                    let artworkImage = artwork?.imageWithSize(CGSizeMake(60, 60))
-        imageView.image = artworkImage
-
         
+        //load image async (more fluid)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {() -> Void in
+            
+            let artwork : MPMediaItemArtwork? = representativeItem.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
+            
+            let artworkImage = artwork?.imageWithSize(imageView.bounds.size)
+            
+            dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                imageView.image = artworkImage
+            })
+            
+        })
 
         return cell
     }
@@ -203,22 +191,26 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
         let chosenAlbum = albumAtIndexPath(indexPath)
         self.performSegueWithIdentifier("segue album to song", sender: chosenAlbum)
     }
-
+    
     //************************************************************************
     //************************************************************************
     //#pragma mark - RPSearchTVC delegate
     
     func songPicked(song : MPMediaItem){
-        //TODO
-    }
+        if(songActionDelegate == nil){
+            songActionDelegate = SongActionSheetDelegate()
+        }
+        songActionDelegate?.song = song
+        let actionSheet = UIActionSheet(title: "Choose an action", delegate: songActionDelegate, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Play next", "Play now", "Add to Queue")
+        actionSheet.showInView(self.view)    }
     func albumPicked(album: MPMediaItemCollection){
         self.performSegueWithIdentifier("segue album to song", sender: album)
     }
     func artistPicked(artist: MPMediaItemCollection){
         self.performSegueWithIdentifier("segue album to album", sender: artist)
     }
-
-
+    
+    
     //************************************************************************
     //************************************************************************
     // #pragma mark - SEGUE

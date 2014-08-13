@@ -140,6 +140,34 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
         return self.query.collectionSections[section].range.length
     }
     
+    override func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
+        if(artist == nil) {
+            return query.collectionSections[section].title
+        }
+        else {
+            return ""
+        }
+    }
+    
+    //show alphabet on right part 1
+    override func tableView(tableView: UITableView!, sectionForSectionIndexTitle title: String!, atIndex index: Int) -> Int {
+        return index
+    }
+    
+    //show alphabet on right part 2
+    override func sectionIndexTitlesForTableView(tableView: UITableView!) -> [AnyObject]! {
+        if(artist == nil) {
+            var indexTitles : Array<String> = Array()
+            for section in query.collectionSections {
+                indexTitles.append(section.title)
+            }
+            return indexTitles
+        }
+        else {
+            return [] //return empty array, because don't want indexTitles
+        }
+    }
+    
     
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell? {
         let identifier = "album cell"
@@ -149,7 +177,7 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
         let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
         
         cell.delegate = self
-        cell.rightViewOffSet = 80
+        //cell.rightViewOffSet = 80
         
         let imageView = cell.cellImageView
         let titleLabel = cell.mainLabel

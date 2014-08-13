@@ -245,7 +245,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
             return nil
         }
         
-        cell.rightViewOffSet = 80
+        //cell.rightViewOffSet = 80
         cell.delegate = self
         return cell
         

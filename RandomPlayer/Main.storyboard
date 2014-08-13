@@ -155,7 +155,7 @@
                     <navigationItem key="navigationItem" id="gA1-fP-guO">
                         <barButtonItem key="rightBarButtonItem" title="Queue" id="sq7-fH-8SB">
                             <connections>
-                                <segue destination="hwa-6h-O7w" kind="modal" id="kts-n2-3PY"/>
+                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue to queue tvc" id="kts-n2-3PY"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -191,10 +191,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="XIj-GX-jdN">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" showsScopeBar="YES" id="XIj-GX-jdN">
+                            <rect key="frame" x="0.0" y="64" width="320" height="88"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Song</string>
+                                <string>Artist</string>
+                                <string>Album</string>
+                                <string>Playlist</string>
+                                <string>All</string>
+                            </scopeButtonTitles>
                             <connections>
                                 <outlet property="delegate" destination="Ydz-rG-Fj6" id="ULC-hV-WMU"/>
                             </connections>
@@ -221,12 +229,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="xS1-yE-JEV">
-                        <barButtonItem key="rightBarButtonItem" title="Queue" id="51z-5U-ffQ">
+                        <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" title="Queue" id="mYw-Br-7dZ">
                             <connections>
-                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue to queue" id="BPb-0d-mIq"/>
+                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue to queue tvc" id="kUk-iL-mEO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="TGc-6R-JcA" id="pIQ-ex-ocX"/>
                         <outlet property="searchTVC" destination="LMo-ze-vET" id="cwe-ts-GAH"/>
@@ -246,7 +256,7 @@
                 </searchDisplayController>
                 <customObject id="LMo-ze-vET" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="1276" y="386"/>
+            <point key="canvasLocation" x="1356" y="385.5"/>
         </scene>
         <!--Albums-->
         <scene sceneID="gaT-hv-ZfD">
@@ -275,6 +285,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" red="0.65465641019999998" green="0.47054630469999997" blue="0.99919813869999996" alpha="1" colorSpace="calibratedRGB"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="RpK-Mq-0yl">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -350,6 +361,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Exr-4u-fpT">
                         <barButtonItem key="rightBarButtonItem" title="Queue" id="LJ0-5n-hm4">
+                            <color key="tintColor" red="0.71138445559437735" green="0.33934764107792287" blue="0.81722337372448983" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="hwa-6h-O7w" kind="modal" identifier="segue to queue tvc" id="R6i-kN-FZo"/>
                             </connections>
@@ -821,6 +833,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hwa-6h-O7w" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="nVG-co-XN0"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="A7o-X1-4KT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -927,9 +940,9 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="udt-NC-ebh"/>
-        <segue reference="082-V2-etA"/>
-        <segue reference="R6B-De-KBd"/>
+        <segue reference="uZj-Ro-2es"/>
         <segue reference="R8w-rM-OJx"/>
+        <segue reference="kUk-iL-mEO"/>
+        <segue reference="lHI-N0-nPW"/>
     </inferredMetricsTieBreakers>
 </document>

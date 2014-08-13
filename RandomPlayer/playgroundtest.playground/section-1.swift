@@ -13,9 +13,15 @@ let b = processedString.substringToIndex(idx)
 
 
 
+import MediaPlayer
 
 
 
+var t = [1, 2, 3, 5, 50]
+
+for a in t{
+    a
+}
 
 
 

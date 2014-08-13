@@ -141,7 +141,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
         
         let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
         cell.delegate = self
-        cell.rightViewOffSet = 80
+        //cell.rightViewOffSet = 80
         
         let titleLabel = cell.mainLabel
         let subtitleLabel = cell.subLabel

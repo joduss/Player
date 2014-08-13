@@ -41,6 +41,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="U3M-Fy-f1Q" firstAttribute="leading" secondItem="DgQ-CM-EvC" secondAttribute="trailing" constant="8" symbolic="YES" id="2Ia-iL-9xb"/>
                             <constraint firstItem="y0N-8B-3fN" firstAttribute="leading" secondItem="DgQ-CM-EvC" secondAttribute="trailing" constant="8" symbolic="YES" id="4AX-25-PxI"/>
@@ -66,7 +67,7 @@
                 <outlet property="mainLabel" destination="U3M-Fy-f1Q" id="7qq-nh-bgp"/>
                 <outlet property="subLabel" destination="y0N-8B-3fN" id="oeM-RX-nPI"/>
             </connections>
-            <point key="canvasLocation" x="653" y="260"/>
+            <point key="canvasLocation" x="375" y="255"/>
         </tableViewCell>
     </objects>
     <resources>

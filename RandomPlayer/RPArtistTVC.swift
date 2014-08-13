@@ -55,6 +55,8 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Artists"
+        
         // #warning - verify compatibility with other swipableButton
         self.tableView.canCancelContentTouches = false
         
@@ -134,7 +136,7 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     override func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         return 55
     }
-    
+
 
     //########################################################################
     //########################################################################
@@ -165,52 +167,60 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
         return mediaQuerySection.title
     }
     
-
+    override func tableView(tableView: UITableView!, sectionForSectionIndexTitle title: String!, atIndex index: Int) -> Int {
+        return index
+    }
+    
+    override func sectionIndexTitlesForTableView(tableView: UITableView!) -> [AnyObject]! {
+        
+        var indexTitles : Array<String> = Array()
+        for section in collectionSections {
+            indexTitles.append(section.title)
+        }
+        
+        return indexTitles
+    }
     
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell? {
         
         //self.tableView.registerClass(RPSwipableTVCell.self, forCellReuseIdentifier: "cellArtistTVC")
         
         //if(self.searchDisplayController.active == false) {
-
-            let identifier = "artist cell"
-            
-            tableView.registerNib(UINib(nibName: "RPCellArtist", bundle: nil), forCellReuseIdentifier: identifier)
-            
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
-            
-            let titleLabel = cell.mainLabel
-            let subtitleLabel = cell.subLabel
+        
+        let identifier = "artist cell"
+        
+        tableView.registerNib(UINib(nibName: "RPCellArtist", bundle: nil), forCellReuseIdentifier: identifier)
+        
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+        
+        let titleLabel = cell.mainLabel
+        let subtitleLabel = cell.subLabel
         
         var artist : MPMediaItemCollection = artistAtIndexPath(indexPath)
         
-        if(self.searchDisplayController.active){
-            if let q = querySearchArtist{
-                artist = artistAtIndexPath(indexPath, inQuery: q)
-            }
-        }
         
         
-            titleLabel.text = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
-            
-            var nbSongTitle = RPTools.numberSongInCollection(artist)
-            var nbAlbumTitle = RPTools.numberAlbumOfArtistFormattedString(artist)
-            
-            subtitleLabel.text = "\(nbAlbumTitle), \(nbSongTitle)"
-            
-            
-            cell.delegate = self
-            cell.rightViewOffSet = 80;
-            
-            return cell
-
-//        }
-//        else {
-//            
-//        }
         
-
+        titleLabel.text = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
+        
+        var nbSongTitle = RPTools.numberSongInCollection(artist)
+        var nbAlbumTitle = RPTools.numberAlbumOfArtistFormattedString(artist)
+        
+        subtitleLabel.text = "\(nbAlbumTitle), \(nbSongTitle)"
+        
+        
+        cell.delegate = self
+        //cell.rightViewOffSet = 80;
+        
+        return cell
+        
+        //        }
+        //        else {
+        //
+        //        }
+        
+        
     }
     
     override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {

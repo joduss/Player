@@ -18,6 +18,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
     
     var songActionDelegate : SongActionSheetDelegate?
     
+    @IBOutlet weak var searchBar: UISearchBar!
     
     //************************************************************************
     //************************************************************************
@@ -53,6 +54,17 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
         // RPSearchTVC setup
         searchTVC.delegate = self
         searchTVC.searchTableView = self.searchDisplayController.searchResultsTableView
+        self.title = "Albums"
+        
+        //hide searchBar
+        let bounds = self.tableView.bounds;
+        let b = CGRectMake(
+            bounds.origin.x,
+            bounds.origin.y + searchBar.bounds.size.height,
+            bounds.size.width,
+            bounds.size.height
+        )
+        self.tableView.bounds = b;
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,7 +78,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
     // #pragma mark - other functions
     func filterSongForAlbum(album : MPMediaItemCollection) {
         self.album = album
-        self.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
+        //self.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
         let filterPredicate = MPMediaPropertyPredicate(
             value: album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumPersistentID),
             forProperty: MPMediaItemPropertyAlbumPersistentID)

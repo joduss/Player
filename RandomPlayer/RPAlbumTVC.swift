@@ -18,6 +18,7 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     
     @IBOutlet var searchTVC: RPSearchTVCTableViewController!
     
+    @IBOutlet weak var searchBar: UISearchBar!
     var songActionDelegate : SongActionSheetDelegate?
 
     
@@ -54,6 +55,17 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
         // RPSearchTVC setup
         searchTVC.delegate = self
         searchTVC.searchTableView = self.searchDisplayController.searchResultsTableView
+        
+        
+        //hide searchBar
+        let bounds = self.tableView.bounds;
+        let b = CGRectMake(
+            bounds.origin.x,
+            bounds.origin.y + searchBar.bounds.size.height,
+            bounds.size.width,
+            bounds.size.height
+        )
+        self.tableView.bounds = b;
     }
     
     override func didReceiveMemoryWarning() {
@@ -151,13 +163,18 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     
     //show alphabet on right part 1
     override func tableView(tableView: UITableView!, sectionForSectionIndexTitle title: String!, atIndex index: Int) -> Int {
-        return index
+        if(index == 0){
+            tableView.scrollRectToVisible(searchBar.frame, animated: false)
+            return NSNotFound
+        }
+        return (index - 1)
     }
     
     //show alphabet on right part 2
     override func sectionIndexTitlesForTableView(tableView: UITableView!) -> [AnyObject]! {
         if(artist == nil) {
             var indexTitles : Array<String> = Array()
+            indexTitles.append(UITableViewIndexSearch)
             for section in query.collectionSections {
                 indexTitles.append(section.title)
             }
@@ -246,7 +263,9 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
         if(segue.identifier == "segue album to song") {
             let dest = segue.destinationViewController as RPSongTVC
-            dest.filterSongForAlbum(sender as MPMediaItemCollection)
+            let album = sender as MPMediaItemCollection
+            dest.filterSongForAlbum(album)
+            dest.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
         }
         else if(segue.identifier == "segue album to album") {
             let dest = segue.destinationViewController as RPAlbumTVC

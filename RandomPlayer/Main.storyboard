@@ -195,6 +195,7 @@
                         <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" showsScopeBar="YES" id="XIj-GX-jdN">
                             <rect key="frame" x="0.0" y="64" width="320" height="88"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <textInputTraits key="textInputTraits"/>
                             <scopeButtonTitles>
                                 <string>Song</string>
@@ -238,6 +239,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="searchBar" destination="XIj-GX-jdN" id="AYD-jo-tk3"/>
                         <outlet property="searchDisplayController" destination="TGc-6R-JcA" id="pIQ-ex-ocX"/>
                         <outlet property="searchTVC" destination="LMo-ze-vET" id="cwe-ts-GAH"/>
                         <segue destination="GQr-bB-Qui" kind="push" identifier="segue artist to album" id="uZj-Ro-2es"/>
@@ -368,6 +370,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="RpK-Mq-0yl" id="iPp-a0-Wct"/>
                         <outlet property="searchDisplayController" destination="OnA-is-1GS" id="N1s-Ai-VEq"/>
                         <outlet property="searchTVC" destination="4aJ-UE-oOk" id="W08-DY-oiE"/>
                         <segue destination="g7r-YZ-CV2" kind="push" identifier="segue album to song" id="Tog-qh-8zv"/>
@@ -452,6 +455,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="searchBar" destination="Zuz-lw-y4n" id="zEC-fO-Wqk"/>
                         <outlet property="searchDisplayController" destination="oh0-hO-Gen" id="KOR-0Z-hbP"/>
                         <outlet property="searchTVC" destination="LaD-Yn-W4q" id="6e6-tj-3Gf"/>
                         <segue destination="GQr-bB-Qui" kind="push" identifier="segue song to album" id="VFK-eu-4VI"/>
@@ -518,6 +522,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="Hea-hx-tjc" id="PhZ-ct-kot"/>
                         <outlet property="searchDisplayController" destination="kLc-Xl-jNM" id="ap6-zR-dR5"/>
                         <outlet property="searchTVC" destination="ijU-r0-YMI" id="45n-Q4-L0R"/>
                         <segue destination="GQr-bB-Qui" kind="push" identifier="segue playlist to album" id="udt-NC-ebh"/>

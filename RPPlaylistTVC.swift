@@ -18,6 +18,7 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
     
     var query = MPMediaQuery.playlistsQuery()
     
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +65,17 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
         // RPSearchTVC setup
         searchTVC.delegate = self
         searchTVC.searchTableView = self.searchDisplayController.searchResultsTableView
+        
+        //hide searchBar
+        let bounds = self.tableView.bounds;
+        let b = CGRectMake(
+            bounds.origin.x,
+            bounds.origin.y + searchBar.bounds.size.height,
+            bounds.size.width,
+            bounds.size.height
+        )
+        self.tableView.bounds = b;
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -124,6 +136,12 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
     override func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         return 55
     }
+    
+    override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        let playlist = query.collections[indexPath.row] as MPMediaPlaylist
+        
+        performSegueWithIdentifier("segue playlist to song", sender: playlist)
+    }
 
 
     /*
@@ -144,6 +162,8 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
     }
     */
     
+    
+    
     //########################################################################
     //########################################################################
     //#pragma mark - RPSearchTVC delegate
@@ -155,9 +175,11 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
         songActionDelegate?.song = song
         let actionSheet = UIActionSheet(title: "Choose an action", delegate: songActionDelegate, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Play next", "Play now", "Add to Queue")
         actionSheet.showInView(self.view)    }
+    
     func albumPicked(album: MPMediaItemCollection){
         self.performSegueWithIdentifier("segue playlist to song", sender: album)
     }
+    
     func artistPicked(artist: MPMediaItemCollection){
         self.performSegueWithIdentifier("segue playlist to album", sender: artist)
     }
@@ -170,7 +192,21 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
         if(segue.identifier == "segue playlist to song") {
             let dest = segue.destinationViewController as RPSongTVC
-            dest.filterSongForAlbum(sender as MPMediaItemCollection)
+
+            if(sender.isKindOfClass(MPMediaPlaylist)){
+                let playlist = sender as MPMediaPlaylist
+                dest.filterSongForAlbum(MPMediaItemCollection(items: playlist.items))
+                dest.title = playlist.name
+            }
+            else
+            {
+                let album = sender as MPMediaItemCollection
+                dest.filterSongForAlbum(album)
+                dest.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
+            }
+            
+            
+            
         }
         else if(segue.identifier == "segue playlist to album") {
             let dest = segue.destinationViewController as RPAlbumTVC

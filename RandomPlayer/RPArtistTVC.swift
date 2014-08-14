@@ -65,6 +65,15 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
         searchTVC.searchTableView = self.searchDisplayController.searchResultsTableView
         
         
+        //hide searchBar
+        let bounds = self.tableView.bounds;
+        let b = CGRectMake(
+            bounds.origin.x,
+            bounds.origin.y + searchBar.bounds.size.height,
+            bounds.size.width,
+            bounds.size.height
+        )
+        self.tableView.bounds = b;
         
         
     }
@@ -168,12 +177,19 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     }
     
     override func tableView(tableView: UITableView!, sectionForSectionIndexTitle title: String!, atIndex index: Int) -> Int {
-        return index
+        if(index == 0){
+            tableView.scrollRectToVisible(searchBar.frame, animated: false)
+            return NSNotFound
+        }
+        return (index - 1)
     }
     
     override func sectionIndexTitlesForTableView(tableView: UITableView!) -> [AnyObject]! {
         
         var indexTitles : Array<String> = Array()
+        
+        indexTitles.append(UITableViewIndexSearch)
+        
         for section in collectionSections {
             indexTitles.append(section.title)
         }

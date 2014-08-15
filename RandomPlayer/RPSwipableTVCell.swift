@@ -116,7 +116,6 @@ override
                 }
             }
             
-            //dprint("bv offset: \(behindViewOffSet)")
             
             let pan = UIPanGestureRecognizer(target: self, action: "paning:")
             pan.delegate = self
@@ -190,7 +189,6 @@ override
     
     func panMoved(pan : UIGestureRecognizer) {
         
-        dprint("width: \(contentView.frame.size.width)")
         self.selectionStyle = UITableViewCellSelectionStyle.None
 
         
@@ -275,7 +273,6 @@ override
                 })
                 */
                 
-                dprint("offset: \(behindViewOffSet)")
                 
                 UIView.animateWithDuration(NSTimeInterval(neededTime), delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {() -> Void in
                     let frame = self.contentView.frame

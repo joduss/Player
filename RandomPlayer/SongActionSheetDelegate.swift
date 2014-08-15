@@ -14,7 +14,6 @@ class SongActionSheetDelegate: NSObject, UIActionSheetDelegate {
     var song : MPMediaItem?
     
     override init() {
-        dprint("hello")
         super.init()
     }
     

@@ -65,6 +65,20 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
         viewRating.setupRateView(fullStarImage, emptyStarImage : emptyStarImage, maxRating : 5)
         viewRating.editable = true
         viewRating.delegate = self
+        
+        
+        
+//        let label = UILabel(frame: CGRectZero)
+//        label.textColor = UIColor.whiteColor()
+//        label.text = "Salut \n connard"
+//        label.numberOfLines = 2
+        
+        
+        
+        //self.navigationItem.titleView = label
+        //self.navigationItem.titleView.sizeToFit()
+        
+               
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -129,6 +143,9 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
         action.showFromBarButtonItem(sender, animated: true)
     }
     
+    @IBAction func backPressed(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     //########################################################################
     //########################################################################
     // #pragma mark - slider management
@@ -187,10 +204,12 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
     // #pragma mark - update information
     func updateInformation() {
         if(musicPlayer.playbackState == MPMusicPlaybackState.Playing) {
-            buttonPlay.setTitle("PAUSE", forState: UIControlState.Normal)
+            //buttonPlay.setTitle("PAUSE", forState: UIControlState.Normal)
+            buttonPlay.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
         }
         else {
-            buttonPlay.setTitle("PLAY", forState: UIControlState.Normal)
+            //buttonPlay.setTitle("PLAY", forState: UIControlState.Normal)
+            buttonPlay.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
         }
         
         let playingSong = musicPlayer.nowPlayingItem as MPMediaItem?

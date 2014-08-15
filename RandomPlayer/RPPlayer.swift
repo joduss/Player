@@ -361,10 +361,8 @@ class RPPlayer : NSObject {
         }
   
         
-        dprint("before:")
         printArray(artistOfEachSong)
         var artistOfEachSongShuffled = shuffleAndSeparateSimilarElement(artistOfEachSong)
-        dprint("after:")
         printArray(artistOfEachSongShuffled)
 
         for artist in artistOfEachSongShuffled {

@@ -190,6 +190,9 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
     // #pragma mark - SEGUE
     
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+        
+        dprint("segue: \(segue.identifier)")
+        
         if(segue.identifier == "segue playlist to song") {
             let dest = segue.destinationViewController as RPSongTVC
 

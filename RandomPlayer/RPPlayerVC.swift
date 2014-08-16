@@ -30,6 +30,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
     var timer : NSTimer?
     let musicPlayer : RPPlayer
     
+    @IBOutlet weak var background: UIImageView!
     
     
     //########################################################################
@@ -45,8 +46,14 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController.navigationBar.translucent = false
-        navigationController.navigationBar.barTintColor = UIColor.blackColor()
+        //navigationController.navigationBar.translucent = false
+        navigationController.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+        
+        //navigationController.navigationBar.tintColor = UIColor.clearColor()
+        //navigationController.navigationBar.backgroundColor = UIColor.clearColor()
+        
+        //navigationController.barT
+        
         
         //setup the slider action
         sliderTime.addTarget(self, action:"sliderPlaybackTimeMoved:", forControlEvents: UIControlEvents.ValueChanged)
@@ -78,7 +85,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
         //self.navigationItem.titleView = label
         //self.navigationItem.titleView.sizeToFit()
         
-               
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -218,6 +225,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
             //set artwork
             let artworkItem = song.valueForProperty(MPMediaItemPropertyArtwork) as MPMediaItemArtwork
             imageViewArtwork.image = artworkItem.imageWithSize(imageViewArtwork.bounds.size)
+            background.image = artworkItem.imageWithSize(background.bounds.size)
             
             //information about the song
             labelTitle.text = song.valueForProperty(MPMediaItemPropertyTitle) as String

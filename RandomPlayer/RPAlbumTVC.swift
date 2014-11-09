@@ -225,7 +225,6 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {() -> Void in
             
             let artwork : MPMediaItemArtwork? = representativeItem.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
-            
             var artworkImage = artwork?.imageWithSize(imageView.bounds.size)
             
             dispatch_async(dispatch_get_main_queue(), {() -> Void in

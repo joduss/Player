@@ -35,7 +35,7 @@ class RateView: UIView {
     //************************************************************************
     // #pragma mark - Init
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 override     
@@ -137,19 +137,19 @@ override
         }
     }
     
-    override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         let touch = touches.anyObject() as UITouch
         let touchLocation = touch.locationInView(self)
         handleTouchAtLocation(touchLocation)
     }
     
-    override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
         let touch = touches.anyObject() as UITouch
         let touchLocation = touch.locationInView(self)
         handleTouchAtLocation(touchLocation)
     }
 
-    override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
         delegate?.rateView(self, ratingDidChange: rating)
     }
 

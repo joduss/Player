@@ -41,7 +41,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         super.init(style: style)
     }
     
-    required init(coder aDecoder: NSCoder!)  {
+    required init(coder aDecoder: NSCoder)  {
         querySearchArtist = MPMediaQuery.artistsQuery()
         querySearchAlbum = MPMediaQuery.albumsQuery()
         querySearchSong = MPMediaQuery.songsQuery()
@@ -140,7 +140,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     //########################################################################
     //########################################################################
     // MARK: - Table view
-    override func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section){
         case 0:
             return "Artists (\(querySearchArtist.collections.count))"
@@ -155,14 +155,14 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     
 
     
-    override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         
         return 3
     }
     
-    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         var nbRows = 0
@@ -177,7 +177,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         
     }
     
-    override func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if(indexPath.section == 1){
             return 60
         }
@@ -185,7 +185,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     }
     
     
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell : RPCell!
         
@@ -242,7 +242,8 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
 
         }
         else {
-            return nil
+            NSException(name: "Error, no 4th section", reason: "too many sections", userInfo: nil).raise()
+            return UITableViewCell()
         }
         
         //cell.rightViewOffSet = 80
@@ -256,7 +257,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     
     
     
-    override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if(indexPath.section == 0){
             let artist = querySearchArtist.collections[indexPath.row] as MPMediaItemCollection
             delegate?.artistPicked(artist)

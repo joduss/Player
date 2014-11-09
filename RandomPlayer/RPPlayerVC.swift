@@ -16,7 +16,7 @@ struct s {
 }
 
 
-class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
+class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet var labelLeftPlaybackTime: UILabel!
     @IBOutlet var sliderTime: UISlider!
@@ -37,7 +37,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
     //########################################################################
     // #pragma mark - Initialization
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         musicPlayer = RPPlayer.player
         super.init(coder: aDecoder)
     }
@@ -47,7 +47,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
         super.viewDidLoad()
         
         //navigationController.navigationBar.translucent = false
-        navigationController.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+        //navigationController.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
         //navigationController.navigationBar.tintColor = UIColor.clearColor()
         //navigationController.navigationBar.backgroundColor = UIColor.clearColor()
@@ -66,14 +66,18 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
         sliderTime.setThumbImage(UIImage(named: "slider_empty",inBundle: nil, compatibleWithTraitCollection: UITraitCollection()), forState: UIControlState.Normal)
         sliderTime.setThumbImage(UIImage(named: "thumb",inBundle: nil, compatibleWithTraitCollection: UITraitCollection()), forState: UIControlState.Highlighted)
         
-        let fullStarImage = UIImage(named: "fullStar")
         let emptyStarImage = UIImage(named: "emptyStar")
+        let fullStarImage = UIImage(named: "fullStar")
         
-        viewRating.setupRateView(fullStarImage, emptyStarImage : emptyStarImage, maxRating : 5)
+        if(emptyStarImage != nil && fullStarImage != nil){
+            viewRating.setupRateView(fullStarImage!, emptyStarImage : emptyStarImage!, maxRating : 5)
+        }
         viewRating.editable = true
         viewRating.delegate = self
         
-        
+//        if let tarbar = self.tabBarController?.tabBar {
+//            tarbar.hidden = true
+//        }
         
 //        let label = UILabel(frame: CGRectZero)
 //        label.textColor = UIColor.whiteColor()
@@ -86,10 +90,30 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
         //self.navigationItem.titleView.sizeToFit()
         
         
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+        self.navigationController?.interactivePopGestureRecognizer.enabled = true
+        self.navigationController?.interactivePopGestureRecognizer.delegate = self
+
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+//        if let tarbar = self.tabBarController.tabBar {
+//            tarbar.hidden = true
+//        }
+
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+//        if let tarbar = self.tabBarController.tabBar {
+//            tarbar.hidden = true
+//        }
+
+
         
         //if no queue: slider is disabled
         if(musicPlayer.nowPlayingItem == nil){
@@ -152,6 +176,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
     
     @IBAction func backPressed(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     //########################################################################
     //########################################################################
@@ -228,7 +253,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
             background.image = artworkItem.imageWithSize(background.bounds.size)
             
             //information about the song
-            labelTitle.text = song.valueForProperty(MPMediaItemPropertyTitle) as String
+            labelTitle.text = song.valueForProperty(MPMediaItemPropertyTitle) as? String
             labelArtistAlbum.text = (song.valueForProperty(MPMediaItemPropertyArtist) as String)
                 + " - "
                 + (song.valueForProperty(MPMediaItemPropertyAlbumTitle) as String)
@@ -316,5 +341,16 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate {
         }
     }
 
+    
+    
+    
+    
+    
+    
+    
+//    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer!) -> Bool {
+//        return true
+//    }
+    
     
 }

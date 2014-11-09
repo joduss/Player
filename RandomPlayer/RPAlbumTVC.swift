@@ -24,7 +24,7 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     
     
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         query = MPMediaQuery.albumsQuery()
         query.groupingType = MPMediaGrouping.Album
         super.init(coder: aDecoder)
@@ -54,7 +54,8 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
         
         // RPSearchTVC setup
         searchTVC.delegate = self
-        searchTVC.searchTableView = self.searchDisplayController.searchResultsTableView
+        searchTVC.searchTableView = self.searchDisplayController?.searchResultsTableView
+        
         
         
         //hide searchBar
@@ -66,6 +67,8 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
             bounds.size.height
         )
         self.tableView.bounds = b;
+        
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,7 +79,7 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if let currentArtist = artist {
-            self.title = currentArtist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
+            self.title = currentArtist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as? String
         }
     }
     
@@ -97,7 +100,7 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     /**Load album only for the specified artist*/
     func filterAlbumForArtist(artist : MPMediaItemCollection) {
         self.artist = artist
-        self.title = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as String
+        self.title = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as? String
         let filterPredicate = MPMediaPropertyPredicate(
             value: artist.representativeItem.valueForProperty(MPMediaItemPropertyArtistPersistentID),
             forProperty: MPMediaItemPropertyArtistPersistentID)
@@ -117,23 +120,26 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     
     
     func buttonCenterLeftPressed(cell: RPSwipableTVCell!) {
-        let path = self.tableView.indexPathForCell(cell)
+        if let path = self.tableView.indexPathForCell(cell) {
         
         RPPlayer.player.addSongs(albumAtIndexPath(path).items as Array<MPMediaItem>)
+        }
         cell .hideBehindCell()
     }
     
     func buttonCenterRightPressed(cell: RPSwipableTVCell!) {
-        let path = self.tableView.indexPathForCell(cell)
+        if let path = self.tableView.indexPathForCell(cell) {
         
         RPPlayer.player.addNextAndPlay(self.albumAtIndexPath(path).items as Array<MPMediaItem>)
+        }
         cell .hideBehindCell()
     }
     
     func buttonRightPressed(cell: RPSwipableTVCell!) {
-        let path = self.tableView.indexPathForCell(cell)
+        if let path = self.tableView.indexPathForCell(cell){
         
         RPPlayer.player.addNext(self.albumAtIndexPath(path).items as Array<MPMediaItem>)
+        }
         cell .hideBehindCell()
     }
     
@@ -142,19 +148,19 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     //************************************************************************
     // #pragma mark - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
         return self.query.collectionSections.count
     }
     
-    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.query.collectionSections[section].range.length
     }
     
-    override func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String {
         if(artist == nil) {
-            return query.collectionSections[section].title
+            return query.collectionSections[section].title!!
         }
         else {
             return ""
@@ -162,7 +168,7 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     }
     
     //show alphabet on right part 1
-    override func tableView(tableView: UITableView!, sectionForSectionIndexTitle title: String!, atIndex index: Int) -> Int {
+    override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
         if(index == 0){
             tableView.scrollRectToVisible(searchBar.frame, animated: false)
             return NSNotFound
@@ -171,12 +177,12 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     }
     
     //show alphabet on right part 2
-    override func sectionIndexTitlesForTableView(tableView: UITableView!) -> [AnyObject]! {
+    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject]! {
         if(artist == nil) {
             var indexTitles : Array<String> = Array()
             indexTitles.append(UITableViewIndexSearch)
             for section in query.collectionSections {
-                indexTitles.append(section.title)
+                indexTitles.append(section.title!!)
             }
             return indexTitles
         }
@@ -185,8 +191,8 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
         }
     }
     
-    
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell? {
+    //Setup the  cells with the loaded content.
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let identifier = "album cell"
         
         tableView.registerNib(UINib(nibName: "RPCellAlbum", bundle: nil), forCellReuseIdentifier: identifier)
@@ -204,7 +210,7 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
         let album = self.albumAtIndexPath(indexPath)
         let representativeItem = album.representativeItem
         
-        titleLabel.text = representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
+        titleLabel.text = representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as? String
         let nbSongInAbum = album.count
         
         if(nbSongInAbum < 2) {
@@ -220,9 +226,12 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
             
             let artwork : MPMediaItemArtwork? = representativeItem.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
             
-            let artworkImage = artwork?.imageWithSize(imageView.bounds.size)
+            var artworkImage = artwork?.imageWithSize(imageView.bounds.size)
             
             dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                if(artworkImage == nil){
+                    artworkImage = UIImage(named: "default_artwork")
+                }
                 imageView.image = artworkImage
             })
             
@@ -232,7 +241,7 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     }
     
     
-    override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         let chosenAlbum = albumAtIndexPath(indexPath)
         self.performSegueWithIdentifier("segue album to song", sender: chosenAlbum)
     }
@@ -260,12 +269,12 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
     //************************************************************************
     // #pragma mark - SEGUE
     
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "segue album to song") {
             let dest = segue.destinationViewController as RPSongTVC
             let album = sender as MPMediaItemCollection
             dest.filterSongForAlbum(album)
-            dest.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
+            dest.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as? String
         }
         else if(segue.identifier == "segue album to album") {
             let dest = segue.destinationViewController as RPAlbumTVC
@@ -273,5 +282,7 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
             dest.filterAlbumForArtist(artist)
         }
     }
+    
+    
     
 }

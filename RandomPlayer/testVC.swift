@@ -18,7 +18,7 @@ class testVC: UIViewController {
         
         button.frame = CGRectMake(0, 0, 10, 10)
         
-        button.imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        //button.imageView.contentMode = UIViewContentMode.ScaleAspectFit
     }
 
     override func didReceiveMemoryWarning() {

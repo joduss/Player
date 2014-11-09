@@ -23,7 +23,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
     //************************************************************************
     //************************************************************************
     // #pragma mark - init
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         query = MPMediaQuery.songsQuery()
         super.init(coder: aDecoder)
     }
@@ -53,7 +53,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
 
         // RPSearchTVC setup
         searchTVC.delegate = self
-        searchTVC.searchTableView = self.searchDisplayController.searchResultsTableView
+        searchTVC.searchTableView = self.searchDisplayController?.searchResultsTableView
         self.title = "Albums"
         
         //hide searchBar
@@ -65,6 +65,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
             bounds.size.height
         )
         self.tableView.bounds = b;
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -107,25 +108,27 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
     
     
     func buttonCenterLeftPressed(cell: RPSwipableTVCell!) {
-        let path = self.tableView.indexPathForCell(cell)
+        if let path = self.tableView.indexPathForCell(cell){
         RPPlayer.player.addSongs([songAtIndexPath(path)])
+        }
         cell .hideBehindCell()
     }
     
     func buttonCenterRightPressed(cell: RPSwipableTVCell!) {
-        let path = self.tableView.indexPathForCell(cell)
-        
+        if let path = self.tableView.indexPathForCell(cell){
         RPPlayer.player.addNextAndPlay([self.songAtIndexPath(path)])
+        }
         cell .hideBehindCell()
     }
     
     func buttonRightPressed(cell: RPSwipableTVCell!) {
-        let path = self.tableView.indexPathForCell(cell)
+        if let path = self.tableView.indexPathForCell(cell) {
         RPPlayer.player.addNext([self.songAtIndexPath(path)])
+        }
         cell .hideBehindCell()
     }
     
-    override func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 55
     }
     
@@ -134,18 +137,18 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
     //************************************************************************
     // #pragma mark - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
         return self.query.itemSections.count
     }
 
-    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.query.itemSections[section].range.length
         
     }
     
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell? {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let identifier = "song cell"
         
@@ -160,7 +163,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
         
         let song = self.songAtIndexPath(indexPath)
         
-        titleLabel.text = song.valueForProperty(MPMediaItemPropertyTitle) as String
+        titleLabel.text = song.valueForProperty(MPMediaItemPropertyTitle) as? String
         
         let durationInSeconds = song.valueForProperty(MPMediaItemPropertyPlaybackDuration) as Int
         subtitleLabel.text = formatTimeToMinutesSeconds(durationInSeconds)
@@ -170,7 +173,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
         return cell
     }
     
-    override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         songPicked(query.items[indexPath.row] as MPMediaItem)
     }
     
@@ -199,7 +202,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
     //************************************************************************
     //#pragma mark - Segue
     
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if(segue.identifier == "segue song to album"){
             let dest = segue.destinationViewController as RPAlbumTVC
             let artist = sender as MPMediaItemCollection

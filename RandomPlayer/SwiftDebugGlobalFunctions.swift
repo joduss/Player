@@ -11,6 +11,9 @@ import UIKit
 import Foundation
 
 
+//Global constant
+
+
 //Just for debug stuff
 #if DEBUG
     func dprint(a : String){print(a); print("\n")}

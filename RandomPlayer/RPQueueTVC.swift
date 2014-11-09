@@ -9,20 +9,104 @@
 import UIKit
 import MediaPlayer
 
-class RPQueueTVC: UITableViewController, UIActionSheetDelegate {
+class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate {
+    
+    
+    //Constants
+    let ROW_HEIGHT = 55.0
+    
+    
     
     enum ActionSheetTag : Int { case EmptyQueue, Randomize, RandomizeAdvanced }
+    @IBOutlet weak var tableView: UITableView!
     
+    var v : UIView?
+    var barWidthConstraints : [AnyObject] = []
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         //self.navigationController.toolbarHidden = false;
+        
+        //[[NSBundle mainBundle] loadNibNamed:@"NewMiddleContent" owner:self options:nil];
+        
+        let viewArray = NSBundle.mainBundle().loadNibNamed("test", owner: self, options: nil)
+        let viewB = viewArray[0] as UIView
+        
+        
+        
+        let navBarFrame = self.navigationController?.navigationBar.frame
+        
+        //self.navigationController?.navigationBar.addSubview(view)
+        
+        self.view.addSubview(viewB)
+        
+        //view.addSubview(view2)
+        
+        //view2.backgroundColor = UIColor.redColor()
+
+        v = viewB
+
+        var d = ["view": viewB]
+        
+        var y = self.navigationController?.navigationBar.frame.origin.y
+        var h = self.navigationController?.navigationBar.frame.size.height
+        
+        viewB.autoresizingMask = UIViewAutoresizing.None
+        viewB.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+
+        
+        var c9 = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: NSLayoutFormatOptions.AlignAllBaseline, metrics: nil, views: d)
+        barWidthConstraints.extend( NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
+            options: NSLayoutFormatOptions.AlignAllBaseline,
+            metrics: ["dist" :  (h! + y!)],
+            views: d))
+        
+        self.view.addConstraints(c9)
+        self.view.addConstraints(barWidthConstraints)
+        
+        var bottomBorder = CALayer();
+        
+        dprint("\(viewB.frame.size.width)")
+        
+        bottomBorder.frame = CGRectMake(0.0, 34.5, viewB.frame.size.width, 0.5);
+        var color = UIColor.grayColor().colorWithAlphaComponent(0.7)
+        bottomBorder.backgroundColor = color.CGColor
+        viewB.layer.addSublayer(bottomBorder);
+        
+        
+    }
+    
+    
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        
+        if let vb = self.v{
+            self.view.removeConstraints(barWidthConstraints)
+            barWidthConstraints.removeAll(keepCapacity: true)
+
+            let dic = ["view": vb]
+            
+            var y = self.navigationController?.navigationBar.frame.origin.y
+            var h = self.navigationController?.navigationBar.frame.size.height
+
+            
+            barWidthConstraints.extend(NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
+                options: NSLayoutFormatOptions.AlignAllBaseline,
+                metrics: ["dist" :  (h! + y!)],
+                views: dic))
+            
+            self.view.addConstraints(barWidthConstraints)
+        }
         
     }
 
@@ -58,7 +142,7 @@ class RPQueueTVC: UITableViewController, UIActionSheetDelegate {
         //if
         if(RPPlayer.player.playbackState == MPMusicPlaybackState.Playing){
             let action = UIActionSheet(title: "Empty the queue", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Keep playing current song", "Stop and remove all")
-            action.tag = ActionSheetTag.EmptyQueue.toRaw()
+            action.tag = ActionSheetTag.EmptyQueue.rawValue
             action.showFromBarButtonItem(sender, animated:true)
         }
         else {
@@ -77,7 +161,7 @@ class RPQueueTVC: UITableViewController, UIActionSheetDelegate {
     
     func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
         
-        if(actionSheet.tag == ActionSheetTag.EmptyQueue.toRaw()){
+        if(actionSheet.tag == ActionSheetTag.EmptyQueue.rawValue){
             if(buttonIndex == 1) {
                 RPPlayer.player.emptyQueue(false)
             }
@@ -95,76 +179,86 @@ class RPQueueTVC: UITableViewController, UIActionSheetDelegate {
     //###################################################################################
     // #pragma mark - Table view function
 
-    override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1
     }
 
-    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return RPPlayer.player.getQueue().count
     }
 
     
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell? {
-
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let identifier = "album cell"
+        
+        tableView.registerNib(UINib(nibName: "RPCellAlbum", bundle: nil), forCellReuseIdentifier: identifier)
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+        //cell.delegate = self
 
         // Configure the cell
-        let arraySongs = RPPlayer.player.getQueue()
-        let mediaItem = arraySongs[indexPath.row]
+        let mediaItem = RPPlayer.player.getQueueItem(indexPath.row)
         
-        let artistName = mediaItem.valueForProperty(MPMediaItemPropertyArtist) as String
-        let songTitle = mediaItem.valueForProperty(MPMediaItemPropertyTitle) as String
+        if let item = mediaItem {
+            let artistName = item.valueForProperty(MPMediaItemPropertyArtist) as String
+            let songTitle = item.valueForProperty(MPMediaItemPropertyTitle) as String
+            cell.mainLabel.text = songTitle
+            cell.subLabel.text = artistName
+            
+            //load image async (smoother scroll)
+            let imageView = cell.cellImageView
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {() -> Void in
+                
+                let artwork : MPMediaItemArtwork? = item.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
+                
+                var artworkImage = artwork?.imageWithSize(imageView.bounds.size)
+                
+                dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                    if(artworkImage == nil){
+                        artworkImage = UIImage(named: "default_artwork")
+                    }
+                    imageView.image = artworkImage
+                    
+                })
+                
+            })
+        }
         
-        cell.textLabel.text = songTitle + " - " + artistName
+        //cell.
         
         return cell
     }
     
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        //TODO
+        RPPlayer.player.playSong(indexPath.row)
+        
+    }
+    
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if(editingStyle == UITableViewCellEditingStyle.Delete){
+            RPPlayer.player.removeItemAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
+        }
+    }
+    
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return CGFloat(ROW_HEIGHT)
+    }
+    
     //########################################################################
     //########################################################################
     // #pragma mark - Notification from player
     
-
-    
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView!, moveRowAtIndexPath fromIndexPath: NSIndexPath!, toIndexPath: NSIndexPath!) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView!, canMoveRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     /*
     // #pragma mark - Navigation
 

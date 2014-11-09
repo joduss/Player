@@ -25,7 +25,7 @@ func formatTimeToMinutesSeconds(secondsToConvert : Int) -> String {
     var nf = NSNumberFormatter()
     nf.minimumIntegerDigits = 2
     
-    return String(minutes) + ":" + nf.stringFromNumber(seconds)
+    return String(minutes) + ":" + nf.stringFromNumber(seconds)!
 }
 
 
@@ -36,9 +36,9 @@ The string to clean
 func cleanStringForSort(string: String) -> String {
     let template = "$1"
     let pattern = "[\\s]" // remove any whitespace
-    let regex = NSRegularExpression.regularExpressionWithPattern(pattern,
+    let regex = NSRegularExpression(pattern: pattern,
         options: NSRegularExpressionOptions.CaseInsensitive,
-        error: nil)
+        error: nil) as NSRegularExpression!
     
     return regex.stringByReplacingMatchesInString(string,
         options: NSMatchingOptions.WithTransparentBounds,
@@ -57,9 +57,9 @@ func beginWithLetter(string : String) -> Bool {
         processedString = processedString.substringToIndex(idx)
         let template = "$1"
         let pattern = "[a-zA-Z]" //remove any alphabetic
-        let regex = NSRegularExpression.regularExpressionWithPattern(pattern,
+        let regex = NSRegularExpression(pattern: pattern,
             options: NSRegularExpressionOptions.CaseInsensitive,
-            error: nil)
+            error: nil) as NSRegularExpression!
         
         processedString = regex.stringByReplacingMatchesInString(processedString,
             options: NSMatchingOptions.WithTransparentBounds,

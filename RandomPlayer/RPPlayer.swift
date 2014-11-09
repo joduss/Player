@@ -322,6 +322,14 @@ class RPPlayer : NSObject {
         updateNowPlayingInfoCenter()
     }
     
+    
+    func playSong(atIndex : Int){
+        if(atIndex >= 0 && atIndex < queue.count){
+            playSong(queue[atIndex], shouldStartPlaying: true)
+            currentItemIndex = atIndex
+        }
+    }
+    
     //    func stop() {
     //        //TODO
     //    }
@@ -421,6 +429,19 @@ class RPPlayer : NSObject {
         return Array(queue)
     }
     
+    func getQueueItem(atIndex : Int) -> MPMediaItem?{
+        if(queue.isEmpty){
+            return nil
+        }
+        return queue[atIndex]
+    }
+    
+    func removeItemAtIndex(index : Int) {
+        if(index >= 0 && queue.isEmpty == false && index < queue.endIndex){
+            queue.removeAtIndex(index)
+        }
+    }
+    
     
     
     /**Add the songs at the end of the queue*/
@@ -458,7 +479,9 @@ class RPPlayer : NSObject {
         else {
             addNext(songs)
         }
-        play()
+        if(songs.isEmpty == false){
+            playSong(songs[0], shouldStartPlaying: true)
+        }
     }
     
     

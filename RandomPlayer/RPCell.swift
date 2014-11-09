@@ -14,13 +14,12 @@ class RPCell: RPSwipableTVCell {
     @IBOutlet weak var subLabel: UILabel!
     @IBOutlet weak var cellImageView: UIImageView!
     
-    
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
 
-    
-    required init(coder aDecoder: NSCoder!) {
+
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

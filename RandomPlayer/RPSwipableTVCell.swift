@@ -47,7 +47,7 @@ override
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -134,7 +134,7 @@ override
     //############################################################################
     //MARK : Gesture stuff
     
-    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer!) -> Bool {
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         if(gestureRecognizer.isMemberOfClass(UIPanGestureRecognizer)){
             let pan = gestureRecognizer as UIPanGestureRecognizer
             
@@ -161,7 +161,7 @@ override
     
     
     
-    override func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool {
+    override func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer)-> Bool {
         return false
     }
     

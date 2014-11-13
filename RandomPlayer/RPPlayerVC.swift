@@ -248,20 +248,17 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         
         if let song = playingSong {
             //set artwork
-            let artworkItem = song.valueForProperty(MPMediaItemPropertyArtwork) as MPMediaItemArtwork
-            imageViewArtwork.image = artworkItem.imageWithSize(imageViewArtwork.bounds.size)
-            background.image = artworkItem.imageWithSize(background.bounds.size)
+            imageViewArtwork.image = song.artworkImage(ofSize:imageViewArtwork.bounds.size)
+            background.image = song.artworkImage(ofSize:background.bounds.size)
             
             //information about the song
-            labelTitle.text = song.valueForProperty(MPMediaItemPropertyTitle) as? String
-            labelArtistAlbum.text = (song.valueForProperty(MPMediaItemPropertyArtist) as String)
-                + " - "
-                + (song.valueForProperty(MPMediaItemPropertyAlbumTitle) as String)
+            labelTitle.text = song.title
+            labelArtistAlbum.text = song.artist() + " - " + song.albumTitle()
             
             //slider max value
-            sliderTime.maximumValue = Float(song.valueForProperty(MPMediaItemPropertyPlaybackDuration) as NSNumber)
+            sliderTime.maximumValue = Float(song.duration())
             
-            dprint("duration is \(Float(song.valueForProperty(MPMediaItemPropertyPlaybackDuration) as NSNumber))")
+            dprint("duration is \(Float(song.duration()))")
             
             
             //rating

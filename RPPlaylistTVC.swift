@@ -249,6 +249,11 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
         if let path = self.tableView.indexPathForCell(cell) {
             let playlist = query.collections[path.row] as MPMediaPlaylist
             RPPlayer.player.addNext(playlist.items as Array<MPMediaItem>)
+            
+            //let item = playlist.items[0]
+            //let artistName = item.valueForProperty(MPMediaItemPropertyArtist) as String
+
+            
             cell .hideBehindCell()
         }
     }

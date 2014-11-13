@@ -235,7 +235,6 @@ class RPAlbumTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDe
             })
             
         })
-
         return cell
     }
     

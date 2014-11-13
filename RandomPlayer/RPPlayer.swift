@@ -205,12 +205,12 @@ class RPPlayer : NSObject {
         if let song = nowPlayingItem {
             
             var d : [String : AnyObject!] = Dictionary()
-            d[MPMediaItemPropertyArtist] = nowPlayingItem?.valueForProperty(MPMediaItemPropertyArtist)
-            d[MPMediaItemPropertyAlbumTitle] = nowPlayingItem?.valueForProperty(MPMediaItemPropertyAlbumTitle)
-            d[MPMediaItemPropertyTitle] = nowPlayingItem?.valueForProperty(MPMediaItemPropertyTitle)
-            d[MPMediaItemPropertyArtwork] = nowPlayingItem?.valueForProperty(MPMediaItemPropertyArtwork) as MPMediaItemArtwork?
+            d[MPMediaItemPropertyArtist] = nowPlayingItem?.artist()
+            d[MPMediaItemPropertyAlbumTitle] = nowPlayingItem?.albumTitle()
+            d[MPMediaItemPropertyTitle] = nowPlayingItem?.songTitle()
+            d[MPMediaItemPropertyArtwork] = nowPlayingItem?.artwork()
             d[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(avMusicPlayer.currentTime())
-            d[MPMediaItemPropertyPlaybackDuration] = nowPlayingItem?.valueForProperty(MPMediaItemPropertyPlaybackDuration)
+            d[MPMediaItemPropertyPlaybackDuration] = nowPlayingItem?.duration()
             
             
             d[MPNowPlayingInfoPropertyPlaybackRate] = avMusicPlayer.rate
@@ -339,18 +339,20 @@ class RPPlayer : NSObject {
         queue = queue.shuffleArray()
     }
     
-    /** "Randomize" much better. Tries not to put songs of the same artist side by side*/
+    /** "Randomize" "much better". Tries not to put songs of the same artist side by side*/
     func randomizeQueueAdvanced() {
         //implement a way so that each song of one artist are far from each other (=> broadcast from DIS???)
         
         var newQueue : Array<MPMediaItem> = Array()
+        newQueue.reserveCapacity(queue.count)
         
         var artistSongPosition : Dictionary<String, Array<Int>> = Dictionary()
         var artistOfEachSong : Array<String> = Array()
+        artistOfEachSong.reserveCapacity(queue.count)
         
         for(var i = 0; i < queue.endIndex; i++) {
             let item = queue[i]
-            let artist = item.valueForProperty(MPMediaItemPropertyArtist) as String
+            let artist = item.artist()
             
             artistOfEachSong.append(artist)
             
@@ -512,7 +514,7 @@ class RPPlayer : NSObject {
     func printSongQueue(a : Array<MPMediaItem>) {
         #if DEBUG
             for item in a {
-                print("\(item.valueForProperty(MPMediaItemPropertyTitle))  ")
+                print("\(item.title)  ")
             }
         #endif
     }

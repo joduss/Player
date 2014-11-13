@@ -191,42 +191,37 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
 
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let identifier = "album cell"
+        let identifier = "queue cell"
         
-        tableView.registerNib(UINib(nibName: "RPCellAlbum", bundle: nil), forCellReuseIdentifier: identifier)
+        tableView.registerNib(UINib(nibName: "RPCellQueue", bundle: nil), forCellReuseIdentifier: identifier)
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPSimpleCell
         //cell.delegate = self
 
         // Configure the cell
         let mediaItem = RPPlayer.player.getQueueItem(indexPath.row)
         
         if let item = mediaItem {
-            let artistName = item.valueForProperty(MPMediaItemPropertyArtist) as String
-            let songTitle = item.valueForProperty(MPMediaItemPropertyTitle) as String
+            let artistName = item.artist()
+            let albumName = item.albumTitle()
+            let songTitle = item.songTitle()
             cell.mainLabel.text = songTitle
-            cell.subLabel.text = artistName
+            cell.subLabel.text = artistName + " - " + albumName
             
             //load image async (smoother scroll)
             let imageView = cell.cellImageView
+            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {() -> Void in
                 
-                let artwork : MPMediaItemArtwork? = item.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
-                
-                var artworkImage = artwork?.imageWithSize(imageView.bounds.size)
+                var artworkImage = item.artworkImage(ofSize:imageView.bounds.size)
                 
                 dispatch_async(dispatch_get_main_queue(), {() -> Void in
-                    if(artworkImage == nil){
-                        artworkImage = UIImage(named: "default_artwork")
-                    }
                     imageView.image = artworkImage
-                    
+
                 })
                 
             })
         }
-        
-        //cell.
         
         return cell
     }

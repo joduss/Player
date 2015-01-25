@@ -536,6 +536,7 @@ class RPPlayer : NSObject {
             //lprint("ERROR in RPPlayer.EmptyQueue - CASE NOT HANDLED")
             queue.removeAll(keepCapacity: false)
         }
+        currentItemIndex = 0
         updateNowPlayingInfoCenter()
     }
     

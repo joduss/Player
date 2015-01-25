@@ -189,13 +189,19 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
         
         if(actionSheet.tag == ActionSheetTag.EmptyQueue.rawValue){
+            
             if(buttonIndex == 1) {
-                RPPlayer.player.emptyQueue(false)
+                //remove all except the playing item and continue playing
+                if(RPPlayer.player.queue.count > 1){
+                    RPPlayer.player.emptyQueue(false)
+                    self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
+                }
             }
             else if(buttonIndex == 2){
+                //remove all and stop playing
                 RPPlayer.player.emptyQueue(true)
+                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
             }
-            self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
         }
     }
     

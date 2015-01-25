@@ -258,8 +258,6 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
             //slider max value
             sliderTime.maximumValue = Float(song.duration())
             
-            dprint("duration is \(Float(song.duration()))")
-            
             
             //rating
             viewRating.rating = Float(song.valueForProperty(MPMediaItemPropertyRating) as Int)

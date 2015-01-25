@@ -22,5 +22,11 @@ class RPSimpleCell: UITableViewCell {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    
+//    func setColor(color : UIColor){
+//        let v = self.contentView.subviews[0] as UIView
+//        v.backgroundColor = color
+//    }
 
 }

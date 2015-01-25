@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCellDelegate {
+class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDelegate, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet var searchTVC: RPSearchTVCTableViewController!
     
@@ -19,6 +19,7 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
     var query = MPMediaQuery.playlistsQuery()
     
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +77,12 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
         )
         self.tableView.bounds = b;
         
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -86,20 +92,20 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return query.collections.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let identifier = "playlist cell"
         
         tableView.registerNib(UINib(nibName: "RPCellPlaylist", bundle: nil), forCellReuseIdentifier: identifier)
@@ -133,11 +139,11 @@ class RPPlaylistTVC: UITableViewController, RPSearchTVCDelegate, RPSwipableTVCel
     }
     
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 55
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let playlist = query.collections[indexPath.row] as MPMediaPlaylist
         
         performSegueWithIdentifier("segue playlist to song", sender: playlist)

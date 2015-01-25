@@ -24,7 +24,7 @@ for a in t{
 }
 
 
-t[1]
+let k = t[[1,5]]
 
 
 

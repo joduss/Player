@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B23" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C106a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -240,10 +240,11 @@
             </objects>
             <point key="canvasLocation" x="1276" y="-331"/>
         </scene>
-        <!--Artists-->
+        <!--Artists NC-->
         <scene sceneID="xkf-Tw-mtE">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zIE-2o-ISG" sceneMemberID="viewController">
+                <navigationController title="Artists NC" automaticallyAdjustsScrollViewInsets="NO" id="zIE-2o-ISG" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Artists" image="second" id="Z7h-1E-pvt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="q45-zP-5yM">
@@ -252,107 +253,187 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Ydz-rG-Fj6" kind="relationship" relationship="rootViewController" id="aqA-AM-fUW"/>
+                        <segue destination="6wh-vG-v9Y" kind="relationship" relationship="rootViewController" id="xY3-ac-xKu"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vSp-ka-cb2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="741" y="386"/>
+            <point key="canvasLocation" x="741" y="345"/>
         </scene>
         <!--Artists-->
-        <scene sceneID="1VK-sr-mJZ">
+        <scene sceneID="YDT-KJ-9yv">
             <objects>
-                <tableViewController title="Artists" id="Ydz-rG-Fj6" customClass="RPArtistTVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="vbD-S5-veZ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <viewController id="6wh-vG-v9Y" customClass="RPArtistTVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pbb-Qy-kud"/>
+                        <viewControllerLayoutGuide type="bottom" id="UYp-oI-XN6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5Lc-6O-j1j">
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="z11-N6-Mwc">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="fGl-hQ-1e5">
+                                    <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="6wh-vG-v9Y" id="cJx-JT-alN"/>
+                                    </connections>
+                                </searchBar>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fake cell" id="GCr-aY-BbI">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GCr-aY-BbI" id="KSY-Fg-G4E">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="6wh-vG-v9Y" id="sVA-NA-y4P"/>
+                                    <outlet property="delegate" destination="6wh-vG-v9Y" id="4Gm-sD-d7i"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <inset key="scrollIndicatorInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="XIj-GX-jdN">
-                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <scopeButtonTitles>
-                                <string>Song</string>
-                                <string>Artist</string>
-                                <string>Album</string>
-                                <string>Playlist</string>
-                                <string>All</string>
-                            </scopeButtonTitles>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="z11-N6-Mwc" secondAttribute="bottom" id="5Qw-2P-ZLu"/>
+                            <constraint firstItem="z11-N6-Mwc" firstAttribute="top" secondItem="5Lc-6O-j1j" secondAttribute="top" id="CM5-oe-5AL"/>
+                            <constraint firstItem="z11-N6-Mwc" firstAttribute="width" secondItem="5Lc-6O-j1j" secondAttribute="width" id="hn1-ET-jpI"/>
+                            <constraint firstAttribute="centerX" secondItem="z11-N6-Mwc" secondAttribute="centerX" id="lb5-zG-6C8"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Artists" id="Wc5-KQ-BxC">
+                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="EKF-e9-u5V">
                             <connections>
-                                <outlet property="delegate" destination="Ydz-rG-Fj6" id="ULC-hV-WMU"/>
-                            </connections>
-                        </searchBar>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="fakecell" id="tuH-Mv-spW">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tuH-Mv-spW" id="6DC-sd-ubK">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Ydz-rG-Fj6" id="fpx-Zh-Wv7"/>
-                            <outlet property="delegate" destination="Ydz-rG-Fj6" id="zI5-0c-uiw"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="xS1-yE-JEV">
-                        <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="mYw-Br-7dZ">
-                            <connections>
-                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue artist to player" modalTransitionStyle="crossDissolve" id="EtS-iW-yo5"/>
+                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue artist to player" id="Nme-Pa-Ja8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="searchBar" destination="XIj-GX-jdN" id="AYD-jo-tk3"/>
-                        <outlet property="searchDisplayController" destination="TGc-6R-JcA" id="pIQ-ex-ocX"/>
-                        <outlet property="searchTVC" destination="LMo-ze-vET" id="cwe-ts-GAH"/>
-                        <segue destination="GQr-bB-Qui" kind="push" identifier="segue artist to album" id="uZj-Ro-2es"/>
-                        <segue destination="g7r-YZ-CV2" kind="modal" identifier="segue artist to song" modalTransitionStyle="crossDissolve" id="lHI-N0-nPW"/>
+                        <outlet property="searchBar" destination="fGl-hQ-1e5" id="0DJ-ca-4Xb"/>
+                        <outlet property="searchDisplayController" destination="ru3-Pu-kc1" id="myh-YE-Pp2"/>
+                        <outlet property="searchTVC" destination="mCX-Uo-Iqc" id="Vwm-pW-8gr"/>
+                        <outlet property="tableView" destination="z11-N6-Mwc" id="vEy-gb-ucD"/>
+                        <segue destination="9Nd-aL-HLA" kind="push" identifier="segue artist to song" id="GMd-XG-jO6"/>
+                        <segue destination="ZG6-oX-U7B" kind="push" identifier="segue artist to album" id="ZsU-nN-Nfv"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qVW-Gs-43T" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="TGc-6R-JcA">
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mhl-Qs-KUj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="ru3-Pu-kc1">
                     <connections>
-                        <outlet property="delegate" destination="LMo-ze-vET" id="fuS-7e-Hgo"/>
-                        <outlet property="searchBar" destination="XIj-GX-jdN" id="0ER-xX-VIV"/>
-                        <outlet property="searchContentsController" destination="Ydz-rG-Fj6" id="slU-5W-chK"/>
-                        <outlet property="searchResultsDataSource" destination="LMo-ze-vET" id="h2G-XB-QMU"/>
-                        <outlet property="searchResultsDelegate" destination="LMo-ze-vET" id="opM-Yw-bif"/>
+                        <outlet property="delegate" destination="mCX-Uo-Iqc" id="rz1-5w-Phh"/>
+                        <outlet property="searchBar" destination="fGl-hQ-1e5" id="yq6-l3-QUa"/>
+                        <outlet property="searchContentsController" destination="6wh-vG-v9Y" id="oKp-Y8-nqb"/>
+                        <outlet property="searchResultsDataSource" destination="mCX-Uo-Iqc" id="ST7-V1-MX6"/>
+                        <outlet property="searchResultsDelegate" destination="mCX-Uo-Iqc" id="PHf-6b-hdt"/>
                     </connections>
                 </searchDisplayController>
-                <customObject id="LMo-ze-vET" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
+                <customObject id="mCX-Uo-Iqc" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="1356" y="384"/>
+            <point key="canvasLocation" x="1195" y="345"/>
         </scene>
         <!--Albums-->
+        <scene sceneID="f2d-9j-Ate">
+            <objects>
+                <viewController title="Albums" id="ZG6-oX-U7B" customClass="RPAlbumTVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZlU-Fa-q19"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZCM-UI-Fd0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yYI-Av-CnG">
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="GCv-am-Oc0">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="fed-Kv-1K6">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="ZG6-oX-U7B" id="aEd-9m-9bq"/>
+                                    </connections>
+                                </searchBar>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="fake cell" id="Pva-j5-b78">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pva-j5-b78" id="mLG-y1-RQ4">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ZG6-oX-U7B" kind="push" identifier="segue album to album" id="e8T-Id-Y60"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="GCv-am-Oc0" secondAttribute="width" id="A4F-DN-fps"/>
+                            <constraint firstAttribute="bottom" secondItem="GCv-am-Oc0" secondAttribute="bottom" id="f2b-WY-64E"/>
+                            <constraint firstAttribute="centerX" secondItem="GCv-am-Oc0" secondAttribute="centerX" id="m8z-Wr-FFw"/>
+                            <constraint firstItem="GCv-am-Oc0" firstAttribute="top" secondItem="yYI-Av-CnG" secondAttribute="top" id="s3z-Ok-Fp5"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Album" id="Q0O-H8-guG">
+                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="yEi-nX-7qb">
+                            <connections>
+                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue album to player" modalTransitionStyle="crossDissolve" id="31K-T6-2Rq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="fed-Kv-1K6" id="5FP-ZS-7Zv"/>
+                        <outlet property="searchDisplayController" destination="klR-6f-peH" id="1gv-7X-7UM"/>
+                        <outlet property="searchTVC" destination="MEj-b9-pq5" id="0yG-al-wG8"/>
+                        <outlet property="tableView" destination="GCv-am-Oc0" id="3R2-kd-e0e"/>
+                        <segue destination="9Nd-aL-HLA" kind="push" identifier="segue album to song" id="y4b-Ma-iuL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xCt-BT-VgS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="MEj-b9-pq5" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
+                <searchDisplayController id="klR-6f-peH">
+                    <connections>
+                        <outlet property="delegate" destination="MEj-b9-pq5" id="lVB-lm-Mea"/>
+                        <outlet property="searchBar" destination="fed-Kv-1K6" id="WaA-5S-Bfe"/>
+                        <outlet property="searchContentsController" destination="ZG6-oX-U7B" id="Wcj-vs-uLZ"/>
+                        <outlet property="searchResultsDataSource" destination="MEj-b9-pq5" id="3uM-Wt-s3N"/>
+                        <outlet property="searchResultsDelegate" destination="MEj-b9-pq5" id="pQV-9z-34J"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="1195" y="1077"/>
+        </scene>
+        <!--Albums NC-->
         <scene sceneID="gaT-hv-ZfD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="avo-02-FM8" sceneMemberID="viewController">
+                <navigationController title="Albums NC" automaticallyAdjustsScrollViewInsets="NO" id="avo-02-FM8" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Albums" id="RhO-uj-XZU"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="NhO-BP-esj"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5Lg-V6-R8M">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="GQr-bB-Qui" kind="relationship" relationship="rootViewController" id="aVr-Il-pGe"/>
+                        <segue destination="ZG6-oX-U7B" kind="relationship" relationship="rootViewController" id="So3-hg-OsT"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xir-it-TZe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="757" y="1077"/>
+            <point key="canvasLocation" x="741" y="1077"/>
         </scene>
-        <!--Albums-->
+        <!--Albums OLD-->
         <scene sceneID="S6E-Zw-FQF">
             <objects>
-                <tableViewController title="Albums" id="GQr-bB-Qui" customClass="RPAlbumTVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Albums OLD" id="GQr-bB-Qui" customClass="RPAlbumTVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="KiH-qA-E4v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -387,17 +468,12 @@
                     <navigationItem key="navigationItem" id="Exr-4u-fpT">
                         <barButtonItem key="rightBarButtonItem" systemItem="play" id="LJ0-5n-hm4">
                             <color key="tintColor" red="0.71138445559437735" green="0.33934764107792287" blue="0.81722337372448983" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue album to player" modalTransitionStyle="crossDissolve" id="R6i-kN-FZo"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="RpK-Mq-0yl" id="iPp-a0-Wct"/>
                         <outlet property="searchDisplayController" destination="OnA-is-1GS" id="N1s-Ai-VEq"/>
                         <outlet property="searchTVC" destination="4aJ-UE-oOk" id="W08-DY-oiE"/>
-                        <segue destination="g7r-YZ-CV2" kind="push" identifier="segue album to song" id="Tog-qh-8zv"/>
-                        <segue destination="Ydz-rG-Fj6" kind="push" identifier="segue album to artist" id="R8w-rM-OJx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNc-uf-wvN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -412,12 +488,86 @@
                 </searchDisplayController>
                 <customObject id="4aJ-UE-oOk" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="1273" y="1177"/>
+            <point key="canvasLocation" x="2294" y="2694"/>
         </scene>
-        <!--SongTVC-->
+        <!--Song-->
+        <scene sceneID="H7v-Wx-uZO">
+            <objects>
+                <viewController title="Song" id="9Nd-aL-HLA" customClass="RPSongTVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xAr-aY-Mbv"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ypi-MC-rtM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GJK-X1-x3N">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zqO-WQ-qjb">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="oei-bo-zJw">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="9Nd-aL-HLA" id="6jt-V8-5tH"/>
+                                    </connections>
+                                </searchBar>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="XDX-QF-7N2">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XDX-QF-7N2" id="rjy-YY-xPq">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="9Nd-aL-HLA" kind="push" identifier="segue song to song" id="07I-l8-KWi"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zqO-WQ-qjb" firstAttribute="width" secondItem="GJK-X1-x3N" secondAttribute="width" id="7tv-ay-oUp"/>
+                            <constraint firstItem="zqO-WQ-qjb" firstAttribute="top" secondItem="GJK-X1-x3N" secondAttribute="top" id="MM9-wt-OZy"/>
+                            <constraint firstAttribute="centerX" secondItem="zqO-WQ-qjb" secondAttribute="centerX" id="ZOZ-vI-bcq"/>
+                            <constraint firstAttribute="bottom" secondItem="zqO-WQ-qjb" secondAttribute="bottom" id="zMw-3x-WS9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Song" id="xhL-xI-4hQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="rAP-2F-zVb">
+                            <connections>
+                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue song to player" modalTransitionStyle="crossDissolve" id="XKo-N5-nRH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="oei-bo-zJw" id="fvw-Qx-cAn"/>
+                        <outlet property="searchDisplayController" destination="hpn-vW-qXG" id="dAB-cN-3Jk"/>
+                        <outlet property="searchTVC" destination="6Zy-aW-jGz" id="14i-s7-cPc"/>
+                        <outlet property="tableView" destination="zqO-WQ-qjb" id="EBp-EE-M9e"/>
+                        <segue destination="ZG6-oX-U7B" kind="push" identifier="segue album to song" id="Riv-li-3tS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TDN-Ql-uBu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="hpn-vW-qXG">
+                    <connections>
+                        <outlet property="delegate" destination="6Zy-aW-jGz" id="rv2-zv-bd4"/>
+                        <outlet property="searchBar" destination="oei-bo-zJw" id="BAn-vf-4zr"/>
+                        <outlet property="searchContentsController" destination="9Nd-aL-HLA" id="iHz-0E-foC"/>
+                        <outlet property="searchResultsDataSource" destination="6Zy-aW-jGz" id="50q-2O-aeE"/>
+                        <outlet property="searchResultsDelegate" destination="6Zy-aW-jGz" id="kC5-Ge-rG9"/>
+                    </connections>
+                </searchDisplayController>
+                <customObject id="6Zy-aW-jGz" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="2177" y="1047"/>
+        </scene>
+        <!--Song OLD-->
         <scene sceneID="4DQ-79-yht">
             <objects>
-                <tableViewController id="g7r-YZ-CV2" customClass="RPSongTVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Song OLD" id="g7r-YZ-CV2" customClass="RPSongTVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="h0L-05-0hf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -470,18 +620,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="xAY-33-Psf">
-                        <barButtonItem key="rightBarButtonItem" title="Queue" id="oTa-FO-H6I">
-                            <connections>
-                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue song to player" modalTransitionStyle="crossDissolve" id="M9D-Mo-CBj"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Queue" id="oTa-FO-H6I"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="searchBar" destination="Zuz-lw-y4n" id="zEC-fO-Wqk"/>
                         <outlet property="searchDisplayController" destination="oh0-hO-Gen" id="KOR-0Z-hbP"/>
                         <outlet property="searchTVC" destination="LaD-Yn-W4q" id="6e6-tj-3Gf"/>
-                        <segue destination="GQr-bB-Qui" kind="push" identifier="segue song to album" id="VFK-eu-4VI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vhz-YW-buA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -496,72 +641,85 @@
                 </searchDisplayController>
                 <customObject id="LaD-Yn-W4q" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="2041" y="1253"/>
+            <point key="canvasLocation" x="2829" y="2223"/>
         </scene>
-        <!--Playlists-->
-        <scene sceneID="pYs-cq-ccD">
+        <!--Playlist-->
+        <scene sceneID="cVY-XR-ju0">
             <objects>
-                <tableViewController title="Playlists" id="PLS-mp-A2m" customClass="RPPlaylistTVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CqU-Nb-v5u">
+                <viewController title="Playlist" id="InG-cs-WI7" customClass="RPPlaylistTVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qlH-T1-daB"/>
+                        <viewControllerLayoutGuide type="bottom" id="EQ6-Kg-xIq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="q9q-SL-hDY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="Hea-hx-tjc">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="PLS-mp-A2m" id="eYd-Mw-E07"/>
-                            </connections>
-                        </searchBar>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="fakecell" rowHeight="45" id="Az1-B9-n2V">
-                                <rect key="frame" x="0.0" y="86" width="320" height="45"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Az1-B9-n2V" id="HXp-BQ-4Ts">
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="lZk-lB-w6b">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="JPM-hu-M2x">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="PLS-mp-A2m" id="sRH-BH-bzv"/>
-                            <outlet property="delegate" destination="PLS-mp-A2m" id="qhS-pz-Pyf"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="rpc-kQ-aIc">
-                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="PKA-2l-arS">
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="InG-cs-WI7" id="jqk-D5-7h1"/>
+                                    </connections>
+                                </searchBar>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="386-rp-109">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="386-rp-109" id="yXR-jm-D6F">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lZk-lB-w6b" firstAttribute="top" secondItem="q9q-SL-hDY" secondAttribute="top" id="4sx-8W-grx"/>
+                            <constraint firstAttribute="bottom" secondItem="lZk-lB-w6b" secondAttribute="bottom" id="SLV-04-D55"/>
+                            <constraint firstItem="lZk-lB-w6b" firstAttribute="width" secondItem="q9q-SL-hDY" secondAttribute="width" id="Vbv-t4-Uhq"/>
+                            <constraint firstAttribute="centerX" secondItem="lZk-lB-w6b" secondAttribute="centerX" id="n8d-W9-Cim"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Playlists" id="E9p-WW-Xgq">
+                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="S7Z-aB-J4H">
                             <connections>
-                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue playlist to player" modalTransitionStyle="crossDissolve" id="QVI-F7-OFK"/>
+                                <segue destination="hwa-6h-O7w" kind="modal" identifier="segue playlist to player" modalTransitionStyle="crossDissolve" id="gac-a3-2FO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchBar" destination="Hea-hx-tjc" id="PhZ-ct-kot"/>
-                        <outlet property="searchDisplayController" destination="kLc-Xl-jNM" id="ap6-zR-dR5"/>
-                        <outlet property="searchTVC" destination="ijU-r0-YMI" id="45n-Q4-L0R"/>
-                        <segue destination="GQr-bB-Qui" kind="push" identifier="segue playlist to album" id="udt-NC-ebh"/>
-                        <segue destination="g7r-YZ-CV2" kind="push" identifier="segue playlist to song" id="082-V2-etA"/>
+                        <outlet property="searchBar" destination="JPM-hu-M2x" id="KbR-17-JIG"/>
+                        <outlet property="searchDisplayController" destination="Sh4-gg-Gf5" id="Qaf-m3-6W8"/>
+                        <outlet property="searchTVC" destination="8LL-gK-Shy" id="W4N-WU-obo"/>
+                        <outlet property="tableView" destination="lZk-lB-w6b" id="7OO-ng-nq2"/>
+                        <segue destination="ZG6-oX-U7B" kind="push" identifier="segue playlist to album" id="ajC-Sf-eb7"/>
+                        <segue destination="6wh-vG-v9Y" kind="push" identifier="segue playlist to artist" id="koa-ZP-2xT"/>
+                        <segue destination="9Nd-aL-HLA" kind="push" identifier="segue playlist to song" id="skp-Bb-WJ3"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vu1-N9-pdU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="kLc-Xl-jNM">
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WlA-L6-SNB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="8LL-gK-Shy" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
+                <searchDisplayController id="Sh4-gg-Gf5">
                     <connections>
-                        <outlet property="delegate" destination="ijU-r0-YMI" id="nxy-lN-xd4"/>
-                        <outlet property="searchBar" destination="Hea-hx-tjc" id="1gp-sP-26N"/>
-                        <outlet property="searchContentsController" destination="PLS-mp-A2m" id="THk-Gf-oEV"/>
-                        <outlet property="searchResultsDataSource" destination="ijU-r0-YMI" id="Zi9-ZD-BHn"/>
-                        <outlet property="searchResultsDelegate" destination="ijU-r0-YMI" id="TZ7-aO-4Or"/>
+                        <outlet property="delegate" destination="8LL-gK-Shy" id="9xt-1T-KPh"/>
+                        <outlet property="searchBar" destination="JPM-hu-M2x" id="59S-by-LRm"/>
+                        <outlet property="searchContentsController" destination="InG-cs-WI7" id="1l6-zJ-5pz"/>
+                        <outlet property="searchResultsDataSource" destination="8LL-gK-Shy" id="C6t-1P-7P8"/>
+                        <outlet property="searchResultsDelegate" destination="8LL-gK-Shy" id="mc6-4y-Lfw"/>
                     </connections>
                 </searchDisplayController>
-                <customObject id="ijU-r0-YMI" customClass="RPSearchTVCTableViewController" customModule="RandomPlayer" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="1283" y="1839"/>
+            <point key="canvasLocation" x="1187" y="1839"/>
         </scene>
-        <!--Playing-->
+        <!--Player-->
         <scene sceneID="wcF-pg-odS">
             <objects>
-                <viewController title="Playing" id="yn1-f1-UUj" customClass="RPPlayerVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Player" id="yn1-f1-UUj" customClass="RPPlayerVC" customModule="RandomPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1xi-Le-3c9"/>
                         <viewControllerLayoutGuide type="bottom" id="5Fq-Ij-92l"/>
@@ -790,67 +948,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVo-Ml-8T0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1378" y="2596"/>
+            <point key="canvasLocation" x="1395" y="2891"/>
         </scene>
-        <!--Queue-->
-        <scene sceneID="iX5-fB-s6O">
-            <objects>
-                <tableViewController title="Queue" id="9fz-Gh-lQp" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9xI-f1-tVx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="WTn-86-GzR">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WTn-86-GzR" id="UrT-ds-M2f">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="9fz-Gh-lQp" id="FCc-vN-3Ih"/>
-                            <outlet property="delegate" destination="9fz-Gh-lQp" id="ijb-tt-uni"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems>
-                        <barButtonItem title="Randomize" id="uEH-3f-0Wh">
-                            <connections>
-                                <action selector="randomize:" destination="9fz-Gh-lQp" id="ywq-fC-UGW"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="i8K-cH-GXY"/>
-                        <barButtonItem title="Randomize +" id="aSb-tI-12o">
-                            <connections>
-                                <action selector="randomizeAdvanced:" destination="9fz-Gh-lQp" id="EMG-LX-z5B"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="OUS-kt-IOQ"/>
-                        <barButtonItem title="Empty" id="cPb-Wd-g2n">
-                            <connections>
-                                <action selector="emptyAueue:" destination="9fz-Gh-lQp" id="Egc-Av-Way"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" id="d2D-IF-uh1">
-                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="hdW-qr-bVa">
-                            <connections>
-                                <segue destination="hwa-6h-O7w" kind="modal" id="i0S-5I-kD9"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CqR-Q5-4g6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1387" y="3320"/>
-        </scene>
-        <!--Playlists-->
+        <!--Playlist NC-->
         <scene sceneID="YZz-hy-Efz">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jNV-4l-ZIz" sceneMemberID="viewController">
+                <navigationController title="Playlist NC" automaticallyAdjustsScrollViewInsets="NO" id="jNV-4l-ZIz" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Playlists" id="zGx-2G-TI8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vZY-vJ-DSC">
@@ -859,7 +962,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="PLS-mp-A2m" kind="relationship" relationship="rootViewController" id="on6-gn-lbH"/>
+                        <segue destination="InG-cs-WI7" kind="relationship" relationship="rootViewController" id="Bry-dl-yad"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="coT-JU-snX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -886,7 +989,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G3X-fg-5wN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="757" y="2567"/>
+            <point key="canvasLocation" x="757" y="2755"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="aeW-fc-l0l">
@@ -934,10 +1037,10 @@
             </objects>
             <point key="canvasLocation" x="-254" y="2771"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Player NC-->
         <scene sceneID="PkI-au-N2k">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hwa-6h-O7w" sceneMemberID="viewController">
+                <navigationController title="Player NC" automaticallyAdjustsScrollViewInsets="NO" id="hwa-6h-O7w" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="nVG-co-XN0"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
@@ -969,10 +1072,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Tog-qh-8zv"/>
-        <segue reference="uZj-Ro-2es"/>
-        <segue reference="R8w-rM-OJx"/>
-        <segue reference="MiZ-oW-n0O"/>
+        <segue reference="ajC-Sf-eb7"/>
+        <segue reference="koa-ZP-2xT"/>
+        <segue reference="skp-Bb-WJ3"/>
         <segue reference="s8c-KV-Agl"/>
+        <segue reference="MiZ-oW-n0O"/>
     </inferredMetricsTieBreakers>
 </document>

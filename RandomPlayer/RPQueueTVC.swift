@@ -70,6 +70,8 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
             metrics: ["dist" :  (h! + y!)],
             views: d))
         
+        self.tableView.contentInset = UIEdgeInsetsMake(35, 0, 0, 0)
+        
         self.view.addConstraints(c9)
         self.view.addConstraints(barWidthConstraints)
         
@@ -83,8 +85,33 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         viewB.layer.addSublayer(bottomBorder);
         
         
+        
+        //register for notif to update when song changed
+        NSNotificationCenter.defaultCenter().addObserverForName(RPPlayerNotification.SongDidChange, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: {notif in
+                self.tableView.reloadData()
+            if(RPPlayer.player.queue.count == 0){
+                self.title = "Queue"
+            }
+            else {
+                self.title = "\(RPPlayer.player.currentItemIndex + 1) / \(RPPlayer.player.queue.count)"
+            }            }
+        )
+
+        
+        
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData() // reload data in case the user add a song
+        if(RPPlayer.player.queue.count == 0){
+            self.title = "Queue"
+        }
+        else {
+            self.title = "\(RPPlayer.player.currentItemIndex + 1) / \(RPPlayer.player.queue.count)"
+        }
+    }
+
     
     
     override func updateViewConstraints() {
@@ -136,14 +163,14 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     }
     
     /**Is song is playing, ask if want to keep the song playing and remove the rest of the queue. If song is paused, everything is removed*/
-    @IBAction func emptyAueue(sender: UIBarButtonItem) {
+    @IBAction func emptyAueue(sender: UIButton) {
 
         //Is song is paused, we empty the whole queue
         //if
         if(RPPlayer.player.playbackState == MPMusicPlaybackState.Playing){
             let action = UIActionSheet(title: "Empty the queue", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Keep playing current song", "Stop and remove all")
             action.tag = ActionSheetTag.EmptyQueue.rawValue
-            action.showFromBarButtonItem(sender, animated:true)
+            action.showFromRect(sender.frame, inView: self.view, animated: true)
         }
         else {
             RPPlayer.player.emptyQueue(true)
@@ -208,6 +235,13 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
             cell.mainLabel.text = songTitle
             cell.subLabel.text = artistName + " - " + albumName
             
+            if(RPPlayer.player.currentItemIndex == indexPath.row){
+                cell.contentView.backgroundColor = UIColor.greenColor().colorWithAlphaComponent(0.2)
+            }
+            else {
+                cell.contentView.backgroundColor = UIColor.whiteColor()
+            }
+            
             //load image async (smoother scroll)
             let imageView = cell.cellImageView
             
@@ -230,7 +264,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //TODO
         RPPlayer.player.playSong(indexPath.row)
-        
+        self.tableView.reloadData()
     }
     
     
@@ -249,6 +283,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return CGFloat(ROW_HEIGHT)
     }
+    
     
     //########################################################################
     //########################################################################

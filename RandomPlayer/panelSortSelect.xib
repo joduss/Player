@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B23" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RjH-Pg-97w">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4t-R4-WQo">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UID-9G-aST">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d3i-tj-RAH">
+                                <rect key="frame" x="463" y="285" width="117" height="30"/>
+                                <state key="normal" title="Navigation mode">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BU5-ve-31S">
+                                <rect key="frame" x="20" y="285" width="54" height="30"/>
+                                <state key="normal" title="Sort by:">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="BU5-ve-31S" secondAttribute="centerY" id="IrP-CV-5KD"/>
+                            <constraint firstItem="BU5-ve-31S" firstAttribute="leading" secondItem="UID-9G-aST" secondAttribute="leading" constant="20" symbolic="YES" id="ZWs-SL-e1G"/>
+                            <constraint firstAttribute="trailing" secondItem="d3i-tj-RAH" secondAttribute="trailing" constant="20" symbolic="YES" id="fXr-o7-0pJ"/>
+                            <constraint firstAttribute="centerY" secondItem="d3i-tj-RAH" secondAttribute="centerY" id="hGy-nJ-PJV"/>
+                        </constraints>
+                    </view>
+                    <blurEffect style="extraLight"/>
+                </visualEffectView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="F4t-R4-WQo" firstAttribute="top" secondItem="RjH-Pg-97w" secondAttribute="top" id="K2v-uu-O6v"/>
+                <constraint firstAttribute="bottom" secondItem="F4t-R4-WQo" secondAttribute="bottom" id="T2w-us-F4F"/>
+                <constraint firstAttribute="trailing" secondItem="F4t-R4-WQo" secondAttribute="trailing" id="cLb-HW-ygS"/>
+                <constraint firstItem="F4t-R4-WQo" firstAttribute="leading" secondItem="RjH-Pg-97w" secondAttribute="leading" id="zZu-Ll-spS"/>
+            </constraints>
+            <point key="canvasLocation" x="-192" y="65"/>
+        </view>
+    </objects>
+</document>

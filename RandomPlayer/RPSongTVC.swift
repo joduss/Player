@@ -9,13 +9,14 @@
 import UIKit
 import MediaPlayer
 
-class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate {
+class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate, UITableViewDelegate, UITableViewDataSource {
 
     var query : MPMediaQuery
     var album : MPMediaItemCollection?
     
     @IBOutlet var searchTVC: RPSearchTVCTableViewController!
     
+    @IBOutlet weak var tableView: UITableView!
     var songActionDelegate : SongActionSheetDelegate?
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -37,11 +38,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
         query = MPMediaQuery.songsQuery()
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-    
-    override init(style: UITableViewStyle) {
-        query = MPMediaQuery.songsQuery()
-        super.init(style: style)
-    }
+
     
     
     //************************************************************************
@@ -66,6 +63,9 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
         )
         self.tableView.bounds = b;
         
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,15 +77,16 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
     //************************************************************************
     //************************************************************************
     // #pragma mark - other functions
-    func filterSongForAlbum(album : MPMediaItemCollection) {
+    func filterSongForAlbum(album : MPMediaItemCollection?) {
+        
         self.album = album
         //self.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
         let filterPredicate = MPMediaPropertyPredicate(
-            value: album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumPersistentID),
+            value: album!.representativeItem.valueForProperty(MPMediaItemPropertyAlbumPersistentID),
             forProperty: MPMediaItemPropertyAlbumPersistentID)
         
         self.query.filterPredicates = NSSet(object: filterPredicate)
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
     }
     
     /**Return the song at the given indexpath. It correspond to the displayed information at the IndexPath.*/
@@ -128,7 +129,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
         cell .hideBehindCell()
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 55
     }
     
@@ -137,18 +138,18 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
     //************************************************************************
     // #pragma mark - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
         return self.query.itemSections.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.query.itemSections[section].range.length
         
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let identifier = "song cell"
         
@@ -173,7 +174,7 @@ class RPSongTVC: UITableViewController, RPSwipableTVCellDelegate, RPSearchTVCDel
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         songPicked(query.items[indexPath.row] as MPMediaItem)
     }
     

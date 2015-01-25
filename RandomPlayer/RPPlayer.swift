@@ -215,13 +215,18 @@ class RPPlayer : NSObject {
             
             d[MPNowPlayingInfoPropertyPlaybackRate] = avMusicPlayer.rate
             
-            
-            
             MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = d
+            
+            lprint("Is playing \"\(nowPlayingItem?.artist() as String!) - \(nowPlayingItem?.songTitle() as String!)\"" )
         }
         else {
             MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = nil
+            lprint("Is not playing anything" )
         }
+        
+        
+        
+        
     }
     
     //###################################################################################
@@ -336,12 +341,19 @@ class RPPlayer : NSObject {
     
     /** shuffle the queue*/
     func randomizeQueue() {
+        let playingItem = queue[currentItemIndex]
+        queue.removeAtIndex(currentItemIndex)
         queue = queue.shuffleArray()
+        queue.insert(playingItem, atIndex: 0)
+        currentItemIndex = 0
     }
     
     /** "Randomize" "much better". Tries not to put songs of the same artist side by side*/
     func randomizeQueueAdvanced() {
         //implement a way so that each song of one artist are far from each other (=> broadcast from DIS???)
+        
+        let playingItem = queue[currentItemIndex]
+        queue.removeAtIndex(currentItemIndex)
         
         var newQueue : Array<MPMediaItem> = Array()
         newQueue.reserveCapacity(queue.count)
@@ -371,13 +383,17 @@ class RPPlayer : NSObject {
         }
   
         
-        printArray(artistOfEachSong)
+        //printArray(artistOfEachSong)
         var artistOfEachSongShuffled = shuffleAndSeparateSimilarElement(artistOfEachSong)
-        printArray(artistOfEachSongShuffled)
+        //printArray(artistOfEachSongShuffled)
+        
+        for tuple in artistSongPosition {
+            let positions = tuple.1 as Array<Int>
+            artistSongPosition[tuple.0] = positions.shuffleArray()
+        }
 
         for artist in artistOfEachSongShuffled {
             var positions = artistSongPosition[artist]!
-            positions = positions.shuffleArray()
 
             newQueue.append(queue[positions[0]])
             positions.removeAtIndex(0)
@@ -391,6 +407,9 @@ class RPPlayer : NSObject {
         queue = newQueue
         
         
+        queue.insert(playingItem, atIndex: 0)
+        currentItemIndex = 0
+
         
 //        var artistFrequencyGroup : Dictionary<Int, Array<String>> = Dictionary()
 //        
@@ -440,7 +459,18 @@ class RPPlayer : NSObject {
     
     func removeItemAtIndex(index : Int) {
         if(index >= 0 && queue.isEmpty == false && index < queue.endIndex){
+            if(index < currentItemIndex){
+                //if remove a song before the current, need to update the index
+                currentItemIndex--
+            }
             queue.removeAtIndex(index)
+            
+            //if we remove the playing item, we stop it and start playing the one that 
+            //is next. Meaning now that this is the one at the currentIndex, replacing
+            //the previous playing one that was removed
+            if(index == currentItemIndex){
+                playSong(index)
+            }
         }
     }
     

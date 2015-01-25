@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisplayDelegate, UISearchBarDelegate, RPSearchTVCDelegate {
+class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDelegate, UISearchBarDelegate, RPSearchTVCDelegate, UITableViewDataSource, UITableViewDelegate{
     
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -22,6 +22,12 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     var querySearchAlbum : MPMediaQuery?
     var querySearchSong : MPMediaQuery?
     
+    var v : UIView?
+    var barWidthConstraints : [AnyObject] = []
+    
+    
+
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet var searchTVC: RPSearchTVCTableViewController!
     
     var songActionDelegate : SongActionSheetDelegate?
@@ -45,11 +51,6 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    override init(style: UITableViewStyle) {
-        self.query = MPMediaQuery.artistsQuery()
-        self.collectionSections = query.collectionSections
-        super.init(style: style)
-    }
     
 
     override func viewDidLoad() {
@@ -60,22 +61,97 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
         // #warning - verify compatibility with other swipableButton
         self.tableView.canCancelContentTouches = false
         
-        // RPSearchTVC setup
+
+
         searchTVC.delegate = self
         searchTVC.searchTableView = self.searchDisplayController?.searchResultsTableView
+        
+        
         
         
         //hide searchBar
         let bounds = self.tableView.bounds;
         let b = CGRectMake(
             bounds.origin.x,
-            bounds.origin.y + searchBar.bounds.size.height,
+            bounds.origin.y + searchBar.bounds.size.height, 
             bounds.size.width,
             bounds.size.height
         )
         self.tableView.bounds = b;
         
+        
+        
+        
+        //PANEL stuff
+        //*********
+//        let viewArray = NSBundle.mainBundle().loadNibNamed("panelSortSelect", owner: self, options: nil)
+//        let viewB = viewArray[0] as UIView
+//        
+//        
+//        
+//        let navBarFrame = self.navigationController?.navigationBar.frame
+//        
+//        //self.navigationController?.navigationBar.addSubview(view)
+//        
+//        self.view.addSubview(viewB)
+//        
+//        //view.addSubview(view2)
+//        
+//        //view2.backgroundColor = UIColor.redColor()
+//        
+//        v = viewB
+//        
+//        var d = ["view": viewB]
+//        
+//        var y = self.navigationController?.navigationBar.frame.origin.y
+//        var h = self.navigationController?.navigationBar.frame.size.height
+//        
+//        viewB.autoresizingMask = UIViewAutoresizing.None
+//        viewB.setTranslatesAutoresizingMaskIntoConstraints(false)
+//        
+//        
+//        
+//        var c9 = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: NSLayoutFormatOptions.AlignAllBaseline, metrics: nil, views: d)
+//        barWidthConstraints.extend( NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
+//            options: NSLayoutFormatOptions.AlignAllBaseline,
+//            metrics: ["dist" :  (h! + y!)],
+//            views: d))
+//        
+//        self.view.addConstraints(c9)
+//        self.view.addConstraints(barWidthConstraints)
+//        
+//        var bottomBorder = CALayer();
+//        
+//        dprint("\(viewB.frame.size.width)")
+//        
+//        bottomBorder.frame = CGRectMake(0.0, 34.5, viewB.frame.size.width, 0.5);
+//        var color = UIColor.grayColor().colorWithAlphaComponent(0.7)
+//        bottomBorder.backgroundColor = color.CGColor
+//        viewB.layer.addSublayer(bottomBorder);
 
+    }
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        
+//        if let vb = self.v{
+//            self.view.removeConstraints(barWidthConstraints)
+//            barWidthConstraints.removeAll(keepCapacity: true)
+//            
+//            let dic = ["view": vb]
+//            
+//            var y = self.navigationController?.navigationBar.frame.origin.y
+//            var h = self.navigationController?.navigationBar.frame.size.height
+//            
+//            
+//            barWidthConstraints.extend(NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
+//                options: NSLayoutFormatOptions.AlignAllBaseline,
+//                metrics: ["dist" :  (h! + y!)],
+//                views: dic))
+//            
+//            self.view.addConstraints(barWidthConstraints)
+//        }
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -152,7 +228,7 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     }
     
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 55
     }
 
@@ -163,7 +239,7 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     // #pragma mark - Table view data source
     
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
         if(self.searchDisplayController?.active ?? false){
             return self.collectionSections.count
@@ -174,19 +250,19 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
     }
 
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         let mediaQuerySection: AnyObject = self.collectionSections[section]
         return mediaQuerySection.range.length
     }
     
     /**Return the title of the header for this section*/
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let mediaQuerySection: AnyObject = self.collectionSections[section]
         return mediaQuerySection.title
     }
     
-    override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+    func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
         if(index == 0){
             tableView.scrollRectToVisible(searchBar.frame, animated: false)
             return NSNotFound
@@ -194,7 +270,7 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
         return (index - 1)
     }
     
-    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject]! {
+    func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject]! {
         
         var indexTitles : Array<String> = Array()
         
@@ -207,7 +283,7 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
         return indexTitles
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         //self.tableView.registerClass(RPSwipableTVCell.self, forCellReuseIdentifier: "cellArtistTVC")
         
@@ -249,7 +325,7 @@ class RPArtistTVC: UITableViewController, RPSwipableTVCellDelegate, UISearchDisp
         
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let artist = self.artistAtIndexPath(indexPath)
         self.performSegueWithIdentifier("segue artist to album", sender: artist)
     }

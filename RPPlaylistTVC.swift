@@ -120,15 +120,17 @@ class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDele
         
         //dprint("\(playlist.valueForProperty(MPMediaItemP))")
         
-        
-        
-        
+
         
         titleLabel.text = playlist.name
         
-        //var nbSongTitle = RPTools.numberSongInCollection(MPMediaItemCollection(items: playlist.items))
+        if(playlist.items.count > 0){
+            subtitleLabel.text = RPTools.numberSongInCollection(MPMediaItemCollection(items: playlist.items))
+        }
+        else {
+            subtitleLabel.text = "No song"
+        }
         
-        //subtitleLabel.text = "\(nbSongTitle)"
         
         
         cell.delegate = self

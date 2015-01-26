@@ -23,6 +23,18 @@ class RPCell: RPSwipableTVCell {
         super.init(coder: aDecoder)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        if(mainLabel != nil){
+            mainLabel.text = "default text"
+        }
+        if(subLabel != nil) {
+            subLabel.text = "default text"
+        }
+        if(cellImageView != nil){
+            cellImageView.image = nil
+        }
+    }
     
     /*
     // Only override drawRect: if you perform custom drawing.

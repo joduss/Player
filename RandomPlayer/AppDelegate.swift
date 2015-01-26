@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication!) {
         dprint("background !!!!!!!!")
         
-        
+        RPPlayer.player.saveQueue() //save queue in case the app is closed
         
             //RPPlayer.player.wait()
                 

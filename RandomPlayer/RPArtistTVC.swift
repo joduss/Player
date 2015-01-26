@@ -25,6 +25,8 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
     var v : UIView?
     var barWidthConstraints : [AnyObject] = []
     
+    let CELL_IDENTIFIER = "artist cell"
+    
     
 
     @IBOutlet weak var tableView: UITableView!
@@ -80,7 +82,21 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
         self.tableView.bounds = b;
         
         
-        
+        //preload queue
+        let vc = self.navigationController?.tabBarController?.childViewControllers
+        dprint("nub: \(vc!.count)")
+        if let viewControllers = vc{
+            dprint("nub non opt: \(viewControllers.count)")
+            for viewController in viewControllers
+            {
+                let navc = viewController as UINavigationController
+                
+                if(navc.viewControllers[0].isKindOfClass(RPQueueTVC.classForCoder())){
+                    navc.viewControllers[0].view
+                    dprint("hop")
+                }
+            }
+        }
         
         //PANEL stuff
         //*********
@@ -128,6 +144,12 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
 //        var color = UIColor.grayColor().colorWithAlphaComponent(0.7)
 //        bottomBorder.backgroundColor = color.CGColor
 //        viewB.layer.addSublayer(bottomBorder);
+        
+        
+        
+        
+        self.tableView.registerNib(UINib(nibName: "RPCellArtist", bundle: nil), forCellReuseIdentifier: CELL_IDENTIFIER)
+
 
     }
     
@@ -289,12 +311,10 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
         
         //if(self.searchDisplayController.active == false) {
         
-        let identifier = "artist cell"
-        
-        tableView.registerNib(UINib(nibName: "RPCellArtist", bundle: nil), forCellReuseIdentifier: identifier)
         
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(CELL_IDENTIFIER, forIndexPath: indexPath) as RPCell
         
         let titleLabel = cell.mainLabel
         let subtitleLabel = cell.subLabel

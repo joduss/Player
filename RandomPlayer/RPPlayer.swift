@@ -21,6 +21,8 @@ struct RPPlayerNotification {
     
 }
 
+let NSUSERDEFAULT_RPPLAYER_QUEUE = "NSUSERDEFAULT_RPPLAYER_QUEUE"
+
 class RPPlayer : NSObject {
     
     
@@ -146,8 +148,10 @@ class RPPlayer : NSObject {
         //if fail to play song: skip to next one
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "automaticallyTransitionToNextSong", name: AVPlayerItemFailedToPlayToEndTimeNotification, object: nil)
         
-        
+        //load the queue before the app was closed / memory released
+        loadQueue()
     }
+    
     
     
     
@@ -346,6 +350,8 @@ class RPPlayer : NSObject {
         queue = queue.shuffleArray()
         queue.insert(playingItem, atIndex: 0)
         currentItemIndex = 0
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.QueueDidChange, object: nil)
     }
     
     /** "Randomize" "much better". Tries not to put songs of the same artist side by side*/
@@ -380,6 +386,7 @@ class RPPlayer : NSObject {
                 artistSongPosition[artist] = position
             }
             
+            NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.QueueDidChange, object: nil)
         }
   
         
@@ -479,6 +486,7 @@ class RPPlayer : NSObject {
     /**Add the songs at the end of the queue*/
     func addSongs(songs: Array<MPMediaItem>){
         queue += songs
+        NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.QueueDidChange, object: nil)
     }
     
     
@@ -499,6 +507,7 @@ class RPPlayer : NSObject {
             queueTemp = queue + songs
         }
         queue = queueTemp
+        NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.QueueDidChange, object: nil)
     }
     
     
@@ -514,6 +523,7 @@ class RPPlayer : NSObject {
         if(songs.isEmpty == false){
             playSong(songs[0], shouldStartPlaying: true)
         }
+        NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.QueueDidChange, object: nil)
     }
     
     
@@ -538,6 +548,7 @@ class RPPlayer : NSObject {
         }
         currentItemIndex = 0
         updateNowPlayingInfoCenter()
+        NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.QueueDidChange, object: nil)
     }
     
     
@@ -559,6 +570,24 @@ class RPPlayer : NSObject {
         #endif
     }
     
+    
+    //########################################################################
+    //########################################################################
+    // #pragma mark - Queue Backup
+    
+    func saveQueue(){
+        let data = NSUserDefaults.standardUserDefaults()
+        data.setObject(queue, forKey: NSUSERDEFAULT_RPPLAYER_QUEUE)
+    }
+    
+    func loadQueue(){
+        let data = NSUserDefaults.standardUserDefaults()
+        let loadedQueue: AnyObject? = data.objectForKey(NSUSERDEFAULT_RPPLAYER_QUEUE)
+        
+        if(loadedQueue != nil){
+            queue = loadedQueue as Array<MPMediaItem>
+        }
+    }
     
     
     

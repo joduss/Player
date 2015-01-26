@@ -77,6 +77,7 @@ override
     
     
     override func prepareForReuse() {
+        //super.prepareForReuse()
         frontView?.frame = self.contentView.frame
         behindView?.hidden = true
     }

@@ -22,7 +22,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     @IBOutlet weak var searchBar: UISearchBar!
     var songActionDelegate : SongActionSheetDelegate?
 
-    
+    let ALBUM_CELL_IDENTIFIER = "album cell"
     
     
     required init(coder aDecoder: NSCoder) {
@@ -67,6 +67,8 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
+        self.tableView.registerNib(UINib(nibName: "RPCellAlbum", bundle: nil), forCellReuseIdentifier:ALBUM_CELL_IDENTIFIER)
+
 
     }
     
@@ -196,11 +198,8 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     
     //Setup the  cells with the loaded content.
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let identifier = "album cell"
         
-        tableView.registerNib(UINib(nibName: "RPCellAlbum", bundle: nil), forCellReuseIdentifier: identifier)
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(ALBUM_CELL_IDENTIFIER, forIndexPath: indexPath) as RPCell
         
         cell.delegate = self
         //cell.rightViewOffSet = 80

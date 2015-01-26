@@ -24,6 +24,14 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     var barWidthConstraints : [AnyObject] = []
 
 
+    override func loadView() {
+        super.loadView()
+        
+        //register for notif to update when song changed or queue changed
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("updateInformation"), name: RPPlayerNotification.SongDidChange, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("updateInformation"), name: RPPlayerNotification.QueueDidChange, object: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,30 +94,14 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         
         
         
-        //register for notif to update when song changed
-        NSNotificationCenter.defaultCenter().addObserverForName(RPPlayerNotification.SongDidChange, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: {notif in
-                self.tableView.reloadData()
-            if(RPPlayer.player.queue.count == 0){
-                self.title = "Queue"
-            }
-            else {
-                self.title = "\(RPPlayer.player.currentItemIndex + 1) / \(RPPlayer.player.queue.count)"
-            }            }
-        )
-
-        
         
     }
+    
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData() // reload data in case the user add a song
-        if(RPPlayer.player.queue.count == 0){
-            self.title = "Queue"
-        }
-        else {
-            self.title = "\(RPPlayer.player.currentItemIndex + 1) / \(RPPlayer.player.queue.count)"
-        }
+        updateInformation()
     }
 
     
@@ -142,6 +134,24 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         // Dispose of any resources that can be recreated.
     }
 
+    //###################################################################################
+    //###################################################################################
+    // #pragma mark - Update informations
+    
+    func updateInformation() {
+        self.tableView.reloadData()
+        if(RPPlayer.player.queue.count == 0){
+            self.title = "Queue"
+        }
+        else {
+            self.title = "\(RPPlayer.player.currentItemIndex + 1) / \(RPPlayer.player.queue.count)"
+        }
+    }
+    
+    
+    //###################################################################################
+    //###################################################################################
+    // #pragma mark - Buttons
     
     
     @IBAction func back(sender: AnyObject) {
@@ -268,7 +278,6 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //TODO
         RPPlayer.player.playSong(indexPath.row)
         self.tableView.reloadData()
     }

@@ -93,6 +93,11 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         self.navigationController?.interactivePopGestureRecognizer.enabled = true
         self.navigationController?.interactivePopGestureRecognizer.delegate = self
+        
+        
+        
+        //Add gesture recognizer on the artwork
+        imageViewArtwork.addGestureRecognizer(UISwipeGestureRecognizer(target: self, action: Selector("imageViewArtworkGesture:")))
 
         
     }
@@ -338,7 +343,20 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
 
     
     
-    
+    //########################################################################
+    //########################################################################
+    // #pragma mark - For gestureRecognizer
+    func imageViewArtworkGesture(gesture : UISwipeGestureRecognizer) {
+        if(gesture.direction == UISwipeGestureRecognizerDirection.Down){
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        else if(gesture.direction == UISwipeGestureRecognizerDirection.Left) {
+            RPPlayer.player.skipToPreviousItem()
+        }
+        else if(gesture.direction == UISwipeGestureRecognizerDirection.Right){
+            RPPlayer.player.skipToNextItem()
+        }
+    }
     
     
     

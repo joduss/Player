@@ -12,7 +12,8 @@ import MediaPlayer
 class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate, UITableViewDelegate, UITableViewDataSource {
 
     var query : MPMediaQuery
-    var album : MPMediaItemCollection?
+    var collection : MPMediaItemCollection?
+    
     
     @IBOutlet var searchTVC: RPSearchTVCTableViewController!
     
@@ -79,7 +80,7 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     // #pragma mark - other functions
     func filterSongForAlbum(album : MPMediaItemCollection?) {
         
-        self.album = album
+        self.collection = album
         //self.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
         let filterPredicate = MPMediaPropertyPredicate(
             value: album!.representativeItem.valueForProperty(MPMediaItemPropertyAlbumPersistentID),
@@ -88,9 +89,21 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         self.query.filterPredicates = NSSet(object: filterPredicate)
         //self.tableView.reloadData()
     }
+ 
+    
+    func setCollectionToDisplay(col : MPMediaItemCollection?) {
+        collection = col
+    }
+    
     
     /**Return the song at the given indexpath. It correspond to the displayed information at the IndexPath.*/
     func songAtIndexPath(indexPath : NSIndexPath) -> MPMediaItem{
+        //if collection speficied
+        if let col = collection{
+            return col.items[indexPath.row] as MPMediaItem
+        }
+        
+        //otherwise
         let mediaQuerySection = query.itemSections[indexPath.section] as MPMediaQuerySection
         let index = mediaQuerySection.range.location + indexPath.row
         return query.items[index] as MPMediaItem
@@ -140,11 +153,23 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
+
+        if (collection != nil) {
+            //if specify a collection
+            return 1
+        }
+        
+        //otherwise, if nothing specified
         return self.query.itemSections.count
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
+        if let col = collection {
+            //if a collection is speficied
+            return col.count
+        }
+        //otherwise, if nothing specified, all songs
         return self.query.itemSections[section].range.length
         
     }

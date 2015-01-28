@@ -206,14 +206,14 @@ class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDele
 
             if(sender.isKindOfClass(MPMediaPlaylist)){
                 let playlist = sender as MPMediaPlaylist
-                dest.filterSongForAlbum(playlist)
+                dest.setCollectionToDisplay(playlist)
                 dest.title = playlist.name
             }
             else
             {
-                let album = sender as MPMediaItemCollection
-                dest.filterSongForAlbum(album)
-                dest.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as? String
+                let playlist = sender as MPMediaPlaylist
+                dest.setCollectionToDisplay(playlist)
+                dest.title = playlist.name
             }
             
             

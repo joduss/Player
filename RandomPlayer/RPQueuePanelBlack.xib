@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RPQueueTVC" customModule="RandomPlayer" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="VFx-iO-VVr">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alq-XN-fN6">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="b6J-dc-T2J">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAU-jw-xQ1">
+                                <rect key="frame" x="519" y="285" width="61" height="30"/>
+                                <state key="normal" title="Shuffle +">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="randomizeAdvanced:" destination="-1" eventType="touchUpInside" id="2rd-qE-nQd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJF-4h-7Jp">
+                                <rect key="frame" x="20" y="285" width="44" height="30"/>
+                                <state key="normal" title="Empty">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="emptyAueue:" destination="-1" eventType="touchUpInside" id="ysk-iV-Xz5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yce-0r-8MO">
+                                <rect key="frame" x="268" y="285" width="48" height="30"/>
+                                <state key="normal" title="Shuffle">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="randomize:" destination="-1" eventType="touchUpInside" id="01v-Xs-sYC"/>
+                                </connections>
+                            </button>
+                            <view hidden="YES" alpha="0.44999999999999962" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RxR-AB-fHm">
+                                <rect key="frame" x="324" y="285" width="187" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.1001500993" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="lPd-H3-1I6"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" alpha="0.44999999999999962" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dy0-Dw-B5M">
+                                <rect key="frame" x="72" y="285" width="188" height="30"/>
+                                <color key="backgroundColor" red="0.19689258457079828" green="1" blue="0.17457709013791323" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="dy0-Dw-B5M" firstAttribute="height" secondItem="Yce-0r-8MO" secondAttribute="height" id="2MZ-le-oi4"/>
+                            <constraint firstAttribute="centerY" secondItem="dy0-Dw-B5M" secondAttribute="centerY" id="4Qt-B2-wts"/>
+                            <constraint firstItem="qAU-jw-xQ1" firstAttribute="leading" secondItem="RxR-AB-fHm" secondAttribute="trailing" priority="999" constant="8" symbolic="YES" id="7Y8-8g-TbH"/>
+                            <constraint firstItem="RxR-AB-fHm" firstAttribute="leading" secondItem="Yce-0r-8MO" secondAttribute="trailing" priority="999" constant="8" symbolic="YES" id="8dm-im-2VF"/>
+                            <constraint firstAttribute="centerY" secondItem="qAU-jw-xQ1" secondAttribute="centerY" id="P72-d8-qVn"/>
+                            <constraint firstItem="Yce-0r-8MO" firstAttribute="height" secondItem="RxR-AB-fHm" secondAttribute="height" id="T57-rF-WKN"/>
+                            <constraint firstItem="dy0-Dw-B5M" firstAttribute="leading" secondItem="QJF-4h-7Jp" secondAttribute="trailing" priority="500" constant="8" symbolic="YES" id="UYN-rG-FAq"/>
+                            <constraint firstAttribute="trailing" secondItem="qAU-jw-xQ1" secondAttribute="trailing" constant="20" symbolic="YES" id="Vd3-D0-rhh"/>
+                            <constraint firstItem="QJF-4h-7Jp" firstAttribute="leading" secondItem="b6J-dc-T2J" secondAttribute="leading" constant="20" symbolic="YES" id="Wcu-sh-XGX"/>
+                            <constraint firstAttribute="centerY" secondItem="Yce-0r-8MO" secondAttribute="centerY" id="Yiy-Ap-WmE"/>
+                            <constraint firstAttribute="centerY" secondItem="QJF-4h-7Jp" secondAttribute="centerY" id="dRh-kH-frc"/>
+                            <constraint firstAttribute="centerY" secondItem="RxR-AB-fHm" secondAttribute="centerY" id="lx5-U7-oMo"/>
+                            <constraint firstItem="Yce-0r-8MO" firstAttribute="leading" secondItem="dy0-Dw-B5M" secondAttribute="trailing" priority="500" constant="8" symbolic="YES" id="nbf-Nt-yaT"/>
+                            <constraint firstItem="dy0-Dw-B5M" firstAttribute="width" secondItem="RxR-AB-fHm" secondAttribute="width" id="uzN-fC-7pr"/>
+                        </constraints>
+                    </view>
+                    <blurEffect style="dark"/>
+                </visualEffectView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="alq-XN-fN6" secondAttribute="bottom" id="1ko-aS-Fyt"/>
+                <constraint firstAttribute="trailing" secondItem="alq-XN-fN6" secondAttribute="trailing" id="4rb-9F-kFp"/>
+                <constraint firstItem="alq-XN-fN6" firstAttribute="leading" secondItem="VFx-iO-VVr" secondAttribute="leading" id="HC1-3J-nnv"/>
+                <constraint firstItem="alq-XN-fN6" firstAttribute="top" secondItem="VFx-iO-VVr" secondAttribute="top" id="Q4m-HX-uC1"/>
+            </constraints>
+            <point key="canvasLocation" x="-192" y="65"/>
+        </view>
+    </objects>
+</document>

@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B23" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RPSongTVC" customModule="RandomPlayer" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RjH-Pg-97w">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="482" height="136"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4t-R4-WQo">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <rect key="frame" x="0.0" y="0.0" width="482" height="136"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UID-9G-aST">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="482" height="136"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d3i-tj-RAH">
-                                <rect key="frame" x="463" y="285" width="117" height="30"/>
-                                <state key="normal" title="Navigation mode">
+                                <rect key="frame" x="394" y="53" width="68" height="30"/>
+                                <state key="normal" title="Filter OFF">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="filterButtonPressed:" destination="-1" eventType="touchUpInside" id="If6-2B-89N"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BU5-ve-31S">
-                                <rect key="frame" x="20" y="285" width="54" height="30"/>
+                                <rect key="frame" x="20" y="53" width="54" height="30"/>
                                 <state key="normal" title="Sort by:">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="sortButtonPressed:" destination="-1" eventType="touchUpInside" id="pap-uA-fyk"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -45,7 +51,8 @@
                 <constraint firstAttribute="trailing" secondItem="F4t-R4-WQo" secondAttribute="trailing" id="cLb-HW-ygS"/>
                 <constraint firstItem="F4t-R4-WQo" firstAttribute="leading" secondItem="RjH-Pg-97w" secondAttribute="leading" id="zZu-Ll-spS"/>
             </constraints>
-            <point key="canvasLocation" x="-192" y="65"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-167" y="30"/>
         </view>
     </objects>
 </document>

@@ -22,6 +22,11 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    
+    var panel: UIView?
+    var panelYConstraints : [AnyObject] = []
+    
+    
     //************************************************************************
     //************************************************************************
     // #pragma mark - init
@@ -67,6 +72,77 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        
+        
+        //LOAD THE PANEL
+        var viewArray = NSBundle.mainBundle().loadNibNamed("PanelSortSelect", owner: self, options: nil)
+        let panel = viewArray[0] as UIView
+        
+        self.view.addSubview(panel)
+        
+        let navBarOriginY = self.navigationController?.navigationBar.frame.origin.y
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        
+        
+        panel.autoresizingMask = UIViewAutoresizing.None
+        panel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        let viewDict = ["panel" : panel]
+        
+        let constWidth = NSLayoutConstraint.constraintsWithVisualFormat(
+            "H:|-0-[panel]-0-|",
+            options: NSLayoutFormatOptions.AlignAllBaseline,
+            metrics: nil,
+            views: viewDict)
+        panelYConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+            "V:|-dist-[panel(35)]",
+            options: NSLayoutFormatOptions.AlignAllBaseline,
+            metrics: ["dist" :  (navBarOriginY! + navBarHeight!)],
+                views: viewDict)
+        
+        
+        self.view.addConstraints(constWidth)
+        self.view.addConstraints(panelYConstraints)
+        
+        self.tableView.contentInset = UIEdgeInsetsMake(35, 0, 0, 0) //move so the the table start after the pannel
+        self.panel = panel
+        
+        
+        //add line border on the bottom of the pannel
+        var bottomBorder = CALayer();
+        bottomBorder.frame = CGRectMake(0.0, 34.5, panel.frame.size.width, 0.5);
+        var color = UIColor.grayColor().colorWithAlphaComponent(0.7)
+        bottomBorder.backgroundColor = color.CGColor
+        panel.layer.addSublayer(bottomBorder);
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.panel = nil
+    }
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        
+        if let panelToUpdate = panel{
+                self.view.removeConstraints(panelYConstraints)
+                panelYConstraints.removeAll(keepCapacity: true)
+                
+                let dic = ["panel": panelToUpdate]
+                
+            let navBarOriginY = self.navigationController?.navigationBar.frame.origin.y
+            let navBarHeight = self.navigationController?.navigationBar.frame.size.height
+                
+                let c = NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[panel(35)]",
+                    options: NSLayoutFormatOptions.AlignAllBaseline,
+                    metrics: ["dist" :  (navBarHeight! + navBarOriginY!)],
+                    views: dic)
+                
+                panelYConstraints.extend(c)
+                
+                self.view.addConstraints(panelYConstraints)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -238,6 +314,17 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
             let dest = segue.destinationViewController as RPSongTVC
             dest.filterSongForAlbum(sender as MPMediaItemCollection)
         }
+    }
+    
+    
+    
+    @IBAction func sortButtonPressed(sender: AnyObject) {
+        
+    }
+    
+    
+    @IBAction func filterButtonPressed(sender: AnyObject) {
+        
     }
     
     

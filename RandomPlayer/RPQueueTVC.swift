@@ -45,21 +45,14 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         
         //[[NSBundle mainBundle] loadNibNamed:@"NewMiddleContent" owner:self options:nil];
         
-        let viewArray = NSBundle.mainBundle().loadNibNamed("test", owner: self, options: nil)
+        var viewArray = NSBundle.mainBundle().loadNibNamed("RPQueuePanelWhite", owner: self, options: nil)
+        if(self.navigationController?.navigationBar.barStyle == UIBarStyle.BlackTranslucent) {
+            viewArray = NSBundle.mainBundle().loadNibNamed("RPQueuePanelBlack", owner: self, options: nil)
+        }
         let viewB = viewArray[0] as UIView
-        
-        
-        
-        let navBarFrame = self.navigationController?.navigationBar.frame
-        
-        //self.navigationController?.navigationBar.addSubview(view)
         
         self.view.addSubview(viewB)
         
-        //view.addSubview(view2)
-        
-        //view2.backgroundColor = UIColor.redColor()
-
         v = viewB
 
         var d = ["view": viewB]
@@ -70,6 +63,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         viewB.autoresizingMask = UIViewAutoresizing.None
         viewB.setTranslatesAutoresizingMaskIntoConstraints(false)
         
+
 
         
         var c9 = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: NSLayoutFormatOptions.AlignAllBaseline, metrics: nil, views: d)
@@ -85,14 +79,13 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         
         var bottomBorder = CALayer();
         
-        dprint("\(viewB.frame.size.width)")
-        
+
         bottomBorder.frame = CGRectMake(0.0, 34.5, viewB.frame.size.width, 0.5);
         var color = UIColor.grayColor().colorWithAlphaComponent(0.7)
         bottomBorder.backgroundColor = color.CGColor
         viewB.layer.addSublayer(bottomBorder);
         
-        
+
         
         
     }
@@ -105,11 +98,21 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     }
 
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        v = nil
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
     
     override func updateViewConstraints() {
-        super.updateViewConstraints()
         
-        if let vb = self.v{
+        super.updateViewConstraints()
+
+        if let vb = self.v {
             self.view.removeConstraints(barWidthConstraints)
             barWidthConstraints.removeAll(keepCapacity: true)
 
@@ -117,18 +120,23 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
             
             var y = self.navigationController?.navigationBar.frame.origin.y
             var h = self.navigationController?.navigationBar.frame.size.height
-
             
-            barWidthConstraints.extend(NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
+            let c = NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
                 options: NSLayoutFormatOptions.AlignAllBaseline,
                 metrics: ["dist" :  (h! + y!)],
-                views: dic))
+                views: dic)
+            
+            barWidthConstraints.extend(c)
             
             self.view.addConstraints(barWidthConstraints)
         }
         
+
     }
 
+    
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -154,9 +162,9 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     // #pragma mark - Buttons
     
     
-    @IBAction func back(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+//    @IBAction func back(sender: AnyObject) {
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//    }
 
     
     @IBAction func randomize(sender: AnyObject) {

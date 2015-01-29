@@ -109,7 +109,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
 //            tarbar.hidden = true
 //        }
 
-        
+        self.view.becomeFirstResponder()
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -119,13 +119,11 @@ class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDele
         var playlist = query.collections[indexPath.row] as MPMediaPlaylist
         
         //dprint("\(playlist.valueForProperty(MPMediaItemP))")
-        
 
-        
         titleLabel.text = playlist.name
         
         if(playlist.items.count > 0){
-            subtitleLabel.text = RPTools.numberSongInCollection(MPMediaItemCollection(items: playlist.items))
+            subtitleLabel.text = RPTools.numberSong(playlist.items as Array<MPMediaItem>)
         }
         else {
             subtitleLabel.text = "No song"

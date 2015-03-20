@@ -19,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        
+        //load the player
+        RPPlayer.player;
         self.becomeFirstResponder()
         return true
     }

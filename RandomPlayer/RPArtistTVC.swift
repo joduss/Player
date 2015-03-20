@@ -147,7 +147,7 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
         
         
         
-        
+        //TableView nib for the cell
         self.tableView.registerNib(UINib(nibName: "RPCellArtist", bundle: nil), forCellReuseIdentifier: CELL_IDENTIFIER)
 
 

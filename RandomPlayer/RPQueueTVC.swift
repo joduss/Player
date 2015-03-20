@@ -87,6 +87,8 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         
 
         
+        //update information
+        updateInformation()
         
     }
     
@@ -237,7 +239,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return RPPlayer.player.getQueue().count
+        return RPPlayer.player.count()
     }
 
     

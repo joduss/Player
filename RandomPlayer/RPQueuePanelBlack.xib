@@ -19,6 +19,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAU-jw-xQ1">
                                 <rect key="frame" x="519" y="285" width="61" height="30"/>
                                 <state key="normal" title="Shuffle +">
+                                    <color key="titleColor" red="1" green="0.39580283080000001" blue="0.42960585429999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -28,6 +29,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJF-4h-7Jp">
                                 <rect key="frame" x="20" y="285" width="44" height="30"/>
                                 <state key="normal" title="Empty">
+                                    <color key="titleColor" red="1" green="0.39580283080000001" blue="0.42960585429999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -37,6 +39,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yce-0r-8MO">
                                 <rect key="frame" x="268" y="285" width="48" height="30"/>
                                 <state key="normal" title="Shuffle">
+                                    <color key="titleColor" red="1" green="0.39580283080000001" blue="0.42960585429999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

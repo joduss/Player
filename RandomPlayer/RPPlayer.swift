@@ -22,12 +22,12 @@ struct RPPlayerNotification {
 }
 
 let NSUSERDEFAULT_RPPLAYER_QUEUE = "NSUSERDEFAULT_RPPLAYER_QUEUE"
+let NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING = "NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING"
+
 
 class RPPlayer : NSObject {
     
-    
-    
-    var queue : Array<MPMediaItem> = Array()
+    let queue = RPQueue()
     //let musicPlayer = MPMusicPlayerController.systemMusicPlayer()
     var currentItemIndex = 0
     var repeatMode : MPMusicRepeatMode
@@ -40,48 +40,46 @@ class RPPlayer : NSObject {
     private var isSeekingTo = false
     
     
-    
-    
     // COMPUTED VARIABLE
     
     /**currently playing item.
     Returns nil if no item in the queue, or all have been read and repeat is OFF
     NOTE: as soon as there is one item added in the queue, it becomes the now playing item. */
     var nowPlayingItem : MPMediaItem? {
-    get {
-        if(queue.count > 0 && currentItemIndex >= 0 && currentItemIndex < queue.endIndex){
-            return queue[currentItemIndex]
-        }
-        return nil
-    }
-    set {
-        if let val = newValue {
-            if(contains(queue, val)){
-                currentItemIndex = find(queue, val)!
-                playSong(val, shouldStartPlaying: playbackState == MPMusicPlaybackState.Playing)
+        get {
+            if(queue.count > 0 && currentItemIndex >= 0 && currentItemIndex < queue.endIndex){
+                return queue[currentItemIndex]
             }
+            return nil
         }
-        NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.SongDidChange, object: nil)
-    }
+        set {
+            if let val = newValue {
+                if(queue.containsSong(val)){
+                    currentItemIndex = queue.indexOf(val)!
+                    playSong(val, shouldStartPlaying: playbackState == MPMusicPlaybackState.Playing)
+                }
+            }
+            NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.SongDidChange, object: nil)
+        }
     }
     
     //playback state
     var playbackState : MPMusicPlaybackState {
-    get {
-        if(queue.count == 0) {
-            return MPMusicPlaybackState.Stopped
+        get {
+            if(queue.count == 0) {
+                return MPMusicPlaybackState.Stopped
+            }
+            else if(avMusicPlayer.rate > 0 && avMusicPlayer.status != AVPlayerStatus.Failed) {
+                return MPMusicPlaybackState.Playing
+            }
+            else if(avMusicPlayer.rate == 0 && avMusicPlayer.status != AVPlayerStatus.Failed){
+                return MPMusicPlaybackState.Paused
+            }
+            else {
+                //In case of error
+                return MPMusicPlaybackState.Stopped
+            }
         }
-        else if(avMusicPlayer.rate > 0 && avMusicPlayer.status != AVPlayerStatus.Failed) {
-            return MPMusicPlaybackState.Playing
-        }
-        else if(avMusicPlayer.rate == 0 && avMusicPlayer.status != AVPlayerStatus.Failed){
-            return MPMusicPlaybackState.Paused
-        }
-        else {
-            //In case of error
-            return MPMusicPlaybackState.Stopped
-        }
-    }
     }
     
     /**Seek to the given time. not precise, but is very fast. Prefer to call this one, when seeking.*/
@@ -98,9 +96,9 @@ class RPPlayer : NSObject {
                 dispatch_after(popTime, dispatch_get_main_queue(), {() -> Void in
                     //code to be executed on the main queue after delay
                     self.isSeekingTo = false
-                    });
+                });
                 
-                })
+            })
             
         }
         
@@ -109,22 +107,22 @@ class RPPlayer : NSObject {
     
     /**Set the time exactly at this time. Prefer this one, when setting the time only once.*/
     var currentPlaybackTime : NSTimeInterval {
-    get {
-        return CMTimeGetSeconds(avMusicPlayer.currentTime())
-    }
-    set {
-        avMusicPlayer.seekToTime(CMTimeMakeWithSeconds(newValue, 1), toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
-        updateNowPlayingInfoCenter()
-    }
+        get {
+            return CMTimeGetSeconds(avMusicPlayer.currentTime())
+        }
+        set {
+            avMusicPlayer.seekToTime(CMTimeMakeWithSeconds(newValue, 1), toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
+            updateNowPlayingInfoCenter()
+        }
     }
     
     
     
     //Singleton (should be only 1 instance possible). It is thread safe (see internet)
     class var player : RPPlayer{
-    struct Static {
-        static var instance: RPPlayer?
-        static var token: dispatch_once_t = 0
+        struct Static {
+            static var instance: RPPlayer?
+            static var token: dispatch_once_t = 0
         }
         dispatch_once(&Static.token) {
             Static.instance = RPPlayer()
@@ -187,9 +185,9 @@ class RPPlayer : NSObject {
             dispatch_sync(dispatch_get_main_queue(), {() -> Void in
                 NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.SongDidChange, object: nil)
                 self.updateNowPlayingInfoCenter()
-                })
-            
             })
+            
+        })
     }
     
     /**Remove the playing song from the player, so player.play() won't play anything, it won't play from the last position*/
@@ -347,7 +345,7 @@ class RPPlayer : NSObject {
     func randomizeQueue() {
         let playingItem = queue[currentItemIndex]
         queue.removeAtIndex(currentItemIndex)
-        queue = queue.shuffleArray()
+        queue.shuffleArray()
         queue.insert(playingItem, atIndex: 0)
         currentItemIndex = 0
         
@@ -360,83 +358,11 @@ class RPPlayer : NSObject {
         
         let playingItem = queue[currentItemIndex]
         queue.removeAtIndex(currentItemIndex)
-        
-        var newQueue : Array<MPMediaItem> = Array()
-        newQueue.reserveCapacity(queue.count)
-        
-        var artistSongPosition : Dictionary<String, Array<Int>> = Dictionary()
-        var artistOfEachSong : Array<String> = Array()
-        artistOfEachSong.reserveCapacity(queue.count)
-        
-        for(var i = 0; i < queue.endIndex; i++) {
-            let item = queue[i]
-            let artist = item.artist()
-            
-            artistOfEachSong.append(artist)
-            
-            if(contains(artistSongPosition.keys, artist)){
-                var position = artistSongPosition[artist]!
-                position.append(i)
-                artistSongPosition[artist] = position
 
-            } else {
-                artistSongPosition[artist] = Array()
-                var position = artistSongPosition[artist]!
-                position.append(i)
-                artistSongPosition[artist] = position
-            }
-            
-            NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.QueueDidChange, object: nil)
-        }
-  
-        
-        //printArray(artistOfEachSong)
-        var artistOfEachSongShuffled = shuffleAndSeparateSimilarElement(artistOfEachSong)
-        //printArray(artistOfEachSongShuffled)
-        
-        for tuple in artistSongPosition {
-            let positions = tuple.1 as Array<Int>
-            artistSongPosition[tuple.0] = positions.shuffleArray()
-        }
-
-        for artist in artistOfEachSongShuffled {
-            var positions = artistSongPosition[artist]!
-
-            newQueue.append(queue[positions[0]])
-            positions.removeAtIndex(0)
-            artistSongPosition[artist] = positions
-            if(positions.isEmpty){
-                artistSongPosition.removeValueForKey(artist)
-            }
-            
-        }
-        
-        queue = newQueue
-        
+        queue.randomizeQueueAdvanced()
         
         queue.insert(playingItem, atIndex: 0)
         currentItemIndex = 0
-
-        
-//        var artistFrequencyGroup : Dictionary<Int, Array<String>> = Dictionary()
-//        
-//        for artist in artistFreqKey {
-//            let freq = artistFrequency[artist]
-//            if(contains(artistFrequencyGroup.keys,freq!)){
-//                var artistsInGroup = Array(artistFrequencyGroup[freq!]!)
-//                artistsInGroup += artist
-//            }
-//            else {
-//                let newArray: Array<String> = Array
-//            }
-//        }
-        
-        
-        
-        
-        
-        
-        
     }
     
     
@@ -453,15 +379,19 @@ class RPPlayer : NSObject {
     //        return find(queue, avMusicPlayer.nowPlayingItem)
     //    }
     
-    func getQueue() -> Array<MPMediaItem> {
-        return Array(queue)
-    }
+//    func getQueue() -> Array<MPMediaItem> {
+//        return queue.getArrayOfId()
+//    }
     
     func getQueueItem(atIndex : Int) -> MPMediaItem?{
         if(queue.isEmpty){
             return nil
         }
         return queue[atIndex]
+    }
+    
+    func count()->Int{
+        return queue.getArrayOfId().count
     }
     
     func removeItemAtIndex(index : Int) {
@@ -472,7 +402,7 @@ class RPPlayer : NSObject {
             }
             queue.removeAtIndex(index)
             
-            //if we remove the playing item, we stop it and start playing the one that 
+            //if we remove the playing item, we stop it and start playing the one that
             //is next. Meaning now that this is the one at the currentIndex, replacing
             //the previous playing one that was removed
             if(index == currentItemIndex){
@@ -485,6 +415,7 @@ class RPPlayer : NSObject {
     
     /**Add the songs at the end of the queue*/
     func addSongs(songs: Array<MPMediaItem>){
+        songs.shuffleArray()
         queue += songs
         NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.QueueDidChange, object: nil)
     }
@@ -492,21 +423,7 @@ class RPPlayer : NSObject {
     
     /**Add the songs in the queue just after the nowPlayingItem*/
     func addNext(songs: Array<MPMediaItem>) {
-        var queueTemp: Array<MPMediaItem> = Array();
-        
-        let index = currentItemIndex
-        
-        if(queue.isEmpty == false && currentItemIndex < (queue.endIndex-1)){
-            queueTemp += queue[0...index]
-            queueTemp += songs
-            queueTemp += queue[(index + 1)...(queue.endIndex - 1)] //-1 as it gives the index that ends the array (and that is nil), not index of last element
-            
-        }
-        else {
-            //case where the last song is playing, or queue is empty
-            queueTemp = queue + songs
-        }
-        queue = queueTemp
+        queue.insert(songs, atIndex: currentItemIndex)
         NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.QueueDidChange, object: nil)
     }
     
@@ -576,21 +493,33 @@ class RPPlayer : NSObject {
     // #pragma mark - Queue Backup
     
     func saveQueue(){
+        
+        var arrayOfId = queue.getArrayOfId()
+        
         let data = NSUserDefaults.standardUserDefaults()
-        data.setObject(queue, forKey: NSUSERDEFAULT_RPPLAYER_QUEUE)
+        data.setObject(arrayOfId, forKey: NSUSERDEFAULT_RPPLAYER_QUEUE)
+        data.setInteger(currentItemIndex, forKey: NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING)
     }
     
+    //restore queue from previous session
     func loadQueue(){
         let data = NSUserDefaults.standardUserDefaults()
-        let loadedQueue: AnyObject? = data.objectForKey(NSUSERDEFAULT_RPPLAYER_QUEUE)
         
-        if(loadedQueue != nil){
-            queue = loadedQueue as Array<MPMediaItem>
+        let storedQueue = data.arrayForKey(NSUSERDEFAULT_RPPLAYER_QUEUE) as?  Array<NSNumber>
+        
+        if let queueToLoad = storedQueue {
+            
+            for songID in queueToLoad {
+                let predicate = MPMediaPropertyPredicate(value: songID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: MPMediaPredicateComparison.EqualTo)
+                let songQuery = MPMediaQuery.songsQuery()
+                songQuery.addFilterPredicate(predicate)
+                
+                if(songQuery.items.count == 1){
+                    queue.append(songQuery.items[0] as MPMediaItem)
+                }
+            }
+            currentItemIndex = data.integerForKey(NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING)
+            playSong(queue[currentItemIndex], shouldStartPlaying: false)
         }
     }
-    
-    
-    
-    
-    
 }

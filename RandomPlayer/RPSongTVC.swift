@@ -9,27 +9,29 @@
 import UIKit
 import MediaPlayer
 
-class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate, UITableViewDelegate, UITableViewDataSource {
-
+class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
+    
     var query : MPMediaQuery
     var collection : MPMediaItemCollection?
+    var songActionDelegate : SongActionSheetDelegate?
+    var panel: UIView?
+    var panelYConstraints : [AnyObject] = []
+    
+    let TAG_ACTIONSHEET_SORT = 9988
+    let TAG_ACTIONSHEET_FILTER = 9977
     
     
     @IBOutlet var searchTVC: RPSearchTVCTableViewController!
-    
     @IBOutlet weak var tableView: UITableView!
-    var songActionDelegate : SongActionSheetDelegate?
-    
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    
-    var panel: UIView?
-    var panelYConstraints : [AnyObject] = []
+    @IBOutlet weak var sortByButton: UIButton!
+    @IBOutlet weak var filterButton: UIButton!
     
     
     //************************************************************************
     //************************************************************************
     // #pragma mark - init
+    
     required init(coder aDecoder: NSCoder) {
         query = MPMediaQuery.songsQuery()
         super.init(coder: aDecoder)
@@ -44,7 +46,6 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         query = MPMediaQuery.songsQuery()
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-
     
     
     //************************************************************************
@@ -53,11 +54,11 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // RPSearchTVC setup
         searchTVC.delegate = self
         searchTVC.searchTableView = self.searchDisplayController?.searchResultsTableView
-        self.title = "Albums"
+        //self.title = "Albums"
         
         //hide searchBar
         let bounds = self.tableView.bounds;
@@ -68,10 +69,8 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
             bounds.size.height
         )
         self.tableView.bounds = b;
-        
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
         
         
         //LOAD THE PANEL
@@ -82,7 +81,6 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         
         let navBarOriginY = self.navigationController?.navigationBar.frame.origin.y
         let navBarHeight = self.navigationController?.navigationBar.frame.size.height
-        
         
         panel.autoresizingMask = UIViewAutoresizing.None
         panel.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -98,7 +96,7 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
             "V:|-dist-[panel(35)]",
             options: NSLayoutFormatOptions.AlignAllBaseline,
             metrics: ["dist" :  (navBarOriginY! + navBarHeight!)],
-                views: viewDict)
+            views: viewDict)
         
         
         self.view.addConstraints(constWidth)
@@ -107,14 +105,12 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         self.tableView.contentInset = UIEdgeInsetsMake(35, 0, 0, 0) //move so the the table start after the pannel
         self.panel = panel
         
-        
         //add line border on the bottom of the pannel
         var bottomBorder = CALayer();
         bottomBorder.frame = CGRectMake(0.0, 34.5, panel.frame.size.width, 0.5);
         var color = UIColor.grayColor().colorWithAlphaComponent(0.7)
         bottomBorder.backgroundColor = color.CGColor
         panel.layer.addSublayer(bottomBorder);
-        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -126,25 +122,25 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         super.updateViewConstraints()
         
         if let panelToUpdate = panel{
-                self.view.removeConstraints(panelYConstraints)
-                panelYConstraints.removeAll(keepCapacity: true)
-                
-                let dic = ["panel": panelToUpdate]
-                
+            self.view.removeConstraints(panelYConstraints)
+            panelYConstraints.removeAll(keepCapacity: true)
+            
+            let dic = ["panel": panelToUpdate]
+            
             let navBarOriginY = self.navigationController?.navigationBar.frame.origin.y
             let navBarHeight = self.navigationController?.navigationBar.frame.size.height
-                
-                let c = NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[panel(35)]",
-                    options: NSLayoutFormatOptions.AlignAllBaseline,
-                    metrics: ["dist" :  (navBarHeight! + navBarOriginY!)],
-                    views: dic)
-                
-                panelYConstraints.extend(c)
-                
-                self.view.addConstraints(panelYConstraints)
+            
+            let c = NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[panel(35)]",
+                options: NSLayoutFormatOptions.AlignAllBaseline,
+                metrics: ["dist" :  (navBarHeight! + navBarOriginY!)],
+                views: dic)
+            
+            panelYConstraints.extend(c)
+            
+            self.view.addConstraints(panelYConstraints)
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         songActionDelegate = nil
@@ -157,6 +153,7 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     func filterSongForAlbum(album : MPMediaItemCollection?) {
         
         self.collection = album
+        self.title = "salut" //String(album?.valueForProperty(MPMediaItemPropertyAlbumTitle) as NSString);
         //self.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
         let filterPredicate = MPMediaPropertyPredicate(
             value: album!.representativeItem.valueForProperty(MPMediaItemPropertyAlbumPersistentID),
@@ -165,7 +162,7 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         self.query.filterPredicates = NSSet(object: filterPredicate)
         //self.tableView.reloadData()
     }
- 
+    
     
     func setCollectionToDisplay(col : MPMediaItemCollection?) {
         collection = col
@@ -184,7 +181,7 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         let index = mediaQuerySection.range.location + indexPath.row
         return query.items[index] as MPMediaItem
     }
-
+    
     
     
     //########################################################################
@@ -199,21 +196,21 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     
     func buttonCenterLeftPressed(cell: RPSwipableTVCell!) {
         if let path = self.tableView.indexPathForCell(cell){
-        RPPlayer.player.addSongs([songAtIndexPath(path)])
+            RPPlayer.player.addSongs([songAtIndexPath(path)])
         }
         cell .hideBehindCell()
     }
     
     func buttonCenterRightPressed(cell: RPSwipableTVCell!) {
         if let path = self.tableView.indexPathForCell(cell){
-        RPPlayer.player.addNextAndPlay([self.songAtIndexPath(path)])
+            RPPlayer.player.addNextAndPlay([self.songAtIndexPath(path)])
         }
         cell .hideBehindCell()
     }
     
     func buttonRightPressed(cell: RPSwipableTVCell!) {
         if let path = self.tableView.indexPathForCell(cell) {
-        RPPlayer.player.addNext([self.songAtIndexPath(path)])
+            RPPlayer.player.addNext([self.songAtIndexPath(path)])
         }
         cell .hideBehindCell()
     }
@@ -226,19 +223,17 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     //************************************************************************
     //************************************************************************
     // #pragma mark - Table view data source
-
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
-
         if (collection != nil) {
             //if specify a collection
             return 1
         }
-        
         //otherwise, if nothing specified
         return self.query.itemSections.count
     }
-
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         if let col = collection {
@@ -251,7 +246,6 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         let identifier = "song cell"
         
         tableView.registerNib(UINib(nibName: "RPCellSong", bundle: nil), forCellReuseIdentifier: identifier)
@@ -262,16 +256,12 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         
         let titleLabel = cell.mainLabel
         let subtitleLabel = cell.subLabel
-        
         let song = self.songAtIndexPath(indexPath)
+        let durationInSeconds = song.valueForProperty(MPMediaItemPropertyPlaybackDuration) as Int
         
         titleLabel.text = song.valueForProperty(MPMediaItemPropertyTitle) as? String
-        
-        let durationInSeconds = song.valueForProperty(MPMediaItemPropertyPlaybackDuration) as Int
         subtitleLabel.text = formatTimeToMinutesSeconds(durationInSeconds)
         
-        
-    
         return cell
     }
     
@@ -289,7 +279,12 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
             songActionDelegate = SongActionSheetDelegate()
         }
         songActionDelegate?.song = song
-        let actionSheet = UIActionSheet(title: "Choose an action", delegate: songActionDelegate, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Play next", "Play now", "Add to Queue")
+        let actionSheet = UIActionSheet(title: "Choose an action",
+            delegate: songActionDelegate,
+            cancelButtonTitle: "Cancel",
+            destructiveButtonTitle: nil,
+            otherButtonTitles: "Play next", "Play now", "Add to Queue")
+        
         actionSheet.showInView(self.view)
     }
     func albumPicked(album: MPMediaItemCollection){
@@ -307,24 +302,49 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if(segue.identifier == "segue song to album"){
             let dest = segue.destinationViewController as RPAlbumTVC
-            let artist = sender as MPMediaItemCollection
-            dest.filterAlbumForArtist(artist)
+            let artist = sender as? MPMediaItemCollection
+            dest.filterAlbumForArtist(artist!)
         }
         else if(segue.identifier == "segue song to song"){
             let dest = segue.destinationViewController as RPSongTVC
-            dest.filterSongForAlbum(sender as MPMediaItemCollection)
+            dest.filterSongForAlbum(sender as? MPMediaItemCollection)
         }
     }
     
     
+    //************************************************************************
+    //************************************************************************
+    //#pragma mark - Button from pannel and actionsheet
     
     @IBAction func sortButtonPressed(sender: AnyObject) {
-        
+        let actionSheet = UIActionSheet(title: "Sort", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Alphabetically", "By date added")
+        actionSheet.tag = TAG_ACTIONSHEET_SORT
+        actionSheet.showFromRect((sender as UIButton).frame, inView: self.view, animated: true);
     }
     
     
     @IBAction func filterButtonPressed(sender: AnyObject) {
         
+    }
+    
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        dprint("HELLO");
+        
+        if(actionSheet.tag == TAG_ACTIONSHEET_SORT){
+            switch(buttonIndex){
+            case 0:
+                dprint("cancel");
+            case 1:
+                dprint("alpha")
+            case 2:
+                dprint("date")
+            default:
+                dprint("default")
+            };
+            
+        }
+        //else if()
     }
     
     

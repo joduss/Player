@@ -277,7 +277,6 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
             dprint("dest: \(dest)")
             dprint("album: \(album)")
 
-            
             dest.filterSongForAlbum(album)
             dest.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as? String
         }

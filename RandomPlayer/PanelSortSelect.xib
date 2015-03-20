@@ -4,7 +4,12 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RPSongTVC" customModule="RandomPlayer" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RPSongTVC" customModule="RandomPlayer" customModuleProvider="target">
+            <connections>
+                <outlet property="filterButton" destination="d3i-tj-RAH" id="7Xh-RH-2tt"/>
+                <outlet property="sortByButton" destination="BU5-ve-31S" id="Xps-bf-NNQ"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RjH-Pg-97w">
             <rect key="frame" x="0.0" y="0.0" width="482" height="136"/>

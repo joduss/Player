@@ -17,8 +17,10 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     var panel: UIView?
     var panelYConstraints : [AnyObject] = []
     
+    
     let TAG_ACTIONSHEET_SORT = 9988
     let TAG_ACTIONSHEET_FILTER = 9977
+    
     
     
     @IBOutlet var searchTVC: RPSearchTVCTableViewController!
@@ -317,7 +319,7 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     //#pragma mark - Button from pannel and actionsheet
     
     @IBAction func sortButtonPressed(sender: AnyObject) {
-        let actionSheet = UIActionSheet(title: "Sort", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Alphabetically", "By date added")
+        let actionSheet = UIActionSheet(title: "Sort", delegate: self, cancelButtonTitle: "None", destructiveButtonTitle: nil, otherButtonTitles: "Alphabetically")
         actionSheet.tag = TAG_ACTIONSHEET_SORT
         actionSheet.showFromRect((sender as UIButton).frame, inView: self.view, animated: true);
     }
@@ -327,6 +329,10 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         
     }
     
+    func sortAlpha(a: MPMediaItem, b:MPMediaItem) -> Bool {
+        return (a.valueForProperty(MPMediaItemPropertyTitle) as String) < (b.valueForProperty(MPMediaItemPropertyTitle) as String)
+    }
+    
     
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         dprint("HELLO");
@@ -334,14 +340,25 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         if(actionSheet.tag == TAG_ACTIONSHEET_SORT){
             switch(buttonIndex){
             case 0:
-                dprint("cancel");
+                dprint("none")
+                collection = nil
             case 1:
                 dprint("alpha")
-            case 2:
-                dprint("date")
+                var songsSorted = Array<MPMediaItem>()
+                if(collection != nil){
+                    songsSorted = collection?.items as Array<MPMediaItem>
+                }
+                else{
+                    songsSorted = query.items as Array<MPMediaItem>
+                }
+                songsSorted.sort(sortAlpha)
+                
+                collection = MPMediaItemCollection(items: songsSorted)
+
             default:
                 dprint("default")
             };
+            self.tableView.reloadData()
             
         }
         //else if()

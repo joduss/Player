@@ -255,11 +255,11 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         let mediaItem = RPPlayer.player.getQueueItem(indexPath.row)
         
         if let item = mediaItem {
-            let artistName = item.artist()
-            let albumName = item.albumTitle()
-            let songTitle = item.songTitle()
-            cell.mainLabel.text = songTitle
-            cell.subLabel.text = artistName + " - " + albumName
+            //let artistName = item.artist()
+            //let albumName = item.albumTitle()
+            //let songTitle = item.songTitle()
+            cell.mainLabel.text = item.songTitle()
+            cell.subLabel.text = item.artist() + " - " + item.albumTitle()
             
             if(RPPlayer.player.currentItemIndex == indexPath.row){
                 cell.contentView.backgroundColor = UIColor.greenColor().colorWithAlphaComponent(0.2)
@@ -271,7 +271,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
             //load image async (smoother scroll)
             let imageView = cell.cellImageView
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {() -> Void in
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {() -> Void in
                 
                 var artworkImage = item.artworkImage(ofSize:imageView.bounds.size)
                 

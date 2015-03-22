@@ -45,7 +45,7 @@ class RPPlayer : NSObject {
     /**currently playing item.
     Returns nil if no item in the queue, or all have been read and repeat is OFF
     NOTE: as soon as there is one item added in the queue, it becomes the now playing item. */
-    var nowPlayingItem : MPMediaItem? {
+    var nowPlayingItem : MPMediaItem! {
         get {
             if(queue.count > 0 && currentItemIndex >= 0 && currentItemIndex < queue.endIndex){
                 return queue[currentItemIndex]
@@ -508,16 +508,7 @@ class RPPlayer : NSObject {
         let storedQueue = data.arrayForKey(NSUSERDEFAULT_RPPLAYER_QUEUE) as?  Array<NSNumber>
         
         if let queueToLoad = storedQueue {
-            
-            for songID in queueToLoad {
-                let predicate = MPMediaPropertyPredicate(value: songID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: MPMediaPredicateComparison.EqualTo)
-                let songQuery = MPMediaQuery.songsQuery()
-                songQuery.addFilterPredicate(predicate)
-                
-                if(songQuery.items.count == 1){
-                    queue.append(songQuery.items[0] as MPMediaItem)
-                }
-            }
+            queue += queueToLoad
             currentItemIndex = data.integerForKey(NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING)
             playSong(queue[currentItemIndex], shouldStartPlaying: false)
         }

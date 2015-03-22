@@ -24,11 +24,15 @@ func +=(queue : RPQueue, items : Array<MPMediaItem>){
     }
 }
 
+func +=(queue : RPQueue, items : Array<NSNumber>){
+        queue.append(items)
+}
+
 
 class RPQueue : NSObject{
 
     
-    var queue : Array<MPMediaItem> = Array()
+    var queue : Array<NSNumber> = Array()
 
     var count : Int{
         get {
@@ -43,12 +47,14 @@ class RPQueue : NSObject{
     }
     
     //Support queue[323] = ...
-    subscript(index: Int) -> MPMediaItem {
+    subscript(index: Int) -> MPMediaItem! {
         get {
-            return queue[index]
+            return mediaItem(queue[index])
         }
         set(newValue) {
-            queue[index] = newValue
+            if let newVal = newValue{
+                queue[index] = newVal.valueForProperty(MPMediaItemPropertyPersistentID) as NSNumber
+            }
         }
     }
     
@@ -60,17 +66,21 @@ class RPQueue : NSObject{
     
 
 
-    func append(item : MPMediaItem){
-        queue.append(item)
+    func append(song : MPMediaItem){
+        queue.append(mediaItemId(song))
+    }
+    
+    func append(songs : Array<NSNumber>){
+        queue += songs
     }
     
     
     func containsSong(song: MPMediaItem) -> Bool {
-        return contains(queue, song)
+        return contains(queue, mediaItemId(song))
     }
     
     func indexOf(song : MPMediaItem) -> Int? {
-        return find(queue, song)
+        return find(queue, mediaItemId(song))
     }
     
     func removeAtIndex(index : Int){
@@ -82,21 +92,22 @@ class RPQueue : NSObject{
     }
     
     func insert(item : MPMediaItem , atIndex index : Int){
-        queue.insert(item, atIndex: index)
+        queue.insert(mediaItemId(item), atIndex: index)
     }
     
-    func insert(item : Array<MPMediaItem> ,atIndex index : Int){
-        var queueTemp : Array<MPMediaItem> = Array();
+    func insert(itemsArray : Array<MPMediaItem> ,atIndex index : Int){
+        var queueTemp : Array<NSNumber> = Array();
+        let items = mediaItemsId(itemsArray)
         
         if(queue.isEmpty == false && index < (queue.endIndex-1)){
             queueTemp += queue[0...index]
-            queueTemp += item
+            queueTemp += items
             queueTemp += queue[(index + 1)...(queue.endIndex - 1)] //-1 as it gives the index that ends the array (and that is nil), not index of last element
             
         }
         else {
             //case where the last song is playing, or queue is empty
-            queueTemp = queue + item
+            queueTemp = queue + items
         }
         queue = queueTemp
     }
@@ -107,13 +118,15 @@ class RPQueue : NSObject{
     }
     
     func getArrayOfId() -> Array<NSNumber>{
-        var arrayOfId = Array<NSNumber>()
+//        var arrayOfId = Array<NSNumber>()
+//        
+//        for item in queue {
+//            let id = item.valueForProperty(MPMediaItemPropertyPersistentID) as NSNumber
+//            arrayOfId.append(id)
+//        }
+//        return arrayOfId
         
-        for item in queue {
-            let id = item.valueForProperty(MPMediaItemPropertyPersistentID) as NSNumber
-            arrayOfId.append(id)
-        }
-        return arrayOfId
+        return queue
     }
     
     
@@ -122,7 +135,7 @@ class RPQueue : NSObject{
     func randomizeQueueAdvanced() {
         //implement a way so that each song of one artist are far from each other (=> broadcast from DIS???)
 
-        var newQueue : Array<MPMediaItem> = Array()
+        var newQueue : Array<NSNumber> = Array()
         newQueue.reserveCapacity(queue.count)
         
         var artistSongPosition : Dictionary<String, Array<Int>> = Dictionary()
@@ -131,7 +144,7 @@ class RPQueue : NSObject{
         
         for(var i = 0; i < queue.endIndex; i++) {
             let item = queue[i]
-            let artist = item.artist()
+            let artist = mediaItem(item).artist()
             
             artistOfEachSong.append(artist)
             
@@ -173,6 +186,37 @@ class RPQueue : NSObject{
         }
         
         queue = newQueue
+    }
+    
+    
+    
+    
+    func mediaItem(songID : NSNumber) -> MPMediaItem!{
+        //TODO: support case when song not exist anymore: remove from queue and return next one
+        //also notify RPPlayer
+        
+        //let predicate = MPMediaPropertyPredicate(value: songID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: MPMediaPredicateComparison.EqualTo)
+        let songQuery = MPMediaQuery.songsQuery()
+        //songQuery.addFilterPredicate(predicate)
+        songQuery.addFilterPredicate(MPMediaPropertyPredicate(value: songID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: MPMediaPredicateComparison.EqualTo))
+
+        if(songQuery.items.count == 1){
+            //return songQuery.items[0] as MPMediaItem
+            return songQuery.items[0] as MPMediaItem
+        }
+        return nil
+    }
+    
+    func mediaItemId(item : MPMediaItem) -> NSNumber{
+        return item.valueForProperty(MPMediaItemPropertyPersistentID) as NSNumber
+    }
+    
+    func mediaItemsId(items : Array<MPMediaItem>) -> Array<NSNumber>{
+        var arrayOfId = Array<NSNumber>()
+        for item in items{
+            arrayOfId.append(mediaItemId(item))
+        }
+        return arrayOfId
     }
 
     

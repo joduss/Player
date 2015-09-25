@@ -22,7 +22,7 @@ func formatTimeToMinutesSeconds(secondsToConvert : Int) -> String {
     let minutes : Int = secondsToConvert / 60
     let seconds : Int = secondsToConvert % 60
     
-    var nf = NSNumberFormatter()
+    let nf = NSNumberFormatter()
     nf.minimumIntegerDigits = 2
     
     return String(minutes) + ":" + nf.stringFromNumber(seconds)!
@@ -36,13 +36,12 @@ The string to clean
 func cleanStringForSort(string: String) -> String {
     let template = "$1"
     let pattern = "[\\s]" // remove any whitespace
-    let regex = NSRegularExpression(pattern: pattern,
-        options: NSRegularExpressionOptions.CaseInsensitive,
-        error: nil) as NSRegularExpression!
+    let regex = (try? NSRegularExpression(pattern: pattern,
+        options: NSRegularExpressionOptions.CaseInsensitive)) as NSRegularExpression!
     
     return regex.stringByReplacingMatchesInString(string,
         options: NSMatchingOptions.WithTransparentBounds,
-        range: NSMakeRange(0, countElements(string)),
+        range: NSMakeRange(0, string.characters.count),
         withTemplate: template)
 }
 
@@ -52,18 +51,17 @@ func beginWithLetter(string : String) -> Bool {
     
     var processedString = string
     
-    if(countElements(string) > 0){
-        let idx : String.Index = advance(processedString.startIndex, 1)
+    if(string.characters.count > 0){
+        let idx : String.Index = processedString.startIndex.advancedBy(1)
         processedString = processedString.substringToIndex(idx)
         let template = "$1"
         let pattern = "[a-zA-Z]" //remove any alphabetic
-        let regex = NSRegularExpression(pattern: pattern,
-            options: NSRegularExpressionOptions.CaseInsensitive,
-            error: nil) as NSRegularExpression!
+        let regex = (try? NSRegularExpression(pattern: pattern,
+            options: NSRegularExpressionOptions.CaseInsensitive)) as NSRegularExpression!
         
         processedString = regex.stringByReplacingMatchesInString(processedString,
             options: NSMatchingOptions.WithTransparentBounds,
-            range: NSMakeRange(0, countElements(processedString)),
+            range: NSMakeRange(0, processedString.characters.count),
             withTemplate: template)
         
         return processedString == ""
@@ -158,23 +156,15 @@ class RPTools {
 
 
 extension Array {
-    func shuffleArray() -> [T] {
+    func shuffleArray() -> [Element] {
         var arr = self
-        var newArray = [T]()
+        var newArray = [Element]()
         
-        var arrSize = arr.count
-        
-        while(arrSize > 0) {
-            
-            var randNum = Int(arc4random_uniform(UInt32(arrSize)))
-            
-            let item: T = arr[randNum]
-            arr.removeAtIndex(randNum)
-            
-            newArray.append(item)
-            arrSize = arr.count
+        var randNum = 0
+        while(arr.count > 0) {
+            randNum = Int(arc4random_uniform(UInt32(arr.count)))
+            newArray.append(arr.removeAtIndex(randNum))
         }
-        
         return newArray
     }
     
@@ -186,11 +176,11 @@ extension MPMediaItemCollection {
         get {
             var query = MPMediaQuery.albumsQuery()
             let filterPredicate = MPMediaPropertyPredicate(
-                value: representativeItem.valueForProperty(MPMediaItemPropertyArtistPersistentID),
+                value: representativeItem!.valueForProperty(MPMediaItemPropertyArtistPersistentID),
                 forProperty: MPMediaItemPropertyArtistPersistentID)
-            query.filterPredicates = NSSet(object: filterPredicate)
+            query.filterPredicates = Set(arrayLiteral: filterPredicate)
             
-            return query.collections.count
+            return query.collections!.count
         }
     }
     

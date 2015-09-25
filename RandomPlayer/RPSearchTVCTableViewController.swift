@@ -27,12 +27,12 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     var delegate : RPSearchTVCDelegate?
     var searchTableView : UITableView?
     
-    override init(){
-        querySearchArtist = MPMediaQuery.artistsQuery()
-        querySearchAlbum = MPMediaQuery.albumsQuery()
-        querySearchSong = MPMediaQuery.songsQuery()
-        super.init()
-    }
+//    override init(){
+//        querySearchArtist = MPMediaQuery.artistsQuery()
+//        querySearchAlbum = MPMediaQuery.albumsQuery()
+//        querySearchSong = MPMediaQuery.songsQuery()
+//        super.init()
+//    }
     
     override init(style: UITableViewStyle) {
         querySearchArtist = MPMediaQuery.artistsQuery()
@@ -41,14 +41,14 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         super.init(style: style)
     }
     
-    required init(coder aDecoder: NSCoder)  {
+    required init?(coder aDecoder: NSCoder)  {
         querySearchArtist = MPMediaQuery.artistsQuery()
         querySearchAlbum = MPMediaQuery.albumsQuery()
         querySearchSong = MPMediaQuery.songsQuery()
         super.init(coder: aDecoder)
     }
     
-    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         querySearchArtist = MPMediaQuery.artistsQuery()
         querySearchAlbum = MPMediaQuery.albumsQuery()
         querySearchSong = MPMediaQuery.songsQuery()
@@ -90,13 +90,13 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     /**Return the item (MPMediaItem or MPMediaItemCollection) corresponding in the section, and the selected row.*/
     func itemForPath(path : NSIndexPath) -> AnyObject! {
         if(path.section == 0){
-            return querySearchArtist.collections[path.row]
+            return querySearchArtist.collections![path.row]
         }
         else if(path.section == 1){
-            return querySearchAlbum.collections[path.row]
+            return querySearchAlbum.collections![path.row]
         }
         else if(path.section == 2){
-            return querySearchSong.items[path.row]
+            return querySearchSong.items![path.row]
         }
         else {
             return nil //critical error
@@ -115,24 +115,24 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         querySearchArtist = MPMediaQuery.artistsQuery()
         let filterPredicateArtist = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyArtist, comparisonType: MPMediaPredicateComparison.Contains)
         
-        querySearchArtist.filterPredicates = NSSet(object: filterPredicateArtist)
+        querySearchArtist.filterPredicates = Set(arrayLiteral: filterPredicateArtist)
         //self.tableView.reloadData()
         
         
         querySearchAlbum = MPMediaQuery.albumsQuery()
         let filterPredicateAlbum = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyAlbumTitle, comparisonType: MPMediaPredicateComparison.Contains)
-        querySearchAlbum.filterPredicates = NSSet(object: filterPredicateAlbum)
+        querySearchAlbum.filterPredicates = Set(arrayLiteral: filterPredicateAlbum)
         
         
         let filterPredicateSong = MPMediaPropertyPredicate(value: searchText, forProperty: MPMediaItemPropertyTitle, comparisonType: MPMediaPredicateComparison.Contains)
-        querySearchSong.filterPredicates = NSSet(object: filterPredicateSong)
+        querySearchSong.filterPredicates = Set(arrayLiteral: filterPredicateSong)
         
     }
     
     
     
-    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
-        filterContentFor(searchString)
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
+        filterContentFor(searchString!)
         return true
     }
     
@@ -143,11 +143,11 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section){
         case 0:
-            return "Artists (\(querySearchArtist.collections.count))"
+            return "Artists (\(querySearchArtist.collections!.count))"
         case 1:
-            return "Album (\(querySearchAlbum.collections.count))"
+            return "Album (\(querySearchAlbum.collections!.count))"
         case 2:
-            return "Songs (\(querySearchSong.items.count))"
+            return "Songs (\(querySearchSong.items!.count))"
         default:
             return "ERROR"
         }
@@ -168,11 +168,17 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         var nbRows = 0
         var query = queryForSection(section)
         if(query == querySearchSong){
-            return query.items.count
+            if let items = query.items {
+                return items.count
+            }
+            return 0
         }
         else {
-            dprint("nb: \(query.collections.count)")
-            return query.collections.count
+            if let collections = query.collections {
+                dprint("nb: \(collections.count)")
+                return collections.count
+            }
+            return 0
         }
         
     }
@@ -192,12 +198,14 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         if(indexPath.section == 0) {
             let identifier = "artist cell"
             tableView.registerNib(UINib(nibName: "RPCellArtist", bundle: nil), forCellReuseIdentifier: identifier)
-            cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+            cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! RPCell
             
-            let artist = queryForSection(indexPath.section).collections[indexPath.row] as MPMediaItemCollection
-            let item = artist.representativeItem as MPMediaItem
-            let songTitle = item.valueForProperty(MPMediaItemPropertyArtist) as String
-            cell.mainLabel.text = songTitle
+            let artist = queryForSection(indexPath.section).collections![indexPath.row] 
+            let item = artist.representativeItem
+            
+            if(item != nil) {
+                cell.mainLabel.text = item!.valueForProperty(MPMediaItemPropertyArtist) as! String
+            }
             
             cell.subLabel.text = RPTools.numberAlbumOfArtistFormattedString(artist) + ", " + RPTools.numberSongInCollection(artist)
             
@@ -205,17 +213,17 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         else if(indexPath.section == 1){
             let identifier = "album cell"
             tableView.registerNib(UINib(nibName: "RPCellAlbum", bundle: nil), forCellReuseIdentifier: identifier)
-            cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+            cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! RPCell
             
-            let album = queryForSection(indexPath.section).collections[indexPath.row] as MPMediaItemCollection
-            let item = album.representativeItem as MPMediaItem
-            let albumTitle = item.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
+            let album = queryForSection(indexPath.section).collections![indexPath.row] as! MPMediaItemCollection
+            let item = album.representativeItem
+            let albumTitle = item!.valueForProperty(MPMediaItemPropertyAlbumTitle) as! String
             cell.mainLabel.text = albumTitle
             
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {() -> Void in
                 
-                let artwork : MPMediaItemArtwork? = item.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
+                let artwork : MPMediaItemArtwork? = item!.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
                 let artworkImage = artwork?.imageWithSize(cell.cellImageView.bounds.size)
                 
                 dispatch_async(dispatch_get_main_queue(), {() -> Void in
@@ -231,12 +239,12 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         else if(indexPath.section == 2){
             let identifier = "song cell"
             tableView.registerNib(UINib(nibName: "RPCellSong", bundle: nil), forCellReuseIdentifier: identifier)
-            cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
-            let item = queryForSection(indexPath.section).items[indexPath.row] as MPMediaItem
-            let title = item.valueForProperty(MPMediaItemPropertyTitle) as String
+            cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! RPCell
+            let item = queryForSection(indexPath.section).items![indexPath.row] as! MPMediaItem
+            let title = item.valueForProperty(MPMediaItemPropertyTitle) as! String
             cell.mainLabel.text = title
             
-            let duration = item.valueForProperty(MPMediaItemPropertyPlaybackDuration) as NSTimeInterval
+            let duration = item.valueForProperty(MPMediaItemPropertyPlaybackDuration) as! NSTimeInterval
             cell.subLabel.text = formatTimeToMinutesSeconds(Int(duration))
             
 
@@ -259,15 +267,15 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if(indexPath.section == 0){
-            let artist = querySearchArtist.collections[indexPath.row] as MPMediaItemCollection
+            let artist = querySearchArtist.collections![indexPath.row] as! MPMediaItemCollection
             delegate?.artistPicked(artist)
         }
         else if(indexPath.section == 1){
-            let album = querySearchAlbum.collections[indexPath.row] as MPMediaItemCollection
+            let album = querySearchAlbum.collections![indexPath.row] as! MPMediaItemCollection
             delegate?.albumPicked(album)
         }
         else {
-            let song = querySearchSong.items[indexPath.row] as MPMediaItem
+            let song = querySearchSong.items![indexPath.row] as! MPMediaItem
             delegate?.songPicked(song)
         }
     }
@@ -291,10 +299,10 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         var songs : Array<MPMediaItem> = Array()
         
         if(path.section == 0 || path.section == 1){
-            songs += itemForPath(path).items as Array<MPMediaItem>
+            songs += itemForPath(path)  as! Array<MPMediaItem>
         }
         else if(path.section == 2) {
-            songs.append(itemForPath(path) as MPMediaItem)
+            songs.append(itemForPath(path) as! MPMediaItem)
         }
         
         RPPlayer.player.addSongs(songs)
@@ -309,10 +317,12 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         
         var songs : Array<MPMediaItem> = Array()
             if(path.section == 0 || path.section == 1){
-                songs += itemForPath(path).items as Array<MPMediaItem>
+                //is or an artist or an album
+                songs += (itemForPath(path) as! MPMediaItemCollection).items
             }
             else if(path.section == 2) {
-                songs.append(itemForPath(path) as MPMediaItem)
+                //is a song
+                songs.append(itemForPath(path) as! MPMediaItem)
             }
             
             RPPlayer.player.addNextAndPlay(songs)
@@ -325,10 +335,12 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
         var songs : Array<MPMediaItem> = Array()
         
         if(path.section == 0 || path.section == 1){
-            songs += itemForPath(path).items as Array<MPMediaItem>
+            //is an album or an artist
+            songs += (itemForPath(path) as! MPMediaItemCollection).items
         }
         else if(path.section == 2) {
-            songs.append(itemForPath(path) as MPMediaItem)
+            //is a song
+            songs.append(itemForPath(path) as! MPMediaItem)
         }
 
         RPPlayer.player.addNext(songs)

@@ -39,15 +39,16 @@ class RPSwipableTVCell: UITableViewCell, UIGestureRecognizerDelegate {
     
     
     
-    override init() {
-        super.init()
-    }
-override     
-    init(frame: CGRect) {
-        super.init(frame: frame)
-    }
+//    override init() {
+//        super.init()
+//    }
+//    
+//    override     
+//    init(frame: CGRect) {
+//        super.init(frame: frame)
+//    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -137,7 +138,7 @@ override
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         if(gestureRecognizer.isMemberOfClass(UIPanGestureRecognizer)){
-            let pan = gestureRecognizer as UIPanGestureRecognizer
+            let pan = gestureRecognizer as! UIPanGestureRecognizer
             
             let velocity = pan.velocityInView(self.contentView)
             
@@ -147,7 +148,7 @@ override
         }
         else {
             if let view = behindView {
-                let viewInside = (self.contentView.window!).subviews[0] as UIView
+                let viewInside = (self.contentView.window!).subviews[0] 
                 var eventToTest = UIEvent()
                 
                 if(view.pointInside(gestureRecognizer.locationInView(viewInside), withEvent: nil)){

@@ -320,6 +320,8 @@
 		C8B34E61197FDCD9007BA1E1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Jonathan Duss";
 				TargetAttributes = {
@@ -529,7 +531,7 @@
 				OTHER_SWIFT_FLAGS = "-DEXTREME_LOG -DDEBUG -DLOG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer/RandomPlayer-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Debug;
 		};

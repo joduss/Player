@@ -25,6 +25,10 @@ let NSUSERDEFAULT_RPPLAYER_QUEUE = "NSUSERDEFAULT_RPPLAYER_QUEUE"
 let NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING = "NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING"
 
 
+/*******************************************************************************************/
+// Player implementation
+/*******************************************************************************************/
+
 class RPPlayer : NSObject {
     
     let queue = RPQueue()
@@ -136,9 +140,15 @@ class RPPlayer : NSObject {
         repeatMode = MPMusicRepeatMode.All
         super.init()
         
-        //Allow background
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
+        do {
+            //Allow background
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        } catch _ {
+        }
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch _ {
+        }
         
         //Notification song is at end
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "automaticallyTransitionToNextSong", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
@@ -159,7 +169,7 @@ class RPPlayer : NSObject {
     
     func playSong(song : MPMediaItem, shouldStartPlaying : Bool) {
         
-        let asset = AVURLAsset(URL: song.valueForProperty(MPMediaItemPropertyAssetURL) as NSURL, options: nil)
+        let asset = AVURLAsset(URL: song.valueForProperty(MPMediaItemPropertyAssetURL) as! NSURL, options: nil)
         // What
         let keyArray = ["tracks", "duration"]
         
@@ -207,10 +217,10 @@ class RPPlayer : NSObject {
         if let song = nowPlayingItem {
             
             var d : [String : AnyObject!] = Dictionary()
-            d[MPMediaItemPropertyArtist] = nowPlayingItem?.artist()
-            d[MPMediaItemPropertyAlbumTitle] = nowPlayingItem?.albumTitle()
+            d[MPMediaItemPropertyArtist] = nowPlayingItem?.artistFormatted()
+            d[MPMediaItemPropertyAlbumTitle] = nowPlayingItem?.albumTitleFormatted()
             d[MPMediaItemPropertyTitle] = nowPlayingItem?.songTitle()
-            d[MPMediaItemPropertyArtwork] = nowPlayingItem?.artwork()
+            d[MPMediaItemPropertyArtwork] = nowPlayingItem?.artworkWithDefaultIfNone()
             d[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(avMusicPlayer.currentTime())
             d[MPMediaItemPropertyPlaybackDuration] = nowPlayingItem?.duration()
             
@@ -219,7 +229,7 @@ class RPPlayer : NSObject {
             
             MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = d
             
-            lprint("Is playing \"\(nowPlayingItem?.artist() as String!) - \(nowPlayingItem?.songTitle() as String!)\"" )
+            lprint("Is playing \"\(nowPlayingItem?.artistFormatted() as String!) - \(nowPlayingItem?.songTitle() as String!)\"" )
         }
         else {
             MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = nil
@@ -473,7 +483,7 @@ class RPPlayer : NSObject {
     func printSongQueue(a : Array<MPMediaItem>) {
         #if DEBUG
             for item in a {
-                print("\(item.title)  ")
+                print("\(item.title)  ", terminator: "")
             }
         #endif
     }
@@ -481,9 +491,9 @@ class RPPlayer : NSObject {
     func printArray(a :Array<String>){
         #if DEBUG
             for item in a {
-                print("\"\(item) \"")
+                print("\"\(item) \"", terminator: "")
             }
-            println()
+            print("")
         #endif
     }
     
@@ -494,11 +504,18 @@ class RPPlayer : NSObject {
     
     func saveQueue(){
         
-        var arrayOfId = queue.getArrayOfId()
+        let arrayOfId = queue.getArrayOfId()
         
         let data = NSUserDefaults.standardUserDefaults()
-        data.setObject(arrayOfId, forKey: NSUSERDEFAULT_RPPLAYER_QUEUE)
-        data.setInteger(currentItemIndex, forKey: NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING)
+        if(queue.count > 0){
+            data.setObject(arrayOfId, forKey: NSUSERDEFAULT_RPPLAYER_QUEUE)
+            data.setInteger(currentItemIndex, forKey: NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING)
+        }
+        else
+        {
+            data.removeObjectForKey(NSUSERDEFAULT_RPPLAYER_QUEUE)
+            data.removeObjectForKey(NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING)
+        }
     }
     
     //restore queue from previous session
@@ -508,9 +525,12 @@ class RPPlayer : NSObject {
         let storedQueue = data.arrayForKey(NSUSERDEFAULT_RPPLAYER_QUEUE) as?  Array<NSNumber>
         
         if let queueToLoad = storedQueue {
-            queue += queueToLoad
-            currentItemIndex = data.integerForKey(NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING)
-            playSong(queue[currentItemIndex], shouldStartPlaying: false)
+            if(queueToLoad.count > 0){
+                
+                queue += queueToLoad
+                currentItemIndex = data.integerForKey(NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING)
+                playSong(queue[currentItemIndex], shouldStartPlaying: false)
+            }
         }
     }
 }

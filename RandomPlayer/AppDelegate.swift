@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         // Override point for customization after application launch.
 
         UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
@@ -27,36 +27,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     //controll the player from the control center or the lock screen
-    override func remoteControlReceivedWithEvent(event: UIEvent) {
-        if(event.type == UIEventType.RemoteControl){
-            
-            switch(event.subtype){
-            case UIEventSubtype.RemoteControlPlay:
+    override func remoteControlReceivedWithEvent(event: UIEvent?) {
+        if let thisEvent = event {
+            if(thisEvent.type == UIEventType.RemoteControl){
+                
+                switch(thisEvent.subtype){
+                case UIEventSubtype.RemoteControlPlay:
                     RPPlayer.player.play()
-            case UIEventSubtype.RemoteControlPause:
-                RPPlayer.player.pause()
-            case UIEventSubtype.RemoteControlNextTrack:
-                RPPlayer.player.skipToNextItem()
-            case UIEventSubtype.RemoteControlPreviousTrack:
-                RPPlayer.player.skipToPreviousItem()
-            case UIEventSubtype.RemoteControlBeginSeekingBackward:
-                dprint("seeking back")
-            case UIEventSubtype.RemoteControlBeginSeekingForward:
-                dprint("seeking forward")
-            default:
-                dprint("remoteControlReceivedWithEvent - case NOT HANDLED")
+                case UIEventSubtype.RemoteControlPause:
+                    RPPlayer.player.pause()
+                case UIEventSubtype.RemoteControlNextTrack:
+                    RPPlayer.player.skipToNextItem()
+                case UIEventSubtype.RemoteControlPreviousTrack:
+                    RPPlayer.player.skipToPreviousItem()
+                case UIEventSubtype.RemoteControlBeginSeekingBackward:
+                    dprint("seeking back")
+                case UIEventSubtype.RemoteControlBeginSeekingForward:
+                    dprint("seeking forward")
+                default:
+                    dprint("remoteControlReceivedWithEvent - case NOT HANDLED")
+                }
+                
             }
-
         }
     }
 
-    func applicationWillResignActive(application: UIApplication!) {
+    func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
         //RPPlayer.player.play()
     }
 
-    func applicationDidEnterBackground(application: UIApplication!) {
+    func applicationDidEnterBackground(application: UIApplication) {
         dprint("background !!!!!!!!")
         
         RPPlayer.player.saveQueue() //save queue in case the app is closed
@@ -68,15 +70,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
-    func applicationWillEnterForeground(application: UIApplication!) {
+    func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication!) {
+    func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(application: UIApplication!) {
+    func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         dprint("terminated")
@@ -88,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "f.TESTTEST" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as NSURL
+        return urls[urls.count-1] 
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -104,18 +106,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("RandomPlayer.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        do {
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+        } catch var error1 as NSError {
+            error = error1
             coordinator = nil
             // Report any error we got.
-            let dict = NSMutableDictionary()
+            var dict = Dictionary<NSObject, AnyObject>()
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo:dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
             abort()
+        } catch {
+            fatalError()
         }
         
         return coordinator
@@ -137,11 +144,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func saveContext () {
         if let moc = self.managedObjectContext {
             var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error1 as NSError {
+                    error = error1
+                    // Replace this implementation with code to handle the error appropriately.
+                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+                    abort()
+                }
             }
         }
     }

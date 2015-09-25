@@ -21,7 +21,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     @IBOutlet weak var tableView: UITableView!
     
     var v : UIView?
-    var barWidthConstraints : [AnyObject] = []
+    var barWidthConstraints : [NSLayoutConstraint] = []
 
 
     override func loadView() {
@@ -49,7 +49,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         if(self.navigationController?.navigationBar.barStyle == UIBarStyle.BlackTranslucent) {
             viewArray = NSBundle.mainBundle().loadNibNamed("RPQueuePanelBlack", owner: self, options: nil)
         }
-        let viewB = viewArray[0] as UIView
+        let viewB = viewArray[0] as! UIView
         
         self.view.addSubview(viewB)
         
@@ -61,13 +61,13 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         var h = self.navigationController?.navigationBar.frame.size.height
         
         viewB.autoresizingMask = UIViewAutoresizing.None
-        viewB.setTranslatesAutoresizingMaskIntoConstraints(false)
+        viewB.translatesAutoresizingMaskIntoConstraints = false
         
 
 
         
         var c9 = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: NSLayoutFormatOptions.AlignAllBaseline, metrics: nil, views: d)
-        barWidthConstraints.extend( NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
+        barWidthConstraints.appendContentsOf( NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
             options: NSLayoutFormatOptions.AlignAllBaseline,
             metrics: ["dist" :  (h! + y!)],
             views: d))
@@ -128,7 +128,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
                 metrics: ["dist" :  (h! + y!)],
                 views: dic)
             
-            barWidthConstraints.extend(c)
+            barWidthConstraints.appendContentsOf(c)
             
             self.view.addConstraints(barWidthConstraints)
         }
@@ -248,7 +248,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         
         tableView.registerNib(UINib(nibName: "RPCellQueue", bundle: nil), forCellReuseIdentifier: identifier)
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPSimpleCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! RPSimpleCell
         //cell.delegate = self
 
         // Configure the cell
@@ -259,7 +259,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
             //let albumName = item.albumTitle()
             //let songTitle = item.songTitle()
             cell.mainLabel.text = item.songTitle()
-            cell.subLabel.text = item.artist() + " - " + item.albumTitle()
+            cell.subLabel.text = item.artistFormatted() + " - " + item.albumTitleFormatted()
             
             if(RPPlayer.player.currentItemIndex == indexPath.row){
                 cell.contentView.backgroundColor = UIColor.greenColor().colorWithAlphaComponent(0.2)
@@ -273,7 +273,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {() -> Void in
                 
-                var artworkImage = item.artworkImage(ofSize:imageView.bounds.size)
+                let artworkImage = item.artworkImage(ofSize:imageView.bounds.size)
                 
                 dispatch_async(dispatch_get_main_queue(), {() -> Void in
                     imageView.image = artworkImage

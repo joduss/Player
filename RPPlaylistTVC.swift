@@ -101,7 +101,7 @@ class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDele
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return query.collections.count
+        return query.collections!.count
     }
 
     
@@ -111,19 +111,19 @@ class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDele
         tableView.registerNib(UINib(nibName: "RPCellPlaylist", bundle: nil), forCellReuseIdentifier: identifier)
         
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as RPCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! RPCell
         
         let titleLabel = cell.mainLabel
         let subtitleLabel = cell.subLabel
         
-        var playlist = query.collections[indexPath.row] as MPMediaPlaylist
+        var playlist = query.collections![indexPath.row] as! MPMediaPlaylist
         
         //dprint("\(playlist.valueForProperty(MPMediaItemP))")
 
         titleLabel.text = playlist.name
         
         if(playlist.items.count > 0){
-            subtitleLabel.text = RPTools.numberSong(playlist.items as Array<MPMediaItem>)
+            subtitleLabel.text = RPTools.numberSong(playlist.items as! Array<MPMediaItem>)
         }
         else {
             subtitleLabel.text = "No song"
@@ -144,7 +144,7 @@ class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDele
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let playlist = query.collections[indexPath.row] as MPMediaPlaylist
+        let playlist = query.collections![indexPath.row] as! MPMediaPlaylist
         
         performSegueWithIdentifier("segue playlist to song", sender: playlist)
     }
@@ -200,16 +200,16 @@ class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDele
         dprint("segue: \(segue.identifier)")
         
         if(segue.identifier == "segue playlist to song") {
-            let dest = segue.destinationViewController as RPSongTVC
+            let dest = segue.destinationViewController as! RPSongTVC
 
             if(sender.isKindOfClass(MPMediaPlaylist)){
-                let playlist = sender as MPMediaPlaylist
+                let playlist = sender as! MPMediaPlaylist
                 dest.setCollectionToDisplay(playlist)
                 dest.title = playlist.name
             }
             else
             {
-                let playlist = sender as MPMediaPlaylist
+                let playlist = sender as! MPMediaPlaylist
                 dest.setCollectionToDisplay(playlist)
                 dest.title = playlist.name
             }
@@ -218,8 +218,8 @@ class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDele
             
         }
         else if(segue.identifier == "segue playlist to album") {
-            let dest = segue.destinationViewController as RPAlbumTVC
-            let artist = sender as MPMediaItemCollection
+            let dest = segue.destinationViewController as! RPAlbumTVC
+            let artist = sender as! MPMediaItemCollection
             dest.filterAlbumForArtist(artist)
         }
     }
@@ -237,24 +237,24 @@ class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDele
     
     func buttonCenterLeftPressed(cell: RPSwipableTVCell!) {
         if let path = self.tableView.indexPathForCell(cell){
-            let playlist = query.collections[path.row] as MPMediaPlaylist
-            RPPlayer.player.addSongs(playlist.items as Array<MPMediaItem>)
+            let playlist = query.collections![path.row] as! MPMediaPlaylist
+            RPPlayer.player.addSongs(playlist.items )
         }
         cell .hideBehindCell()
     }
     
     func buttonCenterRightPressed(cell: RPSwipableTVCell!) {
         if let path = self.tableView.indexPathForCell(cell) {
-            let playlist = query.collections[path.row] as MPMediaPlaylist
-            RPPlayer.player.addNextAndPlay(playlist.items as Array<MPMediaItem>)
+            let playlist = query.collections![path.row] as! MPMediaPlaylist
+            RPPlayer.player.addNextAndPlay(playlist.items )
         }
         cell.hideBehindCell()
     }
     
     func buttonRightPressed(cell: RPSwipableTVCell!) {
         if let path = self.tableView.indexPathForCell(cell) {
-            let playlist = query.collections[path.row] as MPMediaPlaylist
-            RPPlayer.player.addNext(playlist.items as Array<MPMediaItem>)
+            let playlist = query.collections![path.row] as! MPMediaPlaylist
+            RPPlayer.player.addNext(playlist.items )
             
             //let item = playlist.items[0]
             //let artistName = item.valueForProperty(MPMediaItemPropertyArtist) as String

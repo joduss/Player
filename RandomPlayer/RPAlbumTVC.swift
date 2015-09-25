@@ -25,17 +25,17 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     let ALBUM_CELL_IDENTIFIER = "album cell"
     
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         query = MPMediaQuery.albumsQuery()
         query.groupingType = MPMediaGrouping.Album
         super.init(coder: aDecoder)
     }
     
-    override init() {
-        query = MPMediaQuery.albumsQuery()
-        query.groupingType = MPMediaGrouping.Album
-        super.init()
-    }
+//    override init() {
+//        query = MPMediaQuery.albumsQuery()
+//        query.groupingType = MPMediaGrouping.Album
+//        super.init()
+//    }
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         query = MPMediaQuery.albumsQuery()
@@ -95,7 +95,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
         let mediaQuerySection: AnyObject = self.query.collectionSections[indexPath.section]
         let albumIndex = mediaQuerySection.range.location + indexPath.row
         
-        return self.query.collections[albumIndex] as MPMediaItemCollection
+        return self.query.collections[albumIndex] as! MPMediaItemCollection
     }
     
     /**Load album only for the specified artist*/
@@ -105,7 +105,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
         let filterPredicate = MPMediaPropertyPredicate(
             value: artist.representativeItem.valueForProperty(MPMediaItemPropertyArtistPersistentID),
             forProperty: MPMediaItemPropertyArtistPersistentID)
-        query.filterPredicates = NSSet(object: filterPredicate)
+        query.filterPredicates = NSSet(object: filterPredicate) as Set<NSObject>
         //self.tableView.reloadData()
     }
     
@@ -123,7 +123,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     func buttonCenterLeftPressed(cell: RPSwipableTVCell!) {
         if let path = self.tableView.indexPathForCell(cell) {
         
-        RPPlayer.player.addSongs(albumAtIndexPath(path).items as Array<MPMediaItem>)
+        RPPlayer.player.addSongs(albumAtIndexPath(path).items )
         }
         cell .hideBehindCell()
     }
@@ -131,7 +131,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     func buttonCenterRightPressed(cell: RPSwipableTVCell!) {
         if let path = self.tableView.indexPathForCell(cell) {
         
-        RPPlayer.player.addNextAndPlay(self.albumAtIndexPath(path).items as Array<MPMediaItem>)
+        RPPlayer.player.addNextAndPlay(self.albumAtIndexPath(path).items )
         }
         cell .hideBehindCell()
     }
@@ -139,7 +139,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     func buttonRightPressed(cell: RPSwipableTVCell!) {
         if let path = self.tableView.indexPathForCell(cell){
         
-        RPPlayer.player.addNext(self.albumAtIndexPath(path).items as Array<MPMediaItem>)
+        RPPlayer.player.addNext(self.albumAtIndexPath(path).items )
         }
         cell .hideBehindCell()
     }
@@ -163,7 +163,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
         return self.query.collectionSections[section].range.length
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String {
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if(artist == nil) {
             return query.collectionSections[section].title!!
         }
@@ -182,7 +182,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     }
     
     //show alphabet on right part 2
-    func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject]! {
+    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]! {
         if(artist == nil) {
             var indexTitles : Array<String> = Array()
             indexTitles.append(UITableViewIndexSearch)
@@ -199,7 +199,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     //Setup the  cells with the loaded content.
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(ALBUM_CELL_IDENTIFIER, forIndexPath: indexPath) as RPCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(ALBUM_CELL_IDENTIFIER, forIndexPath: indexPath) as! RPCell
         
         cell.delegate = self
         //cell.rightViewOffSet = 80
@@ -271,8 +271,8 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "segue album to song") {
-            let dest = segue.destinationViewController as RPSongTVC
-            let album = sender as MPMediaItemCollection
+            let dest = segue.destinationViewController as! RPSongTVC
+            let album = sender as! MPMediaItemCollection
             
             dprint("dest: \(dest)")
             dprint("album: \(album)")
@@ -281,8 +281,8 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
             dest.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as? String
         }
         else if(segue.identifier == "segue album to album") {
-            let dest = segue.destinationViewController as RPAlbumTVC
-            let artist = sender as MPMediaItemCollection
+            let dest = segue.destinationViewController as! RPAlbumTVC
+            let artist = sender as! MPMediaItemCollection
             dest.filterAlbumForArtist(artist)
         }
     }

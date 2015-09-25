@@ -12,23 +12,23 @@ import MediaPlayer
 extension MPMediaItem {
     
     func songTitle() -> String{
-        var title = self.valueForProperty(MPMediaItemPropertyTitle) as String?
+        var title = self.valueForProperty(MPMediaItemPropertyTitle) as! String?
         if(title == nil){
             title = "Unknown title"
         }
         return title!
     }
     
-    func albumTitle() -> String{
-        var albumTitle = self.valueForProperty(MPMediaItemPropertyAlbumTitle) as String?
+    func albumTitleFormatted() -> String{
+        var albumTitle = self.valueForProperty(MPMediaItemPropertyAlbumTitle) as! String?
         if(albumTitle == nil){
             albumTitle = "Unknown album title"
         }
         return albumTitle!
     }
     
-    func artist() -> String{
-        var artist = self.valueForProperty(MPMediaItemPropertyAlbumArtist) as String?
+    func artistFormatted() -> String{
+        var artist = self.valueForProperty(MPMediaItemPropertyAlbumArtist) as! String?
         if(artist == nil){
             artist = "Unknown artist"
         }
@@ -46,17 +46,17 @@ extension MPMediaItem {
         return artworkImage!
     }
     
-    func artwork() -> MPMediaItemArtwork {
+    func artworkWithDefaultIfNone() -> MPMediaItemArtwork {
         var artwork : MPMediaItemArtwork? = self.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
         
         if(artwork == nil){
-            artwork = MPMediaItemArtwork(image: UIImage(named: "default_artwork"))
+            artwork = MPMediaItemArtwork(image: UIImage(named: "default_artwork")!)
         }
         return artwork!
     }
     
     func duration() -> NSTimeInterval {
-        return self.valueForProperty(MPMediaItemPropertyPlaybackDuration) as NSTimeInterval
+        return self.valueForProperty(MPMediaItemPropertyPlaybackDuration) as! NSTimeInterval
     }
    
 }

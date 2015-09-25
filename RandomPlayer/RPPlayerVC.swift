@@ -37,7 +37,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     //########################################################################
     // #pragma mark - Initialization
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         musicPlayer = RPPlayer.player
         super.init(coder: aDecoder)
     }
@@ -258,14 +258,14 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
             
             //information about the song
             labelTitle.text = song.title
-            labelArtistAlbum.text = song.artist() + " - " + song.albumTitle()
+            labelArtistAlbum.text = song.artist + " - " + song.albumTitle
             
             //slider max value
             sliderTime.maximumValue = Float(song.duration())
             
             
             //rating
-            viewRating.rating = Float(song.valueForProperty(MPMediaItemPropertyRating) as Int)
+            viewRating.rating = Float(song.valueForProperty(MPMediaItemPropertyRating) as! Int)
         }
         else
         {
@@ -322,7 +322,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     //########################################################################
     // #pragma mark - UIActionSheet Delegate
     
-    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         
         if(buttonIndex == 1){
             lprint("Repeat OFF\n\n")

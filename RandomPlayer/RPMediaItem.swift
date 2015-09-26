@@ -9,6 +9,15 @@
 import UIKit
 import MediaPlayer
 
+/**
+Extension of MPMediaItem to provide easy access to some information such as
+- title of the song
+- title of the album
+- name of the artist
+- artwork image
+- duration
+...
+*/
 extension MPMediaItem {
     
     func songTitle() -> String{

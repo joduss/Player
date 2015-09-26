@@ -37,7 +37,7 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
     
     required init?(coder aDecoder: NSCoder)  {
         self.query = MPMediaQuery.artistsQuery()
-        self.collectionSections = query.collectionSections
+        self.collectionSections = query.collectionSections!
         super.init(coder: aDecoder)
     }
     
@@ -49,7 +49,7 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         self.query = MPMediaQuery.artistsQuery()
-        self.collectionSections = query.collectionSections
+        self.collectionSections = query.collectionSections!
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -92,7 +92,7 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
                 let navc = viewController as! UINavigationController
                 
                 if(navc.viewControllers[0].isKindOfClass(RPQueueTVC.classForCoder())){
-                    navc.viewControllers[0].view
+                    //navc.viewControllers[0].view
                     dprint("hop")
                 }
             }
@@ -201,7 +201,7 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
         let mediaQuerySection: AnyObject = self.collectionSections[indexPath.section]
         let artistIndex = mediaQuerySection.range.location + indexPath.row
         
-        return self.query.collections[artistIndex] as! MPMediaItemCollection
+        return self.query.collections![artistIndex]
     }
     
     
@@ -209,7 +209,7 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
         let mediaQuerySection: AnyObject = self.collectionSections[indexPath.section]
         let artistIndex = mediaQuerySection.range.location + indexPath.row
         
-        return self.querySearchArtist?.collections[artistIndex] as! MPMediaItemCollection
+        return (self.querySearchArtist?.collections![artistIndex])!
     }
 
     
@@ -324,7 +324,7 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
         
         
         
-        titleLabel.text = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as? String
+        titleLabel.text = artist.representativeItem!.valueForProperty(MPMediaItemPropertyArtist) as? String
         
         let nbSongTitle = RPTools.numberSongInCollection(artist)
         let nbAlbumTitle = RPTools.numberAlbumOfArtistFormattedString(artist)

@@ -22,7 +22,7 @@ protocol RPSwipableTVCellDelegate {
 
 
 
-class RPSwipableTVCell: UITableViewCell, UIGestureRecognizerDelegate {
+class RPSwipableTVCell: UITableViewCell {
     
     let MAX_CELL_ANIMATION_DURATION = 0.5
     
@@ -138,6 +138,9 @@ class RPSwipableTVCell: UITableViewCell, UIGestureRecognizerDelegate {
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         if(gestureRecognizer.isMemberOfClass(UIPanGestureRecognizer)){
+            
+            //Pan is swiping the cell.
+            //only activate it if the velocity of the pan is above a threshold
             let pan = gestureRecognizer as! UIPanGestureRecognizer
             
             let velocity = pan.velocityInView(self.contentView)
@@ -149,7 +152,7 @@ class RPSwipableTVCell: UITableViewCell, UIGestureRecognizerDelegate {
         else {
             if let view = behindView {
                 let viewInside = (self.contentView.window!).subviews[0] 
-                var eventToTest = UIEvent()
+                //var eventToTest = UIEvent()
                 
                 if(view.pointInside(gestureRecognizer.locationInView(viewInside), withEvent: nil)){
                     return false
@@ -188,7 +191,7 @@ class RPSwipableTVCell: UITableViewCell, UIGestureRecognizerDelegate {
     }
     
     
-    
+    /**The cell is being swiped currently*/
     func panMoved(pan : UIGestureRecognizer) {
         
         self.selectionStyle = UITableViewCellSelectionStyle.None
@@ -215,6 +218,7 @@ class RPSwipableTVCell: UITableViewCell, UIGestureRecognizerDelegate {
     }
     
     
+    /**The cell swiping has ended*/
     func panEnded(pan : UIPanGestureRecognizer) {
         
         if let fv = frontView{
@@ -232,14 +236,9 @@ class RPSwipableTVCell: UITableViewCell, UIGestureRecognizerDelegate {
                 if(neededTime > MAX_CELL_ANIMATION_DURATION){
                     neededTime = MAX_CELL_ANIMATION_DURATION
                 }
-//                
-//                UIView.animateWithDuration(NSTimeInterval(neededTime), delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {() -> Void in
-//                    fv.frame = self.contentView.frame
-//                    }, completion: {(a : Bool) -> Void in
-//                        self.behindView?.hidden = true
-//                })
+
                 
-                
+                //animated the cell so it continue to be "swiped" and hide completely what is behind
                 UIView.animateWithDuration(neededTime, delay: 0, options: UIViewAnimationOptions.CurveEaseOut,
                     animations: {() -> Void in
                         fv.frame = self.contentView.frame
@@ -261,21 +260,8 @@ class RPSwipableTVCell: UITableViewCell, UIGestureRecognizerDelegate {
                 if(neededTime > CGFloat(MAX_CELL_ANIMATION_DURATION)){
                     neededTime = CGFloat(MAX_CELL_ANIMATION_DURATION)
                 }
-                /*
-                UIView.animateWithDuration(NSTimeInterval(neededTime),
-                    animations: {() -> Void in
-                        let frame = self.contentView.frame
-                        
-                        let newFrame = CGRectMake(
-                            -frame.size.width + CGFloat(self.behindViewOffSet),
-                            frame.origin.y,
-                            frame.size.width,
-                            frame.size.height)
-                        fv.frame = self.contentView.frame
-                })
-                */
                 
-                
+                //animated the cell so it continue to be "swiped" and show completely what is behind
                 UIView.animateWithDuration(NSTimeInterval(neededTime), delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {() -> Void in
                     let frame = self.contentView.frame
                     
@@ -297,15 +283,14 @@ class RPSwipableTVCell: UITableViewCell, UIGestureRecognizerDelegate {
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        
         // Configure the view for the selected state
     }
     
     
+    /**Show the view "behind the cell". (Show the buttons) */
     func hideBehindCell(){
         
         if let fv = frontView{
-            
             let neededTime = MAX_CELL_ANIMATION_DURATION
             
             UIView.animateWithDuration(neededTime, delay: 0, options: UIViewAnimationOptions.CurveEaseOut,

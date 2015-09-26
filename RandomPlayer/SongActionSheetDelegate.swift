@@ -17,7 +17,7 @@ class SongActionSheetDelegate: NSObject, UIActionSheetDelegate {
         super.init()
     }
     
-    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         
         if let item = song{
             var itemArray : Array<MPMediaItem> = Array()

@@ -204,7 +204,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
             let item = artist.representativeItem
             
             if(item != nil) {
-                cell.mainLabel.text = item!.valueForProperty(MPMediaItemPropertyArtist) as! String
+                cell.mainLabel.text = item!.valueForProperty(MPMediaItemPropertyArtist) as? String
             }
             
             cell.subLabel.text = RPTools.numberAlbumOfArtistFormattedString(artist) + ", " + RPTools.numberSongInCollection(artist)
@@ -215,7 +215,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
             tableView.registerNib(UINib(nibName: "RPCellAlbum", bundle: nil), forCellReuseIdentifier: identifier)
             cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! RPCell
             
-            let album = queryForSection(indexPath.section).collections![indexPath.row] as! MPMediaItemCollection
+            let album = queryForSection(indexPath.section).collections![indexPath.row]
             let item = album.representativeItem
             let albumTitle = item!.valueForProperty(MPMediaItemPropertyAlbumTitle) as! String
             cell.mainLabel.text = albumTitle
@@ -240,7 +240,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
             let identifier = "song cell"
             tableView.registerNib(UINib(nibName: "RPCellSong", bundle: nil), forCellReuseIdentifier: identifier)
             cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! RPCell
-            let item = queryForSection(indexPath.section).items![indexPath.row] as! MPMediaItem
+            let item = queryForSection(indexPath.section).items![indexPath.row] as MPMediaItem
             let title = item.valueForProperty(MPMediaItemPropertyTitle) as! String
             cell.mainLabel.text = title
             
@@ -267,15 +267,15 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if(indexPath.section == 0){
-            let artist = querySearchArtist.collections![indexPath.row] as! MPMediaItemCollection
+            let artist = querySearchArtist.collections![indexPath.row]
             delegate?.artistPicked(artist)
         }
         else if(indexPath.section == 1){
-            let album = querySearchAlbum.collections![indexPath.row] as! MPMediaItemCollection
+            let album = querySearchAlbum.collections![indexPath.row]
             delegate?.albumPicked(album)
         }
         else {
-            let song = querySearchSong.items![indexPath.row] as! MPMediaItem
+            let song = querySearchSong.items![indexPath.row]
             delegate?.songPicked(song)
         }
     }

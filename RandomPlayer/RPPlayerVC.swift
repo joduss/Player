@@ -91,8 +91,8 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         
         
         self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
-        self.navigationController?.interactivePopGestureRecognizer.enabled = true
-        self.navigationController?.interactivePopGestureRecognizer.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer!.enabled = true
+        self.navigationController?.interactivePopGestureRecognizer!.delegate = self
         
         
         
@@ -258,7 +258,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
             
             //information about the song
             labelTitle.text = song.title
-            labelArtistAlbum.text = song.artist + " - " + song.albumTitle
+            labelArtistAlbum.text = song.artist! + " - " + song.albumTitle!
             
             //slider max value
             sliderTime.maximumValue = Float(song.duration())

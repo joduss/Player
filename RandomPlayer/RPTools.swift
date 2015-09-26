@@ -10,13 +10,18 @@ import Foundation
 import MediaPlayer
 
 
-/*******************************
-*   Class containing utility functions
-*
-********************************/
+//*******************************
+//*   Class containing utility functions
+//*
+//********************************/
 
 
-/**Convert and format input given in second to MINUTES:SECONDES*/
+
+/**
+Format a number of secondes into a string with format "MINUTES:SECONDS"
+- parameter secondsToConvert the number of seconds to format
+- returns : the formatted string
+*/
 func formatTimeToMinutesSeconds(secondsToConvert : Int) -> String {
     
     let minutes : Int = secondsToConvert / 60
@@ -29,10 +34,10 @@ func formatTimeToMinutesSeconds(secondsToConvert : Int) -> String {
 }
 
 
-/**lean String for sorting by removing whitespaces
-* @param string
-The string to clean
-@return The cleaned string*/
+/**clean String for sorting by removing whitespaces
+ -param string The string to clean
+ - Returns: The cleaned string
+*/
 func cleanStringForSort(string: String) -> String {
     let template = "$1"
     let pattern = "[\\s]" // remove any whitespace
@@ -46,7 +51,7 @@ func cleanStringForSort(string: String) -> String {
 }
 
 
-/** Return true if the first character is a letter */
+/** Return true if the first character of the specified string is alphabetic */
 func beginWithLetter(string : String) -> Bool {
     
     var processedString = string
@@ -71,6 +76,8 @@ func beginWithLetter(string : String) -> Bool {
 }
 
 
+/**
+* Shuffle the array and separate similar elements*/
 func shuffleAndSeparateSimilarElement<T : Equatable>(array: [T]) -> [T] {
     var newArray = array
     
@@ -84,16 +91,21 @@ func shuffleAndSeparateSimilarElement<T : Equatable>(array: [T]) -> [T] {
                 let c = newArray[i+2]
                 
                 if( (a == b) && (b == c)){
+                    //if 33 same are neighbors, we take the one in the middle and put it
+                    //somewhere else
                     let r = Int(arc4random_uniform(UInt32(newArray.count)))
                     let temp = newArray[r]
                     newArray[r] = b
                     newArray[i+1] = temp
                 }
                 else if(a == b){
+                    //if a and b are same (neighbor), 
+                    //we invert the c and b to separate a and b
                     newArray[i+1] = c
                     newArray[i+2] = b
                 }
                 else if(b == c) {
+                    //similar reasoning as above
                     newArray[i] = b
                     newArray[i+1] = a
                 }
@@ -101,15 +113,18 @@ func shuffleAndSeparateSimilarElement<T : Equatable>(array: [T]) -> [T] {
             numRepeat--
         }
     }
-    
     return newArray
-    
 }
+
 
 
 class RPTools {
     
-    /**Return the number of album for the given artist*/
+    /**
+    Create the following a string that gives the number of album (ex: "5 album").
+    - parameter collection: the artist
+    - returns: a string showing the number of album of the specified artist
+    */
     class func numberAlbumOfArtistFormattedString(artist : MPMediaItemCollection) -> String {
         if(artist.albumCount > 1){
             return "\(artist.albumCount) albums"
@@ -119,17 +134,25 @@ class RPTools {
         }
     }
     
-    /**Return the number of song of the given artist or album*/
-    class func numberSongInCollection(artist : MPMediaItemCollection) -> String {
-        if(artist.items.count > 1){
-            return "\(artist.items.count) songs"
+    /**
+    Create the following a string that gives the number of song (ex: "5 songs"). 
+    - parameter collection: the collection
+    - returns: a string showing the number of sing in the collection
+    */
+    class func numberSongInCollection(collection : MPMediaItemCollection) -> String {
+        if(collection.items.count > 1){
+            return "\(collection.items.count) songs"
         }
         else {
             return "1 song"
         }
     }
     
-    /**Return the number MPMediaItem*/
+    /**
+    Create the following a string that gives the number of song (ex: "5 songs"). 
+    - parameter items: array of MediaItems
+    - returns: a string showing the number of sing in the array
+    */
     class func numberSong(items : Array<MPMediaItem>) -> String {
         
         //        let now = NSDate().timeIntervalSince1970
@@ -149,8 +172,6 @@ class RPTools {
             return "1 song"
         }
     }
-    
-    
 }
 
 

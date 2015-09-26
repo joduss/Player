@@ -206,7 +206,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     //###################################################################################
     // #pragma mark - UIActionSheet delegate
     
-    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         
         if(actionSheet.tag == ActionSheetTag.EmptyQueue.rawValue){
             

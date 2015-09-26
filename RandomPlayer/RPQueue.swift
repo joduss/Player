@@ -33,6 +33,7 @@ func +=(queue : RPQueue, items : Array<NSNumber>){
 /*******************************************************************************************/
 // Queue implementation
 /*******************************************************************************************/
+/**This class implements a queue*/
 class RPQueue{
 
     
@@ -145,7 +146,7 @@ class RPQueue{
     
     
     
-    
+    /**Randomize song and try to separate song from a same artist to have a better distribution*/
     func randomizeQueueAdvanced() {
         //implement a way so that each song of one artist are far from each other (=> broadcast from DIS???)
 
@@ -203,7 +204,12 @@ class RPQueue{
     }
     
     
-    
+    /**
+    The mediaItem corresponding to songID.
+    - parameters:
+        - songID: the id of the song to retrieve
+    - returns: the song
+    */
     func mediaItem(songID : NSNumber) -> MPMediaItem!{
         //TODO: support case when song not exist anymore: remove from queue and return next one
         //also notify RPPlayer
@@ -215,7 +221,7 @@ class RPQueue{
 
         if(songQuery.items!.count == 1){
             //return songQuery.items[0] as MPMediaItem
-            return songQuery.items![0] as! MPMediaItem
+            return songQuery.items![0] 
         }
         return nil
     }
@@ -231,8 +237,5 @@ class RPQueue{
         }
         return arrayOfId
     }
-
-    
-    
     
 }

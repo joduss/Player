@@ -80,7 +80,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if let currentArtist = artist {
-            self.title = currentArtist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as? String
+            self.title = currentArtist.representativeItem!.valueForProperty(MPMediaItemPropertyArtist) as? String
         }
     }
     
@@ -92,20 +92,20 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     
     /**return the album at the given indexPath*/
     func albumAtIndexPath(indexPath : NSIndexPath) -> MPMediaItemCollection {
-        let mediaQuerySection: AnyObject = self.query.collectionSections[indexPath.section]
+        let mediaQuerySection: AnyObject = self.query.collectionSections![indexPath.section]
         let albumIndex = mediaQuerySection.range.location + indexPath.row
         
-        return self.query.collections[albumIndex] as! MPMediaItemCollection
+        return self.query.collections![albumIndex]
     }
     
     /**Load album only for the specified artist*/
     func filterAlbumForArtist(artist : MPMediaItemCollection) {
         self.artist = artist
-        self.title = artist.representativeItem.valueForProperty(MPMediaItemPropertyArtist) as? String
+        self.title = artist.representativeItem!.valueForProperty(MPMediaItemPropertyArtist) as? String
         let filterPredicate = MPMediaPropertyPredicate(
-            value: artist.representativeItem.valueForProperty(MPMediaItemPropertyArtistPersistentID),
+            value: artist.representativeItem!.valueForProperty(MPMediaItemPropertyArtistPersistentID),
             forProperty: MPMediaItemPropertyArtistPersistentID)
-        query.filterPredicates = NSSet(object: filterPredicate) as Set<NSObject>
+        query.filterPredicates = Set(arrayLiteral: filterPredicate)
         //self.tableView.reloadData()
     }
     
@@ -155,17 +155,17 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
-        return self.query.collectionSections.count
+        return self.query.collectionSections!.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return self.query.collectionSections[section].range.length
+        return self.query.collectionSections![section].range.length
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if(artist == nil) {
-            return query.collectionSections[section].title!!
+            return query.collectionSections![section].title
         }
         else {
             return ""
@@ -186,8 +186,8 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
         if(artist == nil) {
             var indexTitles : Array<String> = Array()
             indexTitles.append(UITableViewIndexSearch)
-            for section in query.collectionSections {
-                indexTitles.append(section.title!!)
+            for section in query.collectionSections! {
+                indexTitles.append(section.title)
             }
             return indexTitles
         }
@@ -212,7 +212,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
         let album = self.albumAtIndexPath(indexPath)
         let representativeItem = album.representativeItem
         
-        titleLabel.text = representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as? String
+        titleLabel.text = representativeItem!.valueForProperty(MPMediaItemPropertyAlbumTitle) as? String
         let nbSongInAbum = album.count
         
         if(nbSongInAbum < 2) {
@@ -226,7 +226,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
         //load image async (more fluid)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {() -> Void in
             
-            let artwork : MPMediaItemArtwork? = representativeItem.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
+            let artwork : MPMediaItemArtwork? = representativeItem!.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
             var artworkImage = artwork?.imageWithSize(imageView.bounds.size)
             
             dispatch_async(dispatch_get_main_queue(), {() -> Void in
@@ -278,7 +278,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
             dprint("album: \(album)")
 
             dest.filterSongForAlbum(album)
-            dest.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as? String
+            dest.title = album.representativeItem!.valueForProperty(MPMediaItemPropertyAlbumTitle) as? String
         }
         else if(segue.identifier == "segue album to album") {
             let dest = segue.destinationViewController as! RPAlbumTVC

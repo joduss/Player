@@ -28,7 +28,11 @@ let NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING = "NSUSERDEFAULT_RPPLAYER_QUEUE_I
 /*******************************************************************************************/
 // Player implementation
 /*******************************************************************************************/
-
+/**
+ This class is the backend player implementation
+ It handles playing, stopping and queue.
+* Note: The player is a singleton instance.
+*/
 class RPPlayer : NSObject {
     
     let queue = RPQueue()
@@ -86,7 +90,7 @@ class RPPlayer : NSObject {
         }
     }
     
-    /**Seek to the given time. not precise, but is very fast. Prefer to call this one, when seeking.*/
+    /**Seek to the specified time. Not precise, but is very fast. Prefer to call this one, when seeking.*/
     func seekToTime(time: NSTimeInterval) {
         
         //TODO IMPROVE SEEKING
@@ -176,7 +180,7 @@ class RPPlayer : NSObject {
         asset.loadValuesAsynchronouslyForKeys(keyArray, completionHandler: {() -> Void in
             
             let item = AVPlayerItem(asset: asset)
-            let duration = item.duration
+            //let duration = item.duration
             
             self.avMusicPlayer = AVPlayer(playerItem: item)
             
@@ -216,18 +220,18 @@ class RPPlayer : NSObject {
         
         if let song = nowPlayingItem {
             
-            var d : [String : AnyObject!] = Dictionary()
-            d[MPMediaItemPropertyArtist] = nowPlayingItem?.artistFormatted()
-            d[MPMediaItemPropertyAlbumTitle] = nowPlayingItem?.albumTitleFormatted()
-            d[MPMediaItemPropertyTitle] = nowPlayingItem?.songTitle()
-            d[MPMediaItemPropertyArtwork] = nowPlayingItem?.artworkWithDefaultIfNone()
-            d[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(avMusicPlayer.currentTime())
-            d[MPMediaItemPropertyPlaybackDuration] = nowPlayingItem?.duration()
+            var dicInfoForInfoCenter : [String : AnyObject!] = Dictionary()
+            dicInfoForInfoCenter[MPMediaItemPropertyArtist] = song.artistFormatted()
+            dicInfoForInfoCenter[MPMediaItemPropertyAlbumTitle] = song.albumTitleFormatted()
+            dicInfoForInfoCenter[MPMediaItemPropertyTitle] = song.songTitle()
+            dicInfoForInfoCenter[MPMediaItemPropertyArtwork] = song.artworkWithDefaultIfNone()
+            dicInfoForInfoCenter[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(avMusicPlayer.currentTime())
+            dicInfoForInfoCenter[MPMediaItemPropertyPlaybackDuration] = song.duration()
             
             
-            d[MPNowPlayingInfoPropertyPlaybackRate] = avMusicPlayer.rate
+            dicInfoForInfoCenter[MPNowPlayingInfoPropertyPlaybackRate] = avMusicPlayer.rate
             
-            MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = d
+            MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = dicInfoForInfoCenter
             
             lprint("Is playing \"\(nowPlayingItem?.artistFormatted() as String!) - \(nowPlayingItem?.songTitle() as String!)\"" )
         }
@@ -339,7 +343,10 @@ class RPPlayer : NSObject {
         updateNowPlayingInfoCenter()
     }
     
-    
+    /**
+    Play the song that is at the specified index in the queue
+    parameter : atIndex the index of the song in the queue
+    */
     func playSong(atIndex : Int){
         if(atIndex >= 0 && atIndex < queue.count){
             playSong(queue[atIndex], shouldStartPlaying: true)
@@ -400,6 +407,10 @@ class RPPlayer : NSObject {
         return queue[atIndex]
     }
     
+    /**
+    Gives the number of song currently in the queue
+    returns number of songs in the queue
+    */
     func count()->Int{
         return queue.getArrayOfId().count
     }
@@ -438,7 +449,7 @@ class RPPlayer : NSObject {
     }
     
     
-    /** Add the songs on top of the queue and start playing from the first one added*/
+    /** Add the songs on top of the queue and start playing the first one of the specified array*/
     func addNextAndPlay(songs: Array<MPMediaItem>) {
         if(queue.isEmpty == false) {
             addNext(songs)
@@ -455,7 +466,10 @@ class RPPlayer : NSObject {
     
     
     
-    /**Empty the queue. Remove anything except the current song playing*/
+    /**
+    Empty the Queue
+    - parameter stopAndRemovePlayingItem if true, the current playing song will be stopped an removed from the queue
+    */
     func emptyQueue(stopAndRemovePlayingItem : Bool) {
         if(stopAndRemovePlayingItem) {
             queue.removeAll(keepCapacity: false)
@@ -488,6 +502,7 @@ class RPPlayer : NSObject {
         #endif
     }
     
+    /**Debug function to print the content of an array*/
     func printArray(a :Array<String>){
         #if DEBUG
             for item in a {

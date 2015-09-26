@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C82029181987D4A500A594F1 /* pont-poya.png in Resources */ = {isa = PBXBuildFile; fileRef = C82029171987D4A500A594F1 /* pont-poya.png */; };
 		C82BA5F71A7995E900948306 /* RPQueuePanelBlack.xib in Resources */ = {isa = PBXBuildFile; fileRef = C82BA5F61A7995E900948306 /* RPQueuePanelBlack.xib */; };
 		C85035511A15520100C03EBC /* RPSimpleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85035501A15520100C03EBC /* RPSimpleCell.swift */; };
 		C85035531A15534C00C03EBC /* RPCellQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = C85035521A15534C00C03EBC /* RPCellQueue.xib */; };
@@ -62,7 +61,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C82029171987D4A500A594F1 /* pont-poya.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pont-poya.png"; sourceTree = "<group>"; };
 		C82BA5F61A7995E900948306 /* RPQueuePanelBlack.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPQueuePanelBlack.xib; sourceTree = "<group>"; };
 		C85035501A15520100C03EBC /* RPSimpleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSimpleCell.swift; sourceTree = "<group>"; };
 		C85035521A15534C00C03EBC /* RPCellQueue.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPCellQueue.xib; sourceTree = "<group>"; };
@@ -200,7 +198,6 @@
 				C8B34EB4197FDD99007BA1E1 /* playgroundtest.playground */,
 				C8B34EB7197FDDA1007BA1E1 /* Images.xcassets */,
 				C8A68485199E47CB00226DA0 /* testVC.swift */,
-				C82029171987D4A500A594F1 /* pont-poya.png */,
 				C8B34E6C197FDCD9007BA1E1 /* Supporting Files */,
 			);
 			path = RandomPlayer;
@@ -322,7 +319,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Jonathan Duss";
 				TargetAttributes = {
 					C8B34E68197FDCD9007BA1E1 = {
@@ -371,7 +368,6 @@
 				C8873D13198FE35700FEA343 /* RPCellAlbum.xib in Resources */,
 				C8B34EB5197FDD99007BA1E1 /* cellViewBehind.xib in Resources */,
 				C8B34EB6197FDD99007BA1E1 /* Main.storyboard in Resources */,
-				C82029181987D4A500A594F1 /* pont-poya.png in Resources */,
 				C872AF5019D87AE0006AB984 /* RPQueuePanelWhite.xib in Resources */,
 				C85A8CF3198D31ED0087B541 /* RPCellArtist.xib in Resources */,
 				C8C6E30A199A259F00C171FA /* RPSwipableCell.xib in Resources */,
@@ -462,6 +458,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -526,12 +523,16 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = RandomPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-DEXTREME_LOG -DDEBUG -DLOG";
+				PRODUCT_BUNDLE_IDENTIFIER = "Swisapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer/RandomPlayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -542,12 +543,16 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = RandomPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-DEXTREME_LOG -DDEBUG -DLOG";
+				PRODUCT_BUNDLE_IDENTIFIER = "Swisapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer/RandomPlayer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -565,6 +570,7 @@
 				);
 				INFOPLIST_FILE = RandomPlayerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Swisapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -580,6 +586,7 @@
 				);
 				INFOPLIST_FILE = RandomPlayerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Swisapp.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};

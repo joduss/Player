@@ -209,8 +209,6 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
             
             sliderTime.value = Float(musicPlayer.currentPlaybackTime)
             labelCurrentPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.currentPlaybackTime))
-            var playbackDuration = NSTimeInterval(0)
-            playbackDuration = nowPlayingItem.playbackDuration
             labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(Int(nowPlayingItem.playbackDuration - musicPlayer.currentPlaybackTime))
         }
         else {

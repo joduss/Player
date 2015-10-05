@@ -269,7 +269,7 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        songPicked(query.items![indexPath.row] as! MPMediaItem)
+        songPicked(query.items![indexPath.row] )
     }
     
     

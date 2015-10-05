@@ -292,7 +292,7 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
         return (index - 1)
     }
     
-    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]! {
+    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
         
         var indexTitles : Array<String> = Array()
         
@@ -310,20 +310,14 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
         //self.tableView.registerClass(RPSwipableTVCell.self, forCellReuseIdentifier: "cellArtistTVC")
         
         //if(self.searchDisplayController.active == false) {
-        
-        
-        
-        
+
         let cell = tableView.dequeueReusableCellWithIdentifier(CELL_IDENTIFIER, forIndexPath: indexPath) as! RPCell
         
         let titleLabel = cell.mainLabel
         let subtitleLabel = cell.subLabel
         
         let artist : MPMediaItemCollection = artistAtIndexPath(indexPath)
-        
-        
-        
-        
+   
         titleLabel.text = artist.representativeItem!.valueForProperty(MPMediaItemPropertyArtist) as? String
         
         let nbSongTitle = RPTools.numberSongInCollection(artist)
@@ -336,12 +330,6 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
         //cell.rightViewOffSet = 80;
         
         return cell
-        
-        //        }
-        //        else {
-        //
-        //        }
-        
         
     }
     

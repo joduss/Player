@@ -58,7 +58,7 @@ class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDele
 //        
 //        dprint("nb: \(query.collections.count)")
 
-        let picker = MPMediaPickerController(mediaTypes: MPMediaType.Music)
+        //let picker = MPMediaPickerController(mediaTypes: MPMediaType.Music)
         
         //presentViewController(picker, animated: true, completion: nil)
         
@@ -116,17 +116,22 @@ class RPPlaylistTVC: UIViewController, RPSearchTVCDelegate, RPSwipableTVCellDele
         let titleLabel = cell.mainLabel
         let subtitleLabel = cell.subLabel
         
-        var playlist = query.collections![indexPath.row] as! MPMediaPlaylist
-        
-        //dprint("\(playlist.valueForProperty(MPMediaItemP))")
-
-        titleLabel.text = playlist.name
-        
-        if(playlist.items.count > 0){
-            subtitleLabel.text = RPTools.numberSong(playlist.items as! Array<MPMediaItem>)
+        if let playlist = query.collections?[indexPath.row] as? MPMediaPlaylist {
+            
+            //dprint("\(playlist.valueForProperty(MPMediaItemP))")
+            
+            titleLabel.text = playlist.name
+            
+            if(playlist.items.count > 0){
+                subtitleLabel.text = RPTools.numberSong(playlist.items)
+            }
+            else {
+                subtitleLabel.text = "No song"
+            }
         }
         else {
-            subtitleLabel.text = "No song"
+            eprint("Inconsistency Error: no collection")
+            subtitleLabel.text = "Inconsistency Error: no collection"
         }
         
         

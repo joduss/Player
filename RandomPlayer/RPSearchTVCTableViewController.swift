@@ -165,8 +165,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        var nbRows = 0
-        var query = queryForSection(section)
+        let query = queryForSection(section)
         if(query == querySearchSong){
             if let items = query.items {
                 return items.count

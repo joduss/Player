@@ -145,7 +145,7 @@ class RPQueue{
     }
     
     
-    
+    // TODO: optimization to be less expensive
     /**Randomize song and try to separate song from a same artist to have a better distribution*/
     func randomizeQueueAdvanced() {
         //implement a way so that each song of one artist are far from each other (=> broadcast from DIS???)
@@ -153,54 +153,55 @@ class RPQueue{
         var newQueue : Array<NSNumber> = Array()
         newQueue.reserveCapacity(queue.count)
         
-        var artistSongPosition : Dictionary<String, Array<Int>> = Dictionary()
-        var artistOfEachSong : Array<String> = Array()
-        artistOfEachSong.reserveCapacity(queue.count)
+        var artistSongPosition : Dictionary<String, Array<Int>> = Dictionary() //positions of all songs for a given artist that are in the queue
+        var artistList : Array<String> = Array() //For each song at position i, it put at index i the artist of that song
+        artistList.reserveCapacity(queue.count)
         
         for(var i = 0; i < queue.endIndex; i++) {
             let item = queue[i]
             let artist = mediaItem(item).artistFormatted()
             
-            artistOfEachSong.append(artist)
+            artistList.append(artist)
             
-            if(artistSongPosition.keys.contains(artist)){
-                var position = artistSongPosition[artist]!
+            if var position = artistSongPosition[artist] {
                 position.append(i)
                 artistSongPosition[artist] = position
                 
             } else {
+                //if artist neven has been seen, add an empty are for position for him
                 artistSongPosition[artist] = Array()
                 var position = artistSongPosition[artist]!
                 position.append(i)
                 artistSongPosition[artist] = position
             }
             
-            NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.QueueDidChange, object: nil)
         }
         
-        
-        //printArray(artistOfEachSong)
-        var artistOfEachSongShuffled = shuffleAndSeparateSimilarElement(artistOfEachSong)
+        //shuffle and try to do so that no song of the same artist are following each other
+        let artistOfEachSongShuffled = shuffleAndSeparateSimilarElement(artistList)
         //printArray(artistOfEachSongShuffled)
         
+        //Shuffle the index of the array listing the songs position for all artists
         for tuple in artistSongPosition {
             let positions = tuple.1 as Array<Int>
             artistSongPosition[tuple.0] = positions.shuffleArray()
         }
         
+        //recreate a new queue that has been randomized
         for artist in artistOfEachSongShuffled {
-            var positions = artistSongPosition[artist]!
-            
-            newQueue.append(queue[positions[0]])
-            positions.removeAtIndex(0)
-            artistSongPosition[artist] = positions
-            if(positions.isEmpty){
-                artistSongPosition.removeValueForKey(artist)
+            if var positions = artistSongPosition[artist] {
+                newQueue.append(queue[positions[0]])
+                positions.removeAtIndex(0)
+                artistSongPosition[artist] = positions
+                if(positions.isEmpty){
+                    artistSongPosition.removeValueForKey(artist)
+                }
             }
             
         }
         
         queue = newQueue
+        NSNotificationCenter.defaultCenter().postNotificationName(RPPlayerNotification.QueueDidChange, object: nil)
     }
     
     

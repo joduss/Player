@@ -20,24 +20,28 @@ import Foundation
     func debugAlertView(message : String) {
         UIAlertView(title: "DEBUG: ERROR", message: message, delegate: nil, cancelButtonTitle: "ok").show()
     }
-#else
-    func dprint(a : String){}
+    #else
+    func dprint(msg : String){}
     func debugAlertView(message : String) {}
 #endif
 
 
 //LOG A LOT
 #if EXTREME_LOG
-    func elprint(a : String){ print(a, terminator: ""); print("\n", terminator: "")}
+    func elprint(msg : String){ print(msg, terminator: "\n")}
 #else
-    func elprint(a : String){}
+    func elprint(msg : String){}
 #endif
 
 
 //LOG WHAT IS USEFULL
 #if LOG
-    func lprint(a : String){ print(a, terminator: ""); print("\n", terminator: "")}
+    func lprint(msg : String){ print(msg, terminator: "\n")}
 #else
-    func lprint(a : String){}
+    func lprint(msg : String){}
 #endif
+
+func eprint(msg: String) {print("ERROR - \(msg)", terminator: "\n")}
+
+
 

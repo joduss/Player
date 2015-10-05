@@ -20,28 +20,40 @@ Extension of MPMediaItem to provide easy access to some information such as
 */
 extension MPMediaItem {
     
+    //not optimal //TODO do better
+    
+    private struct defaultValues {
+        static let unknownSongTitle = "Unknown title"
+        static let unknownAlbumTitle = "Unknown album title"
+        static let unknownArtist = "Unknown artist"
+    }
+    
+    
     func songTitle() -> String{
-        var title = self.valueForProperty(MPMediaItemPropertyTitle) as! String?
-        if(title == nil){
-            title = "Unknown title"
+        if let title = self.valueForProperty(MPMediaItemPropertyTitle) as! String? {
+            return title
         }
-        return title!
+        else {
+            return defaultValues.unknownSongTitle
+        }
     }
     
     func albumTitleFormatted() -> String{
-        var albumTitle = self.valueForProperty(MPMediaItemPropertyAlbumTitle) as! String?
-        if(albumTitle == nil){
-            albumTitle = "Unknown album title"
+        if let albumTitle = self.valueForProperty(MPMediaItemPropertyAlbumTitle) as! String? {
+            return albumTitle
         }
-        return albumTitle!
+        else {
+            return defaultValues.unknownAlbumTitle
+        }
     }
     
     func artistFormatted() -> String{
-        var artist = self.valueForProperty(MPMediaItemPropertyAlbumArtist) as! String?
-        if(artist == nil){
-            artist = "Unknown artist"
+        if let artist = self.valueForProperty(MPMediaItemPropertyAlbumArtist) as! String? {
+            return artist
         }
-        return artist!
+        else {
+            return defaultValues.unknownArtist
+        }
     }
     
     func artworkImage(ofSize size:CGSize) -> UIImage {

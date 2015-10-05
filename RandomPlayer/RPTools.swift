@@ -154,17 +154,7 @@ class RPTools {
     - returns: a string showing the number of sing in the array
     */
     class func numberSong(items : Array<MPMediaItem>) -> String {
-        
-        //        let now = NSDate().timeIntervalSince1970
-        //        let a = items.count
-        //        a > 1
-        //        let now1 = NSDate().timeIntervalSince1970
-        //        items.count > 1 //BETTER
-        //        items.count
-        //        let now2 = NSDate().timeIntervalSince1970
-        //
-        //        dprint("sol 1: \(now1-now)")
-        //        dprint("sol 2: \(now2 - now1)")
+
         if(items.count > 1){
             return "\(items.count) songs"
         }
@@ -176,6 +166,8 @@ class RPTools {
 
 
 
+//Extension of Array type
+//add a function that shuffle the array
 extension Array {
     func shuffleArray() -> [Element] {
         var arr = self
@@ -191,11 +183,11 @@ extension Array {
     
 }
 
+//extension that adds an easy way to have the count of different albums
 extension MPMediaItemCollection {
-    
     var albumCount : Int {
         get {
-            var query = MPMediaQuery.albumsQuery()
+            let query = MPMediaQuery.albumsQuery()
             let filterPredicate = MPMediaPropertyPredicate(
                 value: representativeItem!.valueForProperty(MPMediaItemPropertyArtistPersistentID),
                 forProperty: MPMediaItemPropertyArtistPersistentID)

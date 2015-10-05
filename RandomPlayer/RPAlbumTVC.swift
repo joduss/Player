@@ -182,7 +182,7 @@ class RPAlbumTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegat
     }
     
     //show alphabet on right part 2
-    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]! {
+    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
         if(artist == nil) {
             var indexTitles : Array<String> = Array()
             indexTitles.append(UITableViewIndexSearch)

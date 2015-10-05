@@ -45,6 +45,8 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         
         //[[NSBundle mainBundle] loadNibNamed:@"NewMiddleContent" owner:self options:nil];
         
+        
+        //Add a panel just under the navitation bar
         var viewArray = NSBundle.mainBundle().loadNibNamed("RPQueuePanelWhite", owner: self, options: nil)
         if(self.navigationController?.navigationBar.barStyle == UIBarStyle.BlackTranslucent) {
             viewArray = NSBundle.mainBundle().loadNibNamed("RPQueuePanelBlack", owner: self, options: nil)
@@ -55,10 +57,10 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         
         v = viewB
 
-        var d = ["view": viewB]
+        let panelView = ["view": viewB]
         
-        var y = self.navigationController?.navigationBar.frame.origin.y
-        var h = self.navigationController?.navigationBar.frame.size.height
+        let navBarYOrigin = self.navigationController?.navigationBar.frame.origin.y
+        let navBarHeight = self.navigationController?.navigationBar.frame.size.height
         
         viewB.autoresizingMask = UIViewAutoresizing.None
         viewB.translatesAutoresizingMaskIntoConstraints = false
@@ -66,22 +68,22 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
 
 
         
-        var c9 = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: NSLayoutFormatOptions.AlignAllBaseline, metrics: nil, views: d)
+        let constraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: NSLayoutFormatOptions.AlignAllBaseline, metrics: nil, views: panelView)
         barWidthConstraints.appendContentsOf( NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
             options: NSLayoutFormatOptions.AlignAllBaseline,
-            metrics: ["dist" :  (h! + y!)],
-            views: d))
+            metrics: ["dist" :  (navBarHeight! + navBarYOrigin!)],
+            views: panelView))
         
         self.tableView.contentInset = UIEdgeInsetsMake(35, 0, 0, 0)
         
-        self.view.addConstraints(c9)
+        self.view.addConstraints(constraints)
         self.view.addConstraints(barWidthConstraints)
         
-        var bottomBorder = CALayer();
+        let bottomBorder = CALayer();
         
 
         bottomBorder.frame = CGRectMake(0.0, 34.5, viewB.frame.size.width, 0.5);
-        var color = UIColor.grayColor().colorWithAlphaComponent(0.7)
+        let color = UIColor.grayColor().colorWithAlphaComponent(0.7)
         bottomBorder.backgroundColor = color.CGColor
         viewB.layer.addSublayer(bottomBorder);
         
@@ -120,12 +122,12 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
 
             let dic = ["view": vb]
             
-            var y = self.navigationController?.navigationBar.frame.origin.y
-            var h = self.navigationController?.navigationBar.frame.size.height
+            let navBarYOrigin = self.navigationController?.navigationBar.frame.origin.y
+            let navBarHeight = self.navigationController?.navigationBar.frame.size.height
             
             let c = NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
                 options: NSLayoutFormatOptions.AlignAllBaseline,
-                metrics: ["dist" :  (h! + y!)],
+                metrics: ["dist" :  (navBarHeight! + navBarYOrigin!)],
                 views: dic)
             
             barWidthConstraints.appendContentsOf(c)

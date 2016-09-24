@@ -16,32 +16,32 @@ import Foundation
 
 //Just for debug stuff
 #if DEBUG
-    func dprint(a : String){print(a, terminator: ""); print("\n", terminator: "")}
+    func dprint(_ a : String){print(a, terminator: ""); print("\n", terminator: "")}
     func debugAlertView(message : String) {
         UIAlertView(title: "DEBUG: ERROR", message: message, delegate: nil, cancelButtonTitle: "ok").show()
     }
     #else
-    func dprint(msg : String){}
-    func debugAlertView(message : String) {}
+    func dprint(_ msg : String){}
+    func debugAlertView(_ message : String) {}
 #endif
 
 
 //LOG A LOT
 #if EXTREME_LOG
-    func elprint(msg : String){ print(msg, terminator: "\n")}
+    func elprint(_ msg : String){ print(msg, terminator: "\n")}
 #else
-    func elprint(msg : String){}
+    func elprint(_ msg : String){}
 #endif
 
 
 //LOG WHAT IS USEFULL
 #if LOG
-    func lprint(msg : String){ print(msg, terminator: "\n")}
+    func lprint(_ msg : String){ print(msg, terminator: "\n")}
 #else
-    func lprint(msg : String){}
+    func lprint(_ msg : String){}
 #endif
 
-func eprint(msg: String) {print("ERROR - \(msg)", terminator: "\n")}
+func eprint(_ msg: String) {print("ERROR - \(msg)", terminator: "\n")}
 
 
 

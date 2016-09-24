@@ -14,35 +14,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
 
-
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-
-        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        UIApplication.shared.beginReceivingRemoteControlEvents()
         
         //load the player
-        RPPlayer.player;
+        let player = RPPlayer.player;
         self.becomeFirstResponder()
         return true
     }
+
     
     //controll the player from the control center or the lock screen
-    override func remoteControlReceivedWithEvent(event: UIEvent?) {
+    override func remoteControlReceived(with event: UIEvent?) {
         if let thisEvent = event {
-            if(thisEvent.type == UIEventType.RemoteControl){
+            if(thisEvent.type == UIEventType.remoteControl){
                 
                 switch(thisEvent.subtype){
-                case UIEventSubtype.RemoteControlPlay:
+                case UIEventSubtype.remoteControlPlay:
                     RPPlayer.player.play()
-                case UIEventSubtype.RemoteControlPause:
+                case UIEventSubtype.remoteControlPause:
                     RPPlayer.player.pause()
-                case UIEventSubtype.RemoteControlNextTrack:
+                case UIEventSubtype.remoteControlNextTrack:
                     RPPlayer.player.skipToNextItem()
-                case UIEventSubtype.RemoteControlPreviousTrack:
+                case UIEventSubtype.remoteControlPreviousTrack:
                     RPPlayer.player.skipToPreviousItem()
-                case UIEventSubtype.RemoteControlBeginSeekingBackward:
+                case UIEventSubtype.remoteControlBeginSeekingBackward:
                     dprint("seeking back")
-                case UIEventSubtype.RemoteControlBeginSeekingForward:
+                case UIEventSubtype.remoteControlBeginSeekingForward:
                     dprint("seeking forward")
                 default:
                     dprint("remoteControlReceivedWithEvent - case NOT HANDLED")
@@ -52,13 +50,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
         //RPPlayer.player.play()
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         dprint("background !!!!!!!!")
         
         RPPlayer.player.saveQueue() //save queue in case the app is closed
@@ -70,15 +68,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         dprint("terminated")
@@ -87,34 +85,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
     
-    lazy var applicationDocumentsDirectory: NSURL = {
+    lazy var applicationDocumentsDirectory: URL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "f.TESTTEST" in the application's documents Application Support directory.
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1] 
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("RandomPlayer", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        let modelURL = Bundle.main.url(forResource: "RandomPlayer", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
         }()
 
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
         // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("RandomPlayer.sqlite")
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("RandomPlayer.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            try coordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch var error1 as NSError {
             error = error1
             coordinator = nil
             // Report any error we got.
-            var dict = Dictionary<NSObject, AnyObject>()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            var dict = Dictionary<String, AnyObject>()
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject?
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject?
             dict[NSUnderlyingErrorKey] = error
             error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo:dict)
             // Replace this with code to handle the error appropriately.

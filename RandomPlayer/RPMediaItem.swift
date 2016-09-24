@@ -22,7 +22,7 @@ extension MPMediaItem {
     
     //not optimal //TODO do better
     
-    private struct defaultValues {
+    fileprivate struct defaultValues {
         static let unknownSongTitle = "Unknown title"
         static let unknownAlbumTitle = "Unknown album title"
         static let unknownArtist = "Unknown artist"
@@ -30,7 +30,7 @@ extension MPMediaItem {
     
     
     func songTitle() -> String{
-        if let title = self.valueForProperty(MPMediaItemPropertyTitle) as! String? {
+        if let title = self.value(forProperty: MPMediaItemPropertyTitle) as! String? {
             return title
         }
         else {
@@ -39,7 +39,7 @@ extension MPMediaItem {
     }
     
     func albumTitleFormatted() -> String{
-        if let albumTitle = self.valueForProperty(MPMediaItemPropertyAlbumTitle) as! String? {
+        if let albumTitle = self.value(forProperty: MPMediaItemPropertyAlbumTitle) as! String? {
             return albumTitle
         }
         else {
@@ -48,7 +48,7 @@ extension MPMediaItem {
     }
     
     func artistFormatted() -> String{
-        if let artist = self.valueForProperty(MPMediaItemPropertyAlbumArtist) as! String? {
+        if let artist = self.value(forProperty: MPMediaItemPropertyAlbumArtist) as! String? {
             return artist
         }
         else {
@@ -57,9 +57,9 @@ extension MPMediaItem {
     }
     
     func artworkImage(ofSize size:CGSize) -> UIImage {
-        let artwork : MPMediaItemArtwork? = self.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
+        let artwork : MPMediaItemArtwork? = self.value(forProperty: MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
         
-        var artworkImage = artwork?.imageWithSize(size)
+        var artworkImage = artwork?.image(at: size)
         
         if(artworkImage == nil){
             artworkImage = UIImage(named: "default_artwork")
@@ -68,7 +68,7 @@ extension MPMediaItem {
     }
     
     func artworkWithDefaultIfNone() -> MPMediaItemArtwork {
-        var artwork : MPMediaItemArtwork? = self.valueForProperty(MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
+        var artwork : MPMediaItemArtwork? = self.value(forProperty: MPMediaItemPropertyArtwork) as? MPMediaItemArtwork
         
         if(artwork == nil){
             artwork = MPMediaItemArtwork(image: UIImage(named: "default_artwork")!)
@@ -76,8 +76,8 @@ extension MPMediaItem {
         return artwork!
     }
     
-    func duration() -> NSTimeInterval {
-        return self.valueForProperty(MPMediaItemPropertyPlaybackDuration) as! NSTimeInterval
+    func duration() -> TimeInterval {
+        return self.value(forProperty: MPMediaItemPropertyPlaybackDuration) as! TimeInterval
     }
    
 }

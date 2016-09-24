@@ -17,7 +17,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     
     
     
-    enum ActionSheetTag : Int { case EmptyQueue, Randomize, RandomizeAdvanced }
+    enum ActionSheetTag : Int { case emptyQueue, randomize, randomizeAdvanced }
     @IBOutlet weak var tableView: UITableView!
     
     var v : UIView?
@@ -28,8 +28,8 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         super.loadView()
         
         //register for notif to update when song changed or queue changed
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("updateInformation"), name: RPPlayerNotification.SongDidChange, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("updateInformation"), name: RPPlayerNotification.QueueDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(RPQueueTVC.updateInformation), name: NSNotification.Name(rawValue: RPPlayerNotification.SongDidChange), object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(RPQueueTVC.updateInformation), name: NSNotification.Name(rawValue: RPPlayerNotification.QueueDidChange), object: nil)
     }
 
     override func viewDidLoad() {
@@ -47,11 +47,11 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         
         
         //Add a panel just under the navitation bar
-        var viewArray = NSBundle.mainBundle().loadNibNamed("RPQueuePanelWhite", owner: self, options: nil)
-        if(self.navigationController?.navigationBar.barStyle == UIBarStyle.BlackTranslucent) {
-            viewArray = NSBundle.mainBundle().loadNibNamed("RPQueuePanelBlack", owner: self, options: nil)
+        var viewArray = Bundle.main.loadNibNamed("RPQueuePanelWhite", owner: self, options: nil)
+        if(self.navigationController?.navigationBar.barStyle == UIBarStyle.blackTranslucent) {
+            viewArray = Bundle.main.loadNibNamed("RPQueuePanelBlack", owner: self, options: nil)
         }
-        let viewB = viewArray[0] as! UIView
+        let viewB = viewArray?[0] as! UIView
         
         self.view.addSubview(viewB)
         
@@ -62,15 +62,15 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         let navBarYOrigin = self.navigationController?.navigationBar.frame.origin.y
         let navBarHeight = self.navigationController?.navigationBar.frame.size.height
         
-        viewB.autoresizingMask = UIViewAutoresizing.None
+        viewB.autoresizingMask = [] //UIViewAutoresizing.none
         viewB.translatesAutoresizingMaskIntoConstraints = false
         
 
 
         
-        let constraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: NSLayoutFormatOptions.AlignAllBaseline, metrics: nil, views: panelView)
-        barWidthConstraints.appendContentsOf( NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
-            options: NSLayoutFormatOptions.AlignAllBaseline,
+        let constraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: NSLayoutFormatOptions.alignAllLastBaseline, metrics: nil, views: panelView)
+        barWidthConstraints.append( contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|-dist-[view(35)]",
+            options: NSLayoutFormatOptions.alignAllLastBaseline,
             metrics: ["dist" :  (navBarHeight! + navBarYOrigin!)],
             views: panelView))
         
@@ -82,9 +82,9 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
         let bottomBorder = CALayer();
         
 
-        bottomBorder.frame = CGRectMake(0.0, 34.5, viewB.frame.size.width, 0.5);
-        let color = UIColor.grayColor().colorWithAlphaComponent(0.7)
-        bottomBorder.backgroundColor = color.CGColor
+        bottomBorder.frame = CGRect(x: 0.0, y: 34.5, width: viewB.frame.size.width, height: 0.5);
+        let color = UIColor.gray.withAlphaComponent(0.7)
+        bottomBorder.backgroundColor = color.cgColor
         viewB.layer.addSublayer(bottomBorder);
         
 
@@ -95,19 +95,19 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     }
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData() // reload data in case the user add a song
         updateInformation()
     }
 
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         v = nil
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
     
@@ -118,19 +118,19 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
 
         if let vb = self.v {
             self.view.removeConstraints(barWidthConstraints)
-            barWidthConstraints.removeAll(keepCapacity: true)
+            barWidthConstraints.removeAll(keepingCapacity: true)
 
             let dic = ["view": vb]
             
             let navBarYOrigin = self.navigationController?.navigationBar.frame.origin.y
             let navBarHeight = self.navigationController?.navigationBar.frame.size.height
             
-            let c = NSLayoutConstraint.constraintsWithVisualFormat("V:|-dist-[view(35)]",
-                options: NSLayoutFormatOptions.AlignAllBaseline,
+            let c = NSLayoutConstraint.constraints(withVisualFormat: "V:|-dist-[view(35)]",
+                options: NSLayoutFormatOptions.alignAllLastBaseline,
                 metrics: ["dist" :  (navBarHeight! + navBarYOrigin!)],
                 views: dic)
             
-            barWidthConstraints.appendContentsOf(c)
+            barWidthConstraints.append(contentsOf: c)
             
             self.view.addConstraints(barWidthConstraints)
         }
@@ -171,32 +171,32 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
 //    }
 
     
-    @IBAction func randomize(sender: AnyObject) {
+    @IBAction func randomize(_ sender: AnyObject) {
         RPPlayer.player.randomizeQueue()
         
         //reload and animate
-        self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Middle)
+        self.tableView.reloadSections(IndexSet(integer: 0), with: UITableViewRowAnimation.middle)
     }
     
     
-    @IBAction func randomizeAdvanced(sender: AnyObject) {
+    @IBAction func randomizeAdvanced(_ sender: AnyObject) {
         RPPlayer.player.randomizeQueueAdvanced()
-        self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Middle)
+        self.tableView.reloadSections(IndexSet(integer: 0), with: UITableViewRowAnimation.middle)
     }
     
     /**Is song is playing, ask if want to keep the song playing and remove the rest of the queue. If song is paused, everything is removed*/
-    @IBAction func emptyAueue(sender: UIButton) {
+    @IBAction func emptyAueue(_ sender: UIButton) {
 
         //Is song is paused, we empty the whole queue
         //if
-        if(RPPlayer.player.playbackState == MPMusicPlaybackState.Playing){
+        if(RPPlayer.player.playbackState == MPMusicPlaybackState.playing){
             let action = UIActionSheet(title: "Empty the queue", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Keep playing current song", "Stop and remove all")
-            action.tag = ActionSheetTag.EmptyQueue.rawValue
-            action.showFromRect(sender.frame, inView: self.view, animated: true)
+            action.tag = ActionSheetTag.emptyQueue.rawValue
+            action.show(from: sender.frame, in: self.view, animated: true)
         }
         else {
             RPPlayer.player.emptyQueue(true)
-            self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
+            self.tableView.reloadSections(IndexSet(integer: 0), with: UITableViewRowAnimation.top)
         }
         
 
@@ -208,21 +208,21 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     //###################################################################################
     // #pragma mark - UIActionSheet delegate
     
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
         
-        if(actionSheet.tag == ActionSheetTag.EmptyQueue.rawValue){
+        if(actionSheet.tag == ActionSheetTag.emptyQueue.rawValue){
             
             if(buttonIndex == 1) {
                 //remove all except the playing item and continue playing
                 if(RPPlayer.player.queue.count > 1){
                     RPPlayer.player.emptyQueue(false)
-                    self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
+                    self.tableView.reloadSections(IndexSet(integer: 0), with: UITableViewRowAnimation.top)
                 }
             }
             else if(buttonIndex == 2){
                 //remove all and stop playing
                 RPPlayer.player.emptyQueue(true)
-                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
+                self.tableView.reloadSections(IndexSet(integer: 0), with: UITableViewRowAnimation.top)
             }
         }
     }
@@ -234,27 +234,27 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     //###################################################################################
     // #pragma mark - Table view function
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return RPPlayer.player.count()
     }
 
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "queue cell"
         
-        tableView.registerNib(UINib(nibName: "RPCellQueue", bundle: nil), forCellReuseIdentifier: identifier)
+        tableView.register(UINib(nibName: "RPCellQueue", bundle: nil), forCellReuseIdentifier: identifier)
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! RPSimpleCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! RPSimpleCell
         //cell.delegate = self
 
         // Configure the cell
-        let mediaItem = RPPlayer.player.getQueueItem(indexPath.row)
+        let mediaItem = RPPlayer.player.getQueueItem((indexPath as NSIndexPath).row)
         
         if let item = mediaItem {
             //let artistName = item.artist()
@@ -263,22 +263,22 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
             cell.mainLabel.text = item.songTitle()
             cell.subLabel.text = item.artistFormatted() + " - " + item.albumTitleFormatted()
             
-            if(RPPlayer.player.currentItemIndex == indexPath.row){
-                cell.contentView.backgroundColor = UIColor.greenColor().colorWithAlphaComponent(0.2)
+            if(RPPlayer.player.currentItemIndex == (indexPath as NSIndexPath).row){
+                cell.contentView.backgroundColor = UIColor.green.withAlphaComponent(0.2)
             }
             else {
-                cell.contentView.backgroundColor = UIColor.whiteColor()
+                cell.contentView.backgroundColor = UIColor.white
             }
             
             //load image async (smoother scroll)
             let imageView = cell.cellImageView
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), {() -> Void in
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.low).async(execute: {() -> Void in
                 
-                let artworkImage = item.artworkImage(ofSize:imageView.bounds.size)
+                let artworkImage = item.artworkImage(ofSize:(imageView?.bounds.size)!)
                 
-                dispatch_async(dispatch_get_main_queue(), {() -> Void in
-                    imageView.image = artworkImage
+                DispatchQueue.main.async(execute: {() -> Void in
+                    imageView?.image = artworkImage
 
                 })
                 
@@ -289,25 +289,25 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     }
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        RPPlayer.player.playSong(indexPath.row)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        RPPlayer.player.playSong((indexPath as NSIndexPath).row)
         self.tableView.reloadData()
     }
     
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if(editingStyle == UITableViewCellEditingStyle.Delete){
-            RPPlayer.player.removeItemAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if(editingStyle == UITableViewCellEditingStyle.delete){
+            RPPlayer.player.removeItemAtIndex((indexPath as NSIndexPath).row)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
         }
     }
     
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(ROW_HEIGHT)
     }
     

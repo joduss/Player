@@ -13,10 +13,10 @@ import UIKit
 
 
 protocol RPSwipableTVCellDelegate {
-    func buttonLeftPressed(cell : RPSwipableTVCell!)
-    func buttonCenterLeftPressed(cell : RPSwipableTVCell!)
-    func buttonRightPressed(cell : RPSwipableTVCell!)
-    func buttonCenterRightPressed(cell : RPSwipableTVCell!)
+    func buttonLeftPressed(_ cell : RPSwipableTVCell!)
+    func buttonCenterLeftPressed(_ cell : RPSwipableTVCell!)
+    func buttonRightPressed(_ cell : RPSwipableTVCell!)
+    func buttonCenterRightPressed(_ cell : RPSwipableTVCell!)
 }
 
 
@@ -32,7 +32,7 @@ class RPSwipableTVCell: UITableViewCell {
     
     var frontView : UIView?
     
-    var lastMovement = NSTimeInterval(0)
+    var lastMovement = TimeInterval(0)
     var touchOffSet = 0.0
     
     var delegate : RPSwipableTVCellDelegate?
@@ -60,9 +60,9 @@ class RPSwipableTVCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        behindView =  NSBundle.mainBundle().loadNibNamed("cellViewBehind", owner: self, options: nil).last as? RPCellViewBehind
+        behindView =  Bundle.main.loadNibNamed("cellViewBehind", owner: self, options: nil)?.last as? RPCellViewBehind
         frontView = self.contentView.subviews[0] as? UIView
-        behindView?.hidden = true
+        behindView?.isHidden = true
         
         self.contentView.insertSubview(behindView!, belowSubview: frontView!)
         
@@ -70,17 +70,17 @@ class RPSwipableTVCell: UITableViewCell {
 
         //add actions on buttons
         //TODO
-        behindView?.buttonLeft?.addTarget(self, action: "buttonLeftPressed", forControlEvents: UIControlEvents.TouchUpInside)
-        behindView?.buttonCenterLeft?.addTarget(self, action: "buttonCenterLeftPressed", forControlEvents: UIControlEvents.TouchUpInside)
-        behindView?.buttonCenterRight?.addTarget(self, action: "buttonCenterRightPressed", forControlEvents: UIControlEvents.TouchUpInside)
-        behindView?.buttonRight?.addTarget(self, action: "buttonRightPressed", forControlEvents: UIControlEvents.TouchUpInside)
+        behindView?.buttonLeft?.addTarget(self, action: #selector(RPSwipableTVCell.buttonLeftPressed), for: UIControlEvents.touchUpInside)
+        behindView?.buttonCenterLeft?.addTarget(self, action: #selector(RPSwipableTVCell.buttonCenterLeftPressed), for: UIControlEvents.touchUpInside)
+        behindView?.buttonCenterRight?.addTarget(self, action: #selector(RPSwipableTVCell.buttonCenterRightPressed), for: UIControlEvents.touchUpInside)
+        behindView?.buttonRight?.addTarget(self, action: #selector(RPSwipableTVCell.buttonRightPressed), for: UIControlEvents.touchUpInside)
     }
     
     
     override func prepareForReuse() {
         //super.prepareForReuse()
         frontView?.frame = self.contentView.frame
-        behindView?.hidden = true
+        behindView?.isHidden = true
     }
     
     
@@ -103,29 +103,29 @@ class RPSwipableTVCell: UITableViewCell {
             }
             
             if let bv = behindView {
-                if(bv.hidden){
+                if(bv.isHidden){
                     bv.frame = self.contentView.frame
                     frontView?.frame = self.contentView.frame
                 }
                 else {
-                    let newFrame = CGRectMake(
-                        -frame.size.width + self.behindViewOffSet,
-                        contentView.frame.origin.y,
-                        contentView.frame.size.width,
-                        contentView.frame.size.height)
+                    let newFrame = CGRect(
+                        x: -frame.size.width + self.behindViewOffSet,
+                        y: contentView.frame.origin.y,
+                        width: contentView.frame.size.width,
+                        height: contentView.frame.size.height)
                     bv.frame = self.contentView.frame
                     frontView?.frame = newFrame
                 }
             }
             
             
-            let pan = UIPanGestureRecognizer(target: self, action: "paning:")
+            let pan = UIPanGestureRecognizer(target: self, action: #selector(RPSwipableTVCell.paning(_:)))
             pan.delegate = self
             
             self.addGestureRecognizer(pan)
         }
         else {
-            NSException(name: "Error RPSwipableTVCell", reason: "Can't find enough views. Check that you have in the custom cell: a view over the content view. You have to add UI element in that view", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Error RPSwipableTVCell"), reason: "Can't find enough views. Check that you have in the custom cell: a view over the content view. You have to add UI element in that view", userInfo: nil).raise()
         }
         
         super.layoutSubviews()
@@ -136,14 +136,14 @@ class RPSwipableTVCell: UITableViewCell {
     //############################################################################
     //MARK : Gesture stuff
     
-    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if(gestureRecognizer.isMemberOfClass(UIPanGestureRecognizer)){
-            
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let pan = gestureRecognizer as? UIPanGestureRecognizer {
+//        if(gestureRecognizer.isMember(of: UIPanGestureRecognizer)){
+        
             //Pan is swiping the cell.
             //only activate it if the velocity of the pan is above a threshold
-            let pan = gestureRecognizer as! UIPanGestureRecognizer
             
-            let velocity = pan.velocityInView(self.contentView)
+            let velocity = pan.velocity(in: self.contentView)
             
             if(abs(velocity.y) / abs(velocity.x) > 1/4){
                 return false
@@ -154,7 +154,7 @@ class RPSwipableTVCell: UITableViewCell {
                 let viewInside = (self.contentView.window!).subviews[0] 
                 //var eventToTest = UIEvent()
                 
-                if(view.pointInside(gestureRecognizer.locationInView(viewInside), withEvent: nil)){
+                if(view.point(inside: gestureRecognizer.location(in: viewInside), with: nil)){
                     return false
                 }
             }
@@ -166,38 +166,38 @@ class RPSwipableTVCell: UITableViewCell {
     
     
     
-    override func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer)-> Bool {
+    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer)-> Bool {
         return false
     }
     
-    func paning(pan : UIPanGestureRecognizer) {
+    func paning(_ pan : UIPanGestureRecognizer) {
         
-        if(pan.state == UIGestureRecognizerState.Began){
-            behindView?.hidden = false
+        if(pan.state == UIGestureRecognizerState.began){
+            behindView?.isHidden = false
             if let fv = frontView {
                 let frontViewPositionX = fv.frame.origin.x
-                let touchPositionX = pan.locationInView(self.contentView).x
+                let touchPositionX = pan.location(in: self.contentView).x
                 
                 touchOffSet = Double(frontViewPositionX) - Double(touchPositionX)
-                behindView?.hidden = false
+                behindView?.isHidden = false
             }
         }
-        else if (pan.state == UIGestureRecognizerState.Changed) {
+        else if (pan.state == UIGestureRecognizerState.changed) {
             panMoved(pan)
         }
-        else if(pan.state == UIGestureRecognizerState.Ended) {
+        else if(pan.state == UIGestureRecognizerState.ended) {
             panEnded(pan)
         }
     }
     
     
     /**The cell is being swiped currently*/
-    func panMoved(pan : UIGestureRecognizer) {
+    func panMoved(_ pan : UIGestureRecognizer) {
         
-        self.selectionStyle = UITableViewCellSelectionStyle.None
+        self.selectionStyle = UITableViewCellSelectionStyle.none
 
         
-        let touchPositionX = pan.locationInView(self.contentView).x
+        let touchPositionX = pan.location(in: self.contentView).x
         var touchPositionCorrectedX = touchPositionX + CGFloat(touchOffSet)
         
         if(touchPositionCorrectedX > 0){
@@ -208,10 +208,10 @@ class RPSwipableTVCell: UITableViewCell {
         }
         
         
-        let newFrame = CGRectMake(touchPositionCorrectedX,
-            contentView.frame.origin.y,
-            contentView.frame.width,
-            contentView.frame.size.height)
+        let newFrame = CGRect(x: touchPositionCorrectedX,
+            y: contentView.frame.origin.y,
+            width: contentView.frame.width,
+            height: contentView.frame.size.height)
         
         frontView?.frame = newFrame
         
@@ -219,19 +219,19 @@ class RPSwipableTVCell: UITableViewCell {
     
     
     /**The cell swiping has ended*/
-    func panEnded(pan : UIPanGestureRecognizer) {
+    func panEnded(_ pan : UIPanGestureRecognizer) {
         
         if let fv = frontView{
             let speedUpConstant = CGFloat(1.1)
             
             let frontViewXPosition = fv.frame.origin.x
             
-            let velocity = pan.velocityInView(self.contentView).x
+            let velocity = pan.velocity(in: self.contentView).x
             
             if(velocity > 0) {
                 //velocity < 0 -> last movement went to the right (cell become closed)
                 
-                var neededTime = NSTimeInterval((contentView.frame.size.width - frontViewXPosition) / velocity * speedUpConstant)
+                var neededTime = TimeInterval((contentView.frame.size.width - frontViewXPosition) / velocity * speedUpConstant)
                 
                 if(neededTime > MAX_CELL_ANIMATION_DURATION){
                     neededTime = MAX_CELL_ANIMATION_DURATION
@@ -239,13 +239,13 @@ class RPSwipableTVCell: UITableViewCell {
 
                 
                 //animated the cell so it continue to be "swiped" and hide completely what is behind
-                UIView.animateWithDuration(neededTime, delay: 0, options: UIViewAnimationOptions.CurveEaseOut,
+                UIView.animate(withDuration: neededTime, delay: 0, options: UIViewAnimationOptions.curveEaseOut,
                     animations: {() -> Void in
                         fv.frame = self.contentView.frame
                     },
                     completion:{(c : Bool) -> Void in
                         if(c){
-                            self.behindView?.hidden = true
+                            self.behindView?.isHidden = true
                         }
                 })
                 
@@ -262,14 +262,14 @@ class RPSwipableTVCell: UITableViewCell {
                 }
                 
                 //animated the cell so it continue to be "swiped" and show completely what is behind
-                UIView.animateWithDuration(NSTimeInterval(neededTime), delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {() -> Void in
+                UIView.animate(withDuration: TimeInterval(neededTime), delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {() -> Void in
                     let frame = self.contentView.frame
                     
-                    let newFrame = CGRectMake(
-                        -frame.size.width + self.behindViewOffSet,
-                        frame.origin.y,
-                        frame.size.width,
-                        frame.size.height)
+                    let newFrame = CGRect(
+                        x: -frame.size.width + self.behindViewOffSet,
+                        y: frame.origin.y,
+                        width: frame.size.width,
+                        height: frame.size.height)
                     fv.frame = newFrame
                     }, completion: nil)
             }
@@ -280,7 +280,7 @@ class RPSwipableTVCell: UITableViewCell {
     //############################################################################################
     
     //UITableViewCell stuff
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
@@ -293,13 +293,13 @@ class RPSwipableTVCell: UITableViewCell {
         if let fv = frontView{
             let neededTime = MAX_CELL_ANIMATION_DURATION
             
-            UIView.animateWithDuration(neededTime, delay: 0, options: UIViewAnimationOptions.CurveEaseOut,
+            UIView.animate(withDuration: neededTime, delay: 0, options: UIViewAnimationOptions.curveEaseOut,
                 animations: {() -> Void in
                     fv.frame = self.contentView.frame
                 },
                 completion:{(c : Bool) -> Void in
                     if(c){
-                        self.behindView?.hidden = true
+                        self.behindView?.isHidden = true
                     }
             })
             

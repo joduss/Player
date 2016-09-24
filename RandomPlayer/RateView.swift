@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol RateViewDelegate {
-    func rateView(rateView : RateView, ratingDidChange rating : Float)
+    func rateView(_ rateView : RateView, ratingDidChange rating : Float)
 }
 
 class RateView: UIView {
@@ -28,7 +28,7 @@ class RateView: UIView {
     var imageViews : Array<UIImageView> = Array()
     let leftMargin : CGFloat = 0.0
     let midMargin : CGFloat = 5.0
-    let minImageSize : CGSize  = CGSizeMake(5, 5)
+    let minImageSize : CGSize  = CGSize(width: 5, height: 5)
     var delegate : RateViewDelegate?
     
     //************************************************************************
@@ -44,7 +44,7 @@ override
     }
 
     /**setup the rateview images and maximum rating*/
-    func setupRateView(fullStarImage : UIImage, halfStarImage : UIImage, emptyStarImage : UIImage, maxRating : Int) {
+    func setupRateView(_ fullStarImage : UIImage, halfStarImage : UIImage, emptyStarImage : UIImage, maxRating : Int) {
         self.fullStarImage = fullStarImage
         self.halfStarImage = halfStarImage
         self.emptyStarImage = emptyStarImage
@@ -54,7 +54,7 @@ override
     }
     
     /**setup the rateview images and maximum rating*/
-    func setupRateView(fullStarImage : UIImage, emptyStarImage : UIImage, maxRating : Int) {
+    func setupRateView(_ fullStarImage : UIImage, emptyStarImage : UIImage, maxRating : Int) {
         self.fullStarImage = fullStarImage
         self.emptyStarImage = emptyStarImage
         self.maxRating = maxRating
@@ -64,9 +64,9 @@ override
     
     /**Called to create the correct number of ImageView for each star (= maxRating)*/
     func initImageViews() {
-        for(var i = 1; i <= maxRating; i++) {
+        for _ in (1 ... maxRating) {
             let imageView = UIImageView()
-            imageView.contentMode = UIViewContentMode.ScaleAspectFit
+            imageView.contentMode = UIViewContentMode.scaleAspectFit
             addSubview(imageView)
             imageViews.append(imageView)
         }
@@ -78,20 +78,21 @@ override
     
     /**Refresh the view*/
     func refresh() {
-        for( var i: Float = 0; i < Float(self.imageViews.count); i++) {
-            let imageView = imageViews[Int(i)]
-            if(rating >= i + 1.0) {
+        for i in (0 ..< self.imageViews.count) {
+            let idx = Float(i)
+            let imageView = imageViews[Int(idx)]
+            if(rating >= idx + 1.0) {
                 imageView.image = fullStarImage
             }
-            else if (halfStarImage == nil && rating > i) {
-                if(rating >= i + 0.5) {
+            else if (halfStarImage == nil && rating > idx) {
+                if(rating >= idx + 0.5) {
                     imageView.image = fullStarImage
                 }
                 else {
                     imageView.image = emptyStarImage
                 }
             }
-            else if (halfStarImage != nil && rating > i) {
+            else if (halfStarImage != nil && rating > idx) {
                 imageView.image = halfStarImage
             }
             else {
@@ -110,9 +111,9 @@ override
         let imageWidth = max(minImageSize.width, desiredImageWith)
         let imageHeight = max(minImageSize.height, self.frame.size.height)
         
-        for(var i = 0; i < imageViews.count; ++i) {
+        for i in (0 ..< imageViews.count) {
             let imageView = imageViews[i]
-            let imageFrame = CGRectMake(leftMargin + CGFloat(i)*(midMargin + imageWidth), 0, imageWidth, imageHeight)
+            let imageFrame = CGRect(x: leftMargin + CGFloat(i)*(midMargin + imageWidth), y: 0, width: imageWidth, height: imageHeight)
             imageView.frame = imageFrame
         }
         
@@ -123,10 +124,10 @@ override
     //************************************************************************
     // #pragma mark - touch events
     
-    func handleTouchAtLocation(touchLocation : CGPoint) {
+    func handleTouchAtLocation(_ touchLocation : CGPoint) {
         if(editable) {
             var newRating: Float = 0
-            for(var i = imageViews.count - 1; i >= 0; i--) {
+            for i in (imageViews.count - 1 ... 0)  {//(var i = imageViews.count - 1; i >= 0; i -= 1) {
                 if(touchLocation.x > imageViews[i].frame.origin.x) {
                     newRating = Float(i) + 1.0
                     break
@@ -137,21 +138,21 @@ override
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            let touchLocation = touch.locationInView(self)
+            let touchLocation = touch.location(in: self)
             handleTouchAtLocation(touchLocation)
         }
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
-            let touchLocation = touch.locationInView(self)
+            let touchLocation = touch.location(in: self)
             handleTouchAtLocation(touchLocation)
         }
     }
 
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         delegate?.rateView(self, ratingDidChange: rating)
     }
 

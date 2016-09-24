@@ -16,7 +16,7 @@ class testVC: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        button.frame = CGRectMake(0, 0, 10, 10)
+        button.frame = CGRect(x:0, y:0, width:10, height:10)
         
         //button.imageView.contentMode = UIViewContentMode.ScaleAspectFit
     }

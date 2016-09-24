@@ -27,7 +27,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     @IBOutlet var buttonPlay: UIButton!
     @IBOutlet var labelCurrentPlaybackTime: UILabel!
     
-    var timer : NSTimer?
+    var timer : Timer?
     let musicPlayer : RPPlayer
     
     @IBOutlet weak var background: UIImageView!
@@ -56,15 +56,15 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         
         
         //setup the slider action
-        sliderTime.addTarget(self, action:"sliderPlaybackTimeMoved:", forControlEvents: UIControlEvents.ValueChanged)
-        sliderTime.addTarget(self, action:"sliderPlaybackTimeMoved:", forControlEvents: UIControlEvents.TouchDown)
-        sliderTime.addTarget(self, action: "sliderPlaybackStoppedTimeMoving:", forControlEvents: UIControlEvents.TouchUpInside)
-        sliderTime.addTarget(self, action: "sliderPlaybackStoppedTimeMoving:", forControlEvents: UIControlEvents.TouchUpOutside)
+        sliderTime.addTarget(self, action:#selector(RPPlayerVC.sliderPlaybackTimeMoved(_:)), for: UIControlEvents.valueChanged)
+        sliderTime.addTarget(self, action:#selector(RPPlayerVC.sliderPlaybackTimeMoved(_:)), for: UIControlEvents.touchDown)
+        sliderTime.addTarget(self, action: #selector(RPPlayerVC.sliderPlaybackStoppedTimeMoving(_:)), for: UIControlEvents.touchUpInside)
+        sliderTime.addTarget(self, action: #selector(RPPlayerVC.sliderPlaybackStoppedTimeMoving(_:)), for: UIControlEvents.touchUpOutside)
         
         
         //custom UI
-        sliderTime.setThumbImage(UIImage(named: "slider_empty",inBundle: nil, compatibleWithTraitCollection: UITraitCollection()), forState: UIControlState.Normal)
-        sliderTime.setThumbImage(UIImage(named: "thumb",inBundle: nil, compatibleWithTraitCollection: UITraitCollection()), forState: UIControlState.Highlighted)
+        sliderTime.setThumbImage(UIImage(named: "slider_empty",in: nil, compatibleWith: UITraitCollection()), for: UIControlState())
+        sliderTime.setThumbImage(UIImage(named: "thumb",in: nil, compatibleWith: UITraitCollection()), for: UIControlState.highlighted)
         
         let emptyStarImage = UIImage(named: "emptyStar")
         let fullStarImage = UIImage(named: "fullStar")
@@ -90,21 +90,21 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         //self.navigationItem.titleView.sizeToFit()
         
         
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
-        self.navigationController?.interactivePopGestureRecognizer!.enabled = true
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
+        self.navigationController?.interactivePopGestureRecognizer!.isEnabled = true
         self.navigationController?.interactivePopGestureRecognizer!.delegate = self
         
         
         
         //Add gesture recognizer on the artwork
-        imageViewArtwork.addGestureRecognizer(UISwipeGestureRecognizer(target: self, action: Selector("imageViewArtworkGesture:")))
+        imageViewArtwork.addGestureRecognizer(UISwipeGestureRecognizer(target: self, action: #selector(RPPlayerVC.imageViewArtworkGesture(_:))))
 
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
 //        if let tarbar = self.tabBarController.tabBar {
 //            tarbar.hidden = true
 //        }
@@ -112,7 +112,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         self.view.becomeFirstResponder()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        if let tarbar = self.tabBarController.tabBar {
 //            tarbar.hidden = true
@@ -122,10 +122,10 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         
         //if no queue: slider is disabled
         if(musicPlayer.nowPlayingItem == nil){
-            sliderTime.enabled = false
+            sliderTime.isEnabled = false
         }
         else {
-            sliderTime.enabled = true
+            sliderTime.isEnabled = true
         }
         updateInformation()
         subscribePlaybackNotifications()
@@ -133,7 +133,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         createTimer()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         unsubscribePlaybackNotifications()
         timer?.invalidate()
     }
@@ -148,8 +148,8 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     //########################################################################
     // #pragma mark - buttons function
     
-    @IBAction func playStopButtonClicked(sender: AnyObject) {
-        if(musicPlayer.playbackState == MPMusicPlaybackState.Playing) {
+    @IBAction func playStopButtonClicked(_ sender: AnyObject) {
+        if(musicPlayer.playbackState == MPMusicPlaybackState.playing) {
             //is playing, so we stop the player
             musicPlayer.pause()
         }
@@ -159,12 +159,12 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         //TODO HANDLE case of error => create new type: playing, paused, error
     }
     
-    @IBAction func nextButtonClicked(sender: AnyObject) {
+    @IBAction func nextButtonClicked(_ sender: AnyObject) {
         musicPlayer.skipToNextItem()
     }
     
-    @IBAction func previousButtonClicked(sender: UIButton) {
-        let currentPlayBackTimeThreshold = 5 as NSTimeInterval //time from which previous start the song again
+    @IBAction func previousButtonClicked(_ sender: UIButton) {
+        let currentPlayBackTimeThreshold = 5 as TimeInterval //time from which previous start the song again
         if(musicPlayer.currentPlaybackTime < currentPlayBackTimeThreshold) {
             musicPlayer.skipToPreviousItem()
         }
@@ -173,36 +173,36 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         }
     }
     
-    @IBAction func repeatPressed(sender: UIBarButtonItem) {
+    @IBAction func repeatPressed(_ sender: UIBarButtonItem) {
         let action = UIActionSheet(title: "Repeat", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Off", "All", "One")
         
-        action.showFromBarButtonItem(sender, animated: true)
+        action.show(from: sender, animated: true)
     }
     
-    @IBAction func backPressed(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func backPressed(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     //########################################################################
     //########################################################################
     // #pragma mark - slider management
-    func sliderPlaybackTimeMoved(slider : UISlider) {
+    func sliderPlaybackTimeMoved(_ slider : UISlider) {
         timer?.invalidate()
         let sliderValueInt = Int(slider.value)
         let sliderValueIntLeft = Int(slider.maximumValue - slider.value)
         elprint("slider time moved at \(sliderValueInt) = \(formatTimeToMinutesSeconds(sliderValueInt)), and left \(formatTimeToMinutesSeconds(sliderValueIntLeft))")
-        musicPlayer.seekToTime(NSTimeInterval(slider.value))
+        musicPlayer.seekToTime(TimeInterval(slider.value))
         labelCurrentPlaybackTime.text = formatTimeToMinutesSeconds(sliderValueInt)
         labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(sliderValueIntLeft)
         
     }
     
-    func sliderPlaybackStoppedTimeMoving(slider : UISlider) {
-        musicPlayer.currentPlaybackTime = NSTimeInterval(slider.value)
+    func sliderPlaybackStoppedTimeMoving(_ slider : UISlider) {
+        musicPlayer.currentPlaybackTime = TimeInterval(slider.value)
         createTimer()
     }
     
-    func updatePlaybackSlider(timer : NSTimer?) {
+    func updatePlaybackSlider(_ timer : Timer?) {
         
         if let nowPlayingItem = musicPlayer.nowPlayingItem {
             
@@ -227,7 +227,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     
     func createTimer(){
         timer?.invalidate() //to be sure there is only 1 slider
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updatePlaybackSlider:", userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(RPPlayerVC.updatePlaybackSlider(_:)), userInfo: nil, repeats: true)
         updateInformation()
     }
     
@@ -238,13 +238,13 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     //########################################################################
     // #pragma mark - update information
     func updateInformation() {
-        if(musicPlayer.playbackState == MPMusicPlaybackState.Playing) {
+        if(musicPlayer.playbackState == MPMusicPlaybackState.playing) {
             //buttonPlay.setTitle("PAUSE", forState: UIControlState.Normal)
-            buttonPlay.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
+            buttonPlay.setImage(UIImage(named: "pause"), for: UIControlState())
         }
         else {
             //buttonPlay.setTitle("PLAY", forState: UIControlState.Normal)
-            buttonPlay.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
+            buttonPlay.setImage(UIImage(named: "play"), for: UIControlState())
         }
         
         let playingSong = musicPlayer.nowPlayingItem as MPMediaItem?
@@ -263,7 +263,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
             
             
             //rating
-            viewRating.rating = Float(song.valueForProperty(MPMediaItemPropertyRating) as! Int)
+            viewRating.rating = Float(song.value(forProperty: MPMediaItemPropertyRating) as! Int)
         }
         else
         {
@@ -285,8 +285,8 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
 //        musicPlayer.beginGeneratingPlaybackNotifications()
 //        
 //        //be notified when the playing song changed
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: RPPlayerNotification.PlaybackStateDidChange , object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateInformation", name: RPPlayerNotification.SongDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RPPlayerVC.updateInformation), name: NSNotification.Name(rawValue: RPPlayerNotification.PlaybackStateDidChange) , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RPPlayerVC.updateInformation), name: NSNotification.Name(rawValue: RPPlayerNotification.SongDidChange), object: nil)
     }
     
     func unsubscribePlaybackNotifications() {
@@ -308,7 +308,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     //########################################################################
     // #pragma mark - rateView delegate
     
-    func rateView(rateView: RateView, ratingDidChange rating: Float) {
+    func rateView(_ rateView: RateView, ratingDidChange rating: Float) {
         if let song = musicPlayer.nowPlayingItem {
             elprint("new rating: \(rating)")
             song.setValue(rating, forKey: "rating")
@@ -320,19 +320,19 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     //########################################################################
     // #pragma mark - UIActionSheet Delegate
     
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
         
         if(buttonIndex == 1){
             lprint("Repeat OFF\n\n")
-            musicPlayer.repeatMode = MPMusicRepeatMode.None
+            musicPlayer.repeatMode = MPMusicRepeatMode.none
         }
         else if(buttonIndex == 2){
             lprint("Repeat All\n\n")
-            musicPlayer.repeatMode = MPMusicRepeatMode.All
+            musicPlayer.repeatMode = MPMusicRepeatMode.all
         }
         else if(buttonIndex == 3) {
             lprint("Repeat One\n\n")
-            musicPlayer.repeatMode = MPMusicRepeatMode.One
+            musicPlayer.repeatMode = MPMusicRepeatMode.one
         }
         else {
             lprint("Cancel changing repeat mode")
@@ -344,14 +344,14 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     //########################################################################
     //########################################################################
     // #pragma mark - For gestureRecognizer
-    func imageViewArtworkGesture(gesture : UISwipeGestureRecognizer) {
-        if(gesture.direction == UISwipeGestureRecognizerDirection.Down){
-            self.dismissViewControllerAnimated(true, completion: nil)
+    func imageViewArtworkGesture(_ gesture : UISwipeGestureRecognizer) {
+        if(gesture.direction == UISwipeGestureRecognizerDirection.down){
+            self.dismiss(animated: true, completion: nil)
         }
-        else if(gesture.direction == UISwipeGestureRecognizerDirection.Left) {
+        else if(gesture.direction == UISwipeGestureRecognizerDirection.left) {
             RPPlayer.player.skipToPreviousItem()
         }
-        else if(gesture.direction == UISwipeGestureRecognizerDirection.Right){
+        else if(gesture.direction == UISwipeGestureRecognizerDirection.right){
             RPPlayer.player.skipToNextItem()
         }
     }

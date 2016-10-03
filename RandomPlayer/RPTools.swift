@@ -169,18 +169,17 @@ class RPTools {
 //Extension of Array type
 //add a function that shuffle the array
 extension Array {
-    func shuffleArray() -> [Element] {
+    func shuffleArray()->Array {
         var arr = self
-        var newArray = [Element]()
-        
-        var randNum = 0
-        while(arr.count > 0) {
-            randNum = Int(arc4random_uniform(UInt32(arr.count)))
-            newArray.append(arr.remove(at: randNum))
+        let c = UInt32(arr.count)
+        for i in 0..<(c-1) {
+            let j = arc4random_uniform(c)
+            if i != j {
+                swap(&arr[Int(i)], &arr[Int(j)])
+            }
         }
-        return newArray
+        return arr
     }
-    
 }
 
 //extension that adds an easy way to have the count of different albums

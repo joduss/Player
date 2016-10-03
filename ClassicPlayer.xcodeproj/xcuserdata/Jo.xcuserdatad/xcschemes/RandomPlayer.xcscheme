@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C8B34E68197FDCD9007BA1E1"
-               BuildableName = "RandomPlayer.app"
-               BlueprintName = "RandomPlayer"
-               ReferencedContainer = "container:RandomPlayer.xcodeproj">
+               BuildableName = "ClassicPlayer.app"
+               BlueprintName = "ClassicPlayer"
+               ReferencedContainer = "container:ClassicPlayer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C8B34E7D197FDCD9007BA1E1"
-               BuildableName = "RandomPlayerTests.xctest"
-               BlueprintName = "RandomPlayerTests"
-               ReferencedContainer = "container:RandomPlayer.xcodeproj">
+               BuildableName = "ClassicPlayerTests.xctest"
+               BlueprintName = "ClassicPlayerTests"
+               ReferencedContainer = "container:ClassicPlayer.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C8B34E68197FDCD9007BA1E1"
-            BuildableName = "RandomPlayer.app"
-            BlueprintName = "RandomPlayer"
-            ReferencedContainer = "container:RandomPlayer.xcodeproj">
+            BuildableName = "ClassicPlayer.app"
+            BlueprintName = "ClassicPlayer"
+            ReferencedContainer = "container:ClassicPlayer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C8B34E68197FDCD9007BA1E1"
-            BuildableName = "RandomPlayer.app"
-            BlueprintName = "RandomPlayer"
-            ReferencedContainer = "container:RandomPlayer.xcodeproj">
+            BuildableName = "ClassicPlayer.app"
+            BlueprintName = "ClassicPlayer"
+            ReferencedContainer = "container:ClassicPlayer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -85,9 +85,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C8B34E68197FDCD9007BA1E1"
-            BuildableName = "RandomPlayer.app"
-            BlueprintName = "RandomPlayer"
-            ReferencedContainer = "container:RandomPlayer.xcodeproj">
+            BuildableName = "ClassicPlayer.app"
+            BlueprintName = "ClassicPlayer"
+            ReferencedContainer = "container:ClassicPlayer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

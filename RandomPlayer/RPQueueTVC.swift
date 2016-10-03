@@ -273,7 +273,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
             //load image async (smoother scroll)
             let imageView = cell.cellImageView
             
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.low).async(execute: {() -> Void in
+            DispatchQueue.global(qos: .utility).async(execute: {() -> Void in
                 
                 let artworkImage = item.artworkImage(ofSize:(imageView?.bounds.size)!)
                 
@@ -283,6 +283,10 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
                 })
                 
             })
+        }
+        else {
+            cell.subLabel.text = ""
+            cell.mainLabel.text = "Removed from library"
         }
         
         return cell

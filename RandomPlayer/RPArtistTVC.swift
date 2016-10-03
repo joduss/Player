@@ -14,13 +14,10 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var query : MPMediaQuery
+    var query : MPMediaQuery?
     var collectionSections : [MPMediaQuerySection]?
     let cellHeight = 55
     
-    var querySearchArtist : MPMediaQuery?
-    var querySearchAlbum : MPMediaQuery?
-    var querySearchSong : MPMediaQuery?
     
     var v : UIView?
     var barWidthConstraints : [AnyObject] = []
@@ -36,8 +33,6 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
 
     
     required init?(coder aDecoder: NSCoder)  {
-        self.query = MPMediaQuery.artists()
-        self.collectionSections = query.collectionSections
         super.init(coder: aDecoder)
     }
     
@@ -48,8 +43,6 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
 //    }
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
-        self.query = MPMediaQuery.artists()
-        self.collectionSections = query.collectionSections!
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -189,21 +182,28 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
         
         //Check that user authorized access to music
             checkMusicPermission()
-    
     }
     
     func checkMusicPermission() {
         
         if #available(iOS 9.3, *) {
-            if(MPMediaLibrary.authorizationStatus() == MPMediaLibraryAuthorizationStatus.denied){
+            if(MPMediaLibrary.authorizationStatus() != MPMediaLibraryAuthorizationStatus.authorized){
                 let alert = UIAlertController(title: "Music Access", message: "In order to access your music, we need you to grand access. Go in settings, Privacy, Media Library and allow the access for RandomPlayer. Thank you.", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) in
                     self.checkMusicPermission()
                 }))
                 self.present(alert, animated: true, completion: nil)
             }
+            else {
+                self.query = MPMediaQuery.artists()
+                self.collectionSections = query?.collectionSections
+                self.tableView.reloadData()
+            }
         } else {
             // Fallback on earlier versions
+            self.query = MPMediaQuery.artists()
+            self.collectionSections = query?.collectionSections
+            self.tableView.reloadData()
         }
     }
 
@@ -220,11 +220,11 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
     
     // #pragma mark - other functions
     /**Return the artist at indexPath*/
-    func artistAtIndexPath(_ indexPath : IndexPath) -> MPMediaItemCollection{
-        if let mediaQuerySection = self.collectionSections?[(indexPath as NSIndexPath).section] {
+    func artistAtIndexPath(_ indexPath : IndexPath) -> MPMediaItemCollection {
+        if let query = self.query, let mediaQuerySection = self.collectionSections?[(indexPath as NSIndexPath).section] {
             let artistIndex = mediaQuerySection.range.location + (indexPath as NSIndexPath).row
             
-            return self.query.collections![artistIndex]
+            return query.collections![artistIndex]
         }
         else {
             return MPMediaItemCollection()
@@ -232,16 +232,16 @@ class RPArtistTVC: UIViewController, RPSwipableTVCellDelegate, UISearchDisplayDe
     }
     
     
-    func artistAtIndexPath(_ indexPath : IndexPath, inQuery query:MPMediaQuery) -> MPMediaItemCollection{
-        if let mediaQuerySection: AnyObject = self.collectionSections?[(indexPath as NSIndexPath).section] {
-            let artistIndex = mediaQuerySection.range.location + (indexPath as NSIndexPath).row
-            
-            return (self.querySearchArtist?.collections![artistIndex])!
-        }
-        else {
-            return MPMediaItemCollection()
-        }
-    }
+//    func artistAtIndexPath(_ indexPath : IndexPath, inQuery query:MPMediaQuery) -> MPMediaItemCollection{
+//        if let mediaQuerySection: AnyObject = self.collectionSections?[(indexPath as NSIndexPath).section] {
+//            let artistIndex = mediaQuerySection.range.location + (indexPath as NSIndexPath).row
+//            
+//            return (self.querySearchArtist?.collections![artistIndex])!
+//        }
+//        else {
+//            return MPMediaItemCollection()
+//        }
+//    }
 
     
     //########################################################################

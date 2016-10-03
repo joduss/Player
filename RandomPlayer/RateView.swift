@@ -127,7 +127,7 @@ override
     func handleTouchAtLocation(_ touchLocation : CGPoint) {
         if(editable) {
             var newRating: Float = 0
-            for i in (imageViews.count - 1 ... 0)  {//(var i = imageViews.count - 1; i >= 0; i -= 1) {
+            for i in (0 ..< imageViews.count).reversed()  {//(var i = imageViews.count - 1; i >= 0; i -= 1) {
                 if(touchLocation.x > imageViews[i].frame.origin.x) {
                     newRating = Float(i) + 1.0
                     break

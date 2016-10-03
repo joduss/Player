@@ -59,8 +59,10 @@ class RPQueue{
     }
     
     //Support queue[323] = ...
-    subscript(index: Int) -> MPMediaItem! {
+    subscript(index: Int) -> MPMediaItem? {
         get {
+            
+            //check that exist. If not, take the next, until queue is empty
             return mediaItem(songID: queue[index])
         }
         set(newValue) {
@@ -99,9 +101,7 @@ class RPQueue{
         queue.remove(at: index)
     }
     
-    func shuffleArray(){
-        queue = queue.shuffleArray()
-    }
+
     
     func insert(_ item : MPMediaItem , atIndex index : Int){
         queue.insert(mediaItemId(of: item), at: index)
@@ -148,11 +148,33 @@ class RPQueue{
     }
     
     
+    /** 
+    Remove songs that have been deleted in sync
+     */
+    func cleanQueue() {
+        
+//        for s in queue {
+//            if(mediaItem(songID: s) != nil) {
+//                filteredQueue.append(s)
+//            }
+//        }
+        
+        queue = queue.filter({id in mediaItem(songID: id) != nil})
+        
+    }
+    
+    func shuffleArray(){
+        queue = queue.shuffleArray()
+    }
+    
     // TODO: optimization to be less expensive
     /**Randomize song and try to separate song from a same artist to have a better distribution*/
     func randomizeQueueAdvanced() {
         //implement a way so that each song of one artist are far from each other (=> broadcast from DIS???)
 
+        //first clean queue
+        cleanQueue()
+        
         var newQueue : Array<NSNumber> = Array()
         newQueue.reserveCapacity(queue.count)
         
@@ -162,7 +184,7 @@ class RPQueue{
         
         for i in (queue.indices.suffix(from: 0)) {
             let item = queue[i]
-            let artist = mediaItem(songID: item).artistFormatted()
+            let artist = mediaItem(songID: item)!.artistFormatted()
             
             artistList.append(artist)
             
@@ -215,9 +237,10 @@ class RPQueue{
         - songID: the id of the song to retrieve
     - returns: the song
     */
-    func mediaItem(songID : NSNumber) -> MPMediaItem!{
+    func mediaItem(songID : NSNumber) -> MPMediaItem?{
         //TODO: support case when song not exist anymore: remove from queue and return next one
         //also notify RPPlayer
+        
         
         //let predicate = MPMediaPropertyPredicate(value: songID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: MPMediaPredicateComparison.EqualTo)
         let songQuery = MPMediaQuery.songs()

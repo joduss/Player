@@ -208,6 +208,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
             
             
             sliderTime.value = Float(musicPlayer.currentPlaybackTime)
+            dprint("time: \(musicPlayer.currentPlaybackTime)")
             labelCurrentPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.currentPlaybackTime))
             labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(Int(nowPlayingItem.playbackDuration - musicPlayer.currentPlaybackTime))
         }
@@ -311,7 +312,9 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     func rateView(_ rateView: RateView, ratingDidChange rating: Float) {
         if let song = musicPlayer.nowPlayingItem {
             elprint("new rating: \(rating)")
-            song.setValue(rating, forKey: "rating")
+            song.setValue(NSNumber(value: rating ), forKey: MPMediaItemPropertyRating)
+            
+            
         }
     }
     

@@ -1,0 +1,654 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C82BA5F71A7995E900948306 /* RPQueuePanelBlack.xib in Resources */ = {isa = PBXBuildFile; fileRef = C82BA5F61A7995E900948306 /* RPQueuePanelBlack.xib */; };
+		C85035511A15520100C03EBC /* RPSimpleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85035501A15520100C03EBC /* RPSimpleCell.swift */; };
+		C85035531A15534C00C03EBC /* RPCellQueue.xib in Resources */ = {isa = PBXBuildFile; fileRef = C85035521A15534C00C03EBC /* RPCellQueue.xib */; };
+		C85A8CF0198D31BC0087B541 /* RPCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A8CEF198D31BC0087B541 /* RPCell.swift */; };
+		C85A8CF3198D31ED0087B541 /* RPCellArtist.xib in Resources */ = {isa = PBXBuildFile; fileRef = C85A8CF2198D31ED0087B541 /* RPCellArtist.xib */; };
+		C872AF5019D87AE0006AB984 /* RPQueuePanelWhite.xib in Resources */ = {isa = PBXBuildFile; fileRef = C872AF4F19D87AE0006AB984 /* RPQueuePanelWhite.xib */; };
+		C8873D11198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8873D10198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift */; };
+		C8873D13198FE35700FEA343 /* RPCellAlbum.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8873D12198FE35700FEA343 /* RPCellAlbum.xib */; };
+		C89142291993994200D63EB7 /* RPCellSong.xib in Resources */ = {isa = PBXBuildFile; fileRef = C89142281993994200D63EB7 /* RPCellSong.xib */; };
+		C89F3FE71A17C24C00B90374 /* PanelSortSelect.xib in Resources */ = {isa = PBXBuildFile; fileRef = C89F3FE61A17C24C00B90374 /* PanelSortSelect.xib */; };
+		C8A68486199E47CB00226DA0 /* testVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A68485199E47CB00226DA0 /* testVC.swift */; };
+		C8AFA2F01ABB6BF1008E3142 /* RPQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AFA2EF1ABB6BF1008E3142 /* RPQueue.swift */; };
+		C8B1E0851A115ABC00663750 /* RPMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B1E0841A115ABC00663750 /* RPMediaItem.swift */; };
+		C8B34E6F197FDCD9007BA1E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */; };
+		C8B34E72197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */; };
+		C8B34E85197FDCD9007BA1E1 /* RandomPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E84197FDCD9007BA1E1 /* RandomPlayerTests.swift */; };
+		C8B34EA2197FDD87007BA1E1 /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E8F197FDD87007BA1E1 /* RateView.swift */; };
+		C8B34EA3197FDD87007BA1E1 /* RPAlbumTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E90197FDD87007BA1E1 /* RPAlbumTVC.swift */; };
+		C8B34EA4197FDD87007BA1E1 /* RPArtistTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E91197FDD87007BA1E1 /* RPArtistTVC.swift */; };
+		C8B34EA5197FDD87007BA1E1 /* RPCellViewBehind.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E93197FDD87007BA1E1 /* RPCellViewBehind.m */; };
+		C8B34EA6197FDD87007BA1E1 /* RPPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E94197FDD87007BA1E1 /* RPPlayerVC.swift */; };
+		C8B34EA7197FDD87007BA1E1 /* RPPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E96197FDD87007BA1E1 /* RPPlayerViewController.m */; };
+		C8B34EA8197FDD87007BA1E1 /* RPPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E97197FDD87007BA1E1 /* RPPlayer.swift */; };
+		C8B34EA9197FDD87007BA1E1 /* RPQueueTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E98197FDD87007BA1E1 /* RPQueueTVC.swift */; };
+		C8B34EAA197FDD87007BA1E1 /* RPSmartListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E99197FDD87007BA1E1 /* RPSmartListTVC.swift */; };
+		C8B34EAB197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E9A197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift */; };
+		C8B34EAC197FDD87007BA1E1 /* RPSongTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E9B197FDD87007BA1E1 /* RPSongTVC.swift */; };
+		C8B34EAD197FDD87007BA1E1 /* RPSwipableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E9D197FDD87007BA1E1 /* RPSwipableButton.m */; };
+		C8B34EAE197FDD87007BA1E1 /* RPSwipableTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B34E9F197FDD87007BA1E1 /* RPSwipableTVCell.m */; };
+		C8B34EAF197FDD87007BA1E1 /* RPTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34EA0197FDD87007BA1E1 /* RPTools.swift */; };
+		C8B34EB0197FDD87007BA1E1 /* SwiftDebugGlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B34EA1197FDD87007BA1E1 /* SwiftDebugGlobalFunctions.swift */; };
+		C8B34EB5197FDD99007BA1E1 /* cellViewBehind.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8B34EB1197FDD99007BA1E1 /* cellViewBehind.xib */; };
+		C8B34EB6197FDD99007BA1E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8B34EB3197FDD99007BA1E1 /* Main.storyboard */; };
+		C8B6BCF21982637600699E2C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B6BCF11982637600699E2C /* AVFoundation.framework */; };
+		C8B6BCF41982638200699E2C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B6BCF31982638200699E2C /* MediaPlayer.framework */; };
+		C8C6E30A199A259F00C171FA /* RPSwipableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C6E309199A259F00C171FA /* RPSwipableCell.xib */; };
+		C8C6E30C199A27C300C171FA /* RPSwipableTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C6E30B199A27C300C171FA /* RPSwipableTVCell.swift */; };
+		C8D4616E1D9B094300084E37 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8D4616D1D9B094300084E37 /* Images.xcassets */; };
+		C8EBC75C1998D4C600449E21 /* SongActionSheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EBC75B1998D4C600449E21 /* SongActionSheetDelegate.swift */; };
+		C8EBC7601998F14500449E21 /* RPPlaylistTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EBC75F1998F14500449E21 /* RPPlaylistTVC.swift */; };
+		C8EBC7621998F4E200449E21 /* RPCellPlaylist.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8EBC7611998F4E200449E21 /* RPCellPlaylist.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C8B34E7F197FDCD9007BA1E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C8B34E61197FDCD9007BA1E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C8B34E68197FDCD9007BA1E1;
+			remoteInfo = RandomPlayer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C82BA5F61A7995E900948306 /* RPQueuePanelBlack.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPQueuePanelBlack.xib; sourceTree = "<group>"; };
+		C85035501A15520100C03EBC /* RPSimpleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSimpleCell.swift; sourceTree = "<group>"; };
+		C85035521A15534C00C03EBC /* RPCellQueue.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPCellQueue.xib; sourceTree = "<group>"; };
+		C85A8CEF198D31BC0087B541 /* RPCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPCell.swift; sourceTree = "<group>"; };
+		C85A8CF2198D31ED0087B541 /* RPCellArtist.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPCellArtist.xib; sourceTree = "<group>"; };
+		C872AF4F19D87AE0006AB984 /* RPQueuePanelWhite.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RPQueuePanelWhite.xib; path = ../RPQueuePanelWhite.xib; sourceTree = "<group>"; };
+		C8873D10198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSearchTVCTableViewController.swift; sourceTree = "<group>"; };
+		C8873D12198FE35700FEA343 /* RPCellAlbum.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPCellAlbum.xib; sourceTree = "<group>"; };
+		C89142281993994200D63EB7 /* RPCellSong.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPCellSong.xib; sourceTree = "<group>"; };
+		C89F3FE61A17C24C00B90374 /* PanelSortSelect.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PanelSortSelect.xib; sourceTree = "<group>"; };
+		C8A68485199E47CB00226DA0 /* testVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testVC.swift; sourceTree = "<group>"; };
+		C8AFA2EF1ABB6BF1008E3142 /* RPQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueue.swift; sourceTree = "<group>"; };
+		C8B1E0841A115ABC00663750 /* RPMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPMediaItem.swift; sourceTree = "<group>"; };
+		C8B34E69197FDCD9007BA1E1 /* ClassicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8B34E6D197FDCD9007BA1E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C8B34E71197FDCD9007BA1E1 /* RandomPlayer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RandomPlayer.xcdatamodel; sourceTree = "<group>"; };
+		C8B34E7E197FDCD9007BA1E1 /* ClassicPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassicPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8B34E83197FDCD9007BA1E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8B34E84197FDCD9007BA1E1 /* RandomPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPlayerTests.swift; sourceTree = "<group>"; };
+		C8B34E8E197FDD86007BA1E1 /* RandomPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RandomPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
+		C8B34E8F197FDD87007BA1E1 /* RateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateView.swift; sourceTree = "<group>"; };
+		C8B34E90197FDD87007BA1E1 /* RPAlbumTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPAlbumTVC.swift; sourceTree = "<group>"; };
+		C8B34E91197FDD87007BA1E1 /* RPArtistTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPArtistTVC.swift; sourceTree = "<group>"; };
+		C8B34E92197FDD87007BA1E1 /* RPCellViewBehind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCellViewBehind.h; sourceTree = "<group>"; };
+		C8B34E93197FDD87007BA1E1 /* RPCellViewBehind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCellViewBehind.m; sourceTree = "<group>"; };
+		C8B34E94197FDD87007BA1E1 /* RPPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPPlayerVC.swift; sourceTree = "<group>"; };
+		C8B34E95197FDD87007BA1E1 /* RPPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPlayerViewController.h; sourceTree = "<group>"; };
+		C8B34E96197FDD87007BA1E1 /* RPPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPlayerViewController.m; sourceTree = "<group>"; };
+		C8B34E97197FDD87007BA1E1 /* RPPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPPlayer.swift; sourceTree = "<group>"; };
+		C8B34E98197FDD87007BA1E1 /* RPQueueTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPQueueTVC.swift; sourceTree = "<group>"; };
+		C8B34E99197FDD87007BA1E1 /* RPSmartListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSmartListTVC.swift; sourceTree = "<group>"; };
+		C8B34E9A197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RPSongListTVC-forFuture.swift"; sourceTree = "<group>"; };
+		C8B34E9B197FDD87007BA1E1 /* RPSongTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSongTVC.swift; sourceTree = "<group>"; };
+		C8B34E9C197FDD87007BA1E1 /* RPSwipableButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSwipableButton.h; sourceTree = "<group>"; };
+		C8B34E9D197FDD87007BA1E1 /* RPSwipableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSwipableButton.m; sourceTree = "<group>"; };
+		C8B34E9E197FDD87007BA1E1 /* RPSwipableTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSwipableTVCell.h; sourceTree = "<group>"; };
+		C8B34E9F197FDD87007BA1E1 /* RPSwipableTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSwipableTVCell.m; sourceTree = "<group>"; };
+		C8B34EA0197FDD87007BA1E1 /* RPTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPTools.swift; sourceTree = "<group>"; };
+		C8B34EA1197FDD87007BA1E1 /* SwiftDebugGlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDebugGlobalFunctions.swift; sourceTree = "<group>"; };
+		C8B34EB1197FDD99007BA1E1 /* cellViewBehind.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellViewBehind.xib; sourceTree = "<group>"; };
+		C8B34EB2197FDD99007BA1E1 /* DebugDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugDefines.h; sourceTree = "<group>"; };
+		C8B34EB3197FDD99007BA1E1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		C8B34EB4197FDD99007BA1E1 /* playgroundtest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = playgroundtest.playground; sourceTree = "<group>"; };
+		C8B6BCF11982637600699E2C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C8B6BCF31982638200699E2C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		C8C6E309199A259F00C171FA /* RPSwipableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPSwipableCell.xib; sourceTree = "<group>"; };
+		C8C6E30B199A27C300C171FA /* RPSwipableTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSwipableTVCell.swift; sourceTree = "<group>"; };
+		C8D4616D1D9B094300084E37 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C8EBC75B1998D4C600449E21 /* SongActionSheetDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongActionSheetDelegate.swift; sourceTree = "<group>"; };
+		C8EBC75F1998F14500449E21 /* RPPlaylistTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RPPlaylistTVC.swift; path = ../RPPlaylistTVC.swift; sourceTree = "<group>"; };
+		C8EBC7611998F4E200449E21 /* RPCellPlaylist.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPCellPlaylist.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C8B34E66197FDCD9007BA1E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C8B6BCF41982638200699E2C /* MediaPlayer.framework in Frameworks */,
+				C8B6BCF21982637600699E2C /* AVFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8B34E7B197FDCD9007BA1E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C85A8CF1198D31CB0087B541 /* Custom Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C8B34EB9197FDDD7007BA1E1 /* Swipable TV Cell */,
+				C85A8CEF198D31BC0087B541 /* RPCell.swift */,
+				C85035501A15520100C03EBC /* RPSimpleCell.swift */,
+				C8EBC7611998F4E200449E21 /* RPCellPlaylist.xib */,
+				C85A8CF2198D31ED0087B541 /* RPCellArtist.xib */,
+				C8873D12198FE35700FEA343 /* RPCellAlbum.xib */,
+				C85035521A15534C00C03EBC /* RPCellQueue.xib */,
+				C89142281993994200D63EB7 /* RPCellSong.xib */,
+			);
+			name = "Custom Cell";
+			sourceTree = "<group>";
+		};
+		C8675AA31A7A6DA1009B4F2E /* Panels */ = {
+			isa = PBXGroup;
+			children = (
+				C89F3FE61A17C24C00B90374 /* PanelSortSelect.xib */,
+				C82BA5F61A7995E900948306 /* RPQueuePanelBlack.xib */,
+				C872AF4F19D87AE0006AB984 /* RPQueuePanelWhite.xib */,
+			);
+			name = Panels;
+			sourceTree = "<group>";
+		};
+		C8B34E60197FDCD9007BA1E1 = {
+			isa = PBXGroup;
+			children = (
+				C8B6BCF31982638200699E2C /* MediaPlayer.framework */,
+				C8B6BCF11982637600699E2C /* AVFoundation.framework */,
+				C8B34E6B197FDCD9007BA1E1 /* RandomPlayer */,
+				C8B34E81197FDCD9007BA1E1 /* RandomPlayerTests */,
+				C8B34E6A197FDCD9007BA1E1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C8B34E6A197FDCD9007BA1E1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C8B34E69197FDCD9007BA1E1 /* ClassicPlayer.app */,
+				C8B34E7E197FDCD9007BA1E1 /* ClassicPlayerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C8B34E6B197FDCD9007BA1E1 /* RandomPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */,
+				C8B34E8F197FDD87007BA1E1 /* RateView.swift */,
+				C8EBC75B1998D4C600449E21 /* SongActionSheetDelegate.swift */,
+				C8B34EBA197FDDED007BA1E1 /* Controllers in tabs */,
+				C85A8CF1198D31CB0087B541 /* Custom Cell */,
+				C8B34E97197FDD87007BA1E1 /* RPPlayer.swift */,
+				C8AFA2EF1ABB6BF1008E3142 /* RPQueue.swift */,
+				C8B34E9A197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift */,
+				C8B34EA0197FDD87007BA1E1 /* RPTools.swift */,
+				C8B1E0841A115ABC00663750 /* RPMediaItem.swift */,
+				C8B34EA1197FDD87007BA1E1 /* SwiftDebugGlobalFunctions.swift */,
+				C8B34EB3197FDD99007BA1E1 /* Main.storyboard */,
+				C8B34EB4197FDD99007BA1E1 /* playgroundtest.playground */,
+				C8A68485199E47CB00226DA0 /* testVC.swift */,
+				C8D4616D1D9B094300084E37 /* Images.xcassets */,
+				C8B34E6C197FDCD9007BA1E1 /* Supporting Files */,
+			);
+			path = RandomPlayer;
+			sourceTree = "<group>";
+		};
+		C8B34E6C197FDCD9007BA1E1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C8B34E8E197FDD86007BA1E1 /* RandomPlayer-Bridging-Header.h */,
+				C8B34E6E197FDCD9007BA1E1 /* AppDelegate.swift */,
+				C8B34E6D197FDCD9007BA1E1 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C8B34E81197FDCD9007BA1E1 /* RandomPlayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				C8B34E84197FDCD9007BA1E1 /* RandomPlayerTests.swift */,
+				C8B34E82197FDCD9007BA1E1 /* Supporting Files */,
+			);
+			path = RandomPlayerTests;
+			sourceTree = "<group>";
+		};
+		C8B34E82197FDCD9007BA1E1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C8B34E83197FDCD9007BA1E1 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C8B34EB9197FDDD7007BA1E1 /* Swipable TV Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C8C67921199CF178005E8C17 /* old */,
+				C8B34E92197FDD87007BA1E1 /* RPCellViewBehind.h */,
+				C8B34E93197FDD87007BA1E1 /* RPCellViewBehind.m */,
+				C8B34E9C197FDD87007BA1E1 /* RPSwipableButton.h */,
+				C8B34E9D197FDD87007BA1E1 /* RPSwipableButton.m */,
+				C8C6E30B199A27C300C171FA /* RPSwipableTVCell.swift */,
+				C8B34EB1197FDD99007BA1E1 /* cellViewBehind.xib */,
+				C8B34EB2197FDD99007BA1E1 /* DebugDefines.h */,
+				C8C6E309199A259F00C171FA /* RPSwipableCell.xib */,
+			);
+			name = "Swipable TV Cell";
+			sourceTree = "<group>";
+		};
+		C8B34EBA197FDDED007BA1E1 /* Controllers in tabs */ = {
+			isa = PBXGroup;
+			children = (
+				C8675AA31A7A6DA1009B4F2E /* Panels */,
+				C8EBC75F1998F14500449E21 /* RPPlaylistTVC.swift */,
+				C8873D10198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift */,
+				C8B34E9B197FDD87007BA1E1 /* RPSongTVC.swift */,
+				C8B34E90197FDD87007BA1E1 /* RPAlbumTVC.swift */,
+				C8B34E91197FDD87007BA1E1 /* RPArtistTVC.swift */,
+				C8B34E94197FDD87007BA1E1 /* RPPlayerVC.swift */,
+				C8B34E99197FDD87007BA1E1 /* RPSmartListTVC.swift */,
+				C8B34E98197FDD87007BA1E1 /* RPQueueTVC.swift */,
+			);
+			name = "Controllers in tabs";
+			sourceTree = "<group>";
+		};
+		C8C67921199CF178005E8C17 /* old */ = {
+			isa = PBXGroup;
+			children = (
+				C8B34E95197FDD87007BA1E1 /* RPPlayerViewController.h */,
+				C8B34E96197FDD87007BA1E1 /* RPPlayerViewController.m */,
+				C8B34E9E197FDD87007BA1E1 /* RPSwipableTVCell.h */,
+				C8B34E9F197FDD87007BA1E1 /* RPSwipableTVCell.m */,
+			);
+			name = old;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C8B34E68197FDCD9007BA1E1 /* ClassicPlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C8B34E88197FDCD9007BA1E1 /* Build configuration list for PBXNativeTarget "ClassicPlayer" */;
+			buildPhases = (
+				C8B34E65197FDCD9007BA1E1 /* Sources */,
+				C8B34E66197FDCD9007BA1E1 /* Frameworks */,
+				C8B34E67197FDCD9007BA1E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClassicPlayer;
+			productName = RandomPlayer;
+			productReference = C8B34E69197FDCD9007BA1E1 /* ClassicPlayer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C8B34E7D197FDCD9007BA1E1 /* ClassicPlayerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C8B34E8B197FDCD9007BA1E1 /* Build configuration list for PBXNativeTarget "ClassicPlayerTests" */;
+			buildPhases = (
+				C8B34E7A197FDCD9007BA1E1 /* Sources */,
+				C8B34E7B197FDCD9007BA1E1 /* Frameworks */,
+				C8B34E7C197FDCD9007BA1E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C8B34E80197FDCD9007BA1E1 /* PBXTargetDependency */,
+			);
+			name = ClassicPlayerTests;
+			productName = RandomPlayerTests;
+			productReference = C8B34E7E197FDCD9007BA1E1 /* ClassicPlayerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C8B34E61197FDCD9007BA1E1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Jonathan Duss";
+				TargetAttributes = {
+					C8B34E68197FDCD9007BA1E1 = {
+						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = SB56D8K42E;
+						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+					C8B34E7D197FDCD9007BA1E1 = {
+						CreatedOnToolsVersion = 6.0;
+						LastSwiftMigration = 0800;
+						TestTargetID = C8B34E68197FDCD9007BA1E1;
+					};
+				};
+			};
+			buildConfigurationList = C8B34E64197FDCD9007BA1E1 /* Build configuration list for PBXProject "ClassicPlayer" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C8B34E60197FDCD9007BA1E1;
+			productRefGroup = C8B34E6A197FDCD9007BA1E1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C8B34E68197FDCD9007BA1E1 /* ClassicPlayer */,
+				C8B34E7D197FDCD9007BA1E1 /* ClassicPlayerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C8B34E67197FDCD9007BA1E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C89F3FE71A17C24C00B90374 /* PanelSortSelect.xib in Resources */,
+				C85035531A15534C00C03EBC /* RPCellQueue.xib in Resources */,
+				C82BA5F71A7995E900948306 /* RPQueuePanelBlack.xib in Resources */,
+				C8873D13198FE35700FEA343 /* RPCellAlbum.xib in Resources */,
+				C8B34EB5197FDD99007BA1E1 /* cellViewBehind.xib in Resources */,
+				C8B34EB6197FDD99007BA1E1 /* Main.storyboard in Resources */,
+				C872AF5019D87AE0006AB984 /* RPQueuePanelWhite.xib in Resources */,
+				C85A8CF3198D31ED0087B541 /* RPCellArtist.xib in Resources */,
+				C8C6E30A199A259F00C171FA /* RPSwipableCell.xib in Resources */,
+				C8D4616E1D9B094300084E37 /* Images.xcassets in Resources */,
+				C89142291993994200D63EB7 /* RPCellSong.xib in Resources */,
+				C8EBC7621998F4E200449E21 /* RPCellPlaylist.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8B34E7C197FDCD9007BA1E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C8B34E65197FDCD9007BA1E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C8B34E6F197FDCD9007BA1E1 /* AppDelegate.swift in Sources */,
+				C8A68486199E47CB00226DA0 /* testVC.swift in Sources */,
+				C8B34EA7197FDD87007BA1E1 /* RPPlayerViewController.m in Sources */,
+				C8B34E72197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld in Sources */,
+				C8B34EAA197FDD87007BA1E1 /* RPSmartListTVC.swift in Sources */,
+				C8AFA2F01ABB6BF1008E3142 /* RPQueue.swift in Sources */,
+				C85A8CF0198D31BC0087B541 /* RPCell.swift in Sources */,
+				C8B34EAE197FDD87007BA1E1 /* RPSwipableTVCell.m in Sources */,
+				C8B34EA8197FDD87007BA1E1 /* RPPlayer.swift in Sources */,
+				C8EBC7601998F14500449E21 /* RPPlaylistTVC.swift in Sources */,
+				C8B34EAB197FDD87007BA1E1 /* RPSongListTVC-forFuture.swift in Sources */,
+				C8B34EA5197FDD87007BA1E1 /* RPCellViewBehind.m in Sources */,
+				C8EBC75C1998D4C600449E21 /* SongActionSheetDelegate.swift in Sources */,
+				C8873D11198FA2DD00FEA343 /* RPSearchTVCTableViewController.swift in Sources */,
+				C8B1E0851A115ABC00663750 /* RPMediaItem.swift in Sources */,
+				C8B34EAC197FDD87007BA1E1 /* RPSongTVC.swift in Sources */,
+				C8B34EAD197FDD87007BA1E1 /* RPSwipableButton.m in Sources */,
+				C8B34EA9197FDD87007BA1E1 /* RPQueueTVC.swift in Sources */,
+				C8C6E30C199A27C300C171FA /* RPSwipableTVCell.swift in Sources */,
+				C8B34EAF197FDD87007BA1E1 /* RPTools.swift in Sources */,
+				C85035511A15520100C03EBC /* RPSimpleCell.swift in Sources */,
+				C8B34EA2197FDD87007BA1E1 /* RateView.swift in Sources */,
+				C8B34EA4197FDD87007BA1E1 /* RPArtistTVC.swift in Sources */,
+				C8B34EA6197FDD87007BA1E1 /* RPPlayerVC.swift in Sources */,
+				C8B34EB0197FDD87007BA1E1 /* SwiftDebugGlobalFunctions.swift in Sources */,
+				C8B34EA3197FDD87007BA1E1 /* RPAlbumTVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8B34E7A197FDCD9007BA1E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C8B34E85197FDCD9007BA1E1 /* RandomPlayerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C8B34E80197FDCD9007BA1E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C8B34E68197FDCD9007BA1E1 /* ClassicPlayer */;
+			targetProxy = C8B34E7F197FDCD9007BA1E1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C8B34E86197FDCD9007BA1E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C8B34E87197FDCD9007BA1E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C8B34E89197FDCD9007BA1E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = YES;
+				INFOPLIST_FILE = RandomPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DEXTREME_LOG -DDEBUG -DLOG";
+				PRODUCT_BUNDLE_IDENTIFIER = "Swisapp.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer/RandomPlayer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		C8B34E8A197FDCD9007BA1E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
+				INFOPLIST_FILE = RandomPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DEXTREME_LOG -DDEBUG -DLOG";
+				PRODUCT_BUNDLE_IDENTIFIER = "Swisapp.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "RandomPlayer/RandomPlayer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		C8B34E8C197FDCD9007BA1E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RandomPlayer.app/RandomPlayer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RandomPlayerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Swisapp.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		C8B34E8D197FDCD9007BA1E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RandomPlayer.app/RandomPlayer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RandomPlayerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Swisapp.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C8B34E64197FDCD9007BA1E1 /* Build configuration list for PBXProject "ClassicPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8B34E86197FDCD9007BA1E1 /* Debug */,
+				C8B34E87197FDCD9007BA1E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C8B34E88197FDCD9007BA1E1 /* Build configuration list for PBXNativeTarget "ClassicPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8B34E89197FDCD9007BA1E1 /* Debug */,
+				C8B34E8A197FDCD9007BA1E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C8B34E8B197FDCD9007BA1E1 /* Build configuration list for PBXNativeTarget "ClassicPlayerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8B34E8C197FDCD9007BA1E1 /* Debug */,
+				C8B34E8D197FDCD9007BA1E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C8B34E71197FDCD9007BA1E1 /* RandomPlayer.xcdatamodel */,
+			);
+			currentVersion = C8B34E71197FDCD9007BA1E1 /* RandomPlayer.xcdatamodel */;
+			path = RandomPlayer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = C8B34E61197FDCD9007BA1E1 /* Project object */;
+}

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Today View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="ClassicPlayerExtension" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ft6-oW-KC0"/>
+                        <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6g-Cb-9S3">
+                                <rect key="frame" x="139" y="8" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buV-hJ-1a4" customClass="RateView" customModule="ClassicPlayerExtension">
+                                <rect key="frame" x="64" y="55" width="192" height="26"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Drr-HB-pbq">
+                                <rect key="frame" x="-128" y="55" width="192" height="26"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="DsI-xD-p88" appends="YES" id="p12-L0-BNk"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="buV-hJ-1a4" firstAttribute="leading" secondItem="Drr-HB-pbq" secondAttribute="trailing" id="8iG-Pw-QAs"/>
+                            <constraint firstItem="Drr-HB-pbq" firstAttribute="width" secondItem="buV-hJ-1a4" secondAttribute="width" id="ClK-wG-rkp"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="buV-hJ-1a4" secondAttribute="bottom" constant="8" symbolic="YES" id="Cwm-ec-hGd"/>
+                            <constraint firstItem="buV-hJ-1a4" firstAttribute="height" secondItem="S3S-Oj-5AN" secondAttribute="height" multiplier="0.3" id="HFJ-0I-aiw"/>
+                            <constraint firstItem="buV-hJ-1a4" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" multiplier="0.6" id="Wqd-uy-BjU"/>
+                            <constraint firstItem="buV-hJ-1a4" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="lKN-mC-53K"/>
+                            <constraint firstItem="Drr-HB-pbq" firstAttribute="height" secondItem="buV-hJ-1a4" secondAttribute="height" id="xHW-ye-keU"/>
+                            <constraint firstItem="Drr-HB-pbq" firstAttribute="centerY" secondItem="buV-hJ-1a4" secondAttribute="centerY" id="yNz-Nv-oB6"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="89"/>
+                    <connections>
+                        <outlet property="artistLabel" destination="i6g-Cb-9S3" id="Ra7-TT-klK"/>
+                        <outlet property="rateView" destination="buV-hJ-1a4" id="bUS-LC-e0o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="DsI-xD-p88">
+                    <connections>
+                        <action selector="zeroStar:" destination="M4Y-Lb-cyx" id="tMn-2k-EaM"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-747" y="-63"/>
+        </scene>
+    </scenes>
+</document>

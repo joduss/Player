@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>ClassicPlayerExtension.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>RandomPlayer.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>C89499541DCA2F7E0075C469</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C8B34E68197FDCD9007BA1E1</key>
 		<dict>
 			<key>primary</key>

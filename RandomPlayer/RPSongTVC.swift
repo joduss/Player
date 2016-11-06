@@ -9,15 +9,19 @@
 import UIKit
 import MediaPlayer
 
-class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
+class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate, UITableViewDelegate, UITableViewDataSource {
     
     var query : MPMediaQuery
     var collection : MPMediaItemCollection?
+    var collectionBeforeSort : MPMediaItemCollection?
     var songActionDelegate : SongActionSheetDelegate?
+    
     var panel: UIView?
     var panelYConstraints : [NSLayoutConstraint] = []
     
-    
+    var panelSortLabel : UIButton!
+    var panelFilterLabel : UIButton!
+
     let TAG_ACTIONSHEET_SORT = 9988
     let TAG_ACTIONSHEET_FILTER = 9977
     
@@ -106,7 +110,11 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         
         self.tableView.contentInset = UIEdgeInsetsMake(35, 0, 0, 0) //move so the the table start after the pannel
         self.panel = panel
-        
+        panelSortLabel = self.panel?.viewWithTag(7501) as! UIButton!
+        panelFilterLabel = self.panel?.viewWithTag(7502) as! UIButton!
+        panelSortLabel.setTitle("Sort: none", for: .normal)
+        panelFilterLabel.alpha = 0
+
         //add line border on the bottom of the pannel
         let bottomBorder = CALayer();
         bottomBorder.frame = CGRect(x: 0.0, y: 34.5, width: panel.frame.size.width, height: 0.5);
@@ -155,6 +163,7 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     func filterSongForAlbum(_ album : MPMediaItemCollection?) {
         
         self.collection = album
+        collectionBeforeSort = album
         self.title = "salut" //String(album?.valueForProperty(MPMediaItemPropertyAlbumTitle) as NSString);
         //self.title = album.representativeItem.valueForProperty(MPMediaItemPropertyAlbumTitle) as String
         let filterPredicate = MPMediaPropertyPredicate(
@@ -169,13 +178,14 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     
     func setCollectionToDisplay(_ col : MPMediaItemCollection?) {
         collection = col
+        collectionBeforeSort = col
     }
     
     
     /**Return the song at the given indexpath. It correspond to the displayed information at the IndexPath.*/
     func songAtIndexPath(_ indexPath : IndexPath) -> MPMediaItem{
         //if collection speficied
-        if let col = collection{
+        if let col = collection {
             return col.items[(indexPath as NSIndexPath).row] 
         }
         
@@ -320,9 +330,54 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
     //#pragma mark - Button from pannel and actionsheet
     
     @IBAction func sortButtonPressed(_ sender: AnyObject) {
-        let actionSheet = UIActionSheet(title: "Sort", delegate: self, cancelButtonTitle: "None", destructiveButtonTitle: nil, otherButtonTitles: "Alphabetically")
-        actionSheet.tag = TAG_ACTIONSHEET_SORT
-        actionSheet.show(from: (sender as! UIButton).frame, in: self.view, animated: true);
+        
+        
+        let actionSheet = UIAlertController(title: "Sort by", message: "How do you want to sort songs in the playlist?", preferredStyle: .actionSheet)
+        //print("col: \(self.collection)")
+        
+        actionSheet.addAction(UIAlertAction(title: "Song title (A-Z)", style: .default, handler: { (action) in
+            var songsSorted = Array<MPMediaItem>()
+            //print("col: \(self.collection)")
+            if let collection = self.collection {
+                songsSorted = collection.items
+            }
+            else{
+                songsSorted = self.query.items!
+            }
+            songsSorted.sort(by: self.sortAlpha)
+            
+            self.panelSortLabel.setTitle("Sort: Title (A-Z)", for: .normal)
+            self.collection = MPMediaItemCollection(items: songsSorted)
+            self.tableView.reloadData()
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Song title (Z-A)", style: .default, handler: { (action) in
+            var songsSorted = Array<MPMediaItem>()
+            if let collection = self.collection{
+                songsSorted = collection.items
+            }
+            else{
+                songsSorted = self.query.items!
+            }
+            songsSorted.sort(by: self.sortAlphaDesc)
+            
+            self.collection = MPMediaItemCollection(items: songsSorted)
+            self.panelSortLabel.setTitle("Sort: Title (Z-A)", for: .normal)
+            self.tableView.reloadData()
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "None", style: .default, handler: { (action) in
+            self.collection = self.collectionBeforeSort
+            self.panelSortLabel.setTitle("Sort: none", for: .normal)
+            self.tableView.reloadData()
+        }))
+        
+        self.present(actionSheet, animated: true, completion: nil)
+        
+        
+//        let actionSheet = UIActionSheet(title: "Sort", delegate: self, cancelButtonTitle: "None", destructiveButtonTitle: nil, otherButtonTitles: "Song title (A-Z)")
+//        actionSheet.tag = TAG_ACTIONSHEET_SORT
+//        actionSheet.show(from: (sender as! UIButton).frame, in: self.view, animated: true);
     }
     
     
@@ -334,36 +389,30 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         return (a.value(forProperty: MPMediaItemPropertyTitle) as! String) < (b.value(forProperty: MPMediaItemPropertyTitle) as! String)
     }
     
-    
-    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
-        dprint("HELLO");
-        
-        if(actionSheet.tag == TAG_ACTIONSHEET_SORT){
-            switch(buttonIndex){
-            case 0:
-                dprint("none")
-                collection = nil
-            case 1:
-                dprint("alpha")
-                var songsSorted = Array<MPMediaItem>()
-                if(collection != nil){
-                    songsSorted = (collection?.items)!
-                }
-                else{
-                    songsSorted = query.items!
-                }
-                songsSorted.sort(by: sortAlpha)
-                
-                collection = MPMediaItemCollection(items: songsSorted)
-
-            default:
-                dprint("default")
-            };
-            self.tableView.reloadData()
-            
-        }
-        //else if()
+    func sortAlphaDesc(_ a: MPMediaItem, b:MPMediaItem) -> Bool {
+        return (a.value(forProperty: MPMediaItemPropertyTitle) as! String) > (b.value(forProperty: MPMediaItemPropertyTitle) as! String)
     }
+    
+    
+//    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
+//        dprint("HELLO");
+//        
+//        if(actionSheet.tag == TAG_ACTIONSHEET_SORT){
+//            switch(buttonIndex){
+//            case 0:
+//                dprint("none")
+//                collection = nil
+//            case 1:
+//                
+//
+//            default:
+//                dprint("default")
+//            };
+//            self.tableView.reloadData()
+//            
+//        }
+//        //else if()
+//    }
     
     
     

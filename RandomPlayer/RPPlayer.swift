@@ -13,13 +13,7 @@ import MediaPlayer
 import AVFoundation
 import CoreMedia
 
-struct RPPlayerNotification {
-    static let SongDidChange = "RPPlayerNotificationSongDidChange"
-    static let PlaybackStateDidChange = "RPPlayerNotificationPlaybackStateDidChange"
-    static let QueueDidChange = "RPPlayerNotificationQueueDidChange"
-    static let Error = "RPPlayerNotificationError"
-    
-}
+
 
 let NSUSERDEFAULT_RPPLAYER_QUEUE = "NSUSERDEFAULT_RPPLAYER_QUEUE"
 let NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING = "NSUSERDEFAULT_RPPLAYER_QUEUE_INDEX_PLAYING"
@@ -37,6 +31,7 @@ class RPPlayer : NSObject {
     
     //Singleton (should be only 1 instance possible). It is thread safe (see internet)
     static let player = RPPlayer()
+    let extensionCommunication = RPExtensionCommunication()
     
     let queue = RPQueue()
     //let musicPlayer = MPMusicPlayerController.systemMusicPlayer()
@@ -71,7 +66,7 @@ class RPPlayer : NSObject {
                     playSong(val, shouldStartPlaying: playbackState == MPMusicPlaybackState.playing)
                 }
             }
-            NotificationCenter.default.post(name: Notification.Name(rawValue: RPPlayerNotification.SongDidChange), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: RPPlayerNotification.SongDidChange), object: newValue)
         }
     }
     
@@ -309,7 +304,7 @@ class RPPlayer : NSObject {
             //if queue is not empty and currentItem is nil in player, we load one.
             if let song = nowPlayingItem {
                 playSong(song, shouldStartPlaying: true)
-                NotificationCenter.default.post(name: Notification.Name(rawValue: RPPlayerNotification.SongDidChange), object: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: RPPlayerNotification.SongDidChange), object: nowPlayingItem)
             } else {
                 skipToNextItem()
                 play()
@@ -361,7 +356,7 @@ class RPPlayer : NSObject {
             
             //update in main thread for notification
             DispatchQueue.main.sync(execute: {() -> Void in
-                NotificationCenter.default.post(name: Notification.Name(rawValue: RPPlayerNotification.SongDidChange), object: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: RPPlayerNotification.SongDidChange), object: song)
                 self.updateNowPlayingInfoCenter()
             })
             

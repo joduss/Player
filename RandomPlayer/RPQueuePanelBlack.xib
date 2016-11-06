@@ -1,61 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RPQueueTVC" customModule="RandomPlayer" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RPQueueTVC" customModule="ClassicPlayer" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="VFx-iO-VVr">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alq-XN-fN6">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="alq-XN-fN6">
+                    <frame key="frameInset" width="600" height="600"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="b6J-dc-T2J">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <frame key="frameInset"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAU-jw-xQ1">
-                                <rect key="frame" x="519" y="285" width="61" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAU-jw-xQ1">
+                                <frame key="frameInset" minX="519" minY="285" width="61" height="30"/>
                                 <state key="normal" title="Shuffle +">
-                                    <color key="titleColor" red="1" green="0.39580283080000001" blue="0.42960585429999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="0.39580283080000001" blue="0.42960585429999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="randomizeAdvanced:" destination="-1" eventType="touchUpInside" id="2rd-qE-nQd"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJF-4h-7Jp">
-                                <rect key="frame" x="20" y="285" width="44" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJF-4h-7Jp">
+                                <frame key="frameInset" minX="20" minY="285" width="44" height="30"/>
                                 <state key="normal" title="Empty">
-                                    <color key="titleColor" red="1" green="0.39580283080000001" blue="0.42960585429999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="0.39580283080000001" blue="0.42960585429999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="emptyAueue:" destination="-1" eventType="touchUpInside" id="ysk-iV-Xz5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yce-0r-8MO">
-                                <rect key="frame" x="268" y="285" width="48" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yce-0r-8MO">
+                                <frame key="frameInset" minX="268" minY="285" width="48" height="30"/>
                                 <state key="normal" title="Shuffle">
-                                    <color key="titleColor" red="1" green="0.39580283080000001" blue="0.42960585429999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="0.39580283080000001" blue="0.42960585429999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="randomize:" destination="-1" eventType="touchUpInside" id="01v-Xs-sYC"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" alpha="0.44999999999999962" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RxR-AB-fHm">
-                                <rect key="frame" x="324" y="285" width="187" height="30"/>
-                                <color key="backgroundColor" red="1" green="0.1001500993" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <view hidden="YES" alpha="0.44999999999999962" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RxR-AB-fHm">
+                                <frame key="frameInset" minX="324" minY="285" width="187" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.1001500993" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="lPd-H3-1I6"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" alpha="0.44999999999999962" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dy0-Dw-B5M">
-                                <rect key="frame" x="72" y="285" width="188" height="30"/>
-                                <color key="backgroundColor" red="0.19689258457079828" green="1" blue="0.17457709013791323" alpha="1" colorSpace="calibratedRGB"/>
+                            <view hidden="YES" alpha="0.44999999999999962" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dy0-Dw-B5M">
+                                <frame key="frameInset" minX="72" minY="285" width="188" height="30"/>
+                                <color key="backgroundColor" red="0.19689258457079828" green="1" blue="0.17457709013791323" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                         <constraints>

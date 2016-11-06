@@ -13,7 +13,7 @@ protocol RateViewDelegate {
     func rateView(_ rateView : RateView, ratingDidChange rating : Float)
 }
 
-class RateView: UIView {
+public class RateView: UIView {
     
     var emptyStarImage : UIImage?
     var halfStarImage : UIImage?
@@ -35,7 +35,7 @@ class RateView: UIView {
     //************************************************************************
     // #pragma mark - Init
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 override     
@@ -102,7 +102,7 @@ override
     }
     
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         
         
@@ -138,21 +138,21 @@ override
         }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
             handleTouchAtLocation(touchLocation)
         }
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.location(in: self)
             handleTouchAtLocation(touchLocation)
         }
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         delegate?.rateView(self, ratingDidChange: rating)
     }
 

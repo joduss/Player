@@ -17,9 +17,9 @@ import Foundation
 //Just for debug stuff
 #if DEBUG
     func dprint(_ a : String){print(a, terminator: ""); print("\n", terminator: "")}
-    func debugAlertView(message : String) {
-        UIAlertView(title: "DEBUG: ERROR", message: message, delegate: nil, cancelButtonTitle: "ok").show()
-    }
+//    func debugAlertView(message : String) {
+//        UIAlertView(title: "DEBUG: ERROR", message: message, delegate: nil, cancelButtonTitle: "ok").show()
+//    }
     #else
     func dprint(_ msg : String){}
     func debugAlertView(_ message : String) {}

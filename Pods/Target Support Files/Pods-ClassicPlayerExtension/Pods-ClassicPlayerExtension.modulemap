@@ -1,0 +1,6 @@
+framework module Pods_ClassicPlayerExtension {
+  umbrella header "Pods-ClassicPlayerExtension-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -9,11 +9,15 @@
 import UIKit
 import NotificationCenter
 import MediaPlayer
+import MMWormhole
 
 class TodayViewController: UIViewController, NCWidgetProviding, RateViewDelegate {
         
     @IBOutlet weak var rateView: RateView!
     @IBOutlet weak var artistLabel: UILabel!
+    @IBOutlet weak var songTitleLabel: UILabel!
+    
+    let wormhole = MMWormhole(applicationGroupIdentifier: RPExtensionCommunication.suiteName, optionalDirectory: "wormhole")
     
     @IBAction func zeroStar(_ sender: UITapGestureRecognizer) {
         dprint("0 star")
@@ -65,6 +69,8 @@ class TodayViewController: UIViewController, NCWidgetProviding, RateViewDelegate
         
         if let song = self.mediaItem(songID: songID ) {
             self.artistLabel.text = song.artist
+            self.rateView.rating = Float(song.rating)
+            self.songTitleLabel.text = song.title
         }
     }
     
@@ -73,7 +79,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, RateViewDelegate
         // Dispose of any resources that can be recreated.
     }
     
-    func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
+    func widgetPerformUpdate(completionHandler: @escaping ((NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
         
         // If an error is encountered, use NCUpdateResult.Failed
@@ -83,10 +89,11 @@ class TodayViewController: UIViewController, NCWidgetProviding, RateViewDelegate
         completionHandler(NCUpdateResult.newData)
     }
     
+    
     func rateView(_ rateView : RateView, ratingDidChange rating : Float){
         
+        self.wormhole.passMessage(string: "\(rating)", identifier: RPExtensionCommunication.RPExtensionCommunicationIdentifierRating)
     }
-    
     
     
     func mediaItem(songID : NSNumber) -> MPMediaItem?{

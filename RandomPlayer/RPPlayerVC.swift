@@ -114,6 +114,16 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let d = UserDefaults(suiteName: RPExtensionCommunication.suiteName)
+        print("vc: \(d?.object(forKey: "thekey") as? String)")
+        d?.set("ok2", forKey: "thekey")
+        let ok = d?.synchronize()
+        print(ok)
+        print("vc2: \(d?.object(forKey: "thekey") as? String)")
+        print()
+
+
 //        if let tarbar = self.tabBarController.tabBar {
 //            tarbar.hidden = true
 //        }
@@ -164,13 +174,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     }
     
     @IBAction func previousButtonClicked(_ sender: UIButton) {
-        let currentPlayBackTimeThreshold = 5 as TimeInterval //time from which previous start the song again
-        if(musicPlayer.currentPlaybackTime < currentPlayBackTimeThreshold) {
-            musicPlayer.skipToPreviousItem()
-        }
-        else {
-            musicPlayer.currentPlaybackTime = 0 //go to beginning of the song
-        }
+        musicPlayer.skipToPreviousItem()
     }
     
     @IBAction func repeatPressed(_ sender: UIBarButtonItem) {
@@ -312,9 +316,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     func rateView(_ rateView: RateView, ratingDidChange rating: Float) {
         if let song = musicPlayer.nowPlayingItem {
             elprint("new rating: \(rating)")
-            song.setValue(NSNumber(value: rating ), forKey: MPMediaItemPropertyRating)
-            
-            
+            musicPlayer.ratePlayingSong(rating: Int(rating))
         }
     }
     

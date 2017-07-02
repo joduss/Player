@@ -12,7 +12,7 @@ import Foundation
 import MediaPlayer
 import AVFoundation
 import CoreMedia
-
+import MMWormhole
 
 
 let NSUSERDEFAULT_RPPLAYER_QUEUE = "NSUSERDEFAULT_RPPLAYER_QUEUE"
@@ -31,6 +31,10 @@ class RPPlayer : NSObject {
     
     //Singleton (should be only 1 instance possible). It is thread safe (see internet)
     static let player = RPPlayer()
+    
+    let MaxTimeToGoPrevious : Double = 7
+
+    
     let extensionCommunication = RPExtensionCommunication()
     
     let queue = RPQueue()
@@ -44,6 +48,10 @@ class RPPlayer : NSObject {
     var avMusicPlayer : AVPlayer = AVPlayer()
     
     fileprivate var isSeekingTo = false
+    
+    
+    let wormhole = MMWormhole(applicationGroupIdentifier: RPExtensionCommunication.suiteName, optionalDirectory: "wormhole")
+    
     
     
     
@@ -152,6 +160,15 @@ class RPPlayer : NSObject {
         //if fail to play song: skip to next one
         NotificationCenter.default.addObserver(self, selector: #selector(RPPlayer.automaticallyTransitionToNextSong), name: NSNotification.Name.AVPlayerItemFailedToPlayToEndTime, object: nil)
         
+    
+        self.wormhole.listenForMessage(withIdentifier: RPExtensionCommunication.RPExtensionCommunicationIdentifierRating, listener: {rating in
+            //TODO verify track match (in case extreme)
+            if let stringRating = rating as? String, let intRating = Int(stringRating) {
+                self.ratePlayingSong(rating: intRating)
+            }
+        })
+
+        
         //load the queue before the app was closed / memory released
         loadQueue()
     }
@@ -215,6 +232,11 @@ class RPPlayer : NSObject {
     //###################################################################################
     // #pragma mark - playback management
     
+    
+    func ratePlayingSong(rating : Int) {
+        nowPlayingItem?.setValue(NSNumber(value: rating ), forKey: MPMediaItemPropertyRating)
+    }
+    
     /**Start playing the next song*/
     func automaticallyTransitionToNextSong() {
         isAutomaticallyTransitioningToNextSong = true
@@ -253,6 +275,7 @@ class RPPlayer : NSObject {
             queue.removeAtIndex(currentItemIndex)
             playSong(currentItemIndex)
         }
+
     }
     
     
@@ -260,7 +283,12 @@ class RPPlayer : NSObject {
     func skipToPreviousItem() {
         
         var previousSong : MPMediaItem?
-        if(repeatMode == MPMusicRepeatMode.one){
+        
+        if let seconds = avMusicPlayer.currentItem?.currentTime().seconds, seconds > MaxTimeToGoPrevious{
+            avMusicPlayer.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
+            previousSong = queue[currentItemIndex]
+        }
+        else if(repeatMode == MPMusicRepeatMode.one){
             previousSong = queue[currentItemIndex]
         }
         else if((currentItemIndex-1) >= 0){

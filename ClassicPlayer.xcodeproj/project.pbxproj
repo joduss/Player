@@ -10,6 +10,7 @@
 		29909BD3AC5FD51853C34A61 /* Pods_ClassicPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 377D7B0377EC69788917A679 /* Pods_ClassicPlayer.framework */; };
 		54BB0C140C7812AE69DDB28D /* Pods_ClassicPlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EB98EB9D40149FE6280D14 /* Pods_ClassicPlayerTests.framework */; };
 		6B8016D71E06B4D3001B40E4 /* MMWormholeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8016D61E06B4D3001B40E4 /* MMWormholeExtension.swift */; };
+		6BA952291E06DD82004FC2BD /* MMWormholeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8016D61E06B4D3001B40E4 /* MMWormholeExtension.swift */; };
 		A0E84FE8211B80CEC83985B3 /* Pods_ClassicPlayerExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACAF4BAE077353D99104FF91 /* Pods_ClassicPlayerExtension.framework */; };
 		C82BA5F71A7995E900948306 /* RPQueuePanelBlack.xib in Resources */ = {isa = PBXBuildFile; fileRef = C82BA5F61A7995E900948306 /* RPQueuePanelBlack.xib */; };
 		C838F7941DCF59EE0070454A /* RPPlayerNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C838F7931DCF59EE0070454A /* RPPlayerNotification.swift */; };
@@ -104,12 +105,12 @@
 		40A00BB568539418BB42C3A0 /* Pods-ClassicPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassicPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClassicPlayer/Pods-ClassicPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		41EB98EB9D40149FE6280D14 /* Pods_ClassicPlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClassicPlayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AC678A79D9C06AA3447727C /* Pods-ClassicPlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassicPlayerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClassicPlayerTests/Pods-ClassicPlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6B8016D61E06B4D3001B40E4 /* MMWormholeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMWormholeExtension.swift; sourceTree = "<group>"; };
+		6B8016D61E06B4D3001B40E4 /* MMWormholeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMWormholeExtension.swift; path = ../ClassicPlayerExtension/MMWormholeExtension.swift; sourceTree = "<group>"; };
 		6BC790D59AB614A0B125E6B6 /* Pods-ClassicPlayerExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassicPlayerExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClassicPlayerExtension/Pods-ClassicPlayerExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		ACAF4BAE077353D99104FF91 /* Pods_ClassicPlayerExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClassicPlayerExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C82BA5F61A7995E900948306 /* RPQueuePanelBlack.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPQueuePanelBlack.xib; sourceTree = "<group>"; };
 		C838F7931DCF59EE0070454A /* RPPlayerNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPPlayerNotification.swift; sourceTree = "<group>"; };
-		C838F7961DCF5EE80070454A /* RPExtensionCommunication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPExtensionCommunication.swift; sourceTree = "<group>"; };
+		C838F7961DCF5EE80070454A /* RPExtensionCommunication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RPExtensionCommunication.swift; path = ../RandomPlayer/RPExtensionCommunication.swift; sourceTree = "<group>"; };
 		C838F7981DCF645B0070454A /* ClassicPlayerExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassicPlayerExtension.entitlements; sourceTree = "<group>"; };
 		C838F7991DCF661F0070454A /* ClassicPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassicPlayer.entitlements; sourceTree = "<group>"; };
 		C85035501A15520100C03EBC /* RPSimpleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPSimpleCell.swift; sourceTree = "<group>"; };
@@ -206,6 +207,8 @@
 		6B8016D51E06B42C001B40E4 /* ClassicPlayerCommon */ = {
 			isa = PBXGroup;
 			children = (
+				6B8016D61E06B4D3001B40E4 /* MMWormholeExtension.swift */,
+				C838F7961DCF5EE80070454A /* RPExtensionCommunication.swift */,
 			);
 			name = ClassicPlayerCommon;
 			path = RandomPlayerTests;
@@ -255,7 +258,6 @@
 				C894995A1DCA2F7E0075C469 /* TodayViewController.swift */,
 				C894995C1DCA2F7E0075C469 /* MainInterface.storyboard */,
 				C894995F1DCA2F7E0075C469 /* Info.plist */,
-				6B8016D61E06B4D3001B40E4 /* MMWormholeExtension.swift */,
 			);
 			path = ClassicPlayerExtension;
 			sourceTree = "<group>";
@@ -289,7 +291,6 @@
 		C8B34E6B197FDCD9007BA1E1 /* ClassicPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				C838F7961DCF5EE80070454A /* RPExtensionCommunication.swift */,
 				C8B34E70197FDCD9007BA1E1 /* RandomPlayer.xcdatamodeld */,
 				C8B34E8F197FDD87007BA1E1 /* RateView.swift */,
 				C8EBC75B1998D4C600449E21 /* SongActionSheetDelegate.swift */,
@@ -721,6 +722,7 @@
 				C8B34EAD197FDD87007BA1E1 /* RPSwipableButton.m in Sources */,
 				C8B34EA9197FDD87007BA1E1 /* RPQueueTVC.swift in Sources */,
 				C8C6E30C199A27C300C171FA /* RPSwipableTVCell.swift in Sources */,
+				6BA952291E06DD82004FC2BD /* MMWormholeExtension.swift in Sources */,
 				C8B34EAF197FDD87007BA1E1 /* RPTools.swift in Sources */,
 				C85035511A15520100C03EBC /* RPSimpleCell.swift in Sources */,
 				C8B34EA2197FDD87007BA1E1 /* RateView.swift in Sources */,

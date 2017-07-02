@@ -10,14 +10,11 @@ import Foundation
 import MMWormhole
 
 
-enum RPNotification : String {
-    case SALUT = "salut"
-}
 
 extension MMWormhole {
     
     
-    func passMessageObject(notification: RPNotification, identifier: String) {
-        self.passMessageObject(notification.rawValue as NSCoding?, identifier: identifier)
+    func passMessage(string: String, identifier: String) {
+        self.passMessageObject(NSString(string: string), identifier: identifier)
     }
 }

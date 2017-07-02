@@ -11,20 +11,25 @@ import MediaPlayer
 
 class RPExtensionCommunication: NSObject {
     
-    static let suiteName = "group.ClassicPlayer"
+    static let suiteName = "group.cplayer"
     static let songID = "SONG_ID"
     
+    
+    static let RPExtensionCommunicationIdentifierRating = "ratings"
+    static let RPExtensionCommunicationIdentifierPlayBack = "playback"
+
     override init() {
         super.init()
-        
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: RPPlayerNotification.SongDidChange), object: nil, queue: OperationQueue.current, using: { notification in
-            
-            if let userDefaults = UserDefaults(suiteName: RPExtensionCommunication.suiteName), let song = notification.object as? MPMediaItem {
-                dprint("overwrite: \(userDefaults.object(forKey: RPExtensionCommunication.songID))")
-                userDefaults.setValue(song.value(forProperty: MPMediaItemPropertyPersistentID) as! NSNumber, forKey: RPExtensionCommunication.songID)
-            }
-        })
     }
+    
+        
+//        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: RPPlayerNotification.SongDidChange), object: nil, queue: OperationQueue.current, using: { notification in
+//            
+//            if let userDefaults = UserDefaults(suiteName: RPExtensionCommunication.suiteName), let song = notification.object as? MPMediaItem {
+//                dprint("overwrite: \(userDefaults.object(forKey: RPExtensionCommunication.songID))")
+//                userDefaults.setValue(song.value(forProperty: MPMediaItemPropertyPersistentID) as! NSNumber, forKey: RPExtensionCommunication.songID)
+//            }
+//        })
+//    }
 
 }

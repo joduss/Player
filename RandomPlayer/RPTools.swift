@@ -15,14 +15,14 @@ import MediaPlayer
 //*
 //********************************/
 
-
+class RPTools {
 
 /**
 Format a number of secondes into a string with format "MINUTES:SECONDS"
 - parameter secondsToConvert the number of seconds to format
 - returns : the formatted string
 */
-func formatTimeToMinutesSeconds(_ secondsToConvert : Int) -> String {
+static func formatTimeToMinutesSeconds(_ secondsToConvert : Int) -> String {
     
     let minutes : Int = secondsToConvert / 60
     let seconds : Int = secondsToConvert % 60
@@ -38,7 +38,7 @@ func formatTimeToMinutesSeconds(_ secondsToConvert : Int) -> String {
 -param string The string to clean
 - Returns: The cleaned string
 */
-func cleanStringForSort(_ string: String) -> String {
+static func cleanStringForSort(_ string: String) -> String {
     let template = "$1"
     let pattern = "[\\s]" // remove any whitespace
     let regex = (try? NSRegularExpression(pattern: pattern,
@@ -52,7 +52,7 @@ func cleanStringForSort(_ string: String) -> String {
 
 
 /** Return true if the first character of the specified string is alphabetic */
-func beginWithLetter(_ string : String) -> Bool {
+static func beginWithLetter(_ string : String) -> Bool {
     
     var processedString = string
     
@@ -78,7 +78,7 @@ func beginWithLetter(_ string : String) -> Bool {
 
 /**
 * Shuffle the array and separate similar elements*/
-func shuffleAndSeparateSimilarElement<T : Equatable>(of array: [T]) -> [T] {
+static func shuffleAndSeparateSimilarElement<T : Equatable>(of array: [T]) -> [T] {
     var newArray = array
     
     if(newArray.isEmpty == false){
@@ -118,14 +118,14 @@ func shuffleAndSeparateSimilarElement<T : Equatable>(of array: [T]) -> [T] {
 
 
 
-class RPTools {
+
     
-    /**
+    /***
     Create the following a string that gives the number of album (ex: "5 album").
     - parameter collection: the artist
     - returns: a string showing the number of album of the specified artist
     */
-    class func numberAlbumOfArtistFormattedString(_ artist : MPMediaItemCollection) -> String {
+    static func numberAlbumOfArtistFormattedString(_ artist : MPMediaItemCollection) -> String {
         if(artist.albumCount > 1){
             return "\(artist.albumCount) albums"
         }
@@ -134,12 +134,12 @@ class RPTools {
         }
     }
     
-    /**
+    /***
     Create the following a string that gives the number of song (ex: "5 songs").
     - parameter collection: the collection
     - returns: a string showing the number of sing in the collection
     */
-    class func numberSongInCollection(_ collection : MPMediaItemCollection) -> String {
+    static func numberSongInCollection(_ collection : MPMediaItemCollection) -> String {
         if(collection.items.count > 1){
             return "\(collection.items.count) songs"
         }
@@ -148,12 +148,12 @@ class RPTools {
         }
     }
     
-    /**
+    /***
     Create the following a string that gives the number of song (ex: "5 songs").
     - parameter items: array of MediaItems
     - returns: a string showing the number of sing in the array
     */
-    class func numberSong(_ items : Array<MPMediaItem>) -> String {
+    static func numberSong(_ items : Array<MPMediaItem>) -> String {
         
         if(items.count > 1){
             return "\(items.count) songs"
@@ -166,37 +166,7 @@ class RPTools {
 
 
 
-//Extension of Array type
-//add a function that shuffle the array
-extension Array {
-    func shuffleArray()->Array {
-        var arr = self
-        let c = UInt32(arr.count)
-        for i in 0..<(c-1) {
-            let j = arc4random_uniform(c)
-            if i != j {
-                swap(&arr[Int(i)], &arr[Int(j)])
-            }
-        }
-        return arr
-    }
-}
 
-//extension that adds an easy way to have the count of different albums
-extension MPMediaItemCollection {
-    var albumCount : Int {
-        get {
-            let query = MPMediaQuery.albums()
-            let filterPredicate = MPMediaPropertyPredicate(
-                value: representativeItem!.value(forProperty: MPMediaItemPropertyArtistPersistentID),
-                forProperty: MPMediaItemPropertyArtistPersistentID)
-            query.filterPredicates = Set(arrayLiteral: filterPredicate)
-            
-            return query.collections!.count
-        }
-    }
-    
-    
-}
+
 
 

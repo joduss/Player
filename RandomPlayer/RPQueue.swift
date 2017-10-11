@@ -202,7 +202,7 @@ class RPQueue{
         }
         
         //shuffle and try to do so that no song of the same artist are following each other
-        let artistOfEachSongShuffled = shuffleAndSeparateSimilarElement(of: artistList)
+        let artistOfEachSongShuffled = RPTools.shuffleAndSeparateSimilarElement(of: artistList)
         //printArray(artistOfEachSongShuffled)
         
         //Shuffle the index of the array listing the songs position for all artists

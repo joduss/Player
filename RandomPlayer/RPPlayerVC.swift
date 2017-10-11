@@ -194,10 +194,10 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         timer?.invalidate()
         let sliderValueInt = Int(slider.value)
         let sliderValueIntLeft = Int(slider.maximumValue - slider.value)
-        elprint("slider time moved at \(sliderValueInt) = \(formatTimeToMinutesSeconds(sliderValueInt)), and left \(formatTimeToMinutesSeconds(sliderValueIntLeft))")
+        elprint("slider time moved at \(sliderValueInt) = \(RPTools.formatTimeToMinutesSeconds(sliderValueInt)), and left \(RPTools.formatTimeToMinutesSeconds(sliderValueIntLeft))")
         musicPlayer.seekToTime(TimeInterval(slider.value))
-        labelCurrentPlaybackTime.text = formatTimeToMinutesSeconds(sliderValueInt)
-        labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(sliderValueIntLeft)
+        labelCurrentPlaybackTime.text = RPTools.formatTimeToMinutesSeconds(sliderValueInt)
+        labelLeftPlaybackTime.text = RPTools.formatTimeToMinutesSeconds(sliderValueIntLeft)
         
     }
     
@@ -213,8 +213,8 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
             
             sliderTime.value = Float(musicPlayer.currentPlaybackTime)
             dprint("time: \(musicPlayer.currentPlaybackTime)")
-            labelCurrentPlaybackTime.text = formatTimeToMinutesSeconds(Int(musicPlayer.currentPlaybackTime))
-            labelLeftPlaybackTime.text = formatTimeToMinutesSeconds(Int(nowPlayingItem.playbackDuration - musicPlayer.currentPlaybackTime))
+            labelCurrentPlaybackTime.text = RPTools.formatTimeToMinutesSeconds(Int(musicPlayer.currentPlaybackTime))
+            labelLeftPlaybackTime.text = RPTools.formatTimeToMinutesSeconds(Int(nowPlayingItem.playbackDuration - musicPlayer.currentPlaybackTime))
         }
         else {
             labelLeftPlaybackTime.text = "00:00"

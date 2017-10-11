@@ -244,7 +244,7 @@ class RPSearchTVCTableViewController: UITableViewController, UISearchDisplayDele
             cell.mainLabel.text = title
             
             let duration = item.value(forProperty: MPMediaItemPropertyPlaybackDuration) as! TimeInterval
-            cell.subLabel.text = formatTimeToMinutesSeconds(Int(duration))
+            cell.subLabel.text = RPTools.formatTimeToMinutesSeconds(Int(duration))
             
 
         }

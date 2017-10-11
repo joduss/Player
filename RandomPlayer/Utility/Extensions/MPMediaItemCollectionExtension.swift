@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import MediaPlayer
 
 
 //extension that adds an easy way to have the count of different albums

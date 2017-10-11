@@ -273,7 +273,7 @@ class RPSongTVC: UIViewController, RPSwipableTVCellDelegate, RPSearchTVCDelegate
         let durationInSeconds = song.value(forProperty: MPMediaItemPropertyPlaybackDuration) as! Int
         
         titleLabel?.text = song.value(forProperty: MPMediaItemPropertyTitle) as? String
-        subtitleLabel?.text = formatTimeToMinutesSeconds(durationInSeconds)
+        subtitleLabel?.text = RPTools.formatTimeToMinutesSeconds(durationInSeconds)
         
         return cell
     }

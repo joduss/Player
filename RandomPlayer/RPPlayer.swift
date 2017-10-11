@@ -238,7 +238,7 @@ class RPPlayer : NSObject {
     }
     
     /**Start playing the next song*/
-    func automaticallyTransitionToNextSong() {
+    @objc func automaticallyTransitionToNextSong() {
         isAutomaticallyTransitioningToNextSong = true
         skipToNextItem()
         //avMusicPlayer.play()

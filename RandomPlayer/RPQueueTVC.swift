@@ -150,7 +150,7 @@ class RPQueueTVC: UIViewController, UIActionSheetDelegate, UITableViewDataSource
     //###################################################################################
     // #pragma mark - Update informations
     
-    func updateInformation() {
+    @objc func updateInformation() {
         self.tableView.reloadData()
         if(RPPlayer.player.queue.count == 0){
             self.title = "Queue"

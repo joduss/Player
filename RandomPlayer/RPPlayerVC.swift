@@ -190,7 +190,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     //########################################################################
     //########################################################################
     // #pragma mark - slider management
-    func sliderPlaybackTimeMoved(_ slider : UISlider) {
+    @objc func sliderPlaybackTimeMoved(_ slider : UISlider) {
         timer?.invalidate()
         let sliderValueInt = Int(slider.value)
         let sliderValueIntLeft = Int(slider.maximumValue - slider.value)
@@ -201,12 +201,12 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         
     }
     
-    func sliderPlaybackStoppedTimeMoving(_ slider : UISlider) {
+    @objc func sliderPlaybackStoppedTimeMoving(_ slider : UISlider) {
         musicPlayer.currentPlaybackTime = TimeInterval(slider.value)
         createTimer()
     }
     
-    func updatePlaybackSlider(_ timer : Timer?) {
+    @objc func updatePlaybackSlider(_ timer : Timer?) {
         
         if let nowPlayingItem = musicPlayer.nowPlayingItem {
             
@@ -242,7 +242,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     //########################################################################
     //########################################################################
     // #pragma mark - update information
-    func updateInformation() {
+    @objc func updateInformation() {
         if(musicPlayer.playbackState == MPMusicPlaybackState.playing) {
             //buttonPlay.setTitle("PAUSE", forState: UIControlState.Normal)
             buttonPlay.setImage(UIImage(named: "pause"), for: UIControlState())
@@ -349,7 +349,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     //########################################################################
     //########################################################################
     // #pragma mark - For gestureRecognizer
-    func imageViewArtworkGesture(_ gesture : UISwipeGestureRecognizer) {
+    @objc func imageViewArtworkGesture(_ gesture : UISwipeGestureRecognizer) {
         if(gesture.direction == UISwipeGestureRecognizerDirection.down){
             self.dismiss(animated: true, completion: nil)
         }

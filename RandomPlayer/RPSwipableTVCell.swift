@@ -170,7 +170,7 @@ class RPSwipableTVCell: UITableViewCell {
         return false
     }
     
-    func paning(_ pan : UIPanGestureRecognizer) {
+    @objc func paning(_ pan : UIPanGestureRecognizer) {
         
         if(pan.state == UIGestureRecognizerState.began){
             behindView?.isHidden = false
@@ -310,19 +310,19 @@ class RPSwipableTVCell: UITableViewCell {
     //############################################################################################
     //############################################################################################
     //Handle buttons
-    func buttonLeftPressed(){
+    @objc func buttonLeftPressed(){
         self.delegate?.buttonCenterLeftPressed(self)
     }
     
-    func buttonCenterLeftPressed(){
+    @objc func buttonCenterLeftPressed(){
         delegate?.buttonCenterLeftPressed(self)
     }
     
-    func buttonRightPressed(){
+    @objc func buttonRightPressed(){
         delegate?.buttonRightPressed(self)
     }
     
-    func buttonCenterRightPressed(){
+    @objc func buttonCenterRightPressed(){
         delegate?.buttonCenterRightPressed(self)
     }
     

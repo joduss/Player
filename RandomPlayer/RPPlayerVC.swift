@@ -115,13 +115,6 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let d = UserDefaults(suiteName: RPExtensionCommunication.suiteName)
-        print("vc: \(d?.object(forKey: "thekey") as? String)")
-        d?.set("ok2", forKey: "thekey")
-        let ok = d?.synchronize()
-        print(ok)
-        print("vc2: \(d?.object(forKey: "thekey") as? String)")
-        print()
         //if no queue: slider is disabled
         if(musicPlayer.nowPlayingItem == nil){
             sliderTime.isEnabled = false

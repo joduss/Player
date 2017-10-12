@@ -25,7 +25,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, RateViewDelegate
     }
     let userDefaults = UserDefaults(suiteName: RPExtensionCommunication.suiteName)
     
-    private var currentSongId = NSNumber(value: 0)
+    private var currentSongId: MPMediaEntityPersistentID = 0
     
     override func viewDidLoad() {
         let emptyStarImage = UIImage(named: "emptyStarBlack")
@@ -43,15 +43,11 @@ class TodayViewController: UIViewController, NCWidgetProviding, RateViewDelegate
         
         //Notification song is at end
         
-        if #available(iOSApplicationExtension 10.0, *) {
-            Timer.scheduledTimer(withTimeInterval: TimeInterval(1), repeats: true, block: {_ in
-                if let songID = self.userDefaults?.object(forKey: RPExtensionCommunication.songID) as? NSNumber, songID != self.currentSongId{
-                    self.songChanged()
-                }
-            })
-        } else {
-            // Fallback on earlier versions
-        }
+        Timer.scheduledTimer(withTimeInterval: TimeInterval(1), repeats: true, block: {_ in
+            if let songID = self.userDefaults?.object(forKey: RPExtensionCommunication.songID) as? MPMediaEntityPersistentID, songID != self.currentSongId {
+                self.songChanged()
+            }
+        })
         
         songChanged()
     }

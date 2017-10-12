@@ -11,7 +11,7 @@ import MediaPlayer
 
 class RPExtensionCommunication: NSObject {
     
-    static let suiteName = "group.cplayer"
+    static let suiteName = "group.cplayer1"
     static let songID = "SONG_ID"
     
     

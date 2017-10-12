@@ -68,6 +68,7 @@ class RPPlayer : NSObject {
             return nil
         }
         set {
+            UserDefaults(suiteName: RPExtensionCommunication.suiteName)?.set(nowPlayingItem?.persistentID, forKey: RPExtensionCommunication.songID)
             if let val = newValue {
                 if(queue.contains(song: val)){
                     currentItemIndex = queue.indexOf(song: val)!
@@ -370,7 +371,8 @@ class RPPlayer : NSObject {
             //let duration = item.duration
             
             self.avMusicPlayer = AVPlayer(playerItem: item)
-            
+            UserDefaults(suiteName: RPExtensionCommunication.suiteName)?.set(song.persistentID, forKey: RPExtensionCommunication.songID)
+
             
             while((self.avMusicPlayer.status == AVPlayerStatus.readyToPlay) == false &&  (item.status == AVPlayerItemStatus.readyToPlay) == false){
                 //dprint("\(self.avMusicPlayer.status == AVPlayerStatus.ReadyToPlay)")

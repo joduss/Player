@@ -122,14 +122,6 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
         print(ok)
         print("vc2: \(d?.object(forKey: "thekey") as? String)")
         print()
-
-
-//        if let tarbar = self.tabBarController.tabBar {
-//            tarbar.hidden = true
-//        }
-
-
-        
         //if no queue: slider is disabled
         if(musicPlayer.nowPlayingItem == nil){
             sliderTime.isEnabled = false
@@ -314,7 +306,7 @@ class RPPlayerVC: UIViewController, RateViewDelegate, UIActionSheetDelegate, UIG
     // #pragma mark - rateView delegate
     
     func rateView(_ rateView: RateView, ratingDidChange rating: Float) {
-        if let song = musicPlayer.nowPlayingItem {
+        if musicPlayer.nowPlayingItem != nil{
             elprint("new rating: \(rating)")
             musicPlayer.ratePlayingSong(rating: Int(rating))
         }
